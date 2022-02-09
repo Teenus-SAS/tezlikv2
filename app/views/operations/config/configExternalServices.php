@@ -71,4 +71,4 @@
     </div> -->
 
 <script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/externalServices/tblConfigExternalServices.js"></script>
+<script src="../../app/js/services/tblConfigExternalServices.js"></script>

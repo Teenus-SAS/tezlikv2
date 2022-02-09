@@ -25,7 +25,7 @@ $(document).ready(function() {
             destroy: true,
             pageLength: 50,
             ajax: {
-                url: `../../api/productshasmaterials/${idProduct}`,
+                url: `../../api/productsmaterials/${idProduct}`,
                 dataSrc: '',
             },
             language: {

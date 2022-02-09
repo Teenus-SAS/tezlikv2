@@ -49,7 +49,7 @@ class ProductsDao
           return 1;
         } catch (\Exception $e) {
           $message = substr($e->getMessage(), 0, 15);
-          
+
           if ($message == 'SQLSTATE[23000]')
             $message = 'Referencia ya registrada. Ingrese una nueva referencia';
 
@@ -113,52 +113,52 @@ class ProductsDao
     }
   }
 
-  public function productshasmaterials($idProduct)
+  public function productsmaterials($idProduct)
   {
 
-    /* session_start(); */
-    /* $id_company = $_SESSION['empresas_id_empresas']; */
+    session_start();
+    $id_company = $_SESSION['id_company'];
 
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT m.id_materiales, m.referencia, m.descripcion, m.unidad, m.costo 
-                                  FROM productos p INNER JOIN materiales_has_productos mhp ON mhp.productos_id_producto = p.id_producto 
-                                  INNER JOIN materiales m ON m.id_materiales = mhp.materiales_id_materiales 
-                                  WHERE mhp.productos_id_producto = :id_producto AND mhp.materiales_empresas_id_empresa = 44");
-    $stmt->execute(['id_producto' => $idProduct]);
-    $productshasmaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
-    $this->logger->notice("products", array('products' => $productshasmaterials));
-    return $productshasmaterials;
+    $stmt = $connection->prepare("SELECT m.id_materials, m.reference, m.material, m.unit, m.cost 
+                                  FROM products p INNER JOIN products_materials pm ON pm.id_product = p.id_product 
+                                  INNER JOIN materials m ON m.id_material = pm.id_material 
+                                  WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
+    $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
+    $productsmaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
+    $this->logger->notice("products", array('products' => $productsmaterials));
+    return $productsmaterials;
   }
 
-  public function productshasprocess($idProduct)
+  public function productsprocess($idProduct)
   {
 
-    /* session_start(); */
-    /* $id_company = $_SESSION['empresas_id_empresas']; */
+    session_start();
+    $id_company = $_SESSION['id_company'];
 
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT p.id_producto, p.ref, p.nombre, tp.procesos_id_procesos, tp.tiempo_alistamiento, tp.tiempo_operacion, mq.nombre as maquina, pc.nombre as proceso 
-                                  FROM productos p 
-                                  LEFT JOIN tiempo_proceso tp ON tp.productos_id_producto = p.id_producto 
-                                  LEFT JOIN maquinas mq ON mq.id_maquinas = tp.maquinas_id_maquinas 
-                                  LEFT JOIN procesos pc ON pc.id_procesos = tp.procesos_id_procesos 
-                                  WHERE p.id_producto = :id_producto AND p.empresas_id_empresa = 44;");
-    $stmt->execute(['id_producto' => $idProduct]);
-    $productshasprocess = $stmt->fetchAll($connection::FETCH_ASSOC);
-    $this->logger->notice("products", array('products' => $productshasprocess));
-    return $productshasprocess;
+    $stmt = $connection->prepare("SELECT p.id_product, p.reference, p.product, pp.id_product_process, pp.enlistment_time, pp.operation_time, mc.machine, pc.process
+                                  FROM products p 
+                                  LEFT JOIN products_process pp ON pp.id_product = p.id_product
+                                  LEFT JOIN machines mc ON mc.id_machine = pp.id_machine 
+                                  LEFT JOIN process pc ON pc.id_process = pp.id_process
+                                  WHERE p.id_product = :id_product AND p.id_company = :id_company;");
+    $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
+    $productsprocess = $stmt->fetchAll($connection::FETCH_ASSOC);
+    $this->logger->notice("products", array('products' => $productsprocess));
+    return $productsprocess;
   }
 
   public function externalservices($idProduct)
   {
 
-    /* session_start(); */
-    /* $id_company = $_SESSION['empresas_id_empresas']; */
+    session_start();
+    $id_company = $_SESSION['id_company'];
 
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT * FROM servicios_externos sx
-                                  WHERE sx.id_producto = :id_producto AND sx.id_empresa = 44;");
-    $stmt->execute(['id_producto' => $idProduct]);
+    $stmt = $connection->prepare("SELECT * FROM services sx
+                                  WHERE sx.id_product = :id_product AND sx.id_company = :id_company;");
+    $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
     $externalservices = $stmt->fetchAll($connection::FETCH_ASSOC);
     $this->logger->notice("products", array('products' => $externalservices));
     return $externalservices;

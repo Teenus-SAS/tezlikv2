@@ -18,7 +18,7 @@ $(document).ready(function() {
             $select.append(`<option disabled selected>Seleccionar</option>`)
             $.each(r, function(i, value) {
                 $select.append(
-                    `<option value = ${value.id_producto}> ${value.ref} </option>`,
+                    `<option value = ${value.id_product}> ${value.reference} </option>`,
                 )
             })
 
@@ -28,7 +28,7 @@ $(document).ready(function() {
             $select1.append(`<option disabled selected>Seleccionar</option>`)
             $.each(r, function(i, value) {
                 $select1.append(
-                    `<option value = ${value.id_producto}> ${value.nombre} </option>`,
+                    `<option value = ${value.id_product}> ${value.product} </option>`,
                 )
             })
         }

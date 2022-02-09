@@ -21,12 +21,12 @@ $(document).ready(function() {
             },
             {
                 title: 'Proceso',
-                data: 'nombre',
+                data: 'process',
                 className: 'uniqueClassName',
             },
             {
                 title: 'Acciones',
-                data: 'id_procesos',
+                data: 'id_process',
                 className: 'uniqueClassName',
                 render: function(data) {
                     return `

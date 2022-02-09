@@ -21,27 +21,27 @@ $(document).ready(function() {
             },
             {
                 title: 'Nombre Empleado',
-                data: 'nombre_empleado'
+                data: 'employee'
             },
             {
                 title: 'Proceso',
-                data: 'proceso'
+                data: 'process'
             },
             {
                 title: 'Salario Base',
-                data: "salario",
+                data: "salary",
                 className: 'classRight',
                 render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
             },
             {
                 title: 'Salario Neto',
-                data: "salario_neto",
+                data: "salary_net",
                 className: 'classRight',
                 render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
             },
             {
                 title: 'Acciones',
-                data: 'id_nominas',
+                data: 'id_payroll',
                 className: 'uniqueClassName',
                 render: function(data) {
                     return `

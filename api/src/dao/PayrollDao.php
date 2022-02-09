@@ -19,9 +19,10 @@ class PayrollDao
   public function findAllPayrollByCompany($id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT n.id_nominas, n.empresas_id_empresa, n.cargo as nombre_empleado, n.salario, n.transporte, n.horas_extra, n.bonificacion, n.dotacion, n.dias_trabajo_mes, n.horas_dia, n.factor_prestacional, n.salario_neto, n.contrato, p.nombre as proceso 
-                                  FROM nominas n INNER JOIN procesos p ON p.id_procesos = n.procesos_id_procesos 
-                                  WHERE n.empresas_id_empresa = :id_company;");
+    $stmt = $connection->prepare("SELECT p.id_payroll, p.id_company, p.employee, p.salary, p.transport, p.extra_time, p.bonification, p.endowment, p.working_days_month, p.hours_day, p.factor_benefit, p.salary_net, p.contract, pp.process 
+                                  FROM payroll p 
+                                  INNER JOIN process pp ON p.id_process = pp.id_process
+                                  WHERE p.id_company = :id_company;");
     $stmt->execute(['id_company' => $id_company]);
     
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

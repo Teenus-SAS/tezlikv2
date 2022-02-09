@@ -19,19 +19,19 @@ class ExpensesDao
   public function findAllExpensesByCompany()
   {
     session_start();
-    /* $id_company = $_SESSION['empresas_id_empresas']; */
+    $id_company = $_SESSION['id_company'];
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT gm.id_gastos_mensuales, p.ref, p.nombre as producto, gm.unidades_vendidas, gm.volumen_ventas, gm.gasto_asignable 
-                                  FROM gastos_mensuales gm
-                                  INNER JOIN	productos p ON p.id_producto = gm.productos_id_producto
-                                  WHERE productos_empresas_id_empresa = :id_company;");
-    $stmt->execute(['id_company' => 44]);
+    $stmt = $connection->prepare("SELECT me.id_expenses, p.reference, p.product, me.units_sold, me.turnover, me.assignable_expense 
+                                  FROM monthly_expenses me
+                                  INNER JOIN	products p ON p.id_product = me.id_product
+                                  WHERE me.id_company = :id_company;");
+    $stmt->execute(['id_company' => $id_company]);
     
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     
-    $process = $stmt->fetchAll($connection::FETCH_ASSOC);
-    $this->logger->notice("process", array('process' => $process));
-    return $process;
+    $expenses = $stmt->fetchAll($connection::FETCH_ASSOC);
+    $this->logger->notice("process", array('process' => $expenses));
+    return $expenses;
   }
 
 }

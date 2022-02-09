@@ -22,30 +22,33 @@ $(document).ready(function() {
             },
             {
                 title: 'Referencia',
-                data: 'ref'
+                data: 'reference'
             },
             {
                 title: 'Producto',
-                data: "producto",
+                data: "product",
             },
             {
                 title: 'Unidades Vendidas',
-                data: "unidades_vendidas",
+                data: "units_sold",
                 className: 'classRight',
+                render: $.fn.dataTable.render.number(".", ",", 0, ""),
             },
             {
                 title: 'Volumen de Ventas',
-                data: "volumen_ventas",
+                data: "turnover",
                 className: 'classRight',
+                render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
             },
             {
                 title: 'Gasto Asignable al Producto',
-                data: "gasto_asignable",
+                data: "assignable_expense",
                 className: 'classRight',
+                render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
             },
             {
                 title: 'Acciones',
-                data: 'id_materiales',
+                data: 'id_expenses',
                 className: 'uniqueClassName',
                 render: function(data) {
                     return `

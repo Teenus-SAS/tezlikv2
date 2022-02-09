@@ -25,7 +25,7 @@ $(document).ready(function() {
             destroy: true,
             pageLength: 50,
             ajax: {
-                url: `../../api/productshasprocess/${idProduct}`,
+                url: `../../api/productsprocess/${idProduct}`,
                 dataSrc: '',
             },
             language: {
@@ -41,25 +41,25 @@ $(document).ready(function() {
                 },
                 {
                     title: 'Proceso',
-                    data: 'proceso'
+                    data: 'process'
                 },
                 {
                     title: 'Máquina',
-                    data: "maquina"
+                    data: "machine"
                 },
                 {
-                    title: 'Tiempo Alistamiento',
-                    data: "tiempo_alistamiento",
+                    title: 'Tiempo Alistamiento (min)',
+                    data: "enlistment_time",
                     className: 'uniqueClassName',
                 },
                 {
-                    title: 'Tiempo Operación',
-                    data: "tiempo_operacion",
+                    title: 'Tiempo Operación  (min)',
+                    data: "operation_time",
                     className: 'uniqueClassName',
                 },
                 {
                     title: 'Acciones',
-                    data: 'id_materiales',
+                    data: 'id_material',
                     className: 'uniqueClassName',
                     render: function(data) {
                         return `

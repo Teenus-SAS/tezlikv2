@@ -41,17 +41,17 @@ $(document).ready(function() {
                 },
                 {
                     title: 'Servicio',
-                    data: 'nombre_servicio'
+                    data: 'service'
                 },
                 {
                     title: 'Costo',
-                    data: "costo",
+                    data: "cost",
                     className: 'classRight',
                     render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
                 },
                 {
                     title: 'Acciones',
-                    data: 'id_materiales',
+                    data: 'id_service',
                     className: 'uniqueClassName',
                     render: function(data) {
                         return `

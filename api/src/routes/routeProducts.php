@@ -53,15 +53,15 @@ $app->get('/deleteProduct/{id}', function (Request $request, Response $response,
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/productshasmaterials/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
-    $productMaterials = $productsDao->productshasmaterials($args['id']);
+$app->get('/productsmaterials/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
+    $productMaterials = $productsDao->productsmaterials($args['id']);
     $response->getBody()->write(json_encode($productMaterials, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
 
 
-$app->get('/productshasprocess/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
-    $productProcess = $productsDao->productshasprocess($args['id']);
+$app->get('/productsprocess/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
+    $productProcess = $productsDao->productsprocess($args['id']);
     $response->getBody()->write(json_encode($productProcess, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });

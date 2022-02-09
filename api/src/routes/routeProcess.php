@@ -11,8 +11,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->get('/process', function (Request $request, Response $response, $args) use ($processDao) {
     session_start();
-    /* $id_company = $_SESSION['empresas_id_empresas']; */
-    $process = $processDao->findAllProcessByCompany(44);
+    $id_company = $_SESSION['id_company'];
+    $process = $processDao->findAllProcessByCompany($id_company);
     $response->getBody()->write(json_encode($process, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
