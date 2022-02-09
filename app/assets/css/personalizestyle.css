@@ -1,0 +1,39 @@
+.uniqueClassName {
+    text-align: center;
+}
+
+.classCenter {
+    text-align: center;
+}
+
+.classRight {
+    text-align: right;
+}
+
+.classLeft {
+    text-align: left;
+}
+
+.gridx2 {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-column-gap: 1em;
+}
+
+.gridx3 {
+    display: grid;
+    grid-template-columns: 110px 1fr 100px;
+    grid-column-gap: 1em;
+}
+
+.gridx4 {
+    display: grid;
+    grid-template-columns: 110px 1fr 110px 150px;
+    grid-column-gap: 1em;
+}
+
+.gridx5 {
+    display: grid;
+    grid-template-columns: 140px 1fr 120px 120px 150px;
+    grid-column-gap: 1em;
+}

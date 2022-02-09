@@ -9,12 +9,13 @@ include_once __DIR__ . '/AutoloaderSourceCode.php';
 $app = AppFactory::create();
 $app->setBasePath('/api');
 
-/* $app->get('/', function (Request $request, Response $response, $args) {
-  $response->getBody()->write("Hello world!");
-  return $response;
-}); */
-
+require_once('../api/src/routes/routeExpenses.php');
+require_once('../api/src/routes/routeMachines.php');
+require_once('../api/src/routes/routeMaterials.php');
+require_once('../api/src/routes/routePayroll.php');
+require_once('../api/src/routes/routeProcess.php');
 require_once('../api/src/routes/routeProducts.php');
+require_once('../api/src/routes/routeUsers.php');
 
 
 $app->run();
