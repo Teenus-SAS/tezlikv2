@@ -21,24 +21,24 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Nuevo Proceso</button>
+                    <button class="btn btn-primary" id="btnCreateProduct">Nuevo Gasto</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="page-content-wrapper mt--45 mb-5 cardCreateRawMaterials">
+<div class="page-content-wrapper mt--45 mb-5 cardCreateExpenses">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx2">
-                            <label for="">Referencia</label>
-                            <label for="">Producto</label>
-                            <select class="form-control" name="refProduct" id="refProduct"></select>
-                            <select class="form-control" name="selectNameProduct" id="selectNameProduct"></select>
+                        <div class="gridx2M">
+                            <label for="">Cuenta</label>
+                            <label for="">Valor</label>
+                            <select class="form-control" name="countNameExpenses" id="countNameExpenses"></select>
+                            <input type="number" class="form-control valueExpenses text-center" id="valueExpenses" name="valueExpenses" min='0'>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigProcess">
+                            <table class="table table-striped" id="tblExpenses">
 
                             </table>
                         </div>
@@ -70,5 +70,5 @@
         </div>
     </div> -->
 
-<script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/products/tblConfigProcess.js"></script>
+<script src="../../app/js/expenses/expenses.js"></script>
+<script src="../../app/js/expenses/tblExpenses.js"></script>
