@@ -120,7 +120,7 @@ class ProductsDao
     $id_company = $_SESSION['id_company'];
 
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT m.id_materials, m.reference, m.material, m.unit, m.cost 
+    $stmt = $connection->prepare("SELECT m.id_material, m.reference, m.material, m.unit, m.cost 
                                   FROM products p INNER JOIN products_materials pm ON pm.id_product = p.id_product 
                                   INNER JOIN materials m ON m.id_material = pm.id_material 
                                   WHERE pm.id_product = :id_product AND pm.id_company = :id_company");

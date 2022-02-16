@@ -46,10 +46,10 @@
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">Configuración</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configMaterials.php')">Configuración Productos</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configProcess.php')">Configuración Procesos</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configExternalServices.php')">Creación Servicios Externos</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configLines.php')">Creación Lineas de Producto</a></li>
+                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configMaterials.php')">Productos * Materia Prima</a></li>
+                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configProcess.php')">Productos * Procesos</a></li>
+                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configExternalServices.php')">Servicios Externos</a></li>
+                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configLines.php')">Lineas de Producto</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-3">
@@ -64,7 +64,7 @@
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">Administrador</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li><a href="javascript:void(0);">Usuarios</a></li>
+                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/users/users.php')">Usuarios</a></li>
                                         <!-- <li><a href="javascript:void(0);">Compact Sidebar</a></li>
                                         <li><a href="javascript:void(0);">Horizontal layout</a></li>
                                         <li><a href="javascript:void(0);">Maintenance</a></li>
@@ -291,10 +291,10 @@
                     <i class="bx bx-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div aria-labelledby="page-header-profile-dropdown" class="dropdown-menu-right dropdown-menu">
-                    <a href="javascript: void(0);" class="dropdown-item">
+                    <a href="javascript: void(0);" onclick="loadContent('page-content','views/perfil/perfil.php')" class="dropdown-item">
                         <i class="bx bx-user mr-1"></i> Perfil
                     </a>
-                    <a href="javascript: void(0);" class="dropdown-item">
+                    <a href="javascript: void(0);" onclick="loadContent('page-content','views/perfil/configuracion.php')" class="dropdown-item">
                         <i class="bx bx-wrench mr-1"></i> Configuración
                     </a>
                     <a href="javascript: void(0);" class="dropdown-item">

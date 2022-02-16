@@ -17,6 +17,14 @@ $app->get('/users', function (Request $request, Response $response, $args) use (
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/usersAccess', function (Request $request, Response $response, $args) use ($userDao) {
+    session_start();
+    $company = $_SESSION['id_company'];
+    $users = $userDao->findAllUsersAccess($company);
+    $response->getBody()->write(json_encode($users, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->get('/user', function (Request $request, Response $response, $args) use ($userDao) {
     $users = $userDao->findUser();
     $response->getBody()->write(json_encode($users, JSON_NUMERIC_CHECK));

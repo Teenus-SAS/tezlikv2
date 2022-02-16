@@ -43,3 +43,10 @@
     grid-template-columns: 140px 1fr 120px 120px 150px;
     grid-column-gap: 1em;
 }
+
+.gridx5M {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+    text-align: center;
+}

@@ -14,59 +14,21 @@
                             <a class="dropdown-item" href="dashboard3.html"> Server Statistics </a>
                         </div> -->
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="topnav-dashboard" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" onclick="loadContent('page-content','../app/views/analysis/prices.php')" id="topnav-dashboard" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bx bxs-customize mr-1"></i> Generar Precios
                             <i class="bx bx-chevron-down"></i>
                         </a>
-                        <!-- <div class="dropdown-menu" aria-labelledby="topnav-apps">
-                            <a class="dropdown-item" href="calender.html">
-                                <i class="bx bx-calendar mr-1"></i>
-                                <span> General</span>
-                            </a>
-                            <a class="dropdown-item" href="chat.html">
-                                <i class="bx bx-chat mr-1"></i>
-                                <span> Productos</span>
-                            </a>
-
-                        </div> -->
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="topnav-ui" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" onclick="loadContent('page-content','../app/views/analysis/materials.php')" id="topnav-ui" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bx bx-tone mr-1"></i> Análisis Materia Prima
                             <i class="bx bx-chevron-down"></i>
                         </a>
-
-                        <!-- <div class="dropdown-menu mega-dropdown-menu dropdown-mega-menu-xl" aria-labelledby="topnav-ui">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <a class="dropdown-item" href="ui-buttons.html">Buttons</a>
-                                    <a class="dropdown-item" href="ui-cards.html">Cards</a>
-                                    <a class="dropdown-item" href="ui-avatars.html">Avatars</a>
-                                    <a class="dropdown-item" href="ui-portlets.html">Portlets</a>
-                                    <a class="dropdown-item" href="ui-tabs-accordions.html">Tabs &amp; Accordions</a>
-                                    <a class="dropdown-item" href="ui-modal.html">Modals</a>
-                                    <a class="dropdown-item" href="ui-progress.html">Progress</a>
-                                </div>
-                                <div class="col-lg-4">
-                                    <a class="dropdown-item" href="ui-notifications.html">Notifications</a>
-                                    <a class="dropdown-item" href="ui-spinners.html">Spinners</a>
-                                    <a class="dropdown-item" href="ui-images.html">Images</a>
-                                    <a class="dropdown-item" href="ui-carousel.html">Carousel</a>
-                                    <a class="dropdown-item" href="ui-list-group.html">List Group</a>
-                                    <a class="dropdown-item" href="ui-video.html">Embed Video</a>
-                                </div>
-                                <div class="col-lg-4">
-                                    <a class="dropdown-item" href="ui-dropdowns.html">Dropdowns</a>
-                                    <a class="dropdown-item" href="ui-ribbons.html">Ribbons</a>
-                                    <a class="dropdown-item" href="ui-tooltips-popovers.html">Tooltips &amp; Popovers</a>
-                                    <a class="dropdown-item" href="ui-general.html">General UI</a>
-                                    <a class="dropdown-item" href="ui-typography.html">Typography</a>
-                                    <a class="dropdown-item" href="ui-grid.html">Grid</a>
-                                </div>
-                            </div>
-                        </div> -->
                     </li>
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="topnav-component" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bx bx-layer mr-1"></i> Herramientas

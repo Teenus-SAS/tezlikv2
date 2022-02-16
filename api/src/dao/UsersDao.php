@@ -37,11 +37,11 @@ class UsersDao
   public function findAllUsersByCompany($id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT * FROM users  WHERE empresas_id_empresa = :id_company;");
+    $stmt = $connection->prepare("SELECT * FROM users  WHERE id_company = :id_company;");
     $stmt->execute(['id_company' => $id_company]);
-    
+
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    
+
     $users = $stmt->fetchAll($connection::FETCH_ASSOC);
     $this->logger->notice("users", array('users' => $users));
     return $users;
@@ -79,6 +79,26 @@ class UsersDao
     $this->logger->notice("usuario Obtenido", array('usuario' => $user));
     return $user;
   }
+
+
+  public function findAllUsersAccess($id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+    $rol = $_SESSION['rol'];
+
+    if ($rol == 2) {
+      $stmt = $connection->prepare("SELECT usa.id_user, us.firstname, us.lastname, us.email, usa.create_product, usa.create_materials, usa.create_machines, usa.create_process, usa.product_materials, usa.product_process  
+                                    FROM users_access usa 
+                                    INNER JOIN users us ON us.id_user = usa.id_user
+                                    WHERE us.id_company = :id_company;");
+      $stmt->execute(['id_company' => $id_company]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      $users = $stmt->fetchAll($connection::FETCH_ASSOC);
+      $this->logger->notice("usuarios Obtenidos", array('usuarios' => $users));
+      return $users;
+    }
+  }
+
 
   public function inactivateActivateUser($id_user)
   {
@@ -235,7 +255,7 @@ class UsersDao
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
-      
+
       $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       $longitudCadena = strlen($cadena);
       $new_pass = "";
@@ -247,7 +267,7 @@ class UsersDao
       }
 
       /* actualizar $pass en la DB */
-       $pass = password_hash($new_pass, PASSWORD_DEFAULT);
+      $pass = password_hash($new_pass, PASSWORD_DEFAULT);
       $stmt = $connection->prepare("UPDATE users SET pass = :pass WHERE email = :email");
       $stmt->execute(['email' => $email, 'pass' => $pass]);
 

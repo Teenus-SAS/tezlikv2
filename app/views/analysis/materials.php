@@ -1,25 +1,24 @@
-
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-sm-5 col-xl-6">
                 <div class="page-title">
-                    <h3 class="mb-1 font-weight-bold text-dark">Máquinas</h3>
+                    <h3 class="mb-1 font-weight-bold text-dark">Materias Primas</h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
-                        <li class="breadcrumb-item active">Creación de Máquinas</li>
+                        <li class="breadcrumb-item active">Análisis de Materias Primas</li>
                     </ol>
                 </div>
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateMachine">Crear Máquina</button>
+                    <button class="btn btn-primary" id="btnCreateMachine">Análisis de Materias Primas</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="page-content-wrapper mt--45 mb-5 cardCreateMachines">
+<!-- <div class="page-content-wrapper mt--45 mb-5 cardCreateMachines">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -44,7 +43,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- page content -->
 <div class="page-content-wrapper mt--45">
@@ -54,37 +53,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Máquinas</h5>
+                        <h5 class="card-title">Precios</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblMachines">
+                            <table class="table table-striped" id="tblMaterials">
 
                             </table>
                         </div>
-                        <!-- <div class="my-3 d-flex justify-content-end">
-                            <ul class="pagination  flat-rounded-pagination">
-                                <li class="page-item disabled">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Previous" tabindex="-1" aria-disabled="true">
-                                        <i class="bx bx-chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">1</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">2</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Next">
-                                        <i class="bx bx-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div> -->
                     </div>
                 </div>
             </div>
