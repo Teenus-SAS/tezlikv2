@@ -29,7 +29,8 @@
      <script src="assets/libs/html5shiv/js/html5shiv.js"></script>
      <script src="assets/libs/respondjs/js/respond.min.js"></script>
   <![endif]-->
-
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet">
 </head>
 
 <body>
@@ -113,6 +114,7 @@
   </div>
 
   <!-- ================== BEGIN BASE JS ================== -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="app/assets/js/vendor.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
@@ -121,12 +123,12 @@
   <script src="app/assets/libs/owl-carousel/js/owl.carousel.min.js"></script>
   <script src="app/assets/libs/jquery-validation/js/jquery.validate.min.js"></script>
   <script src="app/assets/libs/jquery-validation/js/additional-methods.min.js"></script>
-  <script src="app/assets/plugins/toast/toastr.min.js"></script>
 
   <!-- ================== BEGIN PAGE JS ================== -->
   <script src="app/assets/js/app.js"></script>
   <script src="app/js/login/autentication.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
 </body>
 

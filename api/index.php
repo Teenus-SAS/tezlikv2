@@ -10,6 +10,8 @@ $app = AppFactory::create();
 $app->setBasePath('/api');
 
 require_once('../api/src/routes/routeExpenses.php');
+require_once('../api/src/routes/routeFactoryLoad.php');
+require_once('../api/src/routes/routeLogin.php');
 require_once('../api/src/routes/routeMachines.php');
 require_once('../api/src/routes/routeMaterials.php');
 require_once('../api/src/routes/routePayroll.php');

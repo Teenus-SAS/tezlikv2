@@ -37,28 +37,28 @@
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">Básico</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createProducts.php')">Creación Productos</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createRawMaterials.php')">Creación Materia Prima</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createMachines.php')">Creación Máquinas</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createProcess.php')">Creación Procesos</a></li>
+                                        <li class="createProducts"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createProducts.php')">Creación Productos</a></li>
+                                        <li class="createMaterials"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createRawMaterials.php')">Creación Materia Prima</a></li>
+                                        <li class="createMachines"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createMachines.php')">Creación Máquinas</a></li>
+                                        <li class="createProcess"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createProcess.php')">Creación Procesos</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">Configuración</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configMaterials.php')">Productos * Materia Prima</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configProcess.php')">Productos * Procesos</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configExternalServices.php')">Servicios Externos</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configLines.php')">Lineas de Producto</a></li>
+                                        <li class="productsMaterials"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configMaterials.php')">Productos * Materia Prima</a></li>
+                                        <li class="productsProcess"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configProcess.php')">Productos * Procesos</a></li>
+                                        <li class="servicesExternal"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configExternalServices.php')">Servicios Externos</a></li>
+                                        <li class="linesProducts"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configLines.php')">Lineas de Producto</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">General</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li><a href="javascript:void(0);">Datos Generales</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/createPayroll.php')">Carga Nómina</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/expensesAssignation.php')">Asignación Gastos Generales</a></li>
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/expensesDistribution.php')">Distribución de Gastos</a></li>
+                                        <li class="generalData"><a href="javascript:void(0);">Datos Generales</a></li>
+                                        <li class="payroll"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/createPayroll.php')">Carga Nómina</a></li>
+                                        <li class="generalExpenses"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/expensesAssignation.php')">Asignación Gastos Generales</a></li>
+                                        <li class="distributionExpenses"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/expensesDistribution.php')">Distribución de Gastos</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-3">
@@ -287,7 +287,7 @@
             <div class="d-inline-flex ml-0 ml-sm-2 dropdown">
                 <button data-toggle="dropdown" aria-haspopup="true" type="button" id="page-header-profile-dropdown" aria-expanded="false" class="btn header-item">
                     <img src="assets/images/users/avatar-1.jpg" alt="Header Avatar" class="avatar avatar-xs mr-0">
-                    <span class="d-none d-xl-inline-block ml-1">Martha Lucia Olmos</span>
+                    <span class="d-none d-xl-inline-block ml-1 userName">Martha Lucia Olmos</span>
                     <i class="bx bx-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div aria-labelledby="page-header-profile-dropdown" class="dropdown-menu-right dropdown-menu">
@@ -304,7 +304,7 @@
                         <i class="bx bx-lock mr-1"></i> Lock screen
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="javascript: void(0);" class="text-danger dropdown-item">
+                    <a href="javascript: void(0);" class="text-danger dropdown-item logout">
                         <i class="bx bx-log-in mr-1 text-danger"></i> Salir
                     </a>
                 </div>

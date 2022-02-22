@@ -65,17 +65,16 @@ $(document).ready(function() {
     const login = (data) => {
         $.ajax({
             type: 'POST',
-            url: '../../../api/user',
+            url: '../../../api/userAutentication',
             data: data,
             success: function(data, textStatus, xhr) {
 
                 if (data.error) {
                     toastr.error(data.message)
                     return false
-                } else
+                } else if (data.success)
                     location.href = '../../app/'
             },
         })
     }
-
 })

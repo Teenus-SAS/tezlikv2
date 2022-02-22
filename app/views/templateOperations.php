@@ -1,3 +1,11 @@
+<?php
+if (empty($_SESSION['active']))
+	header('location: ../../../');
+else if (time() - $_SESSION['time'] > 60)
+	header('location: ../../../');
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -19,11 +27,9 @@
 	<div class="page-wrapper">
 		<!-- Begin Header -->
 		<?php include_once dirname(__DIR__) . '/partials/header.php'; ?>
-		<!-- Header End -->
 
 		<!-- Begin Left Navigation -->
 		<?php include_once dirname(__DIR__) . '/partials/nav.php'; ?>
-		<!-- Left Navigation End -->
 
 		<!-- Begin main content -->
 		<div class="main-content">
@@ -277,7 +283,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- End recent orders -->
+
 							<!-- Begin quarter sale -->
 							<div class="col-12 col-lg-4">
 								<div class="card">
@@ -289,7 +295,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- End quarter sale -->
+
 						</div>
 						<!-- Row 4-->
 						<div class="row">
@@ -312,7 +318,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- End total sales chart -->
+
 							<!-- Begin earning chart -->
 							<div class="col-lg-6">
 								<div class="card">
@@ -332,7 +338,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- End earning chart -->
+
 							<!-- Begin today sale -->
 							<div class="col-lg-3">
 								<div class="card revenue-card">
@@ -362,7 +368,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- End today sale -->
+
 						</div>
 						<!-- Row 5 -->
 						<div class="row">
@@ -496,7 +502,7 @@
 			</div>
 		</div>
 		<!-- main content End -->
-		<!-- footer -->
+
 		<!-- footer -->
 		<?php include_once  dirname(__DIR__) .  '/partials/footer.php'; ?>
 
@@ -532,8 +538,11 @@
 		</div>
 	</div>
 	<!-- Page End -->
+
 	<?php include_once dirname(__DIR__) . '/partials/scriptsJS.php'; ?>
 	<script src="../../app/js/global/loadContent.js"></script>
+	<script src="../../app/js/global/logout.js"></script>
+	<script src="../../app/js/login/access.js"></script>
 </body>
 
 </html>
