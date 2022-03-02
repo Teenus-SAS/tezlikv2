@@ -21,12 +21,68 @@ class ProcessDao
     $connection = Connection::getInstance()->getConnection();
     $stmt = $connection->prepare("SELECT * FROM process WHERE id_company = :id_company;");
     $stmt->execute(['id_company' => $id_company]);
-    
+
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    
+
     $process = $stmt->fetchAll($connection::FETCH_ASSOC);
     $this->logger->notice("process", array('process' => $process));
     return $process;
   }
 
+  public function insertProcessByCompany($dataProcess, $id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("INSERT INTO process (process) VALUES (:process)");
+      $stmt->execute([
+        'process' => ucfirst(strtolower($dataProcess['process']))
+      ]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 2;
+    } catch (\Exception $e) {
+      $message = substr($e->getMessage(), 0, 15);
+
+      if ($message == 'SQLSTATE[23000]')
+        $message = 'Proceso ya registrado. Ingrese una nuevo proceso';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
+  }
+
+  public function updateProcessByCompany($dataProcess)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("UPDATE process SET process = :process WHERE id_process = :id_process");
+      $stmt->execute([
+        'process' => ucfirst(strtolower($dataProcess['process'])),
+        'id_process' => $dataProcess['id_process']
+      ]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 2;
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
+  }
+
+  public function deleteProcess($id_process)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT * FROM process WHERE id_process = :id_process");
+    $stmt->execute(['id_process' => $id_process]);
+    $rows = $stmt->rowCount();
+
+    if ($rows > 0) {
+      $stmt = $connection->prepare("DELETE FROM process WHERE id_process = :id_process");
+      $stmt->execute(['id_process' => $id_process]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    }
+  }
 }

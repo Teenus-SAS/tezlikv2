@@ -17,25 +17,52 @@ $app->get('/materials', function (Request $request, Response $response, $args) u
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addmaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
+$app->post('/addMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
     session_start();
-    $id_company = $_SESSION['id_company'];
     $dataMaterials = $request->getParsedBody();
+    $id_company = $dataMaterials['id_company'];
    
-    if (empty($dataMaterials['referenceProduct']) || empty($dataMaterials['product']) || empty($dataMaterials['profitability']))
+    if (empty($dataMaterials['reference']) || empty($dataMaterials['material']) || empty($dataMaterials['unit']) || empty($dataMaterials['cost']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
 
-        $materials = $materialsDao->InsertUpdateMaterialsByCompany($dataMaterials, $id_company);
+        $materials = $materialsDao->insertMaterialsByCompany($dataMaterials, $id_company);
 
         if ($materials == 1)
             $resp = array('success' => true, 'message' => 'Materia Prima creada correctamente');
-        else if ($materials == 2)
-            $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');
         else
             $resp = $materials;
     }
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+});
+
+$app->post('/updateMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
+    session_start();
+    $dataMaterials = $request->getParsedBody();
+
+    $materials = $materialsDao->updateMaterialsByCompany($dataMaterials);
+
+    if ($materials == 2)
+        $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');
+    else
+        $resp = $materials;
+        
+    $response->getBody()->write(json_encode($resp));
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+});
+
+$app->get('/deleteMaterial/{id_material}', function (Request $request, Response $response, $args) use ($materialsDao) {
+    $materials = $materialsDao -> deleteMaterial($args['id_material']);
+
+    if ($materials == null)
+        $resp = array('success' => true, 'message' => 'Material eliminado correctamente');
+
+    if ($materials != null)
+        $resp = array('error' => true, 'message' => 'No es posible eliminar el material, existe información asociada a él');
+
+    $response->getBody()->write(json_encode($resp));
+    return $response->withHeader('Content-Type', 'application/json');
+
 });

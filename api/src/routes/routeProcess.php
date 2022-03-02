@@ -16,3 +16,57 @@ $app->get('/process', function (Request $request, Response $response, $args) use
     $response->getBody()->write(json_encode($process, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
+
+$app->post('/addProcess', function (Request $request, Response $response, $args) use ($processDao) {
+    session_start();
+    $dataprocess = $request->getParsedBody();
+    $id_company = $dataprocess['id_company'];
+    
+    if (empty($dataprocess['process']))
+        $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+    else {
+        $process = $processDao->insertProcessByCompany($dataprocess, $id_company);
+
+        if ($process == 2)
+            $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
+        else
+            $resp = $process;
+
+    }
+
+    $response->getBody()->write(json_encode($resp));
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+});
+
+$app->post('/updateProcess', function (Request $request, Response $response, $args) use ($processDao)
+{
+    session_start();
+    $dataprocess = $request->getParsedBody();
+    
+    if (empty($dataprocess['process']))
+        $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
+    else {
+        $process = $processDao->updateProcessByCompany($dataprocess);
+
+        if ($process == 2)
+            $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');  
+        else
+            $resp = $process;
+    }
+
+    $response->getBody()->write(json_encode($resp));
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+});
+
+$app->get('/deleteProcess/{id_process}', function (Request $request, Response $response, $args) use ($processDao){
+    $process = $processDao -> deleteProcess($args['id_process']);
+
+    if ($process == null)
+        $resp = array('success' => true, 'message' => 'Proceso eliminado correctamente');
+
+    if ($process != null)
+        $resp = array('error' => true, 'message' => 'No es posible eliminar el proceso, existe información asociada a él');
+
+    $response->getBody()->write(json_encode($resp));
+    return $response->withHeader('Content-Type', 'application/json');
+});

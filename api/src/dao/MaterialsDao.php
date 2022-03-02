@@ -29,19 +29,17 @@ class MaterialsDao
     return $materials;
   }
 
-  public function InsertUpdateMaterialsByCompany($dataMaterials, $id_company)
+  public function insertMaterialsByCompany($dataMaterials, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-
-    if (empty($dataMaterials['id_material'])) {
       try {
-        $stmt = $connection->prepare("INSERT INTO materiales (empresas_id_empresa, referencia, descripcion, unidad, costo) 
-                                      VALUES(:id_empresa, :referencia, :descripcion, :unidad, :costo)");
-        $stmt->execute([
-          'id_empresa' => $id_company,
-          'referencia' => $dataMaterials['referenceProduct'],
-          'producto' => ucfirst(strtolower($dataMaterials['product'])),
-          'rentabilidad' => $dataMaterials['profitability'],
+        $stmt = $connection->prepare("INSERT INTO materials (reference, material, unit, cost) 
+                                      VALUES(:reference, :material, :unit, :cost)");
+        $stmt->execute([        
+          'reference' => $dataMaterials['reference'],
+          'material' => ucfirst(strtolower($dataMaterials['material'])),
+          'unit' => $dataMaterials['unit'],
+          'cost' => $dataMaterials['cost']
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -50,23 +48,50 @@ class MaterialsDao
         $message = substr($e->getMessage(), 0, 15);
 
         if ($message == 'SQLSTATE[23000]')
-          $message = 'Referencia ya registrada. Ingrese una nueva referencia';
+          $message = 'Reference ya registrada. Ingrese una nueva reference';
+
+        $error = array('info' => true, 'message' => $message);
+        return $error;
+    }
+  }
+
+  public function updateMaterialsByCompany($dataMaterials){
+    $connection = Connection::getInstance()->getConnection();
+
+    try{
+        $stmt = $connection->prepare("UPDATE materials SET reference = :reference, material = :material, unit = :unit, cost = :cost 
+                                    WHERE id_material = :id_material");
+        $stmt->execute([
+          'id_material' => $dataMaterials['id_material'],
+          'reference' => $dataMaterials['reference'],
+          'material' => ucfirst(strtolower($dataMaterials['material'])),
+          'unit' => $dataMaterials['unit'],
+          'cost' => $dataMaterials['cost']
+        ]);
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        return 2;
+      } catch (\Exception $e) {
+        $message = substr($e->getMessage(), 0, 15);
+
+        if ($message == 'SQLSTATE[23000]')
+          $message = 'Reference ya registrada. Ingrese una nueva reference';
 
         $error = array('info' => true, 'message' => $message);
         return $error;
       }
-    } else {
+  }
 
-      $stmt = $connection->prepare("UPDATE productos SET ref = :referencia, nombre = :producto, rentabilidad = :rentabilidad 
-                                    WHERE id_producto = :id_producto");
-      $stmt->execute([
-        'id_producto' => $dataMaterials['id_product'],
-        'referencia' => $dataMaterials['referenceProduct'],
-        'producto' => ucfirst(strtolower($dataMaterials['product'])),
-        'rentabilidad' => $dataMaterials['profitability'],
-      ]);
+  public function deleteMaterial($id_material){
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT * FROM materials WHERE id_material = :id_material");
+    $stmt->execute(['id_material' => $id_material]);
+    $rows = $stmt->rowCount();
+
+    if ($rows > 0) {
+      $stmt = $connection->prepare("DELETE FROM materials WHERE id_material = :id_material");
+      $stmt->execute(['id_material' => $id_material]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
     }
   }
 }

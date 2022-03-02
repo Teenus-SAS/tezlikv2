@@ -19,19 +19,39 @@ $app->get('/products', function (Request $request, Response $response, $args) us
 
 $app->post('/addProducts', function (Request $request, Response $response, $args) use ($productsDao) {
     session_start();
-    $id_company = $_SESSION['id_company'];
     $dataproducts = $request->getParsedBody();
+    $id_company = $dataproducts['id_company'];
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
-    if (empty($dataproducts['referenceProduct']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
+    if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
-
-        $products = $productsDao->InsertUpdateProductByCompany($dataproducts, $id_company);
+        $products = $productsDao->insertProductByCompany($dataproducts, $id_company);
 
         if ($products == 1)
             $resp = array('success' => true, 'message' => 'Producto creado correctamente');
-        else if ($products == 2)
+        else
+            $resp = $products;
+
+    }
+
+    $response->getBody()->write(json_encode($resp));
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+});
+
+$app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao) {
+    session_start();
+    
+    $dataproducts = $request->getParsedBody();
+    //$files = $request->getUploadedFiles();
+    /* Falta la programacion para la carga de la imagen */
+    if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
+        $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
+    else {
+
+        $products = $productsDao->updateProductByCompany($dataproducts);
+
+        if ($products == 2)
             $resp = array('success' => true, 'message' => 'Producto actualizado correctamente');
         else
             $resp = $products;
@@ -41,8 +61,8 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteProduct/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
-    $product = $productsDao->deleteProduct($args['id']);
+$app->get('/deleteProduct/{id_product}', function (Request $request, Response $response, $args) use ($productsDao) {
+    $product = $productsDao->deleteProduct($args['id_product']);
     if ($product == null)
         $resp = array('success' => true, 'message' => 'Producto eliminado correctamente');
 
@@ -53,7 +73,7 @@ $app->get('/deleteProduct/{id}', function (Request $request, Response $response,
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/productsmaterials/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
+$app->get('/productsmaterials/{id', function (Request $request, Response $response, $args) use ($productsDao) {
     $productMaterials = $productsDao->productsmaterials($args['id']);
     $response->getBody()->write(json_encode($productMaterials, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
