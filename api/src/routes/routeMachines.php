@@ -22,7 +22,7 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
     $datamachines = $request->getParsedBody();
     $id_company = $datamachines['id_company'];
 
-    if (empty($datamachines['machine']) || empty($datamachines['cost']) || empty($datamachines['years_depreciation']) || empty($datamachines['minute_depreciation']))
+    if (empty($datamachines['machine']) || empty($datamachines['cost']) || empty($datamachines['years_depreciation']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
 

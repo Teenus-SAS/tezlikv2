@@ -33,42 +33,40 @@ class ProductsDao
   {
     $connection = Connection::getInstance()->getConnection();
 
-    if (empty($dataProduct['id_product'])) {
-      if (empty($dataProduct['img'])) {
-        try {
-          $stmt = $connection->prepare("'INSERT INTO products (reference, product, profitability, img) 
-                                      VALUES(:reference, :product, :profitability, :img)'");
-          $stmt->execute([
-            'id_empresa' => $id_company,
-            'reference' => $dataProduct['reference'],
-            'product' => ucfirst(strtolower($dataProduct['product'])),
-            'profitability' => $dataProduct['profitability']
-          ]);
-
-          $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-          return 1;
-        } catch (\Exception $e) {
-          //$message = substr($e->getMessage(), 0, 15);
-          $message = $e->getMessage();
-          if ($message == 'SQLSTATE[23000]')
-            $message = 'Reference ya registrada. Ingrese una nueva reference';
-
-          $error = array('info' => true, 'message' => $message);
-          return $error;
-        }
-      } else {
-        $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, profitability) 
-        VALUES(:id_company, :reference, :product, :profitability)");
+    if (empty($dataProduct['img'])) {
+      try {
+        $stmt = $connection->prepare("INSERT INTO products (reference, product, profitability) 
+                                      VALUES(:reference, :product, :profitability)");
         $stmt->execute([
-          'id_company' => $id_company,
+          'id_empresa' => $id_company,
           'reference' => $dataProduct['reference'],
           'product' => ucfirst(strtolower($dataProduct['product'])),
-          'profitability' => $dataProduct['profitability'],
-          'img' => $dataProduct['img']
+          'profitability' => $dataProduct['profitability']
         ]);
+
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 1;
+      } catch (\Exception $e) {
+        $message = substr($e->getMessage(), 0, 15);
+        $message = $e->getMessage();
+        if ($message == 'SQLSTATE[23000]')
+          $message = 'Reference ya registrada. Ingrese una nueva reference';
+
+        $error = array('info' => true, 'message' => $message);
+        return $error;
       }
+    } else {
+      $stmt = $connection->prepare("INSERT INTO products (reference, product, profitability, img) 
+        VALUES(:reference, :product, :profitability, :img)");
+      $stmt->execute([
+        'id_company' => $id_company,
+        'reference' => $dataProduct['reference'],
+        'product' => ucfirst(strtolower($dataProduct['product'])),
+        'profitability' => $dataProduct['profitability'],
+        'img' => $dataProduct['img']
+      ]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 1;
     }
   }
 
