@@ -1,13 +1,3 @@
-<!-- <body class="horizontal-navbar"> -->
-<!-- Begin Page -->
-<!-- <div class="page-wrapper"> -->
-<!-- Begin Header -->
-
-<!-- Begin main content -->
-<!-- <div class="main-content"> -->
-<!-- content -->
-<!--  <div class="page-content"> -->
-<!-- page header -->
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">

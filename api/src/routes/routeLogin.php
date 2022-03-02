@@ -1,8 +1,10 @@
 <?php
 
 use tezlikv2\dao\autenticationDao;
+use tezlikv2\services\sendEmail;
 
 $autenticationDao = new autenticationDao();
+$sendEmail = new sendEmail();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

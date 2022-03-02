@@ -29,85 +29,78 @@ class ProductsDao
     return $products;
   }
 
-  public function insertProductByCompany($dataProduct, $id_company)
+  public function InsertProductByCompany($dataProduct, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
 
-    if (empty($dataProduct['img'])) {
-      try {
-        $stmt = $connection->prepare("INSERT INTO products (reference, product, profitability) 
-                                      VALUES(:reference, :product, :profitability)");
-        $stmt->execute([
-          'id_company' => $id_company,
-          'reference' => $dataProduct['reference'],
-          'product' => ucfirst(strtolower($dataProduct['product'])),
-          'profitability' => $dataProduct['profitability']
-        ]);
+    if (empty($dataProduct['id_product'])) {
+      if (empty($dataProduct['img'])) {
+        try {
+          $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, profitability, img) 
+                                      VALUES(:id_company, :reference, :product, :profitability, :img)");
+          $stmt->execute([
+            'id_empresa' => $id_company,
+            'referencia' => $dataProduct['referenceProduct'],
+            'producto' => ucfirst(strtolower($dataProduct['product'])),
+            'rentabilidad' => $dataProduct['profitability'],
+          ]);
 
+          $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+          return 1;
+        } catch (\Exception $e) {
+          //$message = substr($e->getMessage(), 0, 15);
+          $message = $e->getMessage();
+          if ($message == 'SQLSTATE[23000]')
+            $message = 'Referencia ya registrada. Ingrese una nueva referencia';
+
+          $error = array('info' => true, 'message' => $message);
+          return $error;
+        }
+      } else {
+        $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, profitability) 
+        VALUES(:id_company, :reference, :product, :profitability)");
+        $stmt->execute([
+          'id_empresa' => $id_company,
+          'referencia' => $dataProduct['referenceProduct'],
+          'producto' => ucfirst(strtolower($dataProduct['product'])),
+          'rentabilidad' => $dataProduct['profitability'],
+          'img' => $dataProduct['img']
+        ]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 1;
-      } catch (\Exception $e) {
-        $message = substr($e->getMessage(), 0, 15);
-
-        if ($message == 'SQLSTATE[23000]')
-          $message = 'Referencia ya registrada. Ingrese una nueva referencia';
-
-        $error = array('info' => true, 'message' => $message);
-        return $error;
       }
     } else {
-      $stmt = $connection->prepare("INSERT INTO products (reference, product, profitability, img) 
-                                      VALUES(:reference, :product, :profitability, :img)");
-      $stmt->execute([
-        'reference' => $dataProduct['reference'],
-        'product' => ucfirst(strtolower($dataProduct['product'])),
-        'profitability' => $dataProduct['profitability'],
-        'img' => $dataProduct['img']
-      ]);
-      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 1;
-    }
-  }
-
-  public function updateProductByCompany($dataProduct)
-  {
-    $connection = Connection::getInstance()->getConnection();
-
-    if (empty($dataProduct['img'])) {
-      try {
-        $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product, profitability = :profitability 
-                                  WHERE id_product = :id_product");
+      if (empty($dataProduct['img'])) {
+        $stmt = $connection->prepare("UPDATE productos SET ref = :referencia, nombre = :producto, rentabilidad = :rentabilidad 
+                                    WHERE id_producto = :id_producto");
         $stmt->execute([
-          'id_product' => $dataProduct['id_product'],
-          'reference' => $dataProduct['reference'],
-          'product' => ucfirst(strtolower($dataProduct['product'])),
-          'profitability' => $dataProduct['profitability']
+          'id_producto' => $dataProduct['id_product'],
+          'referencia' => $dataProduct['referenceProduct'],
+          'producto' => ucfirst(strtolower($dataProduct['product'])),
+          'rentabilidad' => $dataProduct['profitability'],
         ]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 2;
-      } catch (\Exception $e) {
-        $message = substr($e->getMessage(), 0, 15);
+      } else {
 
-        if ($message == 'SQLSTATE[23000]')
-          $message = 'Referencia ya registrada. Ingrese una nueva referencia';
-
-        $error = array('info' => true, 'message' => $message);
-        return $error;
+        $stmt = $connection->prepare("UPDATE productos SET ref = :referencia, nombre = :producto, rentabilidad = :rentabilidad, img = :img 
+                                    WHERE id_producto = :id_producto");
+        $stmt->execute([
+          'id_producto' => $dataProduct['id_product'],
+          'referencia' => $dataProduct['referenceProduct'],
+          'producto' => ucfirst(strtolower($dataProduct['product'])),
+          'rentabilidad' => $dataProduct['profitability'],
+          'img' => $dataProduct['img']
+        ]);
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        return 2;
       }
-    } else {
-
-      $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product, profitability = :profitability, img = :img 
-                                  WHERE id_product = :id_product");
-      $stmt->execute([
-        'id_product' => $dataProduct['id_product'],
-        'reference' => $dataProduct['reference'],
-        'product' => ucfirst(strtolower($dataProduct['product'])),
-        'profitability' => $dataProduct['profitability'],
-        'img' => $dataProduct['img']
-      ]);
-      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
     }
+  }
+
+
+  public function UpdateProductByCompany(){
+
   }
 
   public function deleteProduct($idProduct)
@@ -126,23 +119,6 @@ class ProductsDao
   }
 
   public function productsmaterials($idProduct)
-  {
-
-    session_start();
-    $id_company = $_SESSION['id_company'];
-
-    $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT m.id_material, m.reference, m.material, m.unit, m.cost 
-                                  FROM products p INNER JOIN products_materials pm ON pm.id_product = p.id_product 
-                                  INNER JOIN materials m ON m.id_material = pm.id_material 
-                                  WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
-    $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
-    $productsmaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
-    $this->logger->notice("products", array('products' => $productsmaterials));
-    return $productsmaterials;
-  }
-
-  public function AddMaterialsProductByCompany($idProduct)
   {
 
     session_start();
