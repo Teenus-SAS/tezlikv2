@@ -47,10 +47,11 @@ class ProductsDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 1;
       } catch (\Exception $e) {
-        //$message = substr($e->getMessage(), 0, 15);
+        
         $message = $e->getMessage();
-        if ($message == 'SQLSTATE[23000]')
-          $message = 'Reference ya registrada. Ingrese una nueva reference';
+        
+        if ($e->getCode() == 23000)
+          $message = 'Referencia duplicada. Ingrese una nueva referencia';
 
         $error = array('info' => true, 'message' => $message);
         return $error;

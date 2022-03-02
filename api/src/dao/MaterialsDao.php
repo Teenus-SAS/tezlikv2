@@ -45,13 +45,13 @@ class MaterialsDao
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
     } catch (\Exception $e) {
-      $message = substr($e->getMessage(), 0, 15);
+      $message = $e->getMessage();
+        
+        if ($e->getCode() == 23000)
+          $message = 'Referencia duplicada. Ingrese una nueva referencia';
 
-      if ($message == 'SQLSTATE[23000]')
-        $message = 'Reference ya registrada. Ingrese una nueva reference';
-
-      $error = array('info' => true, 'message' => $message);
-      return $error;
+        $error = array('info' => true, 'message' => $message);
+        return $error;
     }
   }
 
