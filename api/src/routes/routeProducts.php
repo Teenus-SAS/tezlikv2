@@ -20,7 +20,7 @@ $app->get('/products', function (Request $request, Response $response, $args) us
 $app->post('/addProducts', function (Request $request, Response $response, $args) use ($productsDao) {
     session_start();
     $dataproducts = $request->getParsedBody();
-    $id_company = $_SESSION['id_company'];
+    $id_company = $dataproducts['id_company'];
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
     if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
@@ -44,7 +44,7 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
 
-    if (empty($dataproducts['referenceProduct']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
+    if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
 
@@ -72,21 +72,21 @@ $app->get('/deleteProduct/{id_product}', function (Request $request, Response $r
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/productsmaterials/{id', function (Request $request, Response $response, $args) use ($productsDao) {
-    $productMaterials = $productsDao->productsmaterials($args['id']);
+$app->get('/productsmaterials/{id_product}', function (Request $request, Response $response, $args) use ($productsDao) {
+    $productMaterials = $productsDao->productsmaterials($args['id_product']);
     $response->getBody()->write(json_encode($productMaterials, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
 
 
-$app->get('/productsprocess/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
-    $productProcess = $productsDao->productsprocess($args['id']);
+$app->get('/productsprocess/{id_product}', function (Request $request, Response $response, $args) use ($productsDao) {
+    $productProcess = $productsDao->productsprocess($args['id_product']);
     $response->getBody()->write(json_encode($productProcess, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/externalservices/{id}', function (Request $request, Response $response, $args) use ($productsDao) {
-    $externalServices = $productsDao->externalservices($args['id']);
+$app->get('/externalservices/{id_product}', function (Request $request, Response $response, $args) use ($productsDao) {
+    $externalServices = $productsDao->externalservices($args['id_product']);
     $response->getBody()->write(json_encode($externalServices, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });

@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Consulta todos */
 
-$app->get('/process', function (Request $request, Response $response, $args) use ($processDao) {
+$app->get('/process/{id_company}', function (Request $request, Response $response, $args) use ($processDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $process = $processDao->findAllProcessByCompany($id_company);
@@ -21,7 +21,7 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
     session_start();
     $dataprocess = $request->getParsedBody();
     $id_company = $dataprocess['id_company'];
-    
+
     if (empty($dataprocess['process']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
@@ -31,25 +31,23 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
             $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
         else
             $resp = $process;
-
     }
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateProcess', function (Request $request, Response $response, $args) use ($processDao)
-{
+$app->post('/updateProcess', function (Request $request, Response $response, $args) use ($processDao) {
     session_start();
     $dataprocess = $request->getParsedBody();
-    
+
     if (empty($dataprocess['process']))
         $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
     else {
         $process = $processDao->updateProcessByCompany($dataprocess);
 
         if ($process == 2)
-            $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');  
+            $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');
         else
             $resp = $process;
     }
@@ -58,8 +56,8 @@ $app->post('/updateProcess', function (Request $request, Response $response, $ar
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteProcess/{id_process}', function (Request $request, Response $response, $args) use ($processDao){
-    $process = $processDao -> deleteProcess($args['id_process']);
+$app->get('/deleteProcess/{id_process}', function (Request $request, Response $response, $args) use ($processDao) {
+    $process = $processDao->deleteProcess($args['id_process']);
 
     if ($process == null)
         $resp = array('success' => true, 'message' => 'Proceso eliminado correctamente');

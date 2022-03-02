@@ -21,7 +21,7 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
     session_start();
     $datamachines = $request->getParsedBody();
     $id_company = $datamachines['id_company'];
-    
+
     if (empty($datamachines['machine']) || empty($datamachines['cost']) || empty($datamachines['years_depreciation']) || empty($datamachines['minute_depreciation']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
@@ -49,7 +49,7 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
         $machines = $machinesDao->updateMachinesByCompany($datamachines);
 
         if ($machines == 2)
-                $resp = array('success' => true, 'message' => 'Maquina actualizada correctamente');
+            $resp = array('success' => true, 'message' => 'Maquina actualizada correctamente');
         else
             $resp = $machines;
     }
@@ -58,8 +58,7 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteMachine/{id_machine}', function (Request $request, Response $response,$args) use ($machinesDao)
-{
+$app->get('/deleteMachine/{id_machine}', function (Request $request, Response $response, $args) use ($machinesDao) {
     $machines = $machinesDao->deleteMachine($args['id_machine']);
 
     if ($machines == null)

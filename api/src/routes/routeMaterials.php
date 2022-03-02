@@ -21,7 +21,7 @@ $app->post('/addMaterials', function (Request $request, Response $response, $arg
     session_start();
     $dataMaterials = $request->getParsedBody();
     $id_company = $dataMaterials['id_company'];
-   
+
     if (empty($dataMaterials['reference']) || empty($dataMaterials['material']) || empty($dataMaterials['unit']) || empty($dataMaterials['cost']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
@@ -48,13 +48,13 @@ $app->post('/updateMaterials', function (Request $request, Response $response, $
         $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');
     else
         $resp = $materials;
-        
+
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
 $app->get('/deleteMaterial/{id_material}', function (Request $request, Response $response, $args) use ($materialsDao) {
-    $materials = $materialsDao -> deleteMaterial($args['id_material']);
+    $materials = $materialsDao->deleteMaterial($args['id_material']);
 
     if ($materials == null)
         $resp = array('success' => true, 'message' => 'Material eliminado correctamente');
@@ -64,5 +64,4 @@ $app->get('/deleteMaterial/{id_material}', function (Request $request, Response 
 
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');
-
 });
