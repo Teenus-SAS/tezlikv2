@@ -20,7 +20,7 @@ $app->get('/products', function (Request $request, Response $response, $args) us
 $app->post('/addProducts', function (Request $request, Response $response, $args) use ($productsDao) {
     session_start();
     $dataproducts = $request->getParsedBody();
-    $id_company = $dataproducts['id_company'];
+    $id_company = $_SESSION['id_company'];
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
     if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
@@ -32,7 +32,6 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
             $resp = array('success' => true, 'message' => 'Producto creado correctamente');
         else
             $resp = $products;
-
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -40,12 +39,12 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
 });
 
 $app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao) {
-    session_start();
-    
     $dataproducts = $request->getParsedBody();
+
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
-    if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
+
+    if (empty($dataproducts['referenceProduct']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
 

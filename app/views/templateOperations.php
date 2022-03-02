@@ -1,7 +1,7 @@
 <?php
 if (empty($_SESSION['active']))
 	header('location: ../../../');
-else if (time() - $_SESSION['time'] > 60)
+else if (time() - $_SESSION['time'] > 600)
 	header('location: ../../../');
 
 ?>

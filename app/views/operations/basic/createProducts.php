@@ -1,13 +1,4 @@
-<!-- <body class="horizontal-navbar"> -->
-<!-- Begin Page -->
-<!-- <div class="page-wrapper"> -->
-<!-- Begin Header -->
 
-<!-- Begin main content -->
-<!-- <div class="main-content"> -->
-<!-- content -->
-<!--  <div class="page-content"> -->
-<!-- page header -->
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -45,7 +36,7 @@
                                 <label for="">Nombre Producto</label>
                                 <label for="">Rentabilidad(%)</label>
                                 <label for=""></label>
-                                <input type="text" class="form-control" name="id_product" id="id_product" hidden>
+                                <input type="text" class="form-control" name="idProduct" id="idProduct" hidden>
                                 <input type="text" class="form-control" name="referenceProduct" id="referenceProduct">
                                 <input type="text" class="form-control" name="product" id="product">
                                 <input type="text" class="form-control text-center" name="profitability" id="profitability">

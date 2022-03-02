@@ -19,8 +19,9 @@ class UsersDao
   public function findAll()
   {
     session_start();
-    $connection = Connection::getInstance()->getConnection();
     $rol = $_SESSION['rol'];
+    
+    $connection = Connection::getInstance()->getConnection();
 
     if ($rol == 1)
       $stmt = $connection->prepare("SELECT * FROM users WHERE rol = 2  ORDER BY firstname");
