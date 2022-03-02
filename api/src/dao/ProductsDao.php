@@ -69,8 +69,15 @@ class ProductsDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 1;
       }
-    } else {
-      if (empty($dataProduct['img'])) {
+    }
+  }
+
+  public function updateProductByCompany($dataProduct)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    if (empty($dataProduct['img'])) {
+      try {
         $stmt = $connection->prepare("UPDATE productos SET ref = :referencia, nombre = :producto, rentabilidad = :rentabilidad 
                                     WHERE id_producto = :id_producto");
         $stmt->execute([
@@ -81,31 +88,23 @@ class ProductsDao
         ]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 2;
-      } else {
-
-        $stmt = $connection->prepare("UPDATE productos SET ref = :referencia, nombre = :producto, rentabilidad = :rentabilidad, img = :img 
-                                    WHERE id_producto = :id_producto");
-        $stmt->execute([
-          'id_producto' => $dataProduct['id_product'],
-          'referencia' => $dataProduct['referenceProduct'],
-          'producto' => ucfirst(strtolower($dataProduct['product'])),
-          'rentabilidad' => $dataProduct['profitability'],
-          'img' => $dataProduct['img']
-        ]);
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        return 2;
-<<<<<<< HEAD
       } catch (\Exception $e) {
         $message = $e->getMessage();
-=======
       }
+    } else {
+
+      $stmt = $connection->prepare("UPDATE productos SET ref = :referencia, nombre = :producto, rentabilidad = :rentabilidad, img = :img 
+                                    WHERE id_producto = :id_producto");
+      $stmt->execute([
+        'id_producto' => $dataProduct['id_product'],
+        'referencia' => $dataProduct['referenceProduct'],
+        'producto' => ucfirst(strtolower($dataProduct['product'])),
+        'rentabilidad' => $dataProduct['profitability'],
+        'img' => $dataProduct['img']
+      ]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 2;
     }
-  }
-
->>>>>>> 31f0d83a12d353404159064c9c7c00c16c0ca1dd
-
-  public function UpdateProductByCompany(){
-
   }
 
   public function deleteProduct($idProduct)
