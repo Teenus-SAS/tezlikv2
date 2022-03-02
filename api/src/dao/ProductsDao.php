@@ -138,6 +138,32 @@ class ProductsDao
     return $productsmaterials;
   }
 
+  public function insertProductsMaterialsByCompany($dataProduct, $id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
+                                    VALUES (:id_material, :id_company, :id_product, :quantity)");
+      $stmt->execute([
+        'id_material' => $dataProduct['idMaterial'],
+        'id_company' => $id_company,
+        'id_product' => $dataProduct['idProduct'],
+        'quantity' => $dataProduct['quantity']
+      ]);
+
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 1;
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+      if ($message == 'SQLSTATE[23000]')
+        $message = 'Indicador ya registrado. Ingrese una nuevos datos';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
+  }
+
   public function productsprocess($id_product)
   {
 
@@ -155,6 +181,35 @@ class ProductsDao
     $productsprocess = $stmt->fetchAll($connection::FETCH_ASSOC);
     $this->logger->notice("products", array('products' => $productsprocess));
     return $productsprocess;
+  }
+
+  public function insertProductsProcessByCompany($dataProduct, $id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("INSERT INTO products_process (id_product, id_company, id_process, 
+                                                          id_machine, enlistment_time, operation_time)
+                                    VALUES (:id_product, :id_company, :id_process, :id_machine, :enlistment_time, :operation_time)");
+      $stmt->execute([
+        'id_product' => $dataProduct['idProduct'],
+        'id_company' => $id_company,
+        'id_process' => $dataProduct['idProcess'],
+        'id_machine' => $dataProduct['idMachine'],
+        'enlistment_time' => $dataProduct['enlistmentTime'],
+        'operation_time' => $dataProduct['operationTime']
+      ]);
+
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 1;
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+      if ($message == 'SQLSTATE[23000]')
+        $message = 'Indicador ya registrado. Ingrese una nuevos datos';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
   }
 
   public function externalservices($id_product)
