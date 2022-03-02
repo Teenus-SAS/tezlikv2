@@ -72,9 +72,8 @@ $(document).ready(function() {
             })
     }
 
-
-
     /* Eliminar productos */
+
     $(document).on('click', '.deleteProducts', function(e) {
         debugger
         let id_product = this.id
@@ -88,17 +87,18 @@ $(document).ready(function() {
     /* Mensaje de exito */
 
     message = (data) => {
-            if (data.success == true) {
-                $('.cardCreateProduct').hide();
-                $("#formCreateProduct")[0].reset();
-                updateTable()
-                toastr.success(data.message)
-            } else if (data.error == true)
-                toastr.error(data.message)
-            else if (data.info == true)
-                toastr.info(data.message)
-        }
-        /* Actualizar tabla */
+        if (data.success == true) {
+            $('.cardCreateProduct').hide();
+            $("#formCreateProduct")[0].reset();
+            updateTable()
+            toastr.success(data.message)
+        } else if (data.error == true)
+            toastr.error(data.message)
+        else if (data.info == true)
+            toastr.info(data.message)
+    }
+
+    /* Actualizar tabla */
 
     function updateTable() {
         $('#tblProducts').DataTable().clear()

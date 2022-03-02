@@ -1,13 +1,3 @@
-<!-- <body class="horizontal-navbar"> -->
-<!-- Begin Page -->
-<!-- <div class="page-wrapper"> -->
-<!-- Begin Header -->
-
-<!-- Begin main content -->
-<!-- <div class="main-content"> -->
-<!-- content -->
-<!--  <div class="page-content"> -->
-<!-- page header -->
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -21,29 +11,34 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Crear Materia Prima</button>
+                    <button class="btn btn-info" id="btnNewMaterial">Nueva Materia Prima</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="page-content-wrapper mt--45 mb-5 cardCreateRawMaterials">
+<div class="page-content-wrapper mt--45 mb-5 cardRawMaterials">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx3">
-                            <label for="">Referencia</label>
-                            <label for="">Nombre Materia Prima</label>
-                            <label for="">Unidad</label>
-                            <label for="">Costo</label>
-                            <input type="text" class="form-control" id="refRawMaterial">
-                            <input type="text" class="form-control" id="nameRawMaterial">
-                            <input type="text" class="form-control text-center" id="unityRawMaterial">
-                            <input type="text" class="form-control text-center" id="costRawMaterial">
-                        </div>
+                        <form id="formMaterial">
+                            <div class="gridx5">
+                                <label for="">Referencia</label>
+                                <label for="">Nombre Materia Prima</label>
+                                <label for="">Unidad</label>
+                                <label for="">Costo</label>
+                                <label for=""></label>
+                                <input type="text" class="form-control" id="idMaterial" hidden>
+                                <input type="text" class="form-control" id="refRawMaterial">
+                                <input type="text" class="form-control" id="nameRawMaterial">
+                                <input type="text" class="form-control text-center" id="unityRawMaterial">
+                                <input type="text" class="form-control text-center" id="costRawMaterial">
+                                <button class="btn btn-info" id="btnCreateMaterial">Crear Material</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
