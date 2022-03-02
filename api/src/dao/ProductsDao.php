@@ -86,10 +86,7 @@ class ProductsDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 2;
       } catch (\Exception $e) {
-        $message = substr($e->getMessage(), 0, 15);
-
-        if ($message == 'SQLSTATE[23000]')
-          $message = 'Referencia ya registrada. Ingrese una nueva referencia';
+        $message = $e->getMessage();
 
         $error = array('info' => true, 'message' => $message);
         return $error;
