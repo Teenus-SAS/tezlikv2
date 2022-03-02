@@ -19,7 +19,7 @@ $(document).ready(function() {
     $('#btnCreateProduct').click(function(e) {
         e.preventDefault();
         let idProduct = $('#idProduct').val();
-        debugger
+
         if (idProduct == '') {
             ref = $('#referenceProduct').val();
             prod = $('#product').val();
@@ -75,7 +75,7 @@ $(document).ready(function() {
     /* Eliminar productos */
 
     $(document).on('click', '.deleteProducts', function(e) {
-        debugger
+
         let id_product = this.id
         $.get(`../../../api/deleteProduct/${id_product}`,
             function(data, textStatus, jqXHR) {

@@ -35,11 +35,11 @@ class ProductsDao
 
     if (empty($dataProduct['img'])) {
       try {
-        $stmt = $connection->prepare("INSERT INTO products (reference, product, profitability) 
-                                      VALUES(:reference, :product, :profitability)");
+        $stmt = $connection->prepare("INSERT INTO products(id_company, reference, product, profitability) 
+                                      VALUES(:id_company, :reference, :product, :profitability)");
         $stmt->execute([
-          'id_empresa' => $id_company,
-          'reference' => $dataProduct['reference'],
+          'id_company' => $id_company,
+          'reference' => $dataProduct['referenceProduct'],
           'product' => ucfirst(strtolower($dataProduct['product'])),
           'profitability' => $dataProduct['profitability']
         ]);
@@ -47,7 +47,7 @@ class ProductsDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 1;
       } catch (\Exception $e) {
-        $message = substr($e->getMessage(), 0, 15);
+        //$message = substr($e->getMessage(), 0, 15);
         $message = $e->getMessage();
         if ($message == 'SQLSTATE[23000]')
           $message = 'Reference ya registrada. Ingrese una nueva reference';
@@ -76,11 +76,11 @@ class ProductsDao
 
     if (empty($dataProduct['img'])) {
       try {
-        $stmt = $connection->prepare("UPDATE products SET ref = :reference, product = :product, profitability = :profitability 
+        $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product, profitability = :profitability 
                                     WHERE id_product = :id_product");
         $stmt->execute([
-          'id_product' => $dataProduct['id_product'],
-          'reference' => $dataProduct['reference'],
+          'id_product' => $dataProduct['idProduct'],
+          'reference' => $dataProduct['referenceProduct'],
           'product' => ucfirst(strtolower($dataProduct['product'])),
           'profitability' => $dataProduct['profitability']
         ]);

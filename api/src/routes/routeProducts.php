@@ -19,11 +19,13 @@ $app->get('/products', function (Request $request, Response $response, $args) us
 
 $app->post('/addProducts', function (Request $request, Response $response, $args) use ($productsDao) {
     session_start();
+    $id_company = $_SESSION['id_company'];
     $dataproducts = $request->getParsedBody();
-    $id_company = $dataproducts['id_company'];
+    
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
-    if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
+    
+    if (empty($dataproducts['referenceProduct']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $products = $productsDao->insertProductByCompany($dataproducts, $id_company);
@@ -44,7 +46,7 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
 
-    if (empty($dataproducts['reference']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
+    if (empty($dataproducts['referenceProduct']) || empty($dataproducts['product']) || empty($dataproducts['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
 
