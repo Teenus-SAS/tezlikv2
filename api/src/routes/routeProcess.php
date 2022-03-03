@@ -19,13 +19,13 @@ $app->get('/process/{id_company}', function (Request $request, Response $respons
 
 $app->post('/addProcess', function (Request $request, Response $response, $args) use ($processDao) {
     session_start();
-    $dataprocess = $request->getParsedBody();
-    $id_company = $dataprocess['id_company'];
+    $dataProcess = $request->getParsedBody();
+    $id_company = $_SESSION['id_company'];
 
-    if (empty($dataprocess['process']))
+    if (empty($dataProcess['process']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
-        $process = $processDao->insertProcessByCompany($dataprocess, $id_company);
+        $process = $processDao->insertProcessByCompany($dataProcess, $id_company);
 
         if ($process == 2)
             $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
@@ -39,12 +39,12 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
 
 $app->post('/updateProcess', function (Request $request, Response $response, $args) use ($processDao) {
     session_start();
-    $dataprocess = $request->getParsedBody();
+    $dataProcess = $request->getParsedBody();
 
-    if (empty($dataprocess['process']))
+    if (empty($dataProcess['process']))
         $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
     else {
-        $process = $processDao->updateProcessByCompany($dataprocess);
+        $process = $processDao->updateProcessByCompany($dataProcess);
 
         if ($process == 2)
             $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');

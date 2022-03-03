@@ -34,8 +34,9 @@ class ProcessDao
     $connection = Connection::getInstance()->getConnection();
 
     try {
-      $stmt = $connection->prepare("INSERT INTO process (process) VALUES (:process)");
+      $stmt = $connection->prepare("INSERT INTO process (id_company ,process) VALUES (:id_company ,:process)");
       $stmt->execute([
+        'id_company'  => $id_company,
         'process' => ucfirst(strtolower($dataProcess['process']))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

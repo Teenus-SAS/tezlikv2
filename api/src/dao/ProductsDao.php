@@ -60,7 +60,7 @@ class ProductsDao
         VALUES(:reference, :product, :profitability, :img)");
       $stmt->execute([
         'id_company' => $id_company,
-        'reference' => $dataProduct['reference'],
+        'reference' => $dataProduct['referenceProduct'],
         'product' => ucfirst(strtolower($dataProduct['product'])),
         'profitability' => $dataProduct['profitability'],
         'img' => $dataProduct['img']
@@ -70,7 +70,7 @@ class ProductsDao
     }
   }
 
-  public function updateProductByCompany($dataProduct)
+  public function updateProduct($dataProduct)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -94,8 +94,8 @@ class ProductsDao
       $stmt = $connection->prepare("UPDATE products SET ref = :reference, product = :product, profitability = :profitability, img = :img 
                                     WHERE id_product = :id_product");
       $stmt->execute([
-        'id_product' => $dataProduct['id_product'],
-        'reference' => $dataProduct['reference'],
+        'id_product' => $dataProduct['idProduct'],
+        'reference' => $dataProduct['referenceProduct'],
         'product' => ucfirst(strtolower($dataProduct['product'])),
         'profitability' => $dataProduct['profitability'],
         'img' => $dataProduct['img']
@@ -121,9 +121,9 @@ class ProductsDao
     }
   }
 
+  // PRODUCTOS MATERIA PRIMA
   public function productsmaterials($id_product)
   {
-
     session_start();
     $id_company = $_SESSION['id_company'];
 
@@ -156,14 +156,52 @@ class ProductsDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-      if ($message == 'SQLSTATE[23000]')
-        $message = 'Indicador ya registrado. Ingrese una nuevos datos';
 
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
   }
 
+  public function updateProductsMaterials($dataProduct)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("UPDATE products_materials SET id_material = :id_material, id_product = :id_product, quantity = :quantity
+                                    WHERE id_product_material = :id_product_material");
+      $stmt->execute([
+        'id_product_material' => $dataProduct['idProductMaterial'],
+        'id_material' => $dataProduct['idMaterial'],
+        'id_product' => $dataProduct['idProduct'],
+        'quantity' => $dataProduct['quantity']
+      ]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 2;
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
+  }
+
+  public function deleteProductMaterial($id_product_material)
+  {
+    session_start();
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT * FROM products_materials WHERE id_product_material = :id_product_material");
+    $stmt->execute(['id_product_material' => $id_product_material]);
+    $rows = $stmt->rowCount();
+
+    if ($rows > 0) {
+      $stmt = $connection->prepare("DELETE FROM products_materials WHERE id_product_material = :id_product_material");
+      $stmt->execute(['id_product_material' => $id_product_material]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    }
+  }
+
+  // PRODUCTOS PROCESOS
   public function productsprocess($id_product)
   {
 
@@ -204,11 +242,51 @@ class ProductsDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-      if ($message == 'SQLSTATE[23000]')
-        $message = 'Indicador ya registrado. Ingrese una nuevos datos';
 
       $error = array('info' => true, 'message' => $message);
       return $error;
+    }
+  }
+
+  public function updateProductsProcess($dataProduct)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("UPDATE products_process SET id_product = :id_product, id_process = :id_process, id_machine = :id_machine, enlistment_time = :enlistment_time, operation_time = :operation_time
+                                    WHERE id_product_process = :id_product_process");
+      $stmt->execute([
+        'id_product_process' => $dataProduct['idProductProcess'],
+        'id_product' => $dataProduct['idProduct'],
+        'id_process' => $dataProduct['idProcess'],
+        'id_machine' => $dataProduct['idMachine'],
+        'enlistment_time' => $dataProduct['enlistmentTime'],
+        'operation_time' => $dataProduct['operationTime']
+      ]);
+
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 2;
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
+  }
+
+  public function deleteProductProcess($id_product_process)
+  {
+    session_start();
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT * FROM products_process WHERE id_product_process = :id_product_process");
+    $stmt->execute(['id_product_process' => $id_product_process]);
+    $rows = $stmt->rowCount();
+
+    if ($rows > 0) {
+      $stmt = $connection->prepare("DELETE FROM products_process WHERE id_product_process = :id_product_process");
+      $stmt->execute(['id_product_process' => $id_product_process]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }
 

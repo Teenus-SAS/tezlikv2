@@ -34,14 +34,14 @@ class MachinesDao
     $connection = Connection::getInstance()->getConnection();
 
     try {
-      $stmt = $connection->prepare("INSERT INTO machines (machine, cost, years_depreciation) 
-                                    VALUES(:machine, :cost, :years_depreciation)");
+      $stmt = $connection->prepare("INSERT INTO machines (id_company ,machine, cost, years_depreciation, minute_depreciation) 
+                                    VALUES(:id_company ,:machine, :cost, :years_depreciation, :minute_depreciation)");
       $stmt->execute([
         'id_company' => $id_company,
-        'machine' => ucfirst(strtolower($dataMachine['machine'])),
-        'cost' => $dataMachine['cost'],
-        'years_depreciation' => $dataMachine['years_depreciation'],
-        //'minute_depreciation' => $dataMachine['minute_depreciation']
+        'machine' => ucfirst(strtolower($dataMachine['nameMachine'])),
+        'cost' => $dataMachine['priceMachine'],
+        'years_depreciation' => $dataMachine['depreciationMachine'],
+        'minute_depreciation' => $dataMachine['depreciationMinute']
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -63,14 +63,14 @@ class MachinesDao
 
     try {
       $stmt = $connection->prepare("UPDATE machines SET machine = :machine, cost = :cost, 
-                                    years_depreciation = :years_depreciation     
+                                    years_depreciation = :years_depreciation, minute_depreciation = :minute_depreciation     
                                     WHERE id_machine = :id_machine");
       $stmt->execute([
-        'id_machine' => $dataMachine['id_machine'],
-        'machine' => ucfirst(strtolower($dataMachine['machine'])),
-        'cost' => $dataMachine['cost'],
-        'years_depreciation' => $dataMachine['years_depreciation'],
-        //'minute_depreciation' => $dataMachine['minute_depreciation']
+        'id_machine' => $dataMachine['idMachine'],
+        'machine' => ucfirst(strtolower($dataMachine['nameMachine'])),
+        'cost' => $dataMachine['priceMachine'],
+        'years_depreciation' => $dataMachine['depreciationMachine'],
+        'minute_depreciation' => $dataMachine['depreciationMinute']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

@@ -19,14 +19,14 @@ $app->get('/materials', function (Request $request, Response $response, $args) u
 
 $app->post('/addMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
     session_start();
-    $dataMaterials = $request->getParsedBody();
-    $id_company = $dataMaterials['id_company'];
+    $dataMaterial = $request->getParsedBody();
+    $id_company = $_SESSION['id_company'];
 
-    if (empty($dataMaterials['reference']) || empty($dataMaterials['material']) || empty($dataMaterials['unit']) || empty($dataMaterials['cost']))
+    if (empty($dataMaterial['refRawMaterial']) || empty($dataMaterial['nameRawMaterial']) || empty($dataMaterial['unityRawMaterial']) || empty($dataMaterial['costRawMaterial']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
 
-        $materials = $materialsDao->insertMaterialsByCompany($dataMaterials, $id_company);
+        $materials = $materialsDao->insertMaterialsByCompany($dataMaterial, $id_company);
 
         if ($materials == 1)
             $resp = array('success' => true, 'message' => 'Materia Prima creada correctamente');
@@ -40,9 +40,9 @@ $app->post('/addMaterials', function (Request $request, Response $response, $arg
 
 $app->post('/updateMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
     session_start();
-    $dataMaterials = $request->getParsedBody();
+    $dataMaterial = $request->getParsedBody();
 
-    $materials = $materialsDao->updateMaterialsByCompany($dataMaterials);
+    $materials = $materialsDao->updateMaterialsByCompany($dataMaterial);
 
     if ($materials == 2)
         $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');

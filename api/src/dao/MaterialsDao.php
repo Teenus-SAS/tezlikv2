@@ -29,17 +29,18 @@ class MaterialsDao
     return $materials;
   }
 
-  public function insertMaterialsByCompany($dataMaterials, $id_company)
+  public function insertMaterialsByCompany($dataMaterial, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
     try {
-      $stmt = $connection->prepare("INSERT INTO materials (reference, material, unit, cost) 
-                                      VALUES(:reference, :material, :unit, :cost)");
+      $stmt = $connection->prepare("INSERT INTO materials (id_company ,reference, material, unit, cost) 
+                                      VALUES(:id_company ,:reference, :material, :unit, :cost)");
       $stmt->execute([
-        'reference' => $dataMaterials['reference'],
-        'material' => ucfirst(strtolower($dataMaterials['material'])),
-        'unit' => $dataMaterials['unit'],
-        'cost' => $dataMaterials['cost']
+        'id_company' => $id_company,
+        'reference' => $dataMaterial['refRawMaterial'],
+        'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
+        'unit' => $dataMaterial['unityRawMaterial'],
+        'cost' => $dataMaterial['costRawMaterial']
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -55,7 +56,7 @@ class MaterialsDao
     }
   }
 
-  public function updateMaterialsByCompany($dataMaterials)
+  public function updateMaterialsByCompany($dataMaterial)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -63,11 +64,11 @@ class MaterialsDao
       $stmt = $connection->prepare("UPDATE materials SET reference = :reference, material = :material, unit = :unit, cost = :cost 
                                     WHERE id_material = :id_material");
       $stmt->execute([
-        'id_material' => $dataMaterials['id_material'],
-        'reference' => $dataMaterials['reference'],
-        'material' => ucfirst(strtolower($dataMaterials['material'])),
-        'unit' => $dataMaterials['unit'],
-        'cost' => $dataMaterials['cost']
+        'id_material' => $dataMaterial['idMaterial'],
+        'reference' => $dataMaterial['refRawMaterial'],
+        'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
+        'unit' => $dataMaterial['unityRawMaterial'],
+        'cost' => $dataMaterial['costRawMaterial']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

@@ -19,14 +19,14 @@ $app->get('/machines', function (Request $request, Response $response, $args) us
 
 $app->post('/addMachines', function (Request $request, Response $response, $args) use ($machinesDao) {
     session_start();
-    $datamachines = $request->getParsedBody();
-    $id_company = $datamachines['id_company'];
+    $dataMachine = $request->getParsedBody();
+    $id_company = $_SESSION['id_company'];
 
-    if (empty($datamachines['machine']) || empty($datamachines['cost']) || empty($datamachines['years_depreciation']))
+    if (empty($dataMachine['nameMachine']) || empty($dataMachine['priceMachine']) || empty($dataMachine['depreciationMachine']) || empty($dataMachine['depreciationMinute']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
 
-        $machines = $machinesDao->insertMachinesByCompany($datamachines, $id_company);
+        $machines = $machinesDao->insertMachinesByCompany($dataMachine, $id_company);
 
         if ($machines == 1)
             $resp = array('success' => true, 'message' => 'Maquina creada correctamente');
@@ -39,14 +39,13 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
 });
 
 $app->post('/updateMachines', function (Request $request, Response $response, $args) use ($machinesDao) {
-    session_start();
-    $datamachines = $request->getParsedBody();
+    $dataMachine = $request->getParsedBody();
 
-    if (empty($datamachines['machine']) || empty($datamachines['cost']) || empty($datamachines['years_depreciation']) || empty($datamachines['minute_depreciation']))
+    if (empty($dataMachine['nameMachine']) || empty($dataMachine['priceMachine']) || empty($dataMachine['depreciationMachine']) || empty($dataMachine['depreciationMinute']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
 
-        $machines = $machinesDao->updateMachinesByCompany($datamachines);
+        $machines = $machinesDao->updateMachinesByCompany($dataMachine);
 
         if ($machines == 2)
             $resp = array('success' => true, 'message' => 'Maquina actualizada correctamente');
