@@ -42,13 +42,13 @@ class ProcessDao
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;
     } catch (\Exception $e) {
-      $message = substr($e->getMessage(), 0, 15);
+      $message = $e->getMessage();
+        
+        if ($e->getCode() == 23000)
+          $message = 'Proceso duplicado. Ingrese una nuevo proceso';
 
-      if ($message == 'SQLSTATE[23000]')
-        $message = 'Proceso ya registrado. Ingrese una nuevo proceso';
-
-      $error = array('info' => true, 'message' => $message);
-      return $error;
+        $error = array('info' => true, 'message' => $message);
+        return $error;
     }
   }
 

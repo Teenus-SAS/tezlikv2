@@ -4,13 +4,19 @@ $(document).ready(function() {
 
     $('.cardRawMaterials').hide();
 
-    /* Abriri panel para crear materiales */
+    /* Abrir panel para crear materiales */
 
     $('#btnNewMaterial').click(function(e) {
         e.preventDefault();
         $('#idMaterial').val('');
         $('.cardRawMaterials').toggle(800);
         $('#btnCreateMaterial').html('Crear');
+
+        $('#idMaterial').val('');
+        $('#refRawMaterial').val('');
+        $('#nameRawMaterial').val('');
+        $('#unityRawMaterial').val('');
+        $('#costRawMaterial').val('');
     });
 
     /* Crear producto */
@@ -30,9 +36,9 @@ $(document).ready(function() {
                 return false
             }
 
-            Material = $('#formMaterial').serialize();
+            material = $('#formCreateMaterial').serialize();
 
-            $.post("../../../api/addMaterials", Material,
+            $.post("../../../api/addMaterials", material,
                 function(data, textStatus, jqXHR) {
                     message(data)
                 },
@@ -44,19 +50,21 @@ $(document).ready(function() {
 
     /* Actualizar productos */
 
-    $(document).on('click', '.updateMaterials', function(e) {
-        $('.cardMaterial').show(800);
+    $(document).on('click', '.updateRawMaterials', function(e) {
+
+        $('.cardRawMaterials').show(800);
 
         $('#idMaterial').val('');
-        $('#btnCreateMaterial').html('Actualizar Materia Prima');
+        $('#btnCreateMaterial').html('Actualizar');
 
         let row = $(this).parent().parent()[0]
-        let data = tblMaterials.fnGetData(row)
+        let data = tblRawMaterials.fnGetData(row)
 
         $('#idMaterial').val(data.id_material);
-        $('#referenceMaterial').val(data.reference);
-        $('#material').val(data.product);
-        $('#profitability').val(data.profitability);
+        $('#refRawMaterial').val(data.reference);
+        $('#nameRawMaterial').val(data.material);
+        $('#unityRawMaterial').val(data.unit);
+        $('#costRawMaterial').val(data.cost);
 
         $('html, body').animate({
             scrollTop: 0
@@ -64,6 +72,7 @@ $(document).ready(function() {
     })
 
     updateMaterial = () => {
+        debugger
         let data = $('#formCreateMaterial').serialize();
         $.post("../../../api/updateMaterials", data,
             function(data, textStatus, jqXHR) {
@@ -73,7 +82,7 @@ $(document).ready(function() {
 
     /* Eliminar productos */
 
-    $(document).on('click', '.deleteMaterials', function(e) {
+    $(document).on('click', '.deleteRawMaterials', function(e) {
         debugger
         let id_material = this.id
         $.get(`../../../api/deleteMaterial/${id_material}`,
@@ -86,14 +95,23 @@ $(document).ready(function() {
 
     message = (data) => {
         if (data.success == true) {
-            $('.cardCreateProduct').hide();
-            $("#formCreateProduct")[0].reset();
-            updateTable()
+            $('.cardRawMaterials').hide(800);
+            $("#formCreateMaterial")[0].reset();
             toastr.success(data.message)
+            updateTable()
+            return false
         } else if (data.error == true)
             toastr.error(data.message)
         else if (data.info == true)
             toastr.info(data.message)
     }
+
+    /* Actualizar tabla */
+
+    function updateTable() {
+        $('#tblRawMaterials').DataTable().clear()
+        $('#tblRawMaterials').DataTable().ajax.reload()
+    }
+
 
 });

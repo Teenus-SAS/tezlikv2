@@ -11,6 +11,11 @@ $(document).ready(function() {
         $('#idProduct').val('');
         $('.cardCreateProduct').toggle(800);
         $('#btnCreateProduct').html('Crear Producto');
+
+        $('#idProduct').val('');
+        $('#referenceProduct').val('');
+        $('#product').val('');
+        $('#profitability').val('');
     });
 
 
@@ -75,7 +80,6 @@ $(document).ready(function() {
     /* Eliminar productos */
 
     $(document).on('click', '.deleteProducts', function(e) {
-
         let id_product = this.id
         $.get(`../../../api/deleteProduct/${id_product}`,
             function(data, textStatus, jqXHR) {
@@ -88,10 +92,11 @@ $(document).ready(function() {
 
     message = (data) => {
         if (data.success == true) {
-            $('.cardCreateProduct').hide();
+            $('.cardCreateProduct').hide(800);
             $("#formCreateProduct")[0].reset();
             updateTable()
             toastr.success(data.message)
+                //return false
         } else if (data.error == true)
             toastr.error(data.message)
         else if (data.info == true)
