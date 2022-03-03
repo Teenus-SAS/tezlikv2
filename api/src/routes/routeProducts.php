@@ -93,11 +93,7 @@ $app->post('/addproductsmaterials', function (Request $request, Response $respon
         $productMaterials = $productsDao->insertProductsMaterialsByCompany($dataProduct, $id_company);
 
         if ($productMaterials == 1)
-<<<<<<< HEAD
-            $resp = array('success' => true, 'message' => 'Materia prima asignada correctamente');
-=======
             $resp = array('success' => true, 'message' => 'Materia prima asociada correctamente');
->>>>>>> ad0bc14040475ee731b05e773572381583aa5c3c
         else
             $resp = $productMaterials;
     }
@@ -153,13 +149,8 @@ $app->post('/addproductsprocess', function (Request $request, Response $response
         //$productProcess = $productsDao->insertproductsprocessByCompany($dataProduct);
         $productProcess = $productsDao->insertProductsProcessByCompany($dataProduct, $id_company);
 
-<<<<<<< HEAD
         if ($productProcess == 1)
             $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
-=======
-        if ($productMaterials == 1)
-            $resp = array('success' => true, 'message' => 'Proceso asociado correctamente');
->>>>>>> ad0bc14040475ee731b05e773572381583aa5c3c
         else
             $resp = $productProcess;
     }

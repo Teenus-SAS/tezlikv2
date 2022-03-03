@@ -157,10 +157,6 @@ class ProductsDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-<<<<<<< HEAD
-
-=======
->>>>>>> ad0bc14040475ee731b05e773572381583aa5c3c
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
@@ -183,7 +179,6 @@ class ProductsDao
       return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
@@ -246,10 +241,6 @@ class ProductsDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-<<<<<<< HEAD
-
-=======
->>>>>>> ad0bc14040475ee731b05e773572381583aa5c3c
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
@@ -275,7 +266,6 @@ class ProductsDao
       return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
