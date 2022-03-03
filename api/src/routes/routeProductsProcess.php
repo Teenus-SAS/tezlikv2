@@ -8,13 +8,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 // PRODUCTOS PROCESOS
-$app->get('/productsprocess/{id_product}', function (Request $request, Response $response, $args) use ($productsProcessDao) {
+$app->get('/productsProcess/{id_product}', function (Request $request, Response $response, $args) use ($productsProcessDao) {
     $productProcess = $productsProcessDao->productsprocess($args['id_product']);
     $response->getBody()->write(json_encode($productProcess, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addproductsprocess', function (Request $request, Response $response, $args) use ($productsProcessDao) {
+$app->post('/addProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProductProcess = $request->getParsedBody();
@@ -26,7 +26,7 @@ $app->post('/addproductsprocess', function (Request $request, Response $response
         $productProcess = $productsProcessDao->insertProductsProcessByCompany($dataProductProcess, $id_company);
 
         if ($productProcess == 1)
-            $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
+            $resp = array('success' => true, 'message' => 'Proceso asignado correctamente');
         else
             $resp = $productProcess;
     }
@@ -34,7 +34,7 @@ $app->post('/addproductsprocess', function (Request $request, Response $response
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateproductsprocess', function (Request $request, Response $response, $args) use ($productsProcessDao) {
+$app->post('/updateProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao) {
     $dataProductProcess = $request->getParsedBody();
 
     if (empty($dataProductProcess['idProduct'] || empty($dataProductProcess['idProcess']) || empty($dataProductProcess['idMachine']) || empty($dataProductProcess['enlistmentTime']) || empty($dataProductProcess['operationTime'])))
@@ -43,7 +43,7 @@ $app->post('/updateproductsprocess', function (Request $request, Response $respo
         $productProcess = $productsProcessDao->updateProductsProcess($dataProductProcess);
 
         if ($productProcess == 2)
-            $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
+            $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');
         else
             $resp = $productProcess;
     }
@@ -51,7 +51,7 @@ $app->post('/updateproductsprocess', function (Request $request, Response $respo
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteproductprocess/{id_product_process}', function (Request $request, Response $response, $args) use ($productsProcessDao) {
+$app->get('/deleteProductProcess/{id_product_process}', function (Request $request, Response $response, $args) use ($productsProcessDao) {
     $product = $productsProcessDao->deleteProductProcess($args['id_product_process']);
     if ($product == null)
         $resp = array('success' => true, 'message' => 'Proceso eliminado correctamente');
