@@ -1,4 +1,3 @@
-
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -28,17 +27,23 @@
                         <h5 class="card-title">Crear Máquina</h5>
                     </div>
                     <div class="card-body">
-                        <div class="gridx3">
-                            <label for="">Nombre</label>
-                            <label for="">Precio</label>
-                            <label for="">Valor Residual</label>
-                            <label for="">Años de Depreciación</label>
-                            <label for="">Depreciación por Minuto</label>
-                            <input type="text" class="form-control" id="nameMachine">
-                            <input type="text" class="form-control" id="priceMachine">
-                            <input type="text" class="form-control text-center" id="depreciationMachine">
-                            <input type="text" class="form-control text-center" id="depreciationMinute">
-                        </div>
+                        <form id="formMachine">
+                            <div class="gridx6">
+                                <label for="">Nombre</label>
+                                <label for="">Precio</label>
+                                <label for="">Valor Residual</label>
+                                <label for="">Años Depreciación</label>
+                                <label for="">Depreciación x Min</label>
+                                <label></label>
+                                <input type="text" class="form-control" id="idMachine" hidden>
+                                <input type="text" class="form-control" id="machine">
+                                <input type="text" class="form-control money text-center" id="price">
+                                <input type="text" class="form-control money text-center" id="residualValue">
+                                <input type="text" class="form-control number text-center" id="depreciationYears">
+                                <input type="text" class="form-control money text-center" id="depreciationMinute" disabled>
+                                <button class="btn btn-primary" id="btnCreateMachine">Crear Máquina</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -62,38 +67,13 @@
 
                             </table>
                         </div>
-                        <!-- <div class="my-3 d-flex justify-content-end">
-                            <ul class="pagination  flat-rounded-pagination">
-                                <li class="page-item disabled">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Previous" tabindex="-1" aria-disabled="true">
-                                        <i class="bx bx-chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">1</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">2</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Next">
-                                        <i class="bx bx-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- </div>
-        </div>
-    </div> -->
 
 <script src="../../app/js/machines/tblMachines.js"></script>
 <script src="../../app/js/machines/machines.js"></script>
+<script src="../../app/js/global/number.js"></script>

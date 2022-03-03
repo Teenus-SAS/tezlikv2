@@ -50,3 +50,9 @@
     grid-column-gap: 1em;
     text-align: center;
 }
+
+.gridx6 {
+    display: grid;
+    grid-template-columns: 1fr 140px 120px 120px 150px 120px;
+    grid-column-gap: 1em;
+}
