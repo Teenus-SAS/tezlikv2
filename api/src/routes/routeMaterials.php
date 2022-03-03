@@ -19,10 +19,10 @@ $app->get('/materials', function (Request $request, Response $response, $args) u
 
 $app->post('/addMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
     session_start();
+    $id_company = $_SESSION['id_company'];
     $dataMaterials = $request->getParsedBody();
-    $id_company = $dataMaterials['id_company'];
-
-    if (empty($dataMaterials['reference']) || empty($dataMaterials['material']) || empty($dataMaterials['unit']) || empty($dataMaterials['cost']))
+    
+    if (empty($dataMaterials['refRawMaterial']) || empty($dataMaterials['nameRawMaterial']) || empty($dataMaterials['unityRawMaterial']) || empty($dataMaterials['costRawMaterial']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
 
@@ -39,9 +39,7 @@ $app->post('/addMaterials', function (Request $request, Response $response, $arg
 });
 
 $app->post('/updateMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
-    session_start();
     $dataMaterials = $request->getParsedBody();
-
     $materials = $materialsDao->updateMaterialsByCompany($dataMaterials);
 
     if ($materials == 2)

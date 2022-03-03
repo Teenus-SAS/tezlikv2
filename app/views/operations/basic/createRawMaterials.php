@@ -24,18 +24,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="formMaterial">
+                        <form id="formCreateMaterial">
                             <div class="gridx5">
                                 <label for="">Referencia</label>
                                 <label for="">Nombre Materia Prima</label>
                                 <label for="">Unidad</label>
                                 <label for="">Costo</label>
                                 <label for=""></label>
-                                <input type="text" class="form-control" id="idMaterial" hidden>
-                                <input type="text" class="form-control" id="refRawMaterial">
-                                <input type="text" class="form-control" id="nameRawMaterial">
-                                <input type="text" class="form-control text-center" id="unityRawMaterial">
-                                <input type="text" class="form-control text-center" id="costRawMaterial">
+                                <input type="text" class="form-control" id="idMaterial" name="idMaterial" hidden>
+                                <input type="text" class="form-control" id="refRawMaterial" name="refRawMaterial">
+                                <input type="text" class="form-control" id="nameRawMaterial" name="nameRawMaterial">
+                                <input type="text" class="form-control text-center" id="unityRawMaterial" name="unityRawMaterial">
+                                <input type="text" class="form-control text-center" id="costRawMaterial" name="costRawMaterial">
                                 <button class="btn btn-info" id="btnCreateMaterial">Crear Material</button>
                             </div>
                         </form>

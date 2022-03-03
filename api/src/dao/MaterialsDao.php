@@ -33,13 +33,14 @@ class MaterialsDao
   {
     $connection = Connection::getInstance()->getConnection();
     try {
-      $stmt = $connection->prepare("INSERT INTO materials (reference, material, unit, cost) 
-                                      VALUES(:reference, :material, :unit, :cost)");
+      $stmt = $connection->prepare("INSERT INTO materials (id_company, reference, material, unit, cost) 
+                                      VALUES(:id_company, :reference, :material, :unit, :cost)");
       $stmt->execute([
-        'reference' => $dataMaterials['reference'],
-        'material' => ucfirst(strtolower($dataMaterials['material'])),
-        'unit' => $dataMaterials['unit'],
-        'cost' => $dataMaterials['cost']
+        'id_company' => $id_company,
+        'reference' => $dataMaterials['refRawMaterial'],
+        'material' => ucfirst(strtolower($dataMaterials['nameRawMaterial'])),
+        'unit' => $dataMaterials['unityRawMaterial'],
+        'cost' => $dataMaterials['costRawMaterial']
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -63,20 +64,16 @@ class MaterialsDao
       $stmt = $connection->prepare("UPDATE materials SET reference = :reference, material = :material, unit = :unit, cost = :cost 
                                     WHERE id_material = :id_material");
       $stmt->execute([
-        'id_material' => $dataMaterials['id_material'],
-        'reference' => $dataMaterials['reference'],
-        'material' => ucfirst(strtolower($dataMaterials['material'])),
-        'unit' => $dataMaterials['unit'],
-        'cost' => $dataMaterials['cost']
+        'id_material' => $dataMaterials['idMaterial'],
+        'reference' => $dataMaterials['refRawMaterial'],
+        'material' => ucfirst(strtolower($dataMaterials['nameRawMaterial'])),
+        'unit' => $dataMaterials['unityRawMaterial'],
+        'cost' => $dataMaterials['costRawMaterial']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;
     } catch (\Exception $e) {
-      $message = substr($e->getMessage(), 0, 15);
-
-      if ($message == 'SQLSTATE[23000]')
-        $message = 'Reference ya registrada. Ingrese una nueva reference';
-
+      $message = $e->getMessage(); 
       $error = array('info' => true, 'message' => $message);
       return $error;
     }

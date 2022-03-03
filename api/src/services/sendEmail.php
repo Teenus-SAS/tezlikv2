@@ -1,7 +1,7 @@
 <?php
 
-namespace tezlikv2\dao;
 namespace tezlikv2\services;
+namespace tezlikv2\dao;
 
 use tezlikv2\Constants\Constants;
 use Monolog\Handler\RotatingFileHandler;

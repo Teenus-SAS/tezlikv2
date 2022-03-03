@@ -47,9 +47,9 @@ class ProductsDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 1;
       } catch (\Exception $e) {
-        
+
         $message = $e->getMessage();
-        
+
         if ($e->getCode() == 23000)
           $message = 'Referencia duplicada. Ingrese una nueva referencia';
 
@@ -157,9 +157,6 @@ class ProductsDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-      if ($message == 'SQLSTATE[23000]')
-        $message = 'Indicador ya registrado. Ingrese una nuevos datos';
-
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
@@ -205,9 +202,6 @@ class ProductsDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-      if ($message == 'SQLSTATE[23000]')
-        $message = 'Indicador ya registrado. Ingrese una nuevos datos';
-
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
