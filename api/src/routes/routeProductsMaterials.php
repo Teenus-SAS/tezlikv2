@@ -7,16 +7,16 @@ $productsMaterialsDao = new ProductsMaterialsDao();
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-$app->get('/productsmaterials/{id_product}', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
+$app->get('/productsMaterials/{id_product}', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
     $productMaterials = $productsMaterialsDao->productsmaterials($args['id_product']);
     $response->getBody()->write(json_encode($productMaterials, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addproductsmaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
+$app->post('/addProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
     session_start();
-    $dataProductMaterial = $request->getParsedBody();
     $id_company = $_SESSION['id_company'];
+    $dataProductMaterial = $request->getParsedBody();
 
     if (empty($dataProductMaterial['idMaterial']) || empty($dataProductMaterial['idProduct'] || empty($dataProductMaterial['quantity'])))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
@@ -33,7 +33,7 @@ $app->post('/addproductsmaterials', function (Request $request, Response $respon
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateproductsmaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
+$app->post('/updateProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
     $dataProductMaterial = $request->getParsedBody();
 
     if (empty($dataProductMaterial['idMaterial']) || empty($dataProductMaterial['idProduct'] || empty($dataProductMaterial['quantity'])))
@@ -50,7 +50,7 @@ $app->post('/updateproductsmaterials', function (Request $request, Response $res
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteproductmaterial/{id_product_material}', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
+$app->get('/deleteProductMaterial/{id_product_material}', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
     $product = $productsMaterialsDao->deleteProductMaterial($args['id_product_material']);
     if ($product == null)
         $resp = array('success' => true, 'message' => 'Materia prima eliminada correctamente');
