@@ -43,16 +43,16 @@ class ProcessDao
       return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-        
-        if ($e->getCode() == 23000)
-          $message = 'Proceso duplicado. Ingrese una nuevo proceso';
 
-        $error = array('info' => true, 'message' => $message);
-        return $error;
+      if ($e->getCode() == 23000)
+        $message = 'Proceso duplicado. Ingrese una nuevo proceso';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
     }
   }
 
-  public function updateProcessByCompany($dataProcess)
+  public function updateProcess($dataProcess)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -60,7 +60,7 @@ class ProcessDao
       $stmt = $connection->prepare("UPDATE process SET process = :process WHERE id_process = :id_process");
       $stmt->execute([
         'process' => ucfirst(strtolower($dataProcess['process'])),
-        'id_process' => $dataProcess['id_process']
+        'id_process' => $dataProcess['idProcess']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

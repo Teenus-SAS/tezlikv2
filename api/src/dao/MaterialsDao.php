@@ -33,7 +33,6 @@ class MaterialsDao
   {
     $connection = Connection::getInstance()->getConnection();
     try {
-<<<<<<< HEAD
       $stmt = $connection->prepare("INSERT INTO materials (id_company ,reference, material, unit, cost) 
                                       VALUES(:id_company ,:reference, :material, :unit, :cost)");
       $stmt->execute([
@@ -42,32 +41,22 @@ class MaterialsDao
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
         'unit' => $dataMaterial['unityRawMaterial'],
         'cost' => $dataMaterial['costRawMaterial']
-=======
-      $stmt = $connection->prepare("INSERT INTO materials (id_company, reference, material, unit, cost) 
-                                      VALUES(:id_company, :reference, :material, :unit, :cost)");
-      $stmt->execute([
-        'id_company' => $id_company,
-        'reference' => $dataMaterials['refRawMaterial'],
-        'material' => ucfirst(strtolower($dataMaterials['nameRawMaterial'])),
-        'unit' => $dataMaterials['unityRawMaterial'],
-        'cost' => $dataMaterials['costRawMaterial']
->>>>>>> ad0bc14040475ee731b05e773572381583aa5c3c
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-        
-        if ($e->getCode() == 23000)
-          $message = 'Referencia duplicada. Ingrese una nueva referencia';
 
-        $error = array('info' => true, 'message' => $message);
-        return $error;
+      if ($e->getCode() == 23000)
+        $message = 'Referencia duplicada. Ingrese una nueva referencia';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
     }
   }
 
-  public function updateMaterialsByCompany($dataMaterial)
+  public function updateMaterial($dataMaterial)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -75,24 +64,16 @@ class MaterialsDao
       $stmt = $connection->prepare("UPDATE materials SET reference = :reference, material = :material, unit = :unit, cost = :cost 
                                     WHERE id_material = :id_material");
       $stmt->execute([
-<<<<<<< HEAD
         'id_material' => $dataMaterial['idMaterial'],
         'reference' => $dataMaterial['refRawMaterial'],
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
         'unit' => $dataMaterial['unityRawMaterial'],
         'cost' => $dataMaterial['costRawMaterial']
-=======
-        'id_material' => $dataMaterials['idMaterial'],
-        'reference' => $dataMaterials['refRawMaterial'],
-        'material' => ucfirst(strtolower($dataMaterials['nameRawMaterial'])),
-        'unit' => $dataMaterials['unityRawMaterial'],
-        'cost' => $dataMaterials['costRawMaterial']
->>>>>>> ad0bc14040475ee731b05e773572381583aa5c3c
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;
     } catch (\Exception $e) {
-      $message = $e->getMessage(); 
+      $message = $e->getMessage();
       $error = array('info' => true, 'message' => $message);
       return $error;
     }

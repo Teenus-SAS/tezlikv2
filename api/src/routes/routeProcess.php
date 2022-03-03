@@ -44,7 +44,7 @@ $app->post('/updateProcess', function (Request $request, Response $response, $ar
     if (empty($dataProcess['process']))
         $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
     else {
-        $process = $processDao->updateProcessByCompany($dataProcess);
+        $process = $processDao->updateProcess($dataProcess);
 
         if ($process == 2)
             $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');

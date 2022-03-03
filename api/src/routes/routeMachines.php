@@ -22,7 +22,7 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
     $dataMachine = $request->getParsedBody();
     $id_company = $_SESSION['id_company'];
 
-    if (empty($dataMachine['nameMachine']) || empty($dataMachine['priceMachine']) || empty($dataMachine['depreciationMachine']) || empty($dataMachine['depreciationMinute']))
+    if (empty($dataMachine['nameMachine']) || empty($dataMachine['costMachine']) || empty($dataMachine['yearsDepreciation']) || empty($dataMachine['residualValue']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
 
@@ -41,11 +41,11 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
 $app->post('/updateMachines', function (Request $request, Response $response, $args) use ($machinesDao) {
     $dataMachine = $request->getParsedBody();
 
-    if (empty($dataMachine['nameMachine']) || empty($dataMachine['priceMachine']) || empty($dataMachine['depreciationMachine']) || empty($dataMachine['depreciationMinute']))
+    if (empty($dataMachine['nameMachine']) || empty($dataMachine['costMachine']) || empty($dataMachine['yearsDepreciation']) || empty($dataMachine['residualValue']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
 
-        $machines = $machinesDao->updateMachinesByCompany($dataMachine);
+        $machines = $machinesDao->updateMachine($dataMachine);
 
         if ($machines == 2)
             $resp = array('success' => true, 'message' => 'Maquina actualizada correctamente');
