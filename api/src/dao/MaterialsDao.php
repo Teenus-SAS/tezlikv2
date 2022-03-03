@@ -56,7 +56,7 @@ class MaterialsDao
     }
   }
 
-  public function updateMaterial($dataMaterial)
+  public function updateMaterialsByCompany($dataMaterial)
   {
     $connection = Connection::getInstance()->getConnection();
 

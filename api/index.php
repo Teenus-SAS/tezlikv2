@@ -17,9 +17,11 @@ require_once('../api/src/routes/routeMaterials.php');
 require_once('../api/src/routes/routePayroll.php');
 require_once('../api/src/routes/routePrices.php');
 require_once('../api/src/routes/routeProcess.php');
+
 require_once('../api/src/routes/routeProducts.php');
 require_once('../api/src/routes/routeProductsMaterials.php');
 require_once('../api/src/routes/routeProductsProcess.php');
+
 require_once('../api/src/routes/routeExternalServices.php');
 require_once('../api/src/routes/routePuc.php');
 require_once('../api/src/routes/routeUsers.php');
