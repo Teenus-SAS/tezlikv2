@@ -1,80 +1,108 @@
 $(document).ready(function() {
 
-    /* Ocultar panel para crear materiales */
+    /* Ocultar panel para crear Machinees */
 
     $('.cardCreateMachines').hide();
 
-    /* Abrir panel para crear materiales */
+    /* Abrir panel para crear Machinees */
 
     $('#btnCreateMachine').click(function(e) {
         e.preventDefault();
         $('.cardCreateMachines').toggle(800);
-        $('#idMaterial').val('');
-        $('#btnCreateMaterial').html('Crear');
+        $('#idMachine').val('');
+        $('#btnCreateMachine').html('Crear');
 
-        $('#idMaterial').val('');
-        $('#refRawMaterial').val('');
-        $('#nameRawMaterial').val('');
-        $('#unityRawMaterial').val('');
-        $('#costRawMaterial').val('');
+        $('#idMachine').val('');
+        $('#machine').val('');
+        $('#price').val('');
+        $('#residualValue').val('');
+        $('#depreciationYears').val('');
+        $('#depreciationMinute').val('');
+    });
+
+    /* Calcular depreciación */
+
+    $('#price, #residualValue, #depreciationYears').keyup(function(e) {
+
+        let price = $('#price').val();
+        let residualValue = $('#residualValue').val();
+        let yearsDepreciation = $('#depreciationYears').val();
+
+        price = price.replace('.', '')
+        price = parseFloat(price)
+
+        residualValue = residualValue.replace('.', '')
+        residualValue = parseFloat(residualValue)
+
+        yearsDepreciation = yearsDepreciation.replace('.', '')
+        yearsDepreciation = parseFloat(yearsDepreciation)
+
+        isNaN(price) ? price = 1 : price
+        isNaN(residualValue) ? residualValue = 1 : residualValue
+        isNaN(yearsDepreciation) ? yearsDepreciation = 1 : yearsDepreciation
+
+        value = (price - residualValue) / 60 * yearsDepreciation / 60 / 60
+        number = value.toLocaleString('en-US', { maximumFractionDigits: 2 })
+        $('#depreciationMinute').val(number);
+
     });
 
     /* Crear producto */
 
-    $('#btnCreateMaterial').click(function(e) {
+    $('#btnCreateMachine').click(function(e) {
         e.preventDefault();
-        let idMaterial = $('#idMaterial').val();
+        let idMachine = $('#idMachine').val();
 
-        if (idMaterial == '') {
-            ref = $('#refRawMaterial').val();
-            material = $('#nameRawMaterial').val();
-            unity = $('#unityRawMaterial').val();
-            cost = $('#costRawMaterial').val();
+        if (idMachine == '') {
+            ref = $('#refRawMachine').val();
+            Machine = $('#nameRawMachine').val();
+            unity = $('#unityRawMachine').val();
+            cost = $('#costRawMachine').val();
 
-            if (ref == '' || ref == 0 || material == '' || material == 0 || unity == '' || unity == 0 || cost == '' || cost == 0) {
+            if (ref == '' || ref == 0 || Machine == '' || Machine == 0 || unity == '' || unity == 0 || cost == '' || cost == 0) {
                 toastr.error('Ingrese todos los campos')
                 return false
             }
 
-            material = $('#formCreateMaterial').serialize();
+            Machine = $('#formCreateMachine').serialize();
 
-            $.post("../../../api/addMaterials", material,
+            $.post("../../../api/addMachines", Machine,
                 function(data, textStatus, jqXHR) {
                     message(data)
                 },
             );
         } else {
-            updateMaterial();
+            updateMachine();
         }
     });
 
     /* Actualizar productos */
 
-    $(document).on('click', '.updateRawMaterials', function(e) {
+    $(document).on('click', '.updateRawMachines', function(e) {
 
-        $('.cardRawMaterials').show(800);
+        $('.cardRawMachines').show(800);
 
-        $('#idMaterial').val('');
-        $('#btnCreateMaterial').html('Actualizar');
+        $('#idMachine').val('');
+        $('#btnCreateMachine').html('Actualizar');
 
         let row = $(this).parent().parent()[0]
-        let data = tblRawMaterials.fnGetData(row)
+        let data = tblRawMachines.fnGetData(row)
 
-        $('#idMaterial').val(data.id_material);
-        $('#refRawMaterial').val(data.reference);
-        $('#nameRawMaterial').val(data.material);
-        $('#unityRawMaterial').val(data.unit);
-        $('#costRawMaterial').val(data.cost);
+        $('#idMachine').val(data.id_Machine);
+        $('#refRawMachine').val(data.reference);
+        $('#nameRawMachine').val(data.Machine);
+        $('#unityRawMachine').val(data.unit);
+        $('#costRawMachine').val(data.cost);
 
         $('html, body').animate({
             scrollTop: 0
         }, 1000);
     })
 
-    updateMaterial = () => {
+    updateMachine = () => {
         debugger
-        let data = $('#formCreateMaterial').serialize();
-        $.post("../../../api/updateMaterials", data,
+        let data = $('#formCreateMachine').serialize();
+        $.post("../../../api/updateMachines", data,
             function(data, textStatus, jqXHR) {
                 message(data)
             })
@@ -82,10 +110,10 @@ $(document).ready(function() {
 
     /* Eliminar productos */
 
-    $(document).on('click', '.deleteRawMaterials', function(e) {
+    $(document).on('click', '.deleteRawMachines', function(e) {
         debugger
-        let id_material = this.id
-        $.get(`../../../api/deleteMaterial/${id_material}`,
+        let id_Machine = this.id
+        $.get(`../../../api/deleteMachine/${id_Machine}`,
             function(data, textStatus, jqXHR) {
                 message(data)
             })
@@ -95,8 +123,8 @@ $(document).ready(function() {
 
     message = (data) => {
         if (data.success == true) {
-            $('.cardRawMaterials').hide(800);
-            $("#formCreateMaterial")[0].reset();
+            $('.cardRawMachines').hide(800);
+            $("#formCreateMachine")[0].reset();
             toastr.success(data.message)
             updateTable()
             return false
@@ -109,7 +137,7 @@ $(document).ready(function() {
     /* Actualizar tabla */
 
     function updateTable() {
-        $('#tblRawMaterials').DataTable().clear()
-        $('#tblRawMaterials').DataTable().ajax.reload()
+        $('#tblRawMachines').DataTable().clear()
+        $('#tblRawMachines').DataTable().ajax.reload()
     }
 });
