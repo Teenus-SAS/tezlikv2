@@ -34,44 +34,44 @@ class MachinesDao
     $connection = Connection::getInstance()->getConnection();
 
     try {
-      $stmt = $connection->prepare("INSERT INTO machines (id_company ,machine, cost, years_depreciation, minute_depreciation) 
-                                    VALUES(:id_company ,:machine, :cost, :years_depreciation, :minute_depreciation)");
+      $stmt = $connection->prepare("INSERT INTO machines (id_company ,machine, cost, years_depreciation, residual_value) 
+                                    VALUES(:id_company ,:machine, :cost, :years_depreciation, :residual_value)");
       $stmt->execute([
         'id_company' => $id_company,
         'machine' => ucfirst(strtolower($dataMachine['nameMachine'])),
-        'cost' => $dataMachine['priceMachine'],
-        'years_depreciation' => $dataMachine['depreciationMachine'],
-        'minute_depreciation' => $dataMachine['depreciationMinute']
+        'cost' => $dataMachine['costMachine'],
+        'years_depreciation' => $dataMachine['yearsDepreciation'],
+        'residual_value' => $dataMachine['residualValue']
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
     } catch (\Exception $e) {
-      
-      $message = $e->getMessage();
-        
-        if ($e->getCode() == 23000)
-          $message = 'Referencia duplicada. Ingrese una nueva referencia';
 
-        $error = array('info' => true, 'message' => $message);
-        return $error;
+      $message = $e->getMessage();
+
+      if ($e->getCode() == 23000)
+        $message = 'Referencia duplicada. Ingrese una nueva referencia';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
     }
   }
 
-  public function updateMachinesByCompany($dataMachine)
+  public function updateMachine($dataMachine)
   {
     $connection = Connection::getInstance()->getConnection();
 
     try {
       $stmt = $connection->prepare("UPDATE machines SET machine = :machine, cost = :cost, 
-                                    years_depreciation = :years_depreciation, minute_depreciation = :minute_depreciation     
+                                    years_depreciation = :years_depreciation, residual_value = :residual_value     
                                     WHERE id_machine = :id_machine");
       $stmt->execute([
         'id_machine' => $dataMachine['idMachine'],
         'machine' => ucfirst(strtolower($dataMachine['nameMachine'])),
-        'cost' => $dataMachine['priceMachine'],
-        'years_depreciation' => $dataMachine['depreciationMachine'],
-        'minute_depreciation' => $dataMachine['depreciationMinute']
+        'cost' => $dataMachine['costMachine'],
+        'years_depreciation' => $dataMachine['yearsDepreciation'],
+        'residual_value' => $dataMachine['residualValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

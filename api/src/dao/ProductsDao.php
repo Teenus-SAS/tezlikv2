@@ -47,12 +47,9 @@ class ProductsDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         return 1;
       } catch (\Exception $e) {
-
         $message = $e->getMessage();
-
         if ($e->getCode() == 23000)
           $message = 'Referencia duplicada. Ingrese una nueva referencia';
-
         $error = array('info' => true, 'message' => $message);
         return $error;
       }
@@ -89,6 +86,8 @@ class ProductsDao
         return 2;
       } catch (\Exception $e) {
         $message = $e->getMessage();
+        $error = array('info' => true, 'message' => $message);
+        return $error;
       }
     } else {
 

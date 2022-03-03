@@ -73,6 +73,7 @@ $app->get('/deleteProduct/{id_product}', function (Request $request, Response $r
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');
 });
+<<<<<<< HEAD
 
 // PRODUCTOS MATERIA PRIMA
 $app->get('/productsmaterials/{id_product}', function (Request $request, Response $response, $args) use ($productsDao) {
@@ -193,3 +194,5 @@ $app->get('/externalservices/{id_product}', function (Request $request, Response
     $response->getBody()->write(json_encode($externalServices, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
+=======
+>>>>>>> dbba9dc31d127ef37b553fdc53a493db19d23f68

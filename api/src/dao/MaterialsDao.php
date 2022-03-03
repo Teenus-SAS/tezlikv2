@@ -47,16 +47,16 @@ class MaterialsDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-        
-        if ($e->getCode() == 23000)
-          $message = 'Referencia duplicada. Ingrese una nueva referencia';
 
-        $error = array('info' => true, 'message' => $message);
-        return $error;
+      if ($e->getCode() == 23000)
+        $message = 'Referencia duplicada. Ingrese una nueva referencia';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
     }
   }
 
-  public function updateMaterialsByCompany($dataMaterial)
+  public function updateMaterial($dataMaterial)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -73,7 +73,7 @@ class MaterialsDao
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;
     } catch (\Exception $e) {
-      $message = $e->getMessage(); 
+      $message = $e->getMessage();
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
