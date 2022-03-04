@@ -26,30 +26,70 @@ class ExpensesDao
                                   INNER JOIN puc p ON e.id_puc = p.id_puc 
                                   WHERE e.id_company = :id_company;");
     $stmt->execute(['id_company' => $id_company]);
-    
+
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    
-    $expenses = $stmt->fetchAll($connection::FETCH_ASSOC);
-    $this->logger->notice("expenses", array('expenses' => $expenses));
-    return $expenses;
-  }
-  
-  public function findAllExpensesDistributionByCompany()
-  {
-    session_start();
-    $id_company = $_SESSION['id_company'];
-    $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT me.id_expenses, p.reference, p.product, me.units_sold, me.turnover, me.assignable_expense 
-                                  FROM expenses_distribution me
-                                  INNER JOIN	products p ON p.id_product = me.id_product
-                                  WHERE me.id_company = :id_company;");
-    $stmt->execute(['id_company' => $id_company]);
-    
-    $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    
+
     $expenses = $stmt->fetchAll($connection::FETCH_ASSOC);
     $this->logger->notice("expenses", array('expenses' => $expenses));
     return $expenses;
   }
 
+  public function insertExpensesByCompany($dataExpenses, $id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("INSERT INTO expenses (id_puc, id_company, value)
+                                    VALUES (:id_puc, :id_company, :value)");
+      $stmt->execute([
+        'id_puc' => $dataExpenses['idPuc'],
+        'id_company' => $id_company,
+        'value' => $dataExpenses['value']
+      ]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 1;
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+      if ($e->getCode() == 23000)
+        $message = 'No. Cuenta duplicada. Ingrese un nuevo No. Cuenta';
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
+  }
+
+  public function updateExpenses($dataExpenses)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    try {
+      $stmt = $connection->prepare("UPDATE expenses SET id_puc = :id_puc, value = :value
+                                      WHERE id_expenses = :id_expenses");
+      $stmt->execute([
+        'id_puc' => $dataExpenses['idPuc'],
+        'value' => $dataExpenses['value'],
+        'id_expenses' => $dataExpenses['idExpenses']
+      ]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      return 2;
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
+  }
+
+  public function deleteExpenses($id_expenses)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT * FROM expenses WHERE id_expenses = :id_expenses");
+    $stmt->execute(['id_expenses' => $id_expenses]);
+    $row = $stmt->rowCount();
+
+    if ($row > 0) {
+      $stmt = $connection->prepare("DELETE FROM expenses WHERE id_expenses = :id_expenses");
+      $stmt->execute(['id_expenses' => $id_expenses]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    }
+  }
 }

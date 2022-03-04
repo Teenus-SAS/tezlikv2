@@ -24,9 +24,8 @@ $app->post('/addPayroll', function (Request $request, Response $response) use ($
     $dataPayroll = $request->getParsedBody();
 
     if (
-        empty($dataPayroll['employee']) && empty($dataPayroll['salary']) && empty($dataPayroll['transport']) &&
-        empty($dataPayroll['extraTime']) && empty($dataPayroll['bonification']) && empty($dataPayroll['endowment']) &&
-        empty($dataPayroll['workingDaysMonth']) && empty($dataPayroll['hoursDay']) && empty($dataPayroll['factorBenefit']) &&
+        empty($dataPayroll['employee']) && empty($dataPayroll['salary']) &&
+        empty($dataPayroll['endowment']) && empty($dataPayroll['workingDaysMonth']) && empty($dataPayroll['hoursDay']) &&
         empty($dataPayroll['salaryNet']) && empty($dataPayroll['contract']) && empty($dataPayroll['minuteValue'])
     )
 
@@ -48,10 +47,9 @@ $app->post('/updatePayroll', function (Request $request, Response $response, $ar
     $dataPayroll = $request->getParsedBody();
 
     if (
-        empty($dataPayroll['employee']) && empty($dataPayroll['salary']) && empty($dataPayroll['transport']) &&
-        empty($dataPayroll['extraTime']) && empty($dataPayroll['bonification']) && empty($dataPayroll['endowment']) &&
-        empty($dataPayroll['workingDaysMonth']) && empty($dataPayroll['hoursDay']) && empty($dataPayroll['factorBenefit']) &&
-        empty($dataPayroll['salaryNet']) && empty($dataPayroll['contract']) && empty($dataPayroll['minuteValue'])
+        empty($dataPayroll['employee']) && empty($dataPayroll['salary']) && empty($dataPayroll['endowment']) &&
+        empty($dataPayroll['workingDaysMonth']) && empty($dataPayroll['hoursDay'])
+        && empty($dataPayroll['salaryNet']) && empty($dataPayroll['contract']) && empty($dataPayroll['minuteValue'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
