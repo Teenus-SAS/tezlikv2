@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Consulta todos */
 
-$app->get('/process/{id_company}', function (Request $request, Response $response, $args) use ($processDao) {
+$app->get('/process', function (Request $request, Response $response, $args) use ($processDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $process = $processDao->findAllProcessByCompany($id_company);

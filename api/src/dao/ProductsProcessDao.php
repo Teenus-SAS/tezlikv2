@@ -35,7 +35,7 @@ class ProductsProcessDao
         return $productsprocess;
     }
 
-    public function insertProductsProcessByCompany($dataProduct, $id_company)
+    public function insertProductsProcessByCompany($dataProductProcess, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -44,12 +44,12 @@ class ProductsProcessDao
                                                           id_machine, enlistment_time, operation_time)
                                     VALUES (:id_product, :id_company, :id_process, :id_machine, :enlistment_time, :operation_time)");
             $stmt->execute([
-                'id_product' => $dataProduct['idProduct'],
+                'id_product' => $dataProductProcess['idProduct'],
                 'id_company' => $id_company,
-                'id_process' => $dataProduct['idProcess'],
-                'id_machine' => $dataProduct['idMachine'],
-                'enlistment_time' => $dataProduct['enlistmentTime'],
-                'operation_time' => $dataProduct['operationTime']
+                'id_process' => $dataProductProcess['idProcess'],
+                'id_machine' => $dataProductProcess['idMachine'],
+                'enlistment_time' => $dataProductProcess['enlistmentTime'],
+                'operation_time' => $dataProductProcess['operationTime']
             ]);
 
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -61,7 +61,7 @@ class ProductsProcessDao
         }
     }
 
-    public function updateProductsProcess($dataProduct)
+    public function updateProductsProcess($dataProductProcess)
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -69,12 +69,12 @@ class ProductsProcessDao
             $stmt = $connection->prepare("UPDATE products_process SET id_product = :id_product, id_process = :id_process, id_machine = :id_machine, enlistment_time = :enlistment_time, operation_time = :operation_time
                                     WHERE id_product_process = :id_product_process");
             $stmt->execute([
-                'id_product_process' => $dataProduct['idProductProcess'],
-                'id_product' => $dataProduct['idProduct'],
-                'id_process' => $dataProduct['idProcess'],
-                'id_machine' => $dataProduct['idMachine'],
-                'enlistment_time' => $dataProduct['enlistmentTime'],
-                'operation_time' => $dataProduct['operationTime']
+                'id_product_process' => $dataProductProcess['idProductProcess'],
+                'id_product' => $dataProductProcess['idProduct'],
+                'id_process' => $dataProductProcess['idProcess'],
+                'id_machine' => $dataProductProcess['idMachine'],
+                'enlistment_time' => $dataProductProcess['enlistmentTime'],
+                'operation_time' => $dataProductProcess['operationTime']
             ]);
 
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

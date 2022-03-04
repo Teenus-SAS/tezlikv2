@@ -35,12 +35,13 @@ class MachinesDao
 
     try {
       $stmt = $connection->prepare("INSERT INTO machines (id_company ,machine, cost, years_depreciation, residual_value) 
-                                    VALUES(:id_company ,:machine, :cost, :years_depreciation, :residual_value)");
+                                    VALUES(:id_company ,:machine, :cost, :years_depreciation, :minute_depreciation, :residual_value)");
       $stmt->execute([
         'id_company' => $id_company,
-        'machine' => ucfirst(strtolower($dataMachine['nameMachine'])),
-        'cost' => $dataMachine['costMachine'],
-        'years_depreciation' => $dataMachine['yearsDepreciation'],
+        'machine' => ucfirst(strtolower($dataMachine['machine'])),
+        'cost' => $dataMachine['price'],
+        'years_depreciation' => $dataMachine['epreciationYears'],
+        'minute_depreciation' => $dataMachine['depreciationMinute'],
         'residual_value' => $dataMachine['residualValue']
       ]);
 
