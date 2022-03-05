@@ -85,18 +85,17 @@ class userAccessDao
         $connection = Connection::getInstance()->getConnection();
 
         try {
-            $stmt = $connection->prepare("UPDATE users_access SET id_user = :id_user, create_product = :create_product, create_materials = :create_materials,
+            $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials,
                                                 create_machines = :create_machines, create_process = :create_process, product_materials = :product_materials, product_process = :product_process
-                                          WHERE id_user_access = :id_user_access");
+                                          WHERE id_user = :id_user");
             $stmt->execute([
-                'id_user_access' => $dataUserAccess['idUserAccess'],
-                'id_user' => $id_user,
                 'create_product' => $dataUserAccess['createProduct'],
                 'create_materials' => $dataUserAccess['createMaterials'],
                 'create_machines' => $dataUserAccess['createMachines'],
                 'create_process' => $dataUserAccess['createProcess'],
                 'product_materials' => $dataUserAccess['productMaterials'],
-                'product_process' => $dataUserAccess['productProcess']
+                'product_process' => $dataUserAccess['productProcess'],
+                'id_user' => $id_user,
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
             return 2;
@@ -107,17 +106,30 @@ class userAccessDao
         }
     }
 
-    public function deleteUserAccess($id_user_access)
+    public function deleteUserAccess($id_user)
     {
-        $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user_access = :id_user_access");
-        $stmt->execute(['id_user_access' => $id_user_access]);
-        $rows = $stmt->rowCount();
 
-        if ($rows > 0) {
-            $stmt = $connection->prepare("DELETE FROM users_access WHERE id_user_access = :id_user_access");
-            $stmt->execute(['id_user_access' => $id_user_access]);
-            $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        session_start();
+        $idUser = $_SESSION['idUser'];
+
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user = :id_user");
+        $stmt->execute(['id_user' => $id_user]);
+        $user = $stmt->fetch($connection::FETCH_ASSOC);
+
+        if ($user[$id_user] != $idUser) {
+
+            $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user = :id_user");
+            $stmt->execute(['id_user' => $id_user]);
+            $rows = $stmt->rowCount();
+
+            if ($rows > 0) {
+                $stmt = $connection->prepare("DELETE FROM users_access WHERE id_user = :id_user");
+                $stmt->execute(['id_user' => $id_user]);
+                $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+            }
+        } else {
+            return 1;
         }
     }
 }

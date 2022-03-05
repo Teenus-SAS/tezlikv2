@@ -64,7 +64,7 @@ class UsersDao
   }
 
   /*Obtener cantidad para creacion de usuario permitidos*/
-  
+
   public function quantityUsersAllows()
   {
     session_start();
@@ -80,9 +80,9 @@ class UsersDao
     $this->logger->notice("usuario Obtenido", array('usuario' => $quantity_users));
     return $quantity_users;
   }
-  
+
   /*Obtener cantidad de usuarios creados*/
-  
+
   public function quantityUsersCreated()
   {
     session_start();
@@ -101,56 +101,28 @@ class UsersDao
   public function saveUser($dataUser)
   {
     $connection = Connection::getInstance()->getConnection();
+    $newPass == $this->NewPassUser();
 
-    if (!empty($dataUser['id_user'])) {
-
-      $stmt = $connection->prepare("SELECT * FROM users WHERE id_user = :id_user");
-      $stmt->execute(['id_user' => $dataUser['id_user']]);
-      $rows = $stmt->rowCount();
-
-      if ($rows > 0) {
-        if (!empty($dataUser['password'])) {
-          $pass = password_hash($dataUser['password'], PASSWORD_DEFAULT);
-          $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, pass = :pass, position = :position 
-                                        WHERE id_user = id_user");
-          $stmt->execute([
-            'firstname' => ucwords(strtolower(trim($dataUser['names']))),
-            'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
-            'pass' => $pass,
-            'position' => $dataUser['position'],
-            'id_user' => $dataUser['id_user']
-          ]);
-        } else {
-          $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, position = :position 
-                                        WHERE id_user = :id_user");
-          $stmt->execute([
-            'firstname' => ucwords(strtolower(trim($dataUser['names']))),
-            'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
-            'position' => $dataUser['position'],
-            'id_user' => $dataUser['id_user']
-          ]);
-        }
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        return 3;
-      }
-    } else {
-      $pass = password_hash($dataUser['password'], PASSWORD_DEFAULT);
-      $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, pass, rol, position) 
+    $pass = password_hash($newPass, PASSWORD_DEFAULT);
+    $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, pass, rol, position) 
                                     VALUES(:firstname, :lastname, :email, :pass, :rol, :position)");
-      $stmt->execute([
-        'firstname' => ucwords(strtolower(trim($dataUser['names']))),
-        'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
-        'email' => $dataUser['email'],
-        'pass' => $pass,
-        'rol' => $dataUser['rol'],
-        'position' => $dataUser['position']
-      ]);
-      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
-    }
+    $stmt->execute([
+      'firstname' => ucwords(strtolower(trim($dataUser['names']))),
+      'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
+      'email' => $dataUser['email'],
+      'pass' => $pass,
+      'rol' => $dataUser['rol'],
+      'position' => $dataUser['position']
+    ]);
+
+
+    /* Enviar email al usuario creado */
+
+    $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    return 2;
   }
 
-  public function updateUser($dataUser, $avatar, $cont)
+  public function updateUser($dataUser, $avatar)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -161,30 +133,26 @@ class UsersDao
 
     if ($rows > 0) {
       if ($avatar == null) {
-        $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, cellphone = :cellphone WHERE id_user = :id_user");
+        $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, active = :active
+                                      WHERE id_user = :id_user");
+        $stmt->execute([
+          'firstname' => ucwords(strtolower(trim($dataUser['names']))),
+          'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
+          'active' => 1,
+          'id_user' => $users['id_user'],
+        ]);
+      } else {
+
+        $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, avatar = :avatar, active = :active
+                                        WHERE id_user = :id_user");
         $stmt->execute([
           'firstname' => ucwords(strtolower(trim($dataUser['names']))),
           'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
           'cellphone' => $dataUser['cellphone'],
+          'avatar' => $avatar,
+          'active' => 1,
           'id_user' => $users['id_user']
         ]);
-      } else {
-        if ($cont == 1) {
-          $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, cellphone = :cellphone, avatar = :avatar WHERE id_user = :id_user");
-          $stmt->execute([
-            'firstname' => ucwords(strtolower(trim($dataUser['names']))),
-            'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
-            'cellphone' => $dataUser['cellphone'],
-            'avatar' => $avatar,
-            'id_user' => $users['id_user']
-          ]);
-        } else {
-          $stmt = $connection->prepare("UPDATE users SET signature = :signature WHERE id_user = :id_user");
-          $stmt->execute([
-            'signature' => $avatar,
-            'id_user' => $users['id_user']
-          ]);
-        }
       }
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -225,5 +193,22 @@ class UsersDao
     ]);
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     return $status;
+  }
+
+
+  public function NewPassUser()
+  {
+    $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $longitudCadena = strlen($cadena);
+    $new_pass = "";
+    $longitudPass = 6;
+
+    for ($i = 1; $i <= $longitudPass; $i++) {
+      $pos = rand(0, $longitudCadena - 1);
+      $new_pass .= substr($cadena, $pos, 1);
+    }
+
+    /* Enviar $new_pass */
+    return $new_pass;
   }
 }

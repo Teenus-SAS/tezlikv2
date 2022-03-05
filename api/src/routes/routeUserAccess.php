@@ -78,7 +78,7 @@ $app->get('/deleteUserAccess/{id_user_access}', function (Request $request, Resp
     if ($userAccess == null)
         $resp = array('success' => true, 'message' => 'Acceso de usuario eliminado correctamente');
     if ($userAccess != null)
-        $rep = array('error' => true, 'message' => 'No es posible eliminar el acceso de usuario, existe información asociada a él');
+        $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
 
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');
