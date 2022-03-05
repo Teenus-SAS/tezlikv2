@@ -28,19 +28,23 @@
                     </div>
                     <div class="card-body">
                         <form id="formMachine">
-                            <div class="gridx6">
+                            <div class="gridx8">
                                 <label for="">Nombre</label>
                                 <label for="">Precio</label>
                                 <label for="">Valor Residual</label>
                                 <label for="">Años Depreciación</label>
+                                <label for="">Horas de Trabajo</label>
+                                <label for="">Dias de Trabajo</label>
                                 <label for="">Depreciación x Min</label>
                                 <label></label>
-                                <input type="text" class="form-control" id="idMachine" hidden>
-                                <input type="text" class="form-control" id="machine">
-                                <input type="text" class="form-control money text-center" id="price">
-                                <input type="text" class="form-control money text-center" id="residualValue">
-                                <input type="text" class="form-control number text-center" id="depreciationYears">
-                                <input type="text" class="form-control money text-center" id="depreciationMinute" disabled>
+                                <input type="text" class="form-control" name="idMachine" id="idMachine" hidden>
+                                <input type="text" class="form-control" name="machine" id="machine">
+                                <input type="text" class="form-control money text-center" name="price" id="price">
+                                <input type="text" class="form-control money text-center" name="residualValue" id="residualValue">
+                                <input type="text" class="form-control number text-center" name="depreciationYears" id="depreciationYears">
+                                <input type="number" class="form-control money text-center" name="hoursMachine" id="hoursMachine">
+                                <input type="number" class="form-control money text-center" name="daysMachine" id="daysMachine">
+                                <input type="text" class="form-control money text-center" name="depreciationMinute" id="depreciationMinute" disabled>
                                 <button class="btn btn-primary" id="btnCreateMachine">Crear Máquina</button>
                             </div>
                         </form>

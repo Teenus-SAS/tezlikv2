@@ -24,6 +24,23 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="gridx2">
+                            <label for="">Gastos a distribuir</label>
+                            <input type="number" class="form-control text-center" id="expensesToDistribution" style="width: 200px;" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-wrapper mt--45 mb-5 cardExpensesDistribution">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
                         <div class="gridx5">
                             <label for="">Referencia</label>
                             <label for="">Nombre Producto</label>

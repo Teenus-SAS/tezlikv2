@@ -34,11 +34,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx2M">
+                        <div class="gridx3">
                             <label for="">Cuenta</label>
                             <label for="">Valor</label>
+                            <label for=""></label>
                             <select class="form-control" name="countNameExpenses" id="countNameExpenses"></select>
                             <input type="number" class="form-control valueExpenses text-center" id="valueExpenses" name="valueExpenses" min='0'>
+                            <button class="btn btn-primary" id="btnCreateExpense">Crear</button>
                         </div>
                     </div>
                 </div>

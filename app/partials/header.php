@@ -32,7 +32,7 @@
                 </a>
                 <div class="dropdown-megamenu dropdown-menu" aria-labelledby="mega-dropdown">
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">Básico</h5>
@@ -46,16 +46,16 @@
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">Configuración</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li class="productsMaterials"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configMaterials.php')">Productos * Materia Prima</a></li>
-                                        <li class="productsProcess"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configProcess.php')">Productos * Procesos</a></li>
-                                        <li class="servicesExternal"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configExternalServices.php')">Servicios Externos</a></li>
-                                        <li class="linesProducts"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/configLines.php')">Lineas de Producto</a></li>
+                                        <li class="productsMaterials"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/productMaterials.php')">Productos * Materia Prima</a></li>
+                                        <li class="productsProcess"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/productProcess.php')">Productos * Procesos</a></li>
+                                        <li class="factoryLoad"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/factoryLoad.php')">Carga Fabril</a></li>
+                                        <li class="servicesExternal"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/externalServices.php')">Servicios Externos</a></li>
+                                        <li class="linesProducts"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/lines.php')">Lineas de Producto</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">General</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li class="generalData"><a href="javascript:void(0);">Datos Generales</a></li>
                                         <li class="payroll"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/createPayroll.php')">Carga Nómina</a></li>
                                         <li class="generalExpenses"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/expensesAssignation.php')">Asignación Gastos Generales</a></li>
                                         <li class="distributionExpenses"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/expensesDistribution.php')">Distribución de Gastos</a></li>

@@ -1,13 +1,4 @@
-<!-- <body class="horizontal-navbar"> -->
-<!-- Begin Page -->
-<!-- <div class="page-wrapper"> -->
-<!-- Begin Header -->
 
-<!-- Begin main content -->
-<!-- <div class="main-content"> -->
-<!-- content -->
-<!--  <div class="page-content"> -->
-<!-- page header -->
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -15,13 +6,13 @@
                 <div class="page-title">
                     <h3 class="mb-1 font-weight-bold text-dark">Productos</h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
-                        <li class="breadcrumb-item active">Asignación de procesos al producto</li>
+                        <li class="breadcrumb-item active">Asignación de materias primas al producto</li>
                     </ol>
                 </div>
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Nuevo Proceso</button>
+                    <button class="btn btn-primary" id="btnCreateProduct">Adicionar  Nueva Materia Prima</button>
                 </div>
             </div>
         </div>
@@ -47,6 +38,29 @@
     </div>
 </div>
 
+<div class="page-content-wrapper mt--45 mb-5 cardAddMaterials">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="gridx4pm">
+                            <label for="">Materia Prima</label>
+                            <label for="">Cantidad</label>
+                            <label for="">Unidad</label>
+                            <label for=""></label>
+                            <select class="form-control" name="refProduct" id="refProduct"></select>
+                            <input class="form-control" type="text" name="" id="">
+                            <input class="form-control" type="text" name="" id="" disabled>
+                            <button class="btn btn-primary" id="btnAddMaterials">Adicionar Materia Prima</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- page content -->
 <div class="page-content-wrapper mt--45">
     <div class="container-fluid">
@@ -56,7 +70,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigProcess">
+                            <table class="table table-striped" id="tblConfigProducts">
 
                             </table>
                         </div>
@@ -66,9 +80,6 @@
         </div>
     </div>
 </div>
-<!-- </div>
-        </div>
-    </div> -->
 
-<script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/products/tblConfigProcess.js"></script>
+<script src="../../app/js/productMaterials/configProducts.js"></script>
+<script src="../../app/js/productMaterialss/tblConfigMaterials.js"></script>

@@ -1,13 +1,3 @@
-<!-- <body class="horizontal-navbar"> -->
-<!-- Begin Page -->
-<!-- <div class="page-wrapper"> -->
-<!-- Begin Header -->
-
-<!-- Begin main content -->
-<!-- <div class="main-content"> -->
-<!-- content -->
-<!--  <div class="page-content"> -->
-<!-- page header -->
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -15,7 +5,7 @@
                 <div class="page-title">
                     <h3 class="mb-1 font-weight-bold text-dark">Productos</h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
-                        <li class="breadcrumb-item active">Configuración de productos procesos</li>
+                        <li class="breadcrumb-item active">Asignación de procesos al producto</li>
                     </ol>
                 </div>
             </div>
@@ -47,6 +37,34 @@
     </div>
 </div>
 
+
+<div class="page-content-wrapper mt--45 mb-5 cardAddProcess">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="gridx6pp">
+                            <label for="">Proceso</label>
+                            <label for="">Maquina</label>
+                            <label for="">t.alistamiento</label>
+                            <label for="">t.operacion</label>
+                            <label for="">t.total</label>
+                            <label for=""></label>
+                            <select class="form-control" name="refProduct" id="refProduct"></select>
+                            <select class="form-control" name="refProduct" id="refProduct"></select>
+                            <input class="form-control" type="number" name="" id="">
+                            <input class="form-control" type="number" name="" id="">
+                            <input class="form-control" type="text" name="" id="" disabled>
+                            <button class="btn btn-primary" id="btnAddMaterials">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- page content -->
 <div class="page-content-wrapper mt--45">
     <div class="container-fluid">
@@ -66,9 +84,6 @@
         </div>
     </div>
 </div>
-<!-- </div>
-        </div>
-    </div> -->
 
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/products/tblConfigProcess.js"></script>
