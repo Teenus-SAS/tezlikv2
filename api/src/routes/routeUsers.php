@@ -27,9 +27,11 @@ $app->get('/user', function (Request $request, Response $response, $args) use ($
 $app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao) {
     $dataUser = $request->getParsedBody();
 
-    $quantityUsers = $userDao->quantityUsers();
+    $quantityAllowsUsers = $userDao->quantityUsersAllows();
+    $quantityCreatedUsers = $userDao->quantityUsersCreated();
 
-    if ($quantityUsers > 3)
+    
+    if ($quantityAllowsUsers[0] >= $quantityCreatedUsers[0])
         $resp = array('error' => true, 'message' => 'Cantidad de usuarios maxima alcanzada');
     else {
         if (empty($dataUser['names']) && empty($dataUser['lastnames']) && empty($dataUser['email'])) /* { */

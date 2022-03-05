@@ -63,23 +63,39 @@ class UsersDao
     return $user;
   }
 
-  /*OBTENER CANTIDAD DE USUARIOS CREADOS*/
-  public function quantityUsers()
+  /*Obtener cantidad para creacion de usuario permitidos*/
+  
+  public function quantityUsersAllows()
   {
     session_start();
-    $quantityUsers = $_SESSION['quantityUsers'];
+    $id_company = $_SESSION['id_company'];
 
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT us.id_user, cl.quantity_users
-                                  FROM users us
-                                  INNER JOIN company_license cl ON cl.id_company = us.id_company
-                                  WHERE cl.quantity_users = :quantity_users");
-    $stmt->execute(['quantity_users' => $quantityUsers]);
-    $user = $stmt->fetchAll($connection::FETCH_ASSOC);
+    $stmt = $connection->prepare("SELECT quantity_user FROM company_license 
+                                  WHERE id_company = :id_company");
+    $stmt->execute(['id_company' => $id_company]);
+    $quantity_users = $stmt->fetch($connection::FETCH_ASSOC);
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    $this->logger->notice("usuario Obtenido", array('usuario' => $user));
-    return $user;
+    $this->logger->notice("usuario Obtenido", array('usuario' => $quantity_users));
+    return $quantity_users;
+  }
+  
+  /*Obtener cantidad de usuarios creados*/
+  
+  public function quantityUsersCreated()
+  {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+
+    $connection = Connection::getInstance()->getConnection();
+    $stmt = $connection->prepare("SELECT COUNT(*) FROM `users` WHERE id_company = id_company;");
+    $stmt->execute(['id_company' => $id_company]);
+    $quantity_users = $stmt->fetch($connection::FETCH_ASSOC);
+
+    $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    $this->logger->notice("cantidad usuarios obtenidos", array('cantidad usuarios' => $quantity_users));
+    return $quantity_users;
   }
 
   public function saveUser($dataUser)
