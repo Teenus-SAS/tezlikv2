@@ -9,27 +9,6 @@ $autenticationDao = new autenticationDao();
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-/* Consulta para acceso de todos los usuarios */
-
-$app->get('/usersAccess', function (Request $request, Response $response, $args) use ($autenticationDao) {
-    session_start();
-    $company = $_SESSION['id_company'];
-    $usersAccess = $autenticationDao->findAllUsersAccess($company);
-    $response->getBody()->write(json_encode($usersAccess, JSON_NUMERIC_CHECK));
-    return $response->withHeader('Content-Type', 'application/json');
-});
-
-/* Consulta para acceso de un usuario */
-
-$app->post('/userAccess', function (Request $request, Response $response, $args) use ($autenticationDao) {
-    session_start();
-    $company = $_SESSION['id_company'];
-    $id_user = $_SESSION['idUser'];
-    $usersAccess = $autenticationDao->findUserAccess($company, $id_user);
-    $response->getBody()->write(json_encode($usersAccess, JSON_NUMERIC_CHECK));
-    return $response->withHeader('Content-Type', 'application/json');
-});
-
 /* Autenticación */
 
 $app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao) {
@@ -96,7 +75,7 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION['rol'] = $user["id_rols"];
     $_SESSION['id_company'] = $user['id_company'];
     $_SESSION["time"] = time();
-    
+
     $resp = array('success' => true, 'message' => 'access granted');
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');

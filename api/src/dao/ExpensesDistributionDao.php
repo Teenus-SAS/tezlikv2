@@ -21,7 +21,7 @@ class ExpensesDistributionDao
         session_start();
         $id_company = $_SESSION['id_company'];
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT me.id_expenses, p.reference, p.product, me.units_sold, me.turnover, me.assignable_expense 
+        $stmt = $connection->prepare("SELECT me.id_expenses_distribution, p.reference, p.product, me.units_sold, me.turnover, me.assignable_expense 
                                   FROM expenses_distribution me
                                   INNER JOIN	products p ON p.id_product = me.id_product
                                   WHERE me.id_company = :id_company;");
@@ -45,8 +45,8 @@ class ExpensesDistributionDao
             $stmt->execute([
                 'id_product' => $dataExpensesDistribution['idProduct'],
                 'id_company' => $id_company,
-                'units_sold' => ucfirst(strtolower($dataExpensesDistribution['unitsSold'])),
-                'turnover' => ucfirst(strtolower($dataExpensesDistribution['turnover'])),
+                'units_sold' => $dataExpensesDistribution['unitsSold'],
+                'turnover' => $dataExpensesDistribution['turnover'],
                 'assignable_expense' => $dataExpensesDistribution['assignableExpense']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -67,12 +67,12 @@ class ExpensesDistributionDao
         try {
             $stmt = $connection->prepare("UPDATE expenses_distribution SET id_product = :id_product, units_sold = :units_sold,
                                                                 turnover = :turnover, assignable_expense = :assignable_expense
-                                          WHERE id_expenses = :id_expenses");
+                                          WHERE id_expenses_distribution = :id_expenses_distribution");
             $stmt->execute([
-                'id_expenses' => $dataExpensesDistribution['idExpenses'],
+                'id_expenses_distribution' => $dataExpensesDistribution['idExpenses'],
                 'id_product' => $dataExpensesDistribution['idProduct'],
-                'units_sold' => ucfirst(strtolower($dataExpensesDistribution['unitsSold'])),
-                'turnover' => ucfirst(strtolower($dataExpensesDistribution['turnover'])),
+                'units_sold' => $dataExpensesDistribution['unitsSold'],
+                'turnover' => $dataExpensesDistribution['turnover'],
                 'assignable_expense' => $dataExpensesDistribution['assignableExpense']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -84,17 +84,17 @@ class ExpensesDistributionDao
         }
     }
 
-    public function deleteExpensesDistribution($id_expenses)
+    public function deleteExpensesDistribution($id_expenses_distribution)
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("SELECT * FROM expenses_distribution WHERE id_expenses = :id_expenses");
-        $stmt->execute(['id_expenses' => $id_expenses]);
+        $stmt = $connection->prepare("SELECT * FROM expenses_distribution WHERE id_expenses_distribution = :id_expenses_distribution");
+        $stmt->execute(['id_expenses_distribution' => $id_expenses_distribution]);
         $row = $stmt->rowCount();
 
         if ($row > 0) {
-            $stmt = $connection->prepare("DELETE FROM expenses_distribution WHERE id_expenses = :id_expenses");
-            $stmt->execute(['id_expenses' => $id_expenses]);
+            $stmt = $connection->prepare("DELETE FROM expenses_distribution WHERE id_expenses_distribution = :id_expenses_distribution");
+            $stmt->execute(['id_expenses_distribution' => $id_expenses_distribution]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
     }

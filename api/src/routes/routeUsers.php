@@ -27,20 +27,25 @@ $app->get('/user', function (Request $request, Response $response, $args) use ($
 $app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao) {
     $dataUser = $request->getParsedBody();
 
+    $quantityUsers = $userDao->quantityUsers();
 
-    if (empty($dataUser['names']) && empty($dataUser['lastnames']) && empty($dataUser['email'])) /* { */
-        $resp = array('error' => true, 'message' => 'Complete todos los datos');
+    if ($quantityUsers > 3)
+        $resp = array('error' => true, 'message' => 'Cantidad de usuarios maxima alcanzada');
+    else {
+        if (empty($dataUser['names']) && empty($dataUser['lastnames']) && empty($dataUser['email'])) /* { */
+            $resp = array('error' => true, 'message' => 'Complete todos los datos');
 
-    $users = $userDao->saveUser($dataUser);
+        $users = $userDao->saveUser($dataUser);
 
-    if ($users == 1)
-        $resp = array('error' => true, 'message' => 'El email ya se encuentra registrado. Intente con uno nuevo');
+        if ($users == 1)
+            $resp = array('error' => true, 'message' => 'El email ya se encuentra registrado. Intente con uno nuevo');
 
-    if ($users == 2)
-        $resp = array('success' => true, 'message' => 'Usuario creado correctamente');
+        if ($users == 2)
+            $resp = array('success' => true, 'message' => 'Usuario creado correctamente');
 
-    if ($users == 3)
-        $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
+        if ($users == 3)
+            $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
+    }
     /* } */
 
     $response->getBody()->write(json_encode($resp));

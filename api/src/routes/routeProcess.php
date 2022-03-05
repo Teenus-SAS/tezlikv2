@@ -27,7 +27,7 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
     else {
         $process = $processDao->insertProcessByCompany($dataProcess, $id_company);
 
-        if ($process == 2)
+        if ($process == 1)
             $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
         else
             $resp = $process;
