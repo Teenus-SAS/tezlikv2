@@ -52,8 +52,8 @@ $app->post('/updateExpensesDistribution', function (Request $request, Response $
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteExpensesDistribution/{id_expenses}', function (Request $request, Response $response, $args) use ($expensesDistributionDao) {
-    $expensesDistribution = $expensesDistributionDao->deleteExpensesDistribution($args['id_expenses']);
+$app->get('/deleteExpensesDistribution/{id_expenses_distribution}', function (Request $request, Response $response, $args) use ($expensesDistributionDao) {
+    $expensesDistribution = $expensesDistributionDao->deleteExpensesDistribution($args['id_expenses_distribution']);
 
     if ($expensesDistribution == null)
         $resp = array('success' => true, 'message' => 'Distribucion de gasto eliminado correctamente');

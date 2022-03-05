@@ -26,6 +26,8 @@ require_once('../api/src/routes/routeProductsProcess.php');
 
 require_once('../api/src/routes/routeExternalServices.php');
 require_once('../api/src/routes/routePuc.php');
+
+require_once('../api/src/routes/routeUserAccess.php');
 require_once('../api/src/routes/routeUsers.php');
 
 

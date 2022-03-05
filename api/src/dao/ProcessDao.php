@@ -40,7 +40,7 @@ class ProcessDao
         'process' => ucfirst(strtolower($dataProcess['process']))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
+      return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
 

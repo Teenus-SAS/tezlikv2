@@ -20,7 +20,7 @@ class UsersDao
   {
     session_start();
     $rol = $_SESSION['rol'];
-    
+
     $connection = Connection::getInstance()->getConnection();
 
     if ($rol == 1)
@@ -63,6 +63,25 @@ class UsersDao
     return $user;
   }
 
+  /*OBTENER CANTIDAD DE USUARIOS CREADOS*/
+  public function quantityUsers()
+  {
+    session_start();
+    $quantityUsers = $_SESSION['quantityUsers'];
+
+    $connection = Connection::getInstance()->getConnection();
+    $stmt = $connection->prepare("SELECT us.id_user, cl.quantity_users
+                                  FROM users us
+                                  INNER JOIN company_license cl ON cl.id_company = us.id_company
+                                  WHERE cl.quantity_users = :quantity_users");
+    $stmt->execute(['quantity_users' => $quantityUsers]);
+    $user = $stmt->fetchAll($connection::FETCH_ASSOC);
+
+    $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    $this->logger->notice("usuario Obtenido", array('usuario' => $user));
+    return $user;
+  }
+
   public function saveUser($dataUser)
   {
     $connection = Connection::getInstance()->getConnection();
@@ -83,7 +102,7 @@ class UsersDao
             'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
             'pass' => $pass,
             'position' => $dataUser['position'],
-            'id_user' => $dataUser['id_user'],
+            'id_user' => $dataUser['id_user']
           ]);
         } else {
           $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, position = :position 
@@ -92,7 +111,7 @@ class UsersDao
             'firstname' => ucwords(strtolower(trim($dataUser['names']))),
             'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
             'position' => $dataUser['position'],
-            'id_user' => $dataUser['id_user'],
+            'id_user' => $dataUser['id_user']
           ]);
         }
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -108,7 +127,7 @@ class UsersDao
         'email' => $dataUser['email'],
         'pass' => $pass,
         'rol' => $dataUser['rol'],
-        'position' => $dataUser['position'],
+        'position' => $dataUser['position']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;
