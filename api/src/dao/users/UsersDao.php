@@ -1,18 +1,12 @@
 <?php
 
-namespace tezlikv2\dao\users;
 namespace tezlikv2\dao;
 
 use tezlikv2\Constants\Constants;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
-// Usar la clase quantityUsersDao
-// use tezlikv2\dao\QuantityUsersDao;
-
-use tezlikv2\dao\UsersInfoDao;
-
-$usersInfoDao = new UsersInfoDao();
+$quantityUsersDao = new QuantityUsersDao();
 
 class UsersDao
 {
@@ -73,12 +67,11 @@ class UsersDao
 
   public function saveUser($dataUser, $id_company)
   {
+    $newPassDao = new NewPassUserDao();
     $connection = Connection::getInstance()->getConnection();
-    // llamar metodo de la calse QuantityUserDao
-    $newPass = UsersInfoDao::NewPassUser();
-
-    $newPass = $this->NewPassUser();
+    $newPass = $newPassDao->NewPassUser();
     $pass = password_hash($newPass, PASSWORD_DEFAULT);
+    
     $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, password, id_company, active) 
                                     VALUES(:firstname, :lastname, :email, :pass, :id_company, :active)");
     $stmt->execute([
@@ -91,7 +84,7 @@ class UsersDao
     ]);
 
 
-    
+
     /* Enviar email al usuario creado */
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
