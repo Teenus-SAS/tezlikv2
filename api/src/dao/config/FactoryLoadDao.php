@@ -47,7 +47,7 @@ class FactoryLoadDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-      $error = array('error' => true, 'message' => $message);
+      $error = array('info' => true, 'message' => $message);
       return $error;
     }
   }
