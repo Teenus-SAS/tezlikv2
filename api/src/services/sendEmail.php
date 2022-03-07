@@ -19,15 +19,7 @@ class sendEmail
 
   public function sendEmailRecoveryPassword($id_company)
   {
-    $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT * FROM carga_fabril WHERE id_empresa = :id_company;");
-    $stmt->execute(['id_company' => $id_company]);
     
-    $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    
-    $factoryloads = $stmt->fetchAll($connection::FETCH_ASSOC);
-    $this->logger->notice("factory load", array('factory load' => $factoryloads));
-    return $factoryloads;
   }
 
 }

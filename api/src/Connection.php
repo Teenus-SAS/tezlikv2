@@ -29,7 +29,7 @@ class Connection
         $this->logger = new Logger(self::class);
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
         $dotenv = new Dotenv();
-        $dotenv->load(__DIR__ . '/../../environment.env');
+        $dotenv->load(__DIR__ . '/../environment.env');
         try {
             $host = $_ENV["DB_HOST"];
             $dbname = $_ENV["DB_NAME"];

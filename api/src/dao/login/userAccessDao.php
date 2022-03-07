@@ -75,9 +75,7 @@ class userAccessDao
             return 1;
         } catch (\Exception $e) {
             $message = $e->getMessage();
-            if ($e->getCode() == 23000)
-                $message = 'Usuario duplicado. Ingrese una nuevo usuario';
-            $error = array('info' => true, 'message' => $message);
+            $error = array('error' => true, 'message' => $message);
             return $error;
         }
     }
@@ -104,12 +102,12 @@ class userAccessDao
             return 2;
         } catch (\Exception $e) {
             $message = $e->getMessage();
-            $error = array('info' => true, 'message' => $message);
+            $error = array('error' => true, 'message' => $message);
             return $error;
         }
     }
 
-    public function deleteUserAccess($id_user)
+   /*  public function deleteUserAccess($id_user)
     {
 
         session_start();
@@ -134,5 +132,5 @@ class userAccessDao
         } else {
             return 1;
         }
-    }
+    } */
 }

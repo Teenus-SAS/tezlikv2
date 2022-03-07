@@ -47,9 +47,7 @@ class FactoryLoadDao
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-      if ($e->getCode() == 23000)
-        $message = 'Maquina duplicada. Ingrese una nueva Maquina';
-      $error = array('info' => true, 'message' => $message);
+      $error = array('error' => true, 'message' => $message);
       return $error;
     }
   }
@@ -72,7 +70,7 @@ class FactoryLoadDao
       return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-      $error = array('info' => true, 'message' => $message);
+      $error = array('error' => true, 'message' => $message);
       return $error;
     }
   }

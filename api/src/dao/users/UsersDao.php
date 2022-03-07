@@ -1,5 +1,6 @@
 <?php
 
+namespace tezlikv2\dao\users;
 namespace tezlikv2\dao;
 
 use tezlikv2\Constants\Constants;
@@ -100,39 +101,35 @@ class UsersDao
 
   public function saveUser($dataUser)
   {
-    $connection = Connection::getInstance()->getConnection();
-    $newPass = $this->NewPassUser();
+    session_start();
+    $id_company = $_SESSION['id_company'];
 
+    $connection = Connection::getInstance()->getConnection();
+
+    $newPass = $this->NewPassUser();
     $pass = password_hash($newPass, PASSWORD_DEFAULT);
-    $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, password, rol, position) 
-                                    VALUES(:firstname, :lastname, :email, :pass, :rol, :position)");
+
+    $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, password, id_company, active) 
+                                    VALUES(:firstname, :lastname, :email, :pass, :id_company, :active)");
     $stmt->execute([
       'firstname' => ucwords(strtolower(trim($dataUser['names']))),
       'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
-      'email' => $dataUser['email'],
+      'email' => trim($dataUser['email']),
       'pass' => $pass,
-      'rol' => $dataUser['rol'],
-      'position' => $dataUser['position']
+      'id_company' => $id_company,
+      'active' => 1,
     ]);
 
 
+    
     /* Enviar email al usuario creado */
-    if (password_verify($pass, $newPass)) {
-      $stmt = $connection->prepare("SELECT * FROM users
-                                    WHERE email = :email");
-      $stmt->execute([
-        'email' => $dataUser['email']
-      ]);
-      $email = $stmt->fetch($connection::FETCH_ASSOC);
-      return $email;
-      // $this->logger->notice("Email obtenido", array('email' => $email));
-    }
+
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     return 2;
   }
 
-  public function updateUser($dataUser, $avatar)
+  public function updateUser($dataUser, $pathAvatar)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -142,7 +139,7 @@ class UsersDao
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
-      if ($avatar == null) {
+      if ($pathAvatar == null) {
         $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, active = :active
                                       WHERE id_user = :id_user");
         $stmt->execute([
@@ -153,13 +150,13 @@ class UsersDao
         ]);
       } else {
 
-        $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, avatar = :avatar, active = :active
+        $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, avatar = :pathAvatar, active = :active
                                         WHERE id_user = :id_user");
         $stmt->execute([
           'firstname' => ucwords(strtolower(trim($dataUser['names']))),
           'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
           'cellphone' => $dataUser['cellphone'],
-          'avatar' => $avatar,
+          'pathAvatar' => $pathAvatar,
           'active' => 1,
           'id_user' => $users['id_user']
         ]);

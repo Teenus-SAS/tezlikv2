@@ -30,7 +30,7 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
     $quantityAllowsUsers = $userDao->quantityUsersAllows();
     $quantityCreatedUsers = $userDao->quantityUsersCreated();
 
-    
+
     if ($quantityAllowsUsers[0] >= $quantityCreatedUsers[0])
         $resp = array('error' => true, 'message' => 'Cantidad de usuarios maxima alcanzada');
     else {
@@ -61,7 +61,7 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
     if (empty($dataUser['names']) && empty($dataUser['lastnames'])) {
         $resp = array('error' => true, 'message' => 'Ingrese sus Nombres y Apellidos completos');
     } else {
-        $cont = 1;
+
         foreach ($files as $file) {
             $name = $file->getClientFilename();
             $name = explode(".", $name);
@@ -70,9 +70,7 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
 
             if (empty($ext)) {
                 $path = null;
-                if ($cont == 2)
-                    $users = $userDao->updateUser($dataUser, $path, $cont);
-                $cont = $cont + 1;
+                $users = $userDao->updateUser($dataUser, $path);
             } else {
 
                 if (!in_array($ext, ["jpeg", "jpg", "png"])) {
@@ -80,15 +78,13 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
                     $response->getBody()->write(json_encode($resp));
                     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
                 } else {
-                    if ($cont == 1) {
-                        $file->moveTo("../app/assets/images/avatars/" . $name[0] . '.' . $ext);
-                        $path = "../../../app/assets/images/avatars/" . $name[0] . '.' . $ext;
-                    } else {
-                        $file->moveTo("../app/assets/images/signatures/" . $name[0] . '.' . $ext);
-                        $path = "../../../app/assets/images/signatures/" . $name[0] . '.' . $ext;
-                    }
-                    $users = $userDao->updateUser($dataUser, $path, $cont);
-                    $cont = $cont + 1;
+
+                    /* Validar carpeta creada con el id de la empresa */
+
+                    $file->moveTo("../app/assets/images/avatars/" . $name[0] . '.' . $ext);
+                    $path = "../../../app/assets/images/avatars/" . $name[0] . '.' . $ext;
+
+                    $users = $userDao->updateUser($dataUser, $path);
                 }
             }
         }
