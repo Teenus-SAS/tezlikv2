@@ -75,8 +75,6 @@ class userAccessDao
             return 1;
         } catch (\Exception $e) {
             $message = $e->getMessage();
-            if ($e->getCode() == 23000)
-                $message = 'Usuario duplicado. Ingrese una nuevo usuario';
             $error = array('info' => true, 'message' => $message);
             return $error;
         }
@@ -109,30 +107,30 @@ class userAccessDao
         }
     }
 
-    public function deleteUserAccess($id_user)
-    {
+    // public function deleteUserAccess($id_user)
+    // {
 
-        session_start();
-        $idUser = $_SESSION['idUser'];
+    //     session_start();
+    //     $idUser = $_SESSION['idUser'];
 
-        $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user = :id_user");
-        $stmt->execute(['id_user' => $id_user]);
-        $user = $stmt->fetch($connection::FETCH_ASSOC);
+    //     $connection = Connection::getInstance()->getConnection();
+    //     $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user = :id_user");
+    //     $stmt->execute(['id_user' => $id_user]);
+    //     $user = $stmt->fetch($connection::FETCH_ASSOC);
 
-        if ($user[$id_user] != $idUser) {
+    //     if ($user[$id_user] != $idUser) {
 
-            $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user = :id_user");
-            $stmt->execute(['id_user' => $id_user]);
-            $rows = $stmt->rowCount();
+    //         $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user = :id_user");
+    //         $stmt->execute(['id_user' => $id_user]);
+    //         $rows = $stmt->rowCount();
 
-            if ($rows > 0) {
-                $stmt = $connection->prepare("DELETE FROM users_access WHERE id_user = :id_user");
-                $stmt->execute(['id_user' => $id_user]);
-                $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-            }
-        } else {
-            return 1;
-        }
-    }
+    //         if ($rows > 0) {
+    //             $stmt = $connection->prepare("DELETE FROM users_access WHERE id_user = :id_user");
+    //             $stmt->execute(['id_user' => $id_user]);
+    //             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    //         }
+    //     } else {
+    //         return 1;
+    //     }
+    // }
 }
