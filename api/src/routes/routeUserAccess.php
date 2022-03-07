@@ -72,8 +72,8 @@ $app->post('/updateUserAccess', function (Request $request, Response $response, 
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteUserAccess/{id_user_access}', function (Request $request, Response $response, $args) use ($userAccessDao) {
-    $userAccess = $userAccessDao->deleteUserAccess($args['id_user_access']);
+$app->get('/deleteUserAccess/{id_user}', function (Request $request, Response $response, $args) use ($userAccessDao) {
+    $userAccess = $userAccessDao->deleteUserAccess($args['id_user']);
 
     if ($userAccess == null)
         $resp = array('success' => true, 'message' => 'Acceso de usuario eliminado correctamente');
@@ -83,3 +83,18 @@ $app->get('/deleteUserAccess/{id_user_access}', function (Request $request, Resp
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');
 });
+
+// $app->post('/deleteUserAccess', function (Request $request, Response $response, $args) use ($userAccessDao) {
+//     $dataUserAccess = $request->getParsedBody();
+//     $idUser = $dataUserAccess['idUser'];
+
+//     $userAccess = $userAccessDao->deleteUserAccess($dataUserAccess, $idUser);
+
+//     if ($userAccess == null)
+//         $resp = array('success' => true, 'message' => 'Acceso de usuario eliminado correctamente');
+//     if ($userAccess != null)
+//         $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
+
+//     $response->getBody()->write(json_encode($userAccess, JSON_NUMERIC_CHECK));
+//     return $response->withHeader('Content-Type', 'application/json');
+// });

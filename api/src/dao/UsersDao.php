@@ -89,7 +89,7 @@ class UsersDao
     $id_company = $_SESSION['id_company'];
 
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT COUNT(*) FROM `users` WHERE id_company = id_company;");
+    $stmt = $connection->prepare("SELECT COUNT(*) FROM users WHERE id_company = :id_company;");
     $stmt->execute(['id_company' => $id_company]);
     $quantity_users = $stmt->fetch($connection::FETCH_ASSOC);
 
@@ -101,10 +101,10 @@ class UsersDao
   public function saveUser($dataUser)
   {
     $connection = Connection::getInstance()->getConnection();
-    $newPass == $this->NewPassUser();
+    $newPass = $this->NewPassUser();
 
     $pass = password_hash($newPass, PASSWORD_DEFAULT);
-    $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, pass, rol, position) 
+    $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, password, rol, position) 
                                     VALUES(:firstname, :lastname, :email, :pass, :rol, :position)");
     $stmt->execute([
       'firstname' => ucwords(strtolower(trim($dataUser['names']))),
@@ -117,6 +117,16 @@ class UsersDao
 
 
     /* Enviar email al usuario creado */
+    if (password_verify($pass, $newPass)) {
+      $stmt = $connection->prepare("SELECT * FROM users
+                                    WHERE email = :email");
+      $stmt->execute([
+        'email' => $dataUser['email']
+      ]);
+      $email = $stmt->fetch($connection::FETCH_ASSOC);
+      return $email;
+      // $this->logger->notice("Email obtenido", array('email' => $email));
+    }
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     return 2;

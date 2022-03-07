@@ -56,18 +56,20 @@ class userAccessDao
         $connection = Connection::getInstance()->getConnection();
 
         try {
-            $stmt = $connection->prepare("INSERT INTO users_access (id_user,create_product,create_materials,
-                                                            create_machines,create_process,product_materials,product_process)
-                                          VALUES (:id_user,:create_product,:create_materials,
-                                                :create_machines,:create_process,:product_materials,:product_process)");
+            $stmt = $connection->prepare("INSERT INTO users_access (id_user,create_product,create_materials,create_machines,create_process
+                                                            ,product_materials,product_process,factory_load,external_service,
+                                                            product_line,payroll_load,expense,expense_distribution,user)
+                                          VALUES (:id_user,:create_product,:create_materials,:create_machines,:create_process,
+                                                :product_materials,:product_process,:factory_load,:external_service,
+                                                :product_line,:payroll_load,:expense,:expense_distribution,:user)");
             $stmt->execute([
-                'id_user' => $id_user,
-                'create_product' => $dataUserAccess['createProduct'],
-                'create_materials' => $dataUserAccess['createMaterials'],
-                'create_machines' => $dataUserAccess['createMachines'],
-                'create_process' => $dataUserAccess['createProcess'],
-                'product_materials' => $dataUserAccess['productMaterials'],
-                'product_process' => $dataUserAccess['productProcess']
+                'id_user' => $id_user,                                          'factory_load' => $dataUserAccess['factoryLoad'],
+                'create_product' => $dataUserAccess['createProduct'],           'external_service' => $dataUserAccess['externalService'],
+                'create_materials' => $dataUserAccess['createMaterials'],       'product_line' => $dataUserAccess['productLine'],
+                'create_machines' => $dataUserAccess['createMachines'],         'payroll_load' => $dataUserAccess['payrollLoad'],
+                'create_process' => $dataUserAccess['createProcess'],           'expense' => $dataUserAccess['expense'],
+                'product_materials' => $dataUserAccess['productMaterials'],     'expense_distribution' => $dataUserAccess['expenseDistribution'],
+                'product_process' => $dataUserAccess['productProcess'],         'user' => $dataUserAccess['user']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
             return 1;
@@ -85,17 +87,18 @@ class userAccessDao
         $connection = Connection::getInstance()->getConnection();
 
         try {
-            $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials,
-                                                create_machines = :create_machines, create_process = :create_process, product_materials = :product_materials, product_process = :product_process
+            $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials, create_machines = :create_machines, create_process = :create_process, 
+                                                        product_materials = :product_materials, product_process = :product_process, factory_load = :factory_load, external_service = :external_service,
+                                                        product_line = :product_line, payroll_load = :payroll_load, expense = :expense, expense_distribution = :expense_distribution, user = :user
                                           WHERE id_user = :id_user");
             $stmt->execute([
-                'create_product' => $dataUserAccess['createProduct'],
-                'create_materials' => $dataUserAccess['createMaterials'],
-                'create_machines' => $dataUserAccess['createMachines'],
-                'create_process' => $dataUserAccess['createProcess'],
-                'product_materials' => $dataUserAccess['productMaterials'],
-                'product_process' => $dataUserAccess['productProcess'],
-                'id_user' => $id_user,
+                'id_user' => $id_user,                                          'factory_load' => $dataUserAccess['factoryLoad'],
+                'create_product' => $dataUserAccess['createProduct'],           'external_service' => $dataUserAccess['externalService'],
+                'create_materials' => $dataUserAccess['createMaterials'],       'product_line' => $dataUserAccess['productLine'],
+                'create_machines' => $dataUserAccess['createMachines'],         'payroll_load' => $dataUserAccess['payrollLoad'],
+                'create_process' => $dataUserAccess['createProcess'],           'expense' => $dataUserAccess['expense'],
+                'product_materials' => $dataUserAccess['productMaterials'],     'expense_distribution' => $dataUserAccess['expenseDistribution'],
+                'product_process' => $dataUserAccess['productProcess'],         'user' => $dataUserAccess['user']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
             return 2;
