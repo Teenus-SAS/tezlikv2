@@ -1,8 +1,8 @@
 <?php
 
-use tezlikv2\dao\UserStatusDao;
+use tezlikv2\dao\StatusUserDao;
 
-$usersStatusDao = new UserStatusDao();
+$usersStatusDao = new StatusUserDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

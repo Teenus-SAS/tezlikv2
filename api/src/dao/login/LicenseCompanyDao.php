@@ -2,6 +2,7 @@
 
 namespace tezlikv2\dao;
 
+use DateTime;
 use tezlikv2\Constants\Constants;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
@@ -21,7 +22,7 @@ class LicenseCompanyDao
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT cl.license_end 
-                                  FROM company_license cl WHERE cl.id_company = :id_company;");
+                                  FROM companies_licenses cl WHERE cl.id_company = :id_company;");
         $stmt->execute(['id_company' => $id_company]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         $licenseData = $stmt->fetchAll($connection::FETCH_ASSOC);
@@ -31,5 +32,77 @@ class LicenseCompanyDao
         $licenseDay = $licenseData[0]['license_end'];
         $today < $licenseDay ? $license = 1 : $license = 0;
         return $license;
+    }
+
+    public function insertLicenseCompanyByCompany($dataLicenseCompany, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        try {
+            $stmt = $connection->prepare("INSERT INTO companies_licenses (id_company, license_start, quantity_user, status)
+                                          VALUES (:id_company, :license_start, :quantity_user, :status)");
+            $stmt->execute([
+                'id_company' => $id_company,
+                'license_start' => $dataLicenseCompany['licenseStart'],
+                'quantity_user' => $dataLicenseCompany['quantityUser'],
+                'status' => 1
+            ]);
+            if (empty($dataLicenseCompany['licenseStart']))
+                return 2;
+            else {
+                // Obtener campo license_start                
+                $licenseStart = $dataLicenseCompany['licenseStart'];
+                $licenseStart = date('Y-m-d');
+
+                // Agregar 30 dias para finalizacion de licencia
+                $licenseEnd = date("Y-m-d", strtotime($licenseStart . "+ 30 day"));
+
+                // Ingresar el campo a la BD
+                $stmt = $connection->prepare("UPDATE companies_licenses SET license_end = :license_end
+                                              WHERE license_start = :license_start");
+                $stmt->execute(['license_end' => $licenseEnd, 'license_start' => $dataLicenseCompany['licenseStart']]);
+            }
+            $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+            return 1;
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            $error = array('info' => true, 'message' => $message);
+            return $error;
+        }
+    }
+
+    public function updateLicenseCompany($dataLicenseCompany)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        try {
+            $stmt = $connection->prepare("UPDATE companies_licenses SET license_start = :license_start, license_end = :license_end, quantity_user = :quantity_user, status = :status
+                                          WHERE id_company_license = :id_company_license");
+            $stmt->execute([
+                'id_company_license' => $dataLicenseCompany['idCompanyLicense'],
+                'license_start' => $dataLicenseCompany['licenseStart'],
+                'license_end' => $dataLicenseCompany['licenseEnd'],
+                'quantity_user' => $dataLicenseCompany['quantityUser'],
+                'status' => 1
+            ]);
+            $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+            return 2;
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            $error = array('info' => true, 'message' => $message);
+            return $error;
+        }
+    }
+
+    public function deleteLicenseCompany($id_company_license)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT * FROM companies_licenses WHERE id_company_license = :id_company_license");
+        $stmt->execute(['id_company_license' => $id_company_license]);
+        $rows = $stmt->rowCount();
+
+        if ($rows > 0) {
+            $stmt = $connection->prepare("DELETE FROM companies_licenses WHERE id_company_license = :id_company_license");
+            $stmt->execute(['id_company_license' => $id_company_license]);
+            $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        }
     }
 }

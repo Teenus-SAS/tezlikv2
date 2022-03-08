@@ -21,7 +21,7 @@ class QuantityUsersDao
     public function quantityUsersAllows($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT quantity_user FROM company_license 
+        $stmt = $connection->prepare("SELECT quantity_user FROM companies_licenses 
                                   WHERE id_company = :id_company");
         $stmt->execute(['id_company' => $id_company]);
         $quantity_users_allows = $stmt->fetch($connection::FETCH_ASSOC);

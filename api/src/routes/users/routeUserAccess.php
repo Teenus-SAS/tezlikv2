@@ -1,8 +1,8 @@
 <?php
 
-use tezlikv2\dao\userAccessDao;
+use tezlikv2\dao\AccessUserDao;
 
-$userAccessDao = new userAccessDao();
+$userAccessDao = new AccessUserDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

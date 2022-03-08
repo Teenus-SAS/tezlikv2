@@ -9,28 +9,40 @@ include_once __DIR__ . '/AutoloaderSourceCode.php';
 $app = AppFactory::create();
 $app->setBasePath('/api');
 
-require_once('../api/src/routes/routeExpenses.php');
-require_once('../api/src/routes/routeExpensesDistribution.php');
+// Basic
+require_once('../api/src/routes/basic/routeMachines.php');
+require_once('../api/src/routes/basic/routeMaterials.php');
+require_once('../api/src/routes/basic/routeProcess.php');
+require_once('../api/src/routes/basic/routeProducts.php');
 
-require_once('../api/src/routes/routeFactoryLoad.php');
-require_once('../api/src/routes/routeLogin.php');
-require_once('../api/src/routes/routeMachines.php');
-require_once('../api/src/routes/routeMaterials.php');
-require_once('../api/src/routes/routePayroll.php');
-require_once('../api/src/routes/routePrices.php');
-require_once('../api/src/routes/routeProcess.php');
+// Config
+require_once('../api/src/routes/config/routeExternalServices.php');
+require_once('../api/src/routes/config/routeFactoryLoad.php');
+require_once('../api/src/routes/config/routeProductsMaterials.php');
+require_once('../api/src/routes/config/routeProductsProcess.php');
 
-require_once('../api/src/routes/routeProducts.php');
-require_once('../api/src/routes/routeProductsMaterials.php');
-require_once('../api/src/routes/routeProductsProcess.php');
+// General
+require_once('../api/src/routes/general/routeExpenses.php');
+require_once('../api/src/routes/general/routeExpensesDistribution.php');
+require_once('../api/src/routes/general/routePayroll.php');
 
-require_once('../api/src/routes/routeExternalServices.php');
-require_once('../api/src/routes/routePuc.php');
-require_once('../api/src/routes/routeCompany.php');
+// Global
+require_once('../api/src/routes/global/routeCompany.php');
+require_once('../api/src/routes/global/routePuc.php');
 
+// Login
+require_once('../api/src/routes/login/routeLogin.php');
+require_once('../api/src/routes/login/routeLicenseCompany.php');
+require_once('../api/src/routes/login/routepassUser.php');
 
-require_once('../api/src/routes/routeUserAccess.php');
-require_once('../api/src/routes/routeUsers.php');
+// Prices
+require_once('../api/src/routes/prices/routePrices.php');
+
+// User
+require_once('../api/src/routes/users/routeUserAccess.php');
+require_once('../api/src/routes/users/routeUsers.php');
+require_once('../api/src/routes/users/routeQuantityUsers.php');
+require_once('../api/src/routes/users/routeUsersStatus.php');
 
 
 $app->run();

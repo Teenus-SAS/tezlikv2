@@ -41,7 +41,8 @@ class PucDao
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
     } catch (\Exception $e) {
-      $message = $e->getMessage();
+      if ($e->getCode() == 23000)
+        $message = 'Numero de cuenta duplicada. Ingrese un nuevo numero';
       $error = array('info' => true, 'message' => $message);
       return $error;
     }

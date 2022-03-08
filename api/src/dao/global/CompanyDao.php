@@ -33,24 +33,21 @@ class CompanyDao
   {
     $connection = Connection::getInstance()->getConnection();
     try {
-      $stmt = $connection->prepare("INSERT INTO companies (name_commercial, company, state, city, country, address, telephone, nit, comision_ventas, margen_rentabilidad,
-                                                horas_trabajo, dia_mes, logo, gastos_totales_mes, inicio_licencia, expiracion_licencia, licencia_activa, 
-                                                productos_licenciados, gastos_especificos, creador)
-                                    VALUES (:name_commercial, :company, :state, :city, :country, :address, :telephone, :nit, :comision_ventas, :margen_rentabilidad,
-                                                :horas_trabajo, :dia_mes, :logo, :gastos_totales_mes, :inicio_licencia, :expiracion_licencia, :licencia_activa, 
-                                                :productos_licenciados, :gastos_especificos, :creador)");
+      $stmt = $connection->prepare("INSERT INTO companies (company, state, city, country, address, 
+                                                telephone, nit, logo, created_at, creador)
+                                    VALUES (:company, :state, :city, :country, :address, 
+                                                :telephone, :nit, :logo, :created_at, :creador)");
       $stmt->execute([
-        'name_commercial' => ucfirst(strtolower($dataCompany['nameCommercial'])),   'inicio_licencia' => $dataCompany['inicioLicencia'],
-        'company' => ucfirst(strtolower($dataCompany['company'])),                  'expiracion_licencia' => $dataCompany['expiracionLicencia'],
-        'state' => ucfirst(strtolower($dataCompany['state'])),                      'dia_mes' => $dataCompany['diaMes'],
-        'country' => ucfirst(strtolower($dataCompany['country'])),                  'logo' => $dataCompany['logo'],
-        'city' => ucfirst(strtolower($dataCompany['city'])),                        'gastos_totales_mes' => $dataCompany['gastosTotalesMes'],
-        'address' => ucfirst(strtolower($dataCompany['address'])),                  'licencia_activa' => 1,
-        'telephone' => $dataCompany['telephone'],                                   'productos_licenciados' => $dataCompany['productosLicenciados'],
-        'nit' => $dataCompany['nit'],                                               'gastos_especificos' => $dataCompany['gastosEspecificos'],
-        'comision_ventas' => $dataCompany['comisionVentas'],                        'creador' => $dataCompany['creador'],
-        'margen_rentabilidad' => $dataCompany['margenRentabilidad'],
-        'horas_trabajo' => $dataCompany['horasTrabajo']
+        'company' => ucfirst(strtolower($dataCompany['company'])),
+        'state' => ucfirst(strtolower($dataCompany['state'])),
+        'country' => ucfirst(strtolower($dataCompany['country'])),
+        'city' => ucfirst(strtolower($dataCompany['city'])),
+        'address' => ucfirst(strtolower($dataCompany['address'])),
+        'telephone' => $dataCompany['telephone'],
+        'nit' => $dataCompany['nit'],
+        'logo' => $dataCompany['logo'],
+        'created_at' => $dataCompany['createAt'],
+        'creador' => $dataCompany['creador']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
@@ -68,24 +65,21 @@ class CompanyDao
   {
     $connection = Connection::getInstance()->getConnection();
     try {
-      $stmt = $connection->prepare("UPDATE companies SET name_commercial = :name_commercial, company = :company, state = :state, city = :city, country = :country, address = :address,
-                                            telephone = :telephone, nit = :nit, comision_ventas = :comision_ventas, margen_rentabilidad = :margen_rentabilidad, horas_trabajo = :horas_trabajo, dia_mes = :dia_mes,
-                                            logo = :logo, gastos_totales_mes = :gastos_totales_mes, licencia_activa = :licencia_activa, inicio_licencia = :inicio_licencia, expiracion_licencia = :expiracion_licencia,
-                                            productos_licenciados = :productos_licenciados, gastos_especificos = :gastos_especificos, creador = :creador
+      $stmt = $connection->prepare("UPDATE companies SET company = :company, state = :state, city = :city, country = :country, address = :address, 
+                                                  telephone = :telephone, nit = :nit, logo = :logo, created_at = :created_at, creador =:creador
                                     WHERE id_company = :id_company");
       $stmt->execute([
-        'name_commercial' => ucfirst(strtolower($dataCompany['nameCommercial'])),   'inicio_licencia' => $dataCompany['inicioLicencia'],
-        'company' => ucfirst(strtolower($dataCompany['company'])),                  'expiracion_licencia' => $dataCompany['expiracionLicencia'],
-        'state' => ucfirst(strtolower($dataCompany['state'])),                      'dia_mes' => $dataCompany['diaMes'],
-        'country' => ucfirst(strtolower($dataCompany['country'])),                  'logo' => $dataCompany['logo'],
-        'city' => ucfirst(strtolower($dataCompany['city'])),                        'gastos_totales_mes' => $dataCompany['gastosTotalesMes'],
-        'address' => ucfirst(strtolower($dataCompany['address'])),                  'licencia_activa' => 1,
-        'telephone' => $dataCompany['telephone'],                                   'productos_licenciados' => $dataCompany['productosLicenciados'],
-        'nit' => $dataCompany['nit'],                                               'gastos_especificos' => $dataCompany['gastosEspecificos'],
-        'comision_ventas' => $dataCompany['comisionVentas'],                        'creador' => $dataCompany['creador'],
-        'margen_rentabilidad' => $dataCompany['margenRentabilidad'],
-        'horas_trabajo' => $dataCompany['horasTrabajo'],
-        'id_company' => $dataCompany['id_company']
+        'id_company' => $dataCompany['id_company'],
+        'company' => ucfirst(strtolower($dataCompany['company'])),
+        'state' => ucfirst(strtolower($dataCompany['state'])),
+        'country' => ucfirst(strtolower($dataCompany['country'])),
+        'city' => ucfirst(strtolower($dataCompany['city'])),
+        'address' => ucfirst(strtolower($dataCompany['address'])),
+        'telephone' => $dataCompany['telephone'],
+        'nit' => $dataCompany['nit'],
+        'logo' => $dataCompany['logo'],
+        'created_at' => $dataCompany['createAt'],
+        'creador' => $dataCompany['creador']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

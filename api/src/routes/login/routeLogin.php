@@ -1,11 +1,11 @@
 <?php
 
-use tezlikv2\dao\autenticationDao;
-use tezlikv2\dao\licenseDao;
+use tezlikv2\dao\AutenticationUserDao;
+use tezlikv2\dao\LicenseCompanyDao;
 //use tezlikv2\services\sendEmail;
 
-$licenseDao = new licenseDao();
-$autenticationDao = new autenticationDao();
+$licenseDao = new LicenseCompanyDao();
+$autenticationDao = new AutenticationUserDao();
 //$sendEmail = new sendEmail();
 
 use Psr\Http\Message\ResponseInterface as Response;
