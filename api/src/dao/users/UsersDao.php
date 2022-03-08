@@ -71,7 +71,7 @@ class UsersDao
     $connection = Connection::getInstance()->getConnection();
     $newPass = $newPassDao->NewPassUser();
     $pass = password_hash($newPass, PASSWORD_DEFAULT);
-    
+
     $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, password, id_company, active) 
                                     VALUES(:firstname, :lastname, :email, :pass, :id_company, :active)");
     $stmt->execute([
@@ -95,10 +95,6 @@ class UsersDao
   {
     $connection = Connection::getInstance()->getConnection();
 
-    // $stmt = $connection->prepare("SELECT * FROM users WHERE email = :email");
-    // $stmt->execute(['email' => $dataUser['email']]);
-    // $users = $stmt->fetch($connection::FETCH_ASSOC);
-    // $rows = $stmt->rowCount();
     if ($pathAvatar == null) {
       $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, active = :active
                                       WHERE id_user = :id_user");

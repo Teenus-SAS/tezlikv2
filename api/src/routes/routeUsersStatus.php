@@ -1,16 +1,16 @@
 <?php
 
-use tezlikv2\dao\UsersInfoDao;
+use tezlikv2\dao\UserStatusDao;
 
-$usersInfoDao = new UsersInfoDao();
+$usersStatusDao = new UserStatusDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Inactivar/Activar Usuario */
 
-$app->get('/inactivateActivateUser/{id_user}', function (Request $request, Response $response, $args) use ($usersInfoDao) {
-    $users = $usersInfoDao->inactivateActivateUser($args['id_user']);
+$app->get('/inactivateActivateUser/{id_user}', function (Request $request, Response $response, $args) use ($usersStatusDao) {
+    $users = $usersStatusDao->inactivateActivateUser($args['id_user']);
     if ($users == 0)
         $resp = array('info' => true, 'message' => 'Usuario inactivado correctamente');
 

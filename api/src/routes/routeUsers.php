@@ -28,7 +28,8 @@ $app->get('/user', function (Request $request, Response $response, $args) use ($
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-/* Insertar y actualizar usuario */
+/* Insertar usuario */
+
 $app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao, $quantityUsersDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
@@ -108,14 +109,6 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
-
-/* Eliminar Usuario 
-$app->post('/deleteUser', function (Request $request, Response $response, $args) use ($userDao) {
-    $dataUser = $request->getParsedBody();
-    $users = $userDao->deleteUser($dataUser);
-    $response->getBody()->write(json_encode($users, JSON_NUMERIC_CHECK));
-    return $response->withHeader('Content-Type', 'application/json');
-}); */
 
 $app->get('/deleteUser/{idUser}', function (Request $request, Response $response, $args) use ($userDao) {
     $users = $userDao->deleteUser($args['idUser']);

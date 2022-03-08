@@ -19,7 +19,7 @@ class CompanyDao
   public function findDataCompanyByCompany($id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT * FROM empresas WHERE id_empresa = :id_company;");
+    $stmt = $connection->prepare("SELECT * FROM companies WHERE id_company = :id_company;");
     $stmt->execute(['id_company' => $id_company]);
     
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
