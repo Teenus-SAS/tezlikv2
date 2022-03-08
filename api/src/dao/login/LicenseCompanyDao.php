@@ -6,7 +6,7 @@ use tezlikv2\Constants\Constants;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
-class licenseDao
+class LicenseCompanyDao
 {
     private $logger;
 
