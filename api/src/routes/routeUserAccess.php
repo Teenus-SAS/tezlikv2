@@ -71,15 +71,3 @@ $app->post('/updateUserAccess', function (Request $request, Response $response, 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
-
-// $app->get('/deleteUserAccess/{id_user}', function (Request $request, Response $response, $args) use ($userAccessDao) {
-//     $userAccess = $userAccessDao->deleteUserAccess($args['id_user']);
-
-//     if ($userAccess == null)
-//         $resp = array('success' => true, 'message' => 'Acceso de usuario eliminado correctamente');
-//     if ($userAccess != null)
-//         $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
-
-//     $response->getBody()->write(json_encode($resp));
-//     return $response->withHeader('Content-Type', 'application/json');
-// });
