@@ -1,6 +1,8 @@
 <?php
 
 use tezlikv2\dao\CompanyDao;
+use tezlikv2\dao\UsersDao;
+use tezlikv2\dao\licenseCompanyDao;
 
 $companyDao = new CompanyDao();
 
@@ -16,20 +18,26 @@ $app->get('/company', function (Request $request, Response $response, $args) use
 });
 
 $app->post('/addCompany', function (Request $request, Response $response, $args) use ($companyDao) {
-    $dataCompany = $request->getParsedBody();
+    $data = $request->getParsedBody();
 
     if (
-        empty($dataCompany['nameCommercial']) && empty($dataCompany['company']) && empty($dataCompany['state']) &&
-        empty($dataCompany['city']) && empty($dataCompany['country']) && empty($dataCompany['address']) &&
-        empty($dataCompany['telephone']) && empty($dataCompany['nit']) && empty($dataCompany['creador'])
+        empty($data['company']) && empty($data['state']) &&
+        empty($data['city']) && empty($data['country']) && empty($data['address']) &&
+        empty($data['telephone']) && empty($data['nit']) && empty($data['creador'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese los todos datos');
     else {
-        $company = $companyDao->insertCompany($dataCompany);
-        if ($company == 1)
+
+        $userDao = new UsersDao();
+        $licenseCompanyDao = new LicenseCompanyDao();
+        $id_company = $companyDao->insertCompany($data);
+        $userDao->saveUser($data, $id_company);
+        $licenseCompany = $licenseCompanyDao->insertLicenseCompanyByCompany($data, $id_company);
+
+        if ($licenseCompany == null)
             $resp = array('success' => true, 'message' => 'Compañia ingresada correctamente');
         else
-            $resp = $company;
+            $resp = array('error' => true, 'message' => 'Error al crear Empresa. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');

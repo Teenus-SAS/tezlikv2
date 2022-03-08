@@ -84,7 +84,6 @@ class UsersDao
     ]);
 
 
-
     /* Enviar email al usuario creado */
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
