@@ -53,8 +53,8 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
         if ($users == 2)
             $resp = array('success' => true, 'message' => 'Usuario creado correctamente');
 
-        if ($users == 3)
-            $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
+        // if ($users == 3)
+        //     $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
     }
     /* } */
 

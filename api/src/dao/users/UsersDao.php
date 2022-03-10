@@ -102,7 +102,7 @@ class UsersDao
         'firstname' => ucwords(strtolower(trim($dataUser['names']))),
         'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
         'active' => 1,
-        'id_user' => $dataUser['idUser'],
+        'id_user' => $dataUser['idUser']
       ]);
     } else {
 
