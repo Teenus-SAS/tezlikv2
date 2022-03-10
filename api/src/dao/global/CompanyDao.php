@@ -50,7 +50,11 @@ class CompanyDao
         'creador' => $dataCompany['creador']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 1;
+
+      $stmt = $connection->prepare("SELECT MAX(id_company) AS id_company FROM companies");
+      $stmt->execute();
+      $id_company = $stmt->fetch($connection::FETCH_ASSOC);
+      return $id_company;
     } catch (\Exception $e) {
       $message = $e->getMessage();
       if ($e->getCode() == 23000)
@@ -65,11 +69,13 @@ class CompanyDao
   {
     $connection = Connection::getInstance()->getConnection();
     try {
+      session_start();
+      $id_company = $_SESSION['id_company'];
+      
       $stmt = $connection->prepare("UPDATE companies SET company = :company, state = :state, city = :city, country = :country, address = :address, 
                                                   telephone = :telephone, nit = :nit, logo = :logo, created_at = :created_at, creador =:creador
                                     WHERE id_company = :id_company");
       $stmt->execute([
-        'id_company' => $dataCompany['id_company'],
         'company' => ucfirst(strtolower($dataCompany['company'])),
         'state' => ucfirst(strtolower($dataCompany['state'])),
         'country' => ucfirst(strtolower($dataCompany['country'])),
@@ -79,7 +85,8 @@ class CompanyDao
         'nit' => $dataCompany['nit'],
         'logo' => $dataCompany['logo'],
         'created_at' => $dataCompany['createAt'],
-        'creador' => $dataCompany['creador']
+        'creador' => $dataCompany['creador'],
+        'id_company' => $id_company
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

@@ -43,7 +43,7 @@ $(document).ready(function() {
             },
             {
                 title: 'Acciones',
-                data: 'id_maquine',
+                data: 'id_machine',
                 className: 'uniqueClassName',
                 render: function(data) {
                     return `

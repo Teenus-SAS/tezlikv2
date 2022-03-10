@@ -54,19 +54,19 @@ $(document).ready(function() {
         let idMachine = $('#idMachine').val();
 
         if (idMachine == '') {
-            ref = $('#refRawMachine').val();
-            Machine = $('#nameRawMachine').val();
-            unity = $('#unityRawMachine').val();
-            cost = $('#costRawMachine').val();
+            ref = $('#refMachine').val();
+            Machine = $('#nameMachine').val();
+            unity = $('#unityMachine').val();
+            cost = $('#costMachine').val();
 
             if (ref == '' || ref == 0 || Machine == '' || Machine == 0 || unity == '' || unity == 0 || cost == '' || cost == 0) {
                 toastr.error('Ingrese todos los campos')
                 return false
             }
 
-            Machine = $('#formCreateMachine').serialize();
+            machine = $('#formCreateMachine').serialize();
 
-            $.post("../../../api/addMachines", Machine,
+            $.post("../../../api/addMachines", machine,
                 function(data, textStatus, jqXHR) {
                     message(data)
                 },
@@ -78,21 +78,20 @@ $(document).ready(function() {
 
     /* Actualizar productos */
 
-    $(document).on('click', '.updateRawMachines', function(e) {
+    $(document).on('click', '.updateMachines', function(e) {
 
-        $('.cardRawMachines').show(800);
-
+        $('.cardMachines').show(800);
         $('#idMachine').val('');
         $('#btnCreateMachine').html('Actualizar');
-
+        debugger
         let row = $(this).parent().parent()[0]
-        let data = tblRawMachines.fnGetData(row)
+        let data = tblMachines.fnGetData(row)
 
         $('#idMachine').val(data.id_Machine);
-        $('#refRawMachine').val(data.reference);
-        $('#nameRawMachine').val(data.Machine);
-        $('#unityRawMachine').val(data.unit);
-        $('#costRawMachine').val(data.cost);
+        $('#refMachine').val(data.reference);
+        $('#nameMachine').val(data.Machine);
+        $('#unityMachine').val(data.unit);
+        $('#costMachine').val(data.cost);
 
         $('html, body').animate({
             scrollTop: 0
@@ -110,7 +109,7 @@ $(document).ready(function() {
 
     /* Eliminar productos */
 
-    $(document).on('click', '.deleteRawMachines', function(e) {
+    $(document).on('click', '.deleteMachines', function(e) {
         debugger
         let id_Machine = this.id
         $.get(`../../../api/deleteMachine/${id_Machine}`,
@@ -123,7 +122,7 @@ $(document).ready(function() {
 
     message = (data) => {
         if (data.success == true) {
-            $('.cardRawMachines').hide(800);
+            $('.cardMachines').hide(800);
             $("#formCreateMachine")[0].reset();
             toastr.success(data.message)
             updateTable()
@@ -137,7 +136,7 @@ $(document).ready(function() {
     /* Actualizar tabla */
 
     function updateTable() {
-        $('#tblRawMachines').DataTable().clear()
-        $('#tblRawMachines').DataTable().ajax.reload()
+        $('#tblMachines').DataTable().clear()
+        $('#tblMachines').DataTable().ajax.reload()
     }
 });

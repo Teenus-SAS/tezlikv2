@@ -8,11 +8,10 @@ $(document).ready(function() {
 
     $('#btnNewProduct').click(function(e) {
         e.preventDefault();
-        $('#idProduct').val('');
+
         $('.cardCreateProduct').toggle(800);
         $('#btnCreateProduct').html('Crear Producto');
 
-        $('#idProduct').val('');
         $('#referenceProduct').val('');
         $('#product').val('');
         $('#profitability').val('');
@@ -23,7 +22,7 @@ $(document).ready(function() {
 
     $('#btnCreateProduct').click(function(e) {
         e.preventDefault();
-        let idProduct = $('#idProduct').val();
+        let idProduct = sessionStorage.getItem('id_product')
 
         if (idProduct == '') {
             ref = $('#referenceProduct').val();
@@ -50,15 +49,15 @@ $(document).ready(function() {
     /* Actualizar productos */
 
     $(document).on('click', '.updateProducts', function(e) {
-        $('.cardCreateProduct').show(800);
 
-        $('#idProduct').val('');
+        $('.cardCreateProduct').show(800);
         $('#btnCreateProduct').html('Actualizar Producto');
 
         let row = $(this).parent().parent()[0]
         let data = tblProducts.fnGetData(row)
 
-        $('#idProduct').val(data.id_product);
+        sessionStorage.setItem('id_product', data.id_product)
+
         $('#referenceProduct').val(data.reference);
         $('#product').val(data.product);
         $('#profitability').val(data.profitability);
