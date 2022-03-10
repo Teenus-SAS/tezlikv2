@@ -12,25 +12,15 @@ $(document).ready(function() {
         url: "../../api/materials",
         success: function(r) {
 
-            let $select = $(`#nameRawMaterial`)
+            let $select = $(`#material`)
             $select.empty()
-
+            debugger
             $select.append(`<option disabled selected>Seleccionar</option>`)
             $.each(r, function(i, value) {
                 $select.append(
                     `<option value = ${value.id_material}> ${value.material} </option>`,
                 )
             })
-
-            // let $select1 = $(`#selectNameProduct`)
-            // $select1.empty()
-
-            // $select1.append(`<option disabled selected>Seleccionar</option>`)
-            // $.each(r, function(i, value) {
-            //     $select1.append(
-            //         `<option value = ${value.id_material}> ${value.product} </option>`,
-            //     )
-            // })
         }
     });
 

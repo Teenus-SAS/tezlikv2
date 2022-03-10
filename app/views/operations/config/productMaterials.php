@@ -49,7 +49,7 @@
                                 <label for="">Cantidad</label>
                                 <label for="">Unidad</label>
                                 <label for=""></label>
-                                <select class="form-control" name="refMaterial" id="refMaterial"></select>
+                                <select class="form-control" name="material" id="material"></select>
                                 <input class="form-control" type="text" name="quantity" id="quantity">
                                 <input class="form-control" type="text" name="unity" id="unity" disabled>
                                 <button class="btn btn-primary" id="btnAddMaterials">Adicionar Materia Prima</button>

@@ -18,32 +18,24 @@
     </div>
 </div>
 
-<!-- <div class="page-content-wrapper mt--45 mb-5 cardCreateMachines">
+<div class="page-content-wrapper mt--45 mb-5 cardCreateRawMaterials">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Crear Máquina</h5>
-                    </div>
                     <div class="card-body">
-                        <div class="gridx3">
-                            <label for="">Nombre</label>
-                            <label for="">Precio</label>
-                            <label for="">Valor Residual</label>
-                            <label for="">Años de Depreciación</label>
-                            <label for="">Depreciación por Minuto</label>
-                            <input type="text" class="form-control" id="nameMachine">
-                            <input type="text" class="form-control" id="priceMachine">
-                            <input type="text" class="form-control text-center" id="depreciationMachine">
-                            <input type="text" class="form-control text-center" id="depreciationMinute">
+                        <div class="gridx2">
+                            <label for="">Referencia</label>
+                            <label for="">Producto</label>
+                            <select class="form-control" name="refProduct" id="refProduct"></select>
+                            <select class="form-control" name="selectNameProduct" id="selectNameProduct"></select>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <!-- page content -->
 <div class="page-content-wrapper mt--45">
@@ -53,7 +45,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Precios</h5>
+                        <h5 class="card-title">Materias Primas</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -73,3 +65,4 @@
 
 <script src="../../app/js/machines/tblMachines.js"></script>
 <script src="../../app/js/machines/machines.js"></script>
+<script src="../../app/js/products/configProducts.js"></script>

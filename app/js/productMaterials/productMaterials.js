@@ -1,4 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
+
+    let idProduct
+
     /* Ocultar panel crear producto */
 
     $('.cardAddMaterials').hide();
@@ -10,26 +13,33 @@ $(document).ready(function () {
 
         $('.cardAddMaterials').toggle(800);
         $('#btnAddMaterials').html('Asignar');
-        
+
         $('#refMaterial').val('');
         $('#quantity').val('');
         $('#unity').val('');
 
     });
 
+    /* Seleccionar producto */
+
+    $('#selectNameProduct').change(function(e) {
+        e.preventDefault();
+        idProduct = $('#selectNameProduct').val();
+    });
+
+
     /* Adicionar nueva materia prima */
 
-    $('#btnAddMaterials').click(function(e){
+    $('#btnAddMaterials').click(function(e) {
         e.preventDefault();
         let idProductMaterial = sessionStorage.getItem('id_product_material')
 
-        if(idProductMaterial == '' || idProductMaterial == null) {
-            
+        if (idProductMaterial == '' || idProductMaterial == null) {
+            debugger
             ref = $('#refMaterial').val();
             quan = $('#quantity').val();
-            unit = $('#unity').val();
 
-            if(ref == '' || ref == 0 || quan == '' || quan == 0 || unit == '' || unit == 0){
+            if (ref == '' || ref == 0 || quan == '' || quan == 0) {
                 toastr.error('Ingrese todos los campos')
                 return false
             }
@@ -84,9 +94,9 @@ $(document).ready(function () {
     $(document).on('click', '.deleteMaterials', function(e) {
         let id_product_material = this.id
         $.get(`../../api/deleteProductMaterial/${id_product_material}`,
-            function(data, textStatus, jqXHR){
+            function(data, textStatus, jqXHR) {
                 message(data)
-            }  
+            }
         )
     });
 
@@ -98,7 +108,7 @@ $(document).ready(function () {
             $("#formAddMaterials")[0].reset();
             updateTable()
             toastr.success(data.message)
-            //return false
+                //return false
         } else if (data.error == true)
             toastr.error(data.message)
         else if (data.info == true)
