@@ -31,7 +31,7 @@
                             <div class="gridx2p">
                                 <label for="">Proceso</label>
                                 <label for=""></label>
-                                <input type="text" class="form-control" id="process">
+                                <input type="text" class="form-control" id="process" name="process">
                                 <button class="btn btn-primary" id="btnCreateProcess">Crear Proceso</button>
                             </div>
                         </div>

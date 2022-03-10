@@ -63,10 +63,8 @@ class ProcessDao
         'id_process' => $dataProcess['idProcess']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
-
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
@@ -75,15 +73,24 @@ class ProcessDao
   public function deleteProcess($id_process)
   {
     $connection = Connection::getInstance()->getConnection();
-
-    $stmt = $connection->prepare("SELECT * FROM process WHERE id_process = :id_process");
-    $stmt->execute(['id_process' => $id_process]);
-    $rows = $stmt->rowCount();
-
-    if ($rows > 0) {
-      $stmt = $connection->prepare("DELETE FROM process WHERE id_process = :id_process");
+    try {
+      $stmt = $connection->prepare("SELECT * FROM process WHERE id_process = :id_process");
       $stmt->execute(['id_process' => $id_process]);
-      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      $rows = $stmt->rowCount();
+
+      if ($rows > 0) {
+        $stmt = $connection->prepare("DELETE FROM process WHERE id_process = :id_process");
+        $stmt->execute(['id_process' => $id_process]);
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+      }
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+
+      if ($e->getCode() == 23000)
+        $message = 'Proceso asociado a un producto/nomina. Imposible Eliminar';
+
+      $error = array('info' => true, 'message' => $message);
+      return $error;
     }
   }
 }

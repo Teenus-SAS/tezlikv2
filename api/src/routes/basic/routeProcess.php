@@ -38,7 +38,7 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
 });
 
 $app->post('/updateProcess', function (Request $request, Response $response, $args) use ($processDao) {
-    session_start();
+    
     $dataProcess = $request->getParsedBody();
 
     if (empty($dataProcess['process']))
@@ -46,7 +46,7 @@ $app->post('/updateProcess', function (Request $request, Response $response, $ar
     else {
         $process = $processDao->updateProcess($dataProcess);
 
-        if ($process == 2)
+        if ($process == null)
             $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');
         else
             $resp = $process;

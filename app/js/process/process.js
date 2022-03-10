@@ -1,5 +1,4 @@
-
-$(document).ready(function () {
+$(document).ready(function() {
 
     /* Ocultar panel crear producto */
 
@@ -11,23 +10,22 @@ $(document).ready(function () {
         e.preventDefault();
 
         $('.cardCreateProcess').toggle(800);
-        $('#btnCreateProcess').html('Crear Proceso');
-         
+        $('#btnCreateProcess').html('Crear');
         $('#process').val('');
 
     });
 
     /* Crear nuevo proceso */
 
-    $('#btnCreateProcess').click(function(e){
+    $('#btnCreateProcess').click(function(e) {
         e.preventDefault();
+
         let idProcess = sessionStorage.getItem('id_process')
 
-        if(idProcess == '') {
-            proce = $('#process').val('');
+        if (idProcess == '' || idProcess == null) {
+            process = $('#process').val();
 
-            if(proce == '' || proce == 0)
-            {
+            if (process == '' || process == 0) {
                 toastr.error('Ingrese todos los campos')
                 return false
             }
@@ -48,14 +46,13 @@ $(document).ready(function () {
 
     $(document).on('click', '.updateProcess', function(e) {
 
-        $('.cardCreateProcess').shows(800);
-        $('#btnCreateProcess').html('Actualizar Proceso');
+        $('.cardCreateProcess').show(800);
+        $('#btnCreateProcess').html('Actualizar');
 
         let row = $(this).parent().parent()[0]
         let data = tblProcess.fnGetData(row)
 
         sessionStorage.setItem('id_process', data.id_process)
-
         $('#process').val(data.process);
 
         $('html, body').animate({
@@ -64,9 +61,14 @@ $(document).ready(function () {
     });
 
     updateProcess = () => {
+
         let data = $('#formCreateProcess').serialize();
-        $.post("../../../api/updateProcess", process,
+        idProcess = sessionStorage.getItem('id_process')
+        data = data + '&idProcess=' + idProcess
+
+        $.post("../../api/updateProcess", data,
             function(data, textStatus, jqXHR) {
+
                 message(data)
             },
         );
@@ -75,11 +77,12 @@ $(document).ready(function () {
     /* Eliminar proceso */
 
     $(document).on('click', '.deleteProcess', function(e) {
+        debugger
         let id_process = this.id
         $.get(`../../../api/deleteProcess/${id_process}`,
-            function(data, textStatus, jqXHR){
+            function(data, textStatus, jqXHR) {
                 message(data)
-            }  
+            }
         )
     });
 
@@ -91,7 +94,7 @@ $(document).ready(function () {
             $("#formCreateProcess")[0].reset();
             updateTable()
             toastr.success(data.message)
-            //return false
+                //return false
         } else if (data.error == true)
             toastr.error(data.message)
         else if (data.info == true)
