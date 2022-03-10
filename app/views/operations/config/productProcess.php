@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Nuevo Proceso</button>
+                    <button class="btn btn-primary" id="btnCreateProcess">Nuevo Proceso</button>
                 </div>
             </div>
         </div>
@@ -44,20 +44,22 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx6pp">
-                            <label for="">Proceso</label>
-                            <label for="">Maquina</label>
-                            <label for="">t.alistamiento</label>
-                            <label for="">t.operacion</label>
-                            <label for="">t.total</label>
-                            <label for=""></label>
-                            <select class="form-control" name="refProduct" id="refProduct"></select>
-                            <select class="form-control" name="refProduct" id="refProduct"></select>
-                            <input class="form-control" type="number" name="" id="">
-                            <input class="form-control" type="number" name="" id="">
-                            <input class="form-control" type="text" name="" id="" disabled>
-                            <button class="btn btn-primary" id="btnAddMaterials">Adicionar</button>
-                        </div>
+                        <from id="formAddProcess">
+                            <div class="gridx6pp">
+                                <label for="">Proceso</label>
+                                <label for="">Maquina</label>
+                                <label for="">t.alistamiento</label>
+                                <label for="">t.operacion</label>
+                                <label for="">t.total</label>
+                                <label for=""></label>
+                                <select class="form-control" name="idProcess" id="idProcess"></select>
+                                <select class="form-control" name="idMachine" id="idMachine"></select>
+                                <input class="form-control" type="number" name="enlistmentTime" id="enlistmentTime">
+                                <input class="form-control" type="number" name="operationTime" id="operationTime">
+                                <input class="form-control" type="text" name="totalTime" id="titalTime" disabled>
+                                <button class="btn btn-primary" id="btnAddProcess">Adicionar</button>
+                            </div>
+                        </from>
                     </div>
                 </div>
             </div>
@@ -86,4 +88,6 @@
 </div>
 
 <script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/products/tblConfigProcess.js"></script>
+<!-- <script src="../../app/js/products/tblConfigProcess.js"></script> -->
+<script src="../../app/js/productProcess/tblConfigProcess.js"></script>
+<script src="../../app/js/productProcess/productProcess.js"></script>

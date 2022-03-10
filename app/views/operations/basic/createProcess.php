@@ -26,14 +26,16 @@
                     <div class="card-header">
                         <h5 class="card-title">Crear Procesos</h5>
                     </div>
-                    <div class="card-body">
-                        <div class="gridx2p">
-                            <label for="">Proceso</label>
-                            <label for=""></label>
-                            <input type="text" class="form-control" id="process">
-                            <button class="btn btn-primary" id="btnCreateProcess">Crear Proceso</button>
+                    <form id="formCreateProcess">
+                        <div class="card-body">
+                            <div class="gridx2p">
+                                <label for="">Proceso</label>
+                                <label for=""></label>
+                                <input type="text" class="form-control" id="process">
+                                <button class="btn btn-primary" id="btnCreateProcess">Crear Proceso</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

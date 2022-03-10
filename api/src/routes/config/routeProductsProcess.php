@@ -8,8 +8,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 // PRODUCTOS PROCESOS
-$app->get('/productsProcess/{id_product}', function (Request $request, Response $response, $args) use ($productsProcessDao) {
-    $productProcess = $productsProcessDao->productsprocess($args['id_product']);
+$app->get('/productsProcess/{refProduct}', function (Request $request, Response $response, $args) use ($productsProcessDao) {
+    $productProcess = $productsProcessDao->productsprocess($args['refProduct']);
     $response->getBody()->write(json_encode($productProcess, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
@@ -19,7 +19,7 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
     $id_company = $_SESSION['id_company'];
     $dataProductProcess = $request->getParsedBody();
 
-    if (empty($dataProductProcess['idProduct'] || empty($dataProductProcess['idProcess']) || empty($dataProductProcess['idMachine']) || empty($dataProductProcess['enlistmentTime']) || empty($dataProductProcess['operationTime'])))
+    if (empty($dataProductProcess['refProduct'] || empty($dataProductProcess['idProcess']) || empty($dataProductProcess['idMachine']) || empty($dataProductProcess['enlistmentTime']) || empty($dataProductProcess['operationTime'])))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         //$productProcess = $productsProcessDao->insertproductsprocessByCompany($dataProductProcess);

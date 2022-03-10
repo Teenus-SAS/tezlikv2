@@ -1,4 +1,3 @@
-
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -12,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Adicionar  Nueva Materia Prima</button>
+                    <button class="btn btn-primary" id="btnCreateProduct">Adicionar Nueva Materia Prima</button>
                 </div>
             </div>
         </div>
@@ -44,16 +43,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx4pm">
-                            <label for="">Materia Prima</label>
-                            <label for="">Cantidad</label>
-                            <label for="">Unidad</label>
-                            <label for=""></label>
-                            <select class="form-control" name="refProduct" id="refProduct"></select>
-                            <input class="form-control" type="text" name="" id="">
-                            <input class="form-control" type="text" name="" id="" disabled>
-                            <button class="btn btn-primary" id="btnAddMaterials">Adicionar Materia Prima</button>
-                        </div>
+                        <form id="formAddMaterials">              
+                            <div class="gridx4pm">
+                                <label for="">Materia Prima</label>
+                                <label for="">Cantidad</label>
+                                <label for="">Unidad</label>
+                                <label for=""></label>
+                                <select class="form-control" name="refProduct" id="refProduct"></select>
+                                <input class="form-control" type="text" name="quantity" id="quantity">
+                                <input class="form-control" type="text" name="unity" id="unity" disabled>
+                                <button class="btn btn-primary" id="btnAddMaterials">Adicionar Materia Prima</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -82,5 +83,6 @@
 </div>
 
 <script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/productMaterials/configProducts.js"></script>
-<script src="../../app/js/productMaterialss/tblConfigMaterials.js"></script>
+<script src="../../app/js/products/configProducts.js"></script>
+<script src="../../app/js/productMaterials/tblConfigMaterials.js"></script>
+<script src="../../app/js/productMaterials/productMaterials.js"></script>

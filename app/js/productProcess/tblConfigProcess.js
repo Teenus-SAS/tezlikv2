@@ -16,7 +16,6 @@ $(document).ready(function() {
         loadtableProcess(id)
     });
 
-
     /* Cargue tabla de Proyectos */
 
     const loadtableProcess = (idProduct) => {
@@ -25,7 +24,7 @@ $(document).ready(function() {
             destroy: true,
             pageLength: 50,
             ajax: {
-                url: `../../api/productsprocess/${idProduct}`,
+                url: `../../api/productsProcess/${idProduct}`,
                 dataSrc: '',
             },
             language: {
@@ -59,11 +58,12 @@ $(document).ready(function() {
                 },
                 {
                     title: 'Acciones',
-                    data: 'id_material',
+                    data: 'id_product_process',
                     className: 'uniqueClassName',
                     render: function(data) {
                         return `
-                            <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteMateriales" data-toggle='tooltip' title='Eliminar Materia Prima' style="font-size: 30px;color:red"></i></a>`
+                        <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateProcess" data-toggle='tooltip' title='Actualizar Proceso' style="font-size: 30px;"></i></a>
+                        <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteProcess" data-toggle='tooltip' title='Eliminar Proceso' style="font-size: 30px;color:red"></i></a>`
                     },
                 },
             ],

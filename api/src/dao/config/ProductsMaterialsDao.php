@@ -16,7 +16,7 @@ class ProductsMaterialsDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    public function productsmaterials($id_product)
+    public function productsmaterials($idProduct)
     {
         session_start();
         $id_company = $_SESSION['id_company'];
@@ -26,7 +26,7 @@ class ProductsMaterialsDao
                                   FROM products p INNER JOIN products_materials pm ON pm.id_product = p.id_product 
                                   INNER JOIN materials m ON m.id_material = pm.id_material 
                                   WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
-        $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
+        $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
         $productsmaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("products", array('products' => $productsmaterials));
         return $productsmaterials;
@@ -40,9 +40,9 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
                                     VALUES (:id_material, :id_company, :id_product, :quantity)");
             $stmt->execute([
-                'id_material' => $dataProductMaterial['idMaterial'],
+                'id_material' => $dataProductMaterial['selectNameProduct'],
                 'id_company' => $id_company,
-                'id_product' => $dataProductMaterial['idProduct'],
+                'id_product' => $dataProductMaterial['refProduct'],
                 'quantity' => $dataProductMaterial['quantity']
             ]);
 
@@ -64,8 +64,8 @@ class ProductsMaterialsDao
                                     WHERE id_product_material = :id_product_material");
             $stmt->execute([
                 'id_product_material' => $dataProductMaterial['idProductMaterial'],
-                'id_material' => $dataProductMaterial['idMaterial'],
-                'id_product' => $dataProductMaterial['idProduct'],
+                'id_material' => $dataProductMaterial['selectNameProduct'],
+                'id_product' => $dataProductMaterial['refProduct'],
                 'quantity' => $dataProductMaterial['quantity']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
