@@ -43,13 +43,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="formAddMaterials">              
+                        <form id="formAddMaterials" name="formAddMaterials">              
                             <div class="gridx4pm">
                                 <label for="">Materia Prima</label>
                                 <label for="">Cantidad</label>
                                 <label for="">Unidad</label>
                                 <label for=""></label>
-                                <select class="form-control" name="refProduct" id="refProduct"></select>
+                                <select class="form-control" name="refMaterial" id="refMaterial"></select>
                                 <input class="form-control" type="text" name="quantity" id="quantity">
                                 <input class="form-control" type="text" name="unity" id="unity" disabled>
                                 <button class="btn btn-primary" id="btnAddMaterials">Adicionar Materia Prima</button>
@@ -71,7 +71,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigProducts">
+                            <table class="table table-striped" id="tblConfigMaterials">
 
                             </table>
                         </div>
@@ -83,6 +83,6 @@
 </div>
 
 <script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/products/configProducts.js"></script>
+<script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
 <script src="../../app/js/productMaterials/tblConfigMaterials.js"></script>
 <script src="../../app/js/productMaterials/productMaterials.js"></script>

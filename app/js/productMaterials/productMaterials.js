@@ -9,11 +9,12 @@ $(document).ready(function () {
         e.preventDefault();
 
         $('.cardAddMaterials').toggle(800);
-        $('#btnAddMaterials').html('Asignar Materia Prima');
+        $('#btnAddMaterials').html('Asignar');
+        
+        $('#refMaterial').val('');
+        $('#quantity').val('');
+        $('#unity').val('');
 
-        $('#refProduct').val('');
-        $('#selectNameProduct').val('');
-        //$('#unity').val('');
     });
 
     /* Adicionar nueva materia prima */
@@ -22,12 +23,13 @@ $(document).ready(function () {
         e.preventDefault();
         let idProductMaterial = sessionStorage.getItem('id_product_material')
 
-        if(idProductMaterial == '') {
-            ref = $('#refProduct').val('');
-            quan = $('#selectNameProduct').val('');
-            //unit = $('#unity').val('');|| unit == '' || unit == 0
+        if(idProductMaterial == '' || idProductMaterial == null) {
+            
+            ref = $('#refMaterial').val();
+            quan = $('#quantity').val();
+            unit = $('#unity').val();
 
-            if(ref == '' || ref == 0 || quan == '' || quan == 0){
+            if(ref == '' || ref == 0 || quan == '' || quan == 0 || unit == '' || unit == 0){
                 toastr.error('Ingrese todos los campos')
                 return false
             }
@@ -49,16 +51,16 @@ $(document).ready(function () {
     $(document).on('click', '.updateMaterials', function(e) {
 
         $('.cardAddMaterials').shows(800);
-        $('#btnAddMaterials').html('Actualizar Materia Prima');
+        $('#btnAddMaterials').html('Actualizar');
 
         let row = $(this).parent().parent()[0]
         let data = tblProductMaterials.fnGetData(row)
 
         sessionStorage.setItem('id_product_material', data.id_product_material)
 
-        $('#refProduct').val(data.referencia);
-        $('#selectNameProduct').val(data.descripcion);
-        //$('#unity').val(data.unidad);
+        $('#refMaterial').val(data.materia);
+        $('#quantity').val(data.cantidad);
+        $('#unity').val(data.unidad);
 
         $('html, body').animate({
             scrollTop: 0
@@ -67,7 +69,10 @@ $(document).ready(function () {
 
     updateMaterial = () => {
         let data = $('#formAddMaterials').serialize();
-        $.post("../../../api/updateProductsMaterials", productMaterial,
+        idProductMaterial = sessionStorage.getItem('id_product_material');
+        data = data + '&idProductMaterial =' + idProductMaterial
+
+        $.post("../../api/updateProductsMaterials", data,
             function(data, textStatus, jqXHR) {
                 message(data)
             },
@@ -78,7 +83,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.deleteMaterials', function(e) {
         let id_product_material = this.id
-        $.get(`../../../api/deleteProductMaterial/${id_product_material}`,
+        $.get(`../../api/deleteProductMaterial/${id_product_material}`,
             function(data, textStatus, jqXHR){
                 message(data)
             }  

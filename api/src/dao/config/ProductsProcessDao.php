@@ -16,9 +16,8 @@ class ProductsProcessDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    public function productsprocess($refProduct)
+    public function productsprocess($idProduct)
     {
-
         session_start();
         $id_company = $_SESSION['id_company'];
 
@@ -29,7 +28,7 @@ class ProductsProcessDao
                                   LEFT JOIN machines mc ON mc.id_machine = pp.id_machine 
                                   LEFT JOIN process pc ON pc.id_process = pp.id_process
                                   WHERE p.id_product = :id_product AND p.id_company = :id_company;");
-        $stmt->execute(['id_product' => $refProduct, 'id_company' => $id_company]);
+        $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
         $productsprocess = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("products", array('products' => $productsprocess));
         return $productsprocess;
@@ -44,7 +43,7 @@ class ProductsProcessDao
                                                           id_machine, enlistment_time, operation_time)
                                     VALUES (:id_product, :id_company, :id_process, :id_machine, :enlistment_time, :operation_time)");
             $stmt->execute([
-                'id_product' => $dataProductProcess['refProduct'],
+                'id_product' => $dataProductProcess['idProduct'],
                 'id_company' => $id_company,
                 'id_process' => $dataProductProcess['idProcess'],
                 'id_machine' => $dataProductProcess['idMachine'],
@@ -70,7 +69,7 @@ class ProductsProcessDao
                                     WHERE id_product_process = :id_product_process");
             $stmt->execute([
                 'id_product_process' => $dataProductProcess['idProductProcess'],
-                'id_product' => $dataProductProcess['refProduct'],
+                'id_product' => $dataProductProcess['idProduct'],
                 'id_process' => $dataProductProcess['idProcess'],
                 'id_machine' => $dataProductProcess['idMachine'],
                 'enlistment_time' => $dataProductProcess['enlistmentTime'],

@@ -10,7 +10,7 @@ $(document).ready(function () {
 
         //$('.cardCreateRawMaterials').hide();
         $('.cardAddProcess').toggle(800);
-        $('#btnAddProcess').html('Asignar Proceso');
+        $('#btnAddProcess').html('Asignar');
 
         $('#idProcess').val('');
         $('#idMachine').val('');
@@ -25,12 +25,12 @@ $(document).ready(function () {
         e.preventDefault();
         let idProductProcess = sessionStorage.getItem('id_product_process')
 
-        if(idProductProcess == '') {
-            refP = $('#idProcess').val('');
-            refM = $('#idMachine').val('');
-            enlisT = $('#enlistmentTime').val('');
-            operT = $('#operationTime').val('');
-            totalT = $('#totalTime').val('');
+        if(idProductProcess == '' || idProductProcess == null) {
+            refP = $('#idProcess').val();
+            refM = $('#idMachine').val();
+            enlisT = $('#enlistmentTime').val();
+            operT = $('#operationTime').val();
+            totalT = $('#totalTime').val();
 
             if(
                 refP == '' || refP == 0 || refM == '' || refM == 0 || enlisT == '' || enlisT == 0 ||
@@ -57,7 +57,7 @@ $(document).ready(function () {
     $(document).on('click', '.updateProcess', function(e) {
 
         $('.cardAddProcess').shows(800);
-        $('#btnAddProcess').html('Actualizar Proceso');
+        $('#btnAddProcess').html('Actualizar');
 
         let row = $(this).parent().parent()[0]
         let data = tblProductProcess.fnGetData(row)
@@ -77,7 +77,9 @@ $(document).ready(function () {
 
     updateProcess = () => {
         let data = $('#formAddProcess').serialize();
-        $.post("../../../api/updateProductsProcess", productProcess,
+        idProductProcess = sessionStorage.setItem('id_product_process')
+        data = data + '&idProductProcess=' + idProductProcess
+        $.post("../../api/updateProductsProcess", data,
             function(data, textStatus, jqXHR) {
                 message(data)
             },
@@ -88,7 +90,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.deleteProcess', function(e) {
         let id_product_process = this.id
-        $.get(`../../../api/deleteProductProcess/${id_product_process}`,
+        $.get(`../../api/deleteProductProcess/${id_product_process}`,
             function(data, textStatus, jqXHR){
                 message(data)
             }  

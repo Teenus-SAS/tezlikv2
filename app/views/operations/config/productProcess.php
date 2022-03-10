@@ -44,7 +44,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <from id="formAddProcess">
+                        <from name="formAddProcess" id="formAddProcess">
                             <div class="gridx6pp">
                                 <label for="">Proceso</label>
                                 <label for="">Maquina</label>
@@ -88,6 +88,7 @@
 </div>
 
 <script src="../../app/js/products/configProducts.js"></script>
-<!-- <script src="../../app/js/products/tblConfigProcess.js"></script> -->
+<script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
+<script src="../../app/js/process/configProcess.js"></script>
 <script src="../../app/js/productProcess/tblConfigProcess.js"></script>
 <script src="../../app/js/productProcess/productProcess.js"></script>

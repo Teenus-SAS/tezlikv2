@@ -16,12 +16,20 @@ $(document).ready(function() {
         loadtableMaterials(id)
     });
 
+    /* Seleccion materia */
+
+    $('#refMaterial').change(function(e) {
+        e.preventDefault();
+        id = this.value
+        $(`#nameRawMaterial option[value=${id}]`).prop("selected", true);
+        loadtableMaterials(id)
+    });
 
     /* Cargue tabla de Proyectos */
 
     const loadtableMaterials = (idProduct) => {
 
-        tblConfigProducts = $('#tblConfigProducts').dataTable({
+        tblConfigMaterials = $('#tblConfigMaterials').dataTable({
             destroy: true,
             pageLength: 50,
             ajax: {
@@ -41,12 +49,12 @@ $(document).ready(function() {
                 },
                 {
                     title: 'Referencia',
-                    data: 'referencia',
+                    data: "referencia",
                     className: 'uniqueClassName',
                 },
-                /*{
-                    title: 'Prosducto',
-                    data: 'descripcion',
+                {
+                    title: 'Producto',
+                    data: "descripcion",
                     className: 'uniqueClassName',
                 },
                 {
@@ -59,7 +67,7 @@ $(document).ready(function() {
                     data: "costo",
                     className: 'classRight',
                     render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
-                },*/
+                },
                 {
                     title: 'Acciones',
                     data: 'id_product_material',
@@ -67,7 +75,7 @@ $(document).ready(function() {
                     render: function(data) {
                         return `
                         <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateMaterials" data-toggle='tooltip' title='Actualizar Proceso' style="font-size: 30px;"></i></a>
-                        <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteMateriales" data-toggle='tooltip' title='Eliminar Materia Prima' style="font-size: 30px;color:red"></i></a>`
+                        <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteMaterials" data-toggle='tooltip' title='Eliminar Materia Prima' style="font-size: 30px;color:red"></i></a>`
                     },
                 },
             ],

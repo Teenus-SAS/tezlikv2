@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-info" id="btnNewMaterial">Nueva Materia Prima</button>
+                    <button class="btn btn-info" id="btnNewMaterial" name="btnNewMaterial">Nueva Materia Prima</button>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="formCreateMaterial">
+                        <form name="formCreateMaterial" id="formCreateMaterial">
                             <div class="gridx5">
                                 <label for="">Referencia</label>
                                 <label for="">Nombre Materia Prima</label>
@@ -36,7 +36,7 @@
                                 <input type="text" class="form-control" id="nameRawMaterial" name="nameRawMaterial">
                                 <input type="text" class="form-control text-center" id="unityRawMaterial" name="unityRawMaterial">
                                 <input type="text" class="form-control text-center" id="costRawMaterial" name="costRawMaterial">
-                                <button class="btn btn-info" id="btnCreateMaterial">Crear Material</button>
+                                <button class="btn btn-info" id="btnCreateMaterial" name="btnCreateMaterial">Crear Material</button>
                             </div>
                         </form>
                     </div>

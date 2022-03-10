@@ -16,6 +16,23 @@ $(document).ready(function() {
         loadtableProcess(id)
     });
 
+    /* Seleccion proceso */
+
+    $('#idProcess').change(function(e) {
+
+        e.preventDefault();
+        id = this.value
+        $(`#process option[value=${id}]`).attr("selected", true);
+        loadtableProcess(id)
+    });
+
+    $('#idMachine').change(function(e) {
+        e.preventDefault();
+        id = this.value
+        $(`#nameRawMaterial option[value=${id}]`).attr("selected", true);
+        loadtableProcess(id)
+    });
+
     /* Cargue tabla de Proyectos */
 
     const loadtableProcess = (idProduct) => {
@@ -40,7 +57,7 @@ $(document).ready(function() {
                 },
                 {
                     title: 'Proceso',
-                    data: 'process'
+                    data: "process"
                 },
                 {
                     title: 'Máquina',
@@ -68,11 +85,7 @@ $(document).ready(function() {
                 },
             ],
         })
+    
     }
-
-
-
-
-
 
 });
