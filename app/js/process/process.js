@@ -1,8 +1,16 @@
 $(document).ready(function() {
+
+    /* Ocultar panel crear procesos */
+
     $('.cardCreateProcess').hide();
 
-    $('#btnCreateProcess').click(function(e) {
+    /* Abrir panel crear procesos */
+
+    $('#btnNewProcess').click(function(e) {
         e.preventDefault();
         $('.cardCreateProcess').toggle(800);
+
+        $('#btnCreateProcess').html('Crear Producto');
+        $('#process').val('');
     });
 });

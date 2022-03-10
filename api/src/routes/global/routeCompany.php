@@ -30,6 +30,7 @@ $app->post('/addCompany', function (Request $request, Response $response, $args)
 
         $userDao = new UsersDao();
         $licenseCompanyDao = new LicenseCompanyDao();
+        
         $id_company = $companyDao->insertCompany($data);
         $userDao->saveUser($data, $id_company);
         $licenseCompany = $licenseCompanyDao->insertLicenseCompanyByCompany($data, $id_company);

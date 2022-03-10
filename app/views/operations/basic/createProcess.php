@@ -1,13 +1,3 @@
-<!-- <body class="horizontal-navbar"> -->
-<!-- Begin Page -->
-<!-- <div class="page-wrapper"> -->
-<!-- Begin Header -->
-
-<!-- Begin main content -->
-<!-- <div class="main-content"> -->
-<!-- content -->
-<!--  <div class="page-content"> -->
-<!-- page header -->
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -21,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProcess">Crear Procesos</button>
+                    <button class="btn btn-primary" id="btnNewProcess">Nuevo Proceso</button>
                 </div>
             </div>
         </div>
@@ -66,38 +56,12 @@
 
                             </table>
                         </div>
-                        <!-- <div class="my-3 d-flex justify-content-end">
-                            <ul class="pagination  flat-rounded-pagination">
-                                <li class="page-item disabled">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Previous" tabindex="-1" aria-disabled="true">
-                                        <i class="bx bx-chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">1</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">2</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Next">
-                                        <i class="bx bx-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- </div>
-        </div>
-    </div> -->
 
 <script src="../../app/js/process/tblProcess.js"></script>
 <script src="../../app/js/process/process.js"></script>

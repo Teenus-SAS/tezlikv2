@@ -5,14 +5,14 @@ $(document).ready(function() {
     $('#refProduct').change(function(e) {
         e.preventDefault();
         id = this.value
-        $(`#selectNameProduct option[value=${id}]`).attr("selected", true);
+        $(`#selectNameProduct option[value=${id}]`).prop("selected", true);
         loadtableMaterials(id)
     });
 
     $('#selectNameProduct').change(function(e) {
         e.preventDefault();
         id = this.value
-        $(`#refProduct option[value=${id}]`).attr("selected", true);
+        $(`#refProduct option[value=${id}]`).prop("selected", true);
         loadtableMaterials(id)
     });
 

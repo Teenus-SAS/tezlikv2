@@ -81,5 +81,6 @@
     </div>
 </div>
 
+<script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/productMaterials/configProducts.js"></script>
 <script src="../../app/js/productMaterialss/tblConfigMaterials.js"></script>
