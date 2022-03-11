@@ -18,7 +18,7 @@ $app->post('/addProductsMaterials', function (Request $request, Response $respon
     $id_company = $_SESSION['id_company'];
     $dataProductMaterial = $request->getParsedBody();
 
-    if (empty($dataProductMaterial['refMaterial']) || empty($dataProductMaterial['refProduct'] || empty($dataProductMaterial['quantity'])))
+    if (empty($dataProductMaterial['material']) || empty($dataProductMaterial['idProduct'] || empty($dataProductMaterial['quantity'])))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         //$productMaterials = $productsMaterialsDao->insertProductsMaterialsByCompany($dataProductMaterial);
@@ -36,7 +36,7 @@ $app->post('/addProductsMaterials', function (Request $request, Response $respon
 $app->post('/updateProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
     $dataProductMaterial = $request->getParsedBody();
 
-    if (empty($dataProductMaterial['refMaterial']) || empty($dataProductMaterial['refProduct'] || empty($dataProductMaterial['quantity'])))
+    if (empty($dataProductMaterial['material']) || empty($dataProductMaterial['idProduct'] || empty($dataProductMaterial['quantity'])))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $productMaterials = $productsMaterialsDao->updateProductsMaterials($dataProductMaterial);

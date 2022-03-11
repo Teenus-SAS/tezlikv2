@@ -14,7 +14,7 @@ $(document).ready(function() {
         $('.cardAddMaterials').toggle(800);
         $('#btnAddMaterials').html('Asignar');
 
-        $('#refMaterial').val('');
+        $('#material').val('');
         $('#quantity').val('');
         $('#unity').val('');
 
@@ -36,8 +36,9 @@ $(document).ready(function() {
 
         if (idProductMaterial == '' || idProductMaterial == null) {
             debugger
-            ref = $('#refMaterial').val();
+            ref = $('#material').val();
             quan = $('#quantity').val();
+            idProduct = $('#selectNameProduct').val();
 
             if (ref == '' || ref == 0 || quan == '' || quan == 0) {
                 toastr.error('Ingrese todos los campos')
@@ -46,7 +47,9 @@ $(document).ready(function() {
 
             productMaterial = $('#formAddMaterials').serialize();
 
-            $.post("../../../api/addProductsMaterials", productMaterial,
+            productMaterial = productMaterial + '&idProduct=' + idProduct;
+
+            $.post("../../api/addProductsMaterials", productMaterial,
                 function(data, textStatus, jqXHR) {
                     message(data)
                 },
@@ -59,18 +62,17 @@ $(document).ready(function() {
     /* Actualizar productos materials */
 
     $(document).on('click', '.updateMaterials', function(e) {
-
-        $('.cardAddMaterials').shows(800);
+        $('.cardAddMaterials').show(800);
         $('#btnAddMaterials').html('Actualizar');
 
         let row = $(this).parent().parent()[0]
-        let data = tblProductMaterials.fnGetData(row)
+        let data = tblConfigMaterials.fnGetData(row)
 
         sessionStorage.setItem('id_product_material', data.id_product_material)
 
-        $('#refMaterial').val(data.materia);
+        $('#material').val(data.materia);
         $('#quantity').val(data.cantidad);
-        $('#unity').val(data.unidad);
+        //$('#unity').val(data.unidad);
 
         $('html, body').animate({
             scrollTop: 0
@@ -79,8 +81,9 @@ $(document).ready(function() {
 
     updateMaterial = () => {
         let data = $('#formAddMaterials').serialize();
+        idProduct = $('#selectNameProduct').val();
         idProductMaterial = sessionStorage.getItem('id_product_material');
-        data = data + '&idProductMaterial =' + idProductMaterial
+        data = data + '&idProductMaterial=' + idProductMaterial + '&idProduct=' + idProduct
 
         $.post("../../api/updateProductsMaterials", data,
             function(data, textStatus, jqXHR) {
@@ -106,7 +109,7 @@ $(document).ready(function() {
         if (data.success == true) {
             $('.cardAddMaterials').hide(800);
             $("#formAddMaterials")[0].reset();
-            updateTable()
+            updateTable();
             toastr.success(data.message)
                 //return false
         } else if (data.error == true)
@@ -118,7 +121,7 @@ $(document).ready(function() {
     /* Actualizar tabla */
 
     function updateTable() {
-        $('#tblConfigMaterials').DataTable().clear()
-        $('#tblConfigMaterials').DataTable().ajax.reload()
+        $('#tblConfigMaterials').DataTable().clear();
+        $('#tblConfigMaterials').DataTable().ajax.reload();
     }
 });

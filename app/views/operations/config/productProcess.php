@@ -56,7 +56,7 @@
                                 <select class="form-control" name="idMachine" id="idMachine"></select>
                                 <input class="form-control" type="number" name="enlistmentTime" id="enlistmentTime">
                                 <input class="form-control" type="number" name="operationTime" id="operationTime">
-                                <input class="form-control" type="text" name="totalTime" id="titalTime" disabled>
+                                <input class="form-control" type="text" name="totalTime" id="totalTime" disabled>
                                 <button class="btn btn-primary" id="btnAddProcess">Adicionar</button>
                             </div>
                         </from>
@@ -76,7 +76,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigProcess">
+                            <table class="table table-striped" id="tblConfigProcess" name="tblConfigProcess">
 
                             </table>
                         </div>
@@ -87,8 +87,11 @@
     </div>
 </div>
 
-<script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
+
+<script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/process/configProcess.js"></script>
+<script src="../../app/js/machines/configMachines.js"></script>
+
 <script src="../../app/js/productProcess/tblConfigProcess.js"></script>
 <script src="../../app/js/productProcess/productProcess.js"></script>

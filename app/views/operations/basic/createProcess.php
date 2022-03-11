@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnNewProcess">Nuevo Proceso</button>
+                    <button class="btn btn-primary" id="btnNewProcess" name="btnNewProcess">Nuevo Proceso</button>
                 </div>
             </div>
         </div>

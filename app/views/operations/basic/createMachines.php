@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateMachine">Crear Máquina</button>
+                    <button class="btn btn-primary" id="btnNewMachine" name="btnNewMachine">Crear Máquina</button>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                         <h5 class="card-title">Crear Máquina</h5>
                     </div>
                     <div class="card-body">
-                        <form id="formMachine">
+                        <form id="formMachine" name="formMachine">
                             <div class="gridx8">
                                 <label for="">Nombre</label>
                                 <label for="">Precio</label>

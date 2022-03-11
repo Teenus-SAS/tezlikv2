@@ -43,7 +43,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="formAddMaterials" name="formAddMaterials">              
+                        <form id="formAddMaterials" name="formAddMaterials">
                             <div class="gridx4pm">
                                 <label for="">Materia Prima</label>
                                 <label for="">Cantidad</label>
@@ -71,7 +71,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigMaterials">
+                            <table class="table table-striped" id="tblConfigMaterials" name="tblConfigMaterials">
 
                             </table>
                         </div>

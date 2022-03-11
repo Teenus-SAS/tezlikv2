@@ -16,15 +16,6 @@ $(document).ready(function() {
         loadtableMaterials(id)
     });
 
-    /* Seleccion materia */
-
-    $('#refMaterial').change(function(e) {
-        e.preventDefault();
-        id = this.value
-        $(`#nameRawMaterial option[value=${id}]`).prop("selected", true);
-        loadtableMaterials(id)
-    });
-
     /* Cargue tabla de Proyectos */
 
     const loadtableMaterials = (idProduct) => {

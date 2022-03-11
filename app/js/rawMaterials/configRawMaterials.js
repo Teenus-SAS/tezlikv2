@@ -11,10 +11,8 @@ $(document).ready(function() {
         type: "GET",
         url: "../../api/materials",
         success: function(r) {
-
             let $select = $(`#material`)
             $select.empty()
-            debugger
             $select.append(`<option disabled selected>Seleccionar</option>`)
             $.each(r, function(i, value) {
                 $select.append(

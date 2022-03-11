@@ -77,7 +77,6 @@ $(document).ready(function() {
     /* Eliminar proceso */
 
     $(document).on('click', '.deleteProcess', function(e) {
-        debugger
         let id_process = this.id
         $.get(`../../../api/deleteProcess/${id_process}`,
             function(data, textStatus, jqXHR) {

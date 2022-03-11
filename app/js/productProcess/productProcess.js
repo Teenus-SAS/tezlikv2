@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    let idProduct
     /* Ocultar panel crear producto */
 
     $('.cardAddProcess').hide();
@@ -19,9 +21,17 @@ $(document).ready(function () {
         $('#totalTime').val('');
     });
 
+    /* Seleccionar producto */
+
+    $('#selectNameProduct').change(function(e) {
+        e.preventDefault();
+        idProduct = $('#selectNameProduct').val();
+    });
+
     /* Adicionar nuevo proceso */
 
     $('#btnAddProcess').click(function(e){
+        debugger
         e.preventDefault();
         let idProductProcess = sessionStorage.getItem('id_product_process')
 
@@ -30,21 +40,22 @@ $(document).ready(function () {
             refM = $('#idMachine').val();
             enlisT = $('#enlistmentTime').val();
             operT = $('#operationTime').val();
-            totalT = $('#totalTime').val();
+            idProduct = $('#selectNameProduct').val();
 
             if(
                 refP == '' || refP == 0 || refM == '' || refM == 0 || enlisT == '' || enlisT == 0 ||
-                operT == '' || operT == 0 || totalT == '' || totalT == 0)
-            {
+                operT == '' || operT == 0 ) {
                 toastr.error('Ingrese todos los campos')
                 return false
             }
 
             productProcess = $('#formAddProcess').serialize();
 
-            $.post("../../../api/addProductsProcess", productProcess,
+            productProcess = productProcess + '&idProduct=' + idProduct;
+
+            $.post("../../api/addProductsProcess", productProcess,
                 function(data, textStatus, jqXHR) {
-                    message(data)
+                    message(data);
                 },
             );
         } else {
@@ -55,12 +66,12 @@ $(document).ready(function () {
     /* Actualizar productos Procesos */
 
     $(document).on('click', '.updateProcess', function(e) {
-
-        $('.cardAddProcess').shows(800);
+        debugger
+        $('.cardAddProcess').show(800);
         $('#btnAddProcess').html('Actualizar');
 
         let row = $(this).parent().parent()[0]
-        let data = tblProductProcess.fnGetData(row)
+        let data = tblConfigProcess.fnGetData(row)
 
         sessionStorage.setItem('id_product_process', data.id_product_process)
 
@@ -68,7 +79,7 @@ $(document).ready(function () {
         $('#idMachine').val(data.machine);
         $('#enlistmentTime').val(data.enlistment_time);
         $('#operationTime').val(data.operation_time);
-        $('#totalTime').val(data.total_time);
+        //$('#totalTime').val(data.total_time);
 
         $('html, body').animate({
             scrollTop: 0
@@ -77,8 +88,10 @@ $(document).ready(function () {
 
     updateProcess = () => {
         let data = $('#formAddProcess').serialize();
-        idProductProcess = sessionStorage.setItem('id_product_process')
-        data = data + '&idProductProcess=' + idProductProcess
+        idProduct = $('#selectNameProduct').val();
+        idProductProcess = sessionStorage.getItem('id_product_process')
+        data = data + '&idProductProcess=' + idProductProcess + '&idProduct=' + idProduct
+
         $.post("../../api/updateProductsProcess", data,
             function(data, textStatus, jqXHR) {
                 message(data)
@@ -89,6 +102,7 @@ $(document).ready(function () {
     /* Eliminar proceso */
 
     $(document).on('click', '.deleteProcess', function(e) {
+        debugger
         let id_product_process = this.id
         $.get(`../../api/deleteProductProcess/${id_product_process}`,
             function(data, textStatus, jqXHR){

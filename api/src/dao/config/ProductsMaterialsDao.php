@@ -40,9 +40,9 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
                                     VALUES (:id_material, :id_company, :id_product, :quantity)");
             $stmt->execute([
-                'id_material' => $dataProductMaterial['refMaterial'],
+                'id_material' => $dataProductMaterial['material'],
                 'id_company' => $id_company,
-                'id_product' => $dataProductMaterial['refProduct'],
+                'id_product' => $dataProductMaterial['idProduct'],
                 'quantity' => $dataProductMaterial['quantity']
             ]);
 
@@ -64,8 +64,8 @@ class ProductsMaterialsDao
                                     WHERE id_product_material = :id_product_material");
             $stmt->execute([
                 'id_product_material' => $dataProductMaterial['idProductMaterial'],
-                'id_material' => $dataProductMaterial['refMaterial'],
-                'id_product' => $dataProductMaterial['refProduct'],
+                'id_material' => $dataProductMaterial['material'],
+                'id_product' => $dataProductMaterial['idProduct'],
                 'quantity' => $dataProductMaterial['quantity']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
