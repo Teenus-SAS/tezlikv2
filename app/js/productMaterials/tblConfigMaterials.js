@@ -56,7 +56,8 @@ $(document).ready(function() {
                 {
                     title: 'Cantidad',
                     data: "quantity",
-                    className: 'classCenter'
+                    className: 'classCenter',
+                    render: $.fn.dataTable.render.number(".", ",", 0, ""),
                 },
                 {
                     title: 'Precio',
