@@ -94,7 +94,7 @@ $(document).ready(function() {
     /* Actualizar productos Procesos */
 
     $(document).on('click', '.updateProcess', function(e) {
-        debugger
+        
         $('.cardAddProcess').show(800);
         $('#btnAddProcess').html('Actualizar');
 
@@ -107,7 +107,7 @@ $(document).ready(function() {
         $('#idMachine').val(data.machine);
         $('#enlistmentTime').val(data.enlistment_time);
         $('#operationTime').val(data.operation_time);
-        //$('#totalTime').val(data.total_time);
+        $('#totalTime').val(data.total_time);
 
         $('html, body').animate({
             scrollTop: 0
@@ -130,7 +130,7 @@ $(document).ready(function() {
     /* Eliminar proceso */
 
     $(document).on('click', '.deleteProcess', function(e) {
-        debugger
+        
         let id_product_process = this.id
         $.get(`../../api/deleteProductProcess/${id_product_process}`,
             function(data, textStatus, jqXHR) {

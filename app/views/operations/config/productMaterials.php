@@ -43,7 +43,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="formAddMaterials" name="formAddMaterials">
+                        <form id="formAddMaterials">
                             <div class="gridx4pm">
                                 <label for="">Materia Prima</label>
                                 <label for="">Cantidad</label>

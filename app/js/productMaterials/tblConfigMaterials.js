@@ -54,6 +54,11 @@ $(document).ready(function() {
                     className: 'classCenter'
                 },
                 {
+                    title: 'Cantidad',
+                    data: "quantity",
+                    className: 'classCenter'
+                },
+                {
                     title: 'Precio',
                     data: "cost",
                     className: 'classRight',
@@ -65,7 +70,7 @@ $(document).ready(function() {
                     className: 'uniqueClassName',
                     render: function(data) {
                         return `
-                        <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateMaterials" data-toggle='tooltip' title='Actualizar Proceso' style="font-size: 30px;"></i></a>
+                        <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateMaterials" data-toggle='tooltip' title='Actualizar Materia Prima' style="font-size: 30px;"></i></a>
                         <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteMaterials" data-toggle='tooltip' title='Eliminar Materia Prima' style="font-size: 30px;color:red"></i></a>`
                     },
                 },

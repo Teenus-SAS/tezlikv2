@@ -22,9 +22,9 @@ class ProductsMaterialsDao
         $id_company = $_SESSION['id_company'];
 
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT m.id_material, m.reference, m.material, m.unit, m.cost 
-                                  FROM products p INNER JOIN products_materials pm ON pm.id_product = p.id_product 
-                                  INNER JOIN materials m ON m.id_material = pm.id_material 
+        $stmt = $connection->prepare("SELECT  pm.id_product_material, m.id_material, m.reference, m.material, m.unit, pm.quantity, m.cost FROM products p 
+                                    INNER JOIN products_materials pm ON pm.id_product = p.id_product 
+                                    INNER JOIN materials m ON m.id_material = pm.id_material 
                                   WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
         $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
         $productsmaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
@@ -80,7 +80,6 @@ class ProductsMaterialsDao
 
     public function deleteProductMaterial($id_product_material)
     {
-        session_start();
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT * FROM products_materials WHERE id_product_material = :id_product_material");

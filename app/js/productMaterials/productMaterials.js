@@ -33,14 +33,15 @@ $(document).ready(function() {
     $('#btnAddMaterials').click(function(e) {
         e.preventDefault();
         let idProductMaterial = sessionStorage.getItem('id_product_material')
-
         if (idProductMaterial == '' || idProductMaterial == null) {
-            debugger
+            
             ref = $('#material').val();
             quan = $('#quantity').val();
             idProduct = $('#selectNameProduct').val();
 
-            if (ref == '' || ref == 0 || quan == '' || quan == 0) {
+            data = ref*quan*idProduct
+
+            if (!data){
                 toastr.error('Ingrese todos los campos')
                 return false
             }
@@ -64,15 +65,15 @@ $(document).ready(function() {
     $(document).on('click', '.updateMaterials', function(e) {
         $('.cardAddMaterials').show(800);
         $('#btnAddMaterials').html('Actualizar');
-
+        
         let row = $(this).parent().parent()[0]
         let data = tblConfigMaterials.fnGetData(row)
 
         sessionStorage.setItem('id_product_material', data.id_product_material)
 
-        $('#material').val(data.materia);
-        $('#quantity').val(data.cantidad);
-        //$('#unity').val(data.unidad);
+        $('#material').val(data.material);
+        $('#quantity').val(data.quantity);
+        $('#unity').val(data.unit);
 
         $('html, body').animate({
             scrollTop: 0
@@ -95,6 +96,7 @@ $(document).ready(function() {
     /* Eliminar materia prima */
 
     $(document).on('click', '.deleteMaterials', function(e) {
+        
         let id_product_material = this.id
         $.get(`../../api/deleteProductMaterial/${id_product_material}`,
             function(data, textStatus, jqXHR) {

@@ -39,6 +39,11 @@ $(document).ready(function() {
                     }
                 },
                 {
+                    title: 'Referencia',
+                    data: "reference",
+                    className: 'uniqueClassName',
+                },
+                {
                     title: 'Proceso',
                     data: "process"
                 },
