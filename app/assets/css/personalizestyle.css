@@ -83,7 +83,7 @@
 
 .gridx6pp {
     display: grid;
-    grid-template-columns: 1fr 1fr 120px 120px 150px 120px;
+    grid-template-columns: 1fr 1fr 140px 120px 120px 100px;
     grid-column-gap: 1em;
 }
 

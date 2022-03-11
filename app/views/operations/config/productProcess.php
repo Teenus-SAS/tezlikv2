@@ -44,22 +44,22 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <from name="formAddProcess" id="formAddProcess">
+                        <form id="formAddProcess">
                             <div class="gridx6pp">
                                 <label for="">Proceso</label>
                                 <label for="">Maquina</label>
-                                <label for="">t.alistamiento</label>
-                                <label for="">t.operacion</label>
-                                <label for="">t.total</label>
+                                <label for="" class="text-center">t.alistamiento (min)</label>
+                                <label for="" class="text-center">t.operacion (min)</label>
+                                <label for="" class="text-center">t.total (min)</label>
                                 <label for=""></label>
                                 <select class="form-control" name="idProcess" id="idProcess"></select>
                                 <select class="form-control" name="idMachine" id="idMachine"></select>
-                                <input class="form-control" type="number" name="enlistmentTime" id="enlistmentTime">
-                                <input class="form-control" type="number" name="operationTime" id="operationTime">
-                                <input class="form-control" type="text" name="totalTime" id="totalTime" disabled>
+                                <input class="form-control text-center" type="number" name="enlistmentTime" id="enlistmentTime">
+                                <input class="form- text-center" type="number" name="operationTime" id="operationTime">
+                                <input class="form-control text-center" type="text" name="totalTime" id="totalTime" disabled>
                                 <button class="btn btn-primary" id="btnAddProcess">Adicionar</button>
                             </div>
-                        </from>
+                        </form>
                     </div>
                 </div>
             </div>

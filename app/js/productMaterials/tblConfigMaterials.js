@@ -40,22 +40,22 @@ $(document).ready(function() {
                 },
                 {
                     title: 'Referencia',
-                    data: "referencia",
+                    data: "reference",
                     className: 'uniqueClassName',
                 },
                 {
-                    title: 'Producto',
-                    data: "descripcion",
+                    title: 'Materia Prima',
+                    data: "material",
                     className: 'uniqueClassName',
                 },
                 {
                     title: 'Unidad',
-                    data: "unidad",
+                    data: "unit",
                     className: 'classCenter'
                 },
                 {
                     title: 'Precio',
-                    data: "costo",
+                    data: "cost",
                     className: 'classRight',
                     render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
                 },

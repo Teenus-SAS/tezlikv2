@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     let idProduct
-    /* Ocultar panel crear producto */
+        /* Ocultar panel crear producto */
 
     $('.cardAddProcess').hide();
 
@@ -28,23 +28,51 @@ $(document).ready(function () {
         idProduct = $('#selectNameProduct').val();
     });
 
+    /* calcular el tiempo total proceso */
+
+    $(document).on('click keyup', '#enlistmentTime', function(e) {
+
+        tOperation = $('#operationTime').val();
+
+        tOperation == '' ? tOperation = 0 : tOperation
+        this.value == '' ? this.value = 0 : this.value
+
+        let val = parseFloat(this.value) + parseFloat(tOperation)
+        $('#totalTime').val(val);
+    });
+
+    $(document).on('click keyup', '#operationTime', function(e) {
+
+        tEnlistment = $('#enlistmentTime').val();
+
+        tEnlistment == '' ? tEnlistment = 0 : tEnlistment
+        this.value == '' ? this.value = 0 : this.value
+
+        let val = parseFloat(this.value) + parseFloat(tEnlistment)
+        $('#totalTime').val(val);
+    });
+
+
     /* Adicionar nuevo proceso */
 
-    $('#btnAddProcess').click(function(e){
-        debugger
+    $('#btnAddProcess').click(function(e) {
+
         e.preventDefault();
         let idProductProcess = sessionStorage.getItem('id_product_process')
 
-        if(idProductProcess == '' || idProductProcess == null) {
-            refP = $('#idProcess').val();
-            refM = $('#idMachine').val();
-            enlisT = $('#enlistmentTime').val();
-            operT = $('#operationTime').val();
-            idProduct = $('#selectNameProduct').val();
+        if (idProductProcess == '' || idProductProcess == null) {
 
-            if(
-                refP == '' || refP == 0 || refM == '' || refM == 0 || enlisT == '' || enlisT == 0 ||
-                operT == '' || operT == 0 ) {
+            idProduct = parseInt($('#selectNameProduct').val());
+            refP = parseInt($('#idProcess').val());
+            refM = parseInt($('#idMachine').val());
+
+            enlisT = parseInt($('#enlistmentTime').val());
+            operT = parseInt($('#operationTime').val())
+            totalTime = parseInt($('#totalTime').val())
+
+            data = idProduct * refP * refM
+
+            if (!data || totalTime == 0 || totalTime == '') {
                 toastr.error('Ingrese todos los campos')
                 return false
             }
@@ -105,9 +133,9 @@ $(document).ready(function () {
         debugger
         let id_product_process = this.id
         $.get(`../../api/deleteProductProcess/${id_product_process}`,
-            function(data, textStatus, jqXHR){
+            function(data, textStatus, jqXHR) {
                 message(data)
-            }  
+            }
         )
     });
 
@@ -115,12 +143,12 @@ $(document).ready(function () {
 
     message = (data) => {
         if (data.success == true) {
-           // $('.cardCreateRawMaterials').toggle(800);
+            // $('.cardCreateRawMaterials').toggle(800);
             $('.cardAddProcess').hide(800);
             $("#formAddProcess")[0].reset();
             updateTable()
             toastr.success(data.message)
-            //return false
+                //return false
         } else if (data.error == true)
             toastr.error(data.message)
         else if (data.info == true)
