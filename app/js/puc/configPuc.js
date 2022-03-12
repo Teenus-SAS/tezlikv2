@@ -1,10 +1,10 @@
 $(document).ready(function () {
-  $('.cardCreateExpenses').hide();
+  // $('.cardCreateExpenses').hide();
 
-  $('#btnNewExpense').click(function (e) {
-    e.preventDefault();
-    $('.cardCreateExpenses').toggle(800);
-  });
+  // $('#btnNewExpense').click(function (e) {
+  //   e.preventDefault();
+  //   $('.cardCreateExpenses').toggle(800);
+  // });
 
   $.ajax({
     type: 'GET',

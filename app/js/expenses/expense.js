@@ -6,7 +6,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     $('.cardCreateExpenses').toggle(800);
-    $('#btnCreateExpenses').html('Crear');
+    $('#btnCreateExpense').html('Crear');
 
     sessionStorage.removeItem('id_expense');
 
@@ -14,7 +14,7 @@ $(document).ready(function () {
     $('#value').val('');
   });
 
-  $('#btnCreateExpenses').click(function (e) {
+  $('#btnCreateExpense').click(function (e) {
     debugger;
     e.preventDefault();
 
@@ -55,7 +55,7 @@ $(document).ready(function () {
     sessionStorage.setItem('id_expense', data.id_expense);
 
     $(`#idPuc option[value=${data.id_puc}]`).attr('selected', true);
-    $('#value').val(data.count);
+    $('#value').val(data.value);
 
     $('html, body').animate(
       {
@@ -80,6 +80,7 @@ $(document).ready(function () {
   };
 
   $(document).on('click', '.deleteExpenses', function (e) {
+    debugger;
     let id_expense = this.id;
     $.get(
       `../../api/deleteExpenses/${id_expense}`,

@@ -1,133 +1,141 @@
-$(document).ready(function() {
+$(document).ready(function () {
+  let idProduct;
 
-    let idProduct
+  /* Ocultar panel crear producto */
 
-    /* Ocultar panel crear producto */
+  $('.cardAddMaterials').hide();
 
-    $('.cardAddMaterials').hide();
+  /* Abrir panel crear producto */
 
-    /* Abrir panel crear producto */
+  $('#btnCreateProduct').click(function (e) {
+    e.preventDefault();
 
-    $('#btnCreateProduct').click(function(e) {
-        e.preventDefault();
+    $('.cardAddMaterials').toggle(800);
+    $('#btnAddMaterials').html('Asignar');
 
-        $('.cardAddMaterials').toggle(800);
-        $('#btnAddMaterials').html('Asignar');
+    sessionStorage.removeItem('id_product_material');
 
-        sessionStorage.removeItem('id_product_material');
+    $('#material option:contains(Seleccionar)').prop('selected', true);
+    //$('#material').val('');
+    $('#quantity').val('');
+    $('#unity').val('');
+  });
 
-        $("#material option:contains(Seleccionar)").prop('selected', true);
-        //$('#material').val('');
-        $('#quantity').val('');
-        $('#unity').val('');
+  /* Seleccionar producto */
 
-    });
+  $('#selectNameProduct').change(function (e) {
+    e.preventDefault();
+    idProduct = $('#selectNameProduct').val();
+  });
 
-    /* Seleccionar producto */
+  /* Adicionar nueva materia prima */
 
-    $('#selectNameProduct').change(function(e) {
-        e.preventDefault();
-        idProduct = $('#selectNameProduct').val();
-    });
+  $('#btnAddMaterials').click(function (e) {
+    e.preventDefault();
 
+    let idProductMaterial = sessionStorage.getItem('id_product_material');
 
-    /* Adicionar nueva materia prima */
+    if (idProductMaterial == '' || idProductMaterial == null) {
+      ref = $('#material').val();
+      quan = $('#quantity').val();
+      idProduct = $('#selectNameProduct').val();
 
-    $('#btnAddMaterials').click(function(e) {
-        e.preventDefault();
+      data = ref * quan * idProduct;
 
-        let idProductMaterial = sessionStorage.getItem('id_product_material')
+      if (!data) {
+        toastr.error('Ingrese todos los campos');
+        return false;
+      }
 
-        if (idProductMaterial == '' || idProductMaterial == null) {
-            ref = $('#material').val();
-            quan = $('#quantity').val();
-            idProduct = $('#selectNameProduct').val();
+      productMaterial = $('#formAddMaterials').serialize();
 
-            data = ref * quan * idProduct
+      productMaterial = productMaterial + '&idProduct=' + idProduct;
 
-            if (!data) {
-                toastr.error('Ingrese todos los campos')
-                return false
-            }
-
-            productMaterial = $('#formAddMaterials').serialize();
-
-            productMaterial = productMaterial + '&idProduct=' + idProduct;
-
-            $.post("../../api/addProductsMaterials", productMaterial,
-                function(data, textStatus, jqXHR) {
-                    message(data)
-                },
-            );
-        } else {
-            updateMaterial();
+      $.post(
+        '../../api/addProductsMaterials',
+        productMaterial,
+        function (data, textStatus, jqXHR) {
+          message(data);
         }
-    });
-
-    /* Actualizar productos materials */
-
-    $(document).on('click', '.updateMaterials', function(e) {
-        $('.cardAddMaterials').show(800);
-        $('#btnAddMaterials').html('Actualizar');
-        
-        let row = $(this).parent().parent()[0]
-        let data = tblConfigMaterials.fnGetData(row)
-
-        sessionStorage.setItem('id_product_material', data.id_product_material)
-
-        $(`#material option[value=${data.id_material}]`).attr("selected", true);
-        $('#quantity').val(data.quantity);
-        $('#unity').val(data.unit);
-
-        $('html, body').animate({
-            scrollTop: 0
-        }, 1000);
-    });
-
-    updateMaterial = () => {
-        let data = $('#formAddMaterials').serialize();
-        idProduct = $('#selectNameProduct').val();
-        idProductMaterial = sessionStorage.getItem('id_product_material');
-        data = data + '&idProductMaterial=' + idProductMaterial + '&idProduct=' + idProduct
-
-        $.post("../../api/updateProductsMaterials", data,
-            function(data, textStatus, jqXHR) {
-                message(data)
-            },
-        );
+      );
+    } else {
+      updateMaterial();
     }
+  });
 
-    /* Eliminar materia prima */
+  /* Actualizar productos materials */
 
-    $(document).on('click', '.deleteMaterials', function(e) {
+  $(document).on('click', '.updateMaterials', function (e) {
+    $('.cardAddMaterials').show(800);
+    $('#btnAddMaterials').html('Actualizar');
 
-        let id_product_material = this.id
-        $.get(`../../api/deleteProductMaterial/${id_product_material}`,
-            function(data, textStatus, jqXHR) {
-                message(data)
-            }
-        )
-    });
+    let row = $(this).parent().parent()[0];
+    let data = tblConfigMaterials.fnGetData(row);
 
-    /* Mensaje de exito */
+    sessionStorage.setItem('id_product_material', data.id_product_material);
 
-    message = (data) => {
-        if (data.success == true) {
-            $('.cardAddMaterials').hide(800);
-            $("#formAddMaterials")[0].reset();
-            updateTable();
-            toastr.success(data.message)
-                //return false
-        } else if (data.error == true)
-            toastr.error(data.message)
-        else if (data.info == true)
-            toastr.info(data.message)
-    }
+    $(`#material option[value=${data.id_material}]`).attr('selected', true);
+    $('#quantity').val(data.quantity);
+    $('#unity').val(data.unit);
 
-    /* Actualizar tabla */
+    $('html, body').animate(
+      {
+        scrollTop: 0,
+      },
+      1000
+    );
+  });
 
-    function updateTable() {
-        $('#tblConfigMaterials').DataTable().clear();
-        $('#tblConfigMaterials').DataTable().ajax.reload();
-    }
+  updateMaterial = () => {
+    let data = $('#formAddMaterials').serialize();
+    idProduct = $('#selectNameProduct').val();
+    idProductMaterial = sessionStorage.getItem('id_product_material');
+    data =
+      data +
+      '&idProductMaterial=' +
+      idProductMaterial +
+      '&idProduct=' +
+      idProduct;
+
+    $.post(
+      '../../api/updateProductsMaterials',
+      data,
+      function (data, textStatus, jqXHR) {
+        message(data);
+      }
+    );
+  };
+
+  /* Eliminar materia prima */
+
+  $(document).on('click', '.deleteMaterials', function (e) {
+    debugger;
+    let id_product_material = this.id;
+    $.get(
+      `../../api/deleteProductMaterial/${id_product_material}`,
+      function (data, textStatus, jqXHR) {
+        message(data);
+      }
+    );
+  });
+
+  /* Mensaje de exito */
+
+  message = (data) => {
+    if (data.success == true) {
+      $('.cardAddMaterials').hide(800);
+      $('#formAddMaterials')[0].reset();
+      updateTable();
+      toastr.success(data.message);
+      //return false
+    } else if (data.error == true) toastr.error(data.message);
+    else if (data.info == true) toastr.info(data.message);
+  };
+
+  /* Actualizar tabla */
+
+  function updateTable() {
+    $('#tblConfigMaterials').DataTable().clear();
+    $('#tblConfigMaterials').DataTable().ajax.reload();
+  }
 });

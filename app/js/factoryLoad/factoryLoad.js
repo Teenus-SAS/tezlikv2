@@ -20,12 +20,12 @@ $(document).ready(function () {
   });
 
   /* Calcular Valor por minuto 
-    $(document).on('click keyup', '#cost', function (e) {
-        this.value == '' ? this.value = 0 : this.value
+  $(document).on('click keyup', '#cost', function (e) {
+    this.value == '' ? (this.value = 0) : this.value;
 
-        let val = parseFloat(this.value)/11200;
-        $('#costMinute').val(val.toFixed());
-    });*/
+    let val = parseFloat(this.value) / 11200;
+    $('#costMinute').val(val.toFixed());
+  });*/
 
   /* Adicionar nueva carga fabril */
 

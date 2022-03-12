@@ -21,7 +21,7 @@ class ExpensesDao
     session_start();
     $id_company = $_SESSION['id_company'];
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT e.id_expense, p.number_count, p.count, e.value 
+    $stmt = $connection->prepare("SELECT e.id_expense, e.id_puc, p.number_count, p.count, e.value 
                                   FROM expenses e 
                                   INNER JOIN puc p ON e.id_puc = p.id_puc 
                                   WHERE e.id_company = :id_company;");

@@ -75,6 +75,6 @@
     </div> -->
 
 
-<script src="../../app/js/expenses/expenses.js"></script>
+<script src="../../app/js/expenses/expense.js"></script>
 <script src="../../app/js/expenses/tblExpenses.js"></script>
 <script src="../../app/js/puc/configPuc.js"></script>
