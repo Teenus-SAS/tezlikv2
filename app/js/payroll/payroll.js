@@ -3,6 +3,6 @@ $(document).ready(function() {
 
     $('#btnCreatePayroll').click(function(e) {
         e.preventDefault();
-        $('.cardCreatePayroll').toggle(800);
+        $('#createPayroll').modal('show');
     });
 });

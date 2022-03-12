@@ -92,3 +92,8 @@
     grid-template-columns: 1fr 120px 120px 120px 120px 120px 140px 120px;
     grid-column-gap: 1em;
 }
+
+.titlePayroll {
+    background: antiquewhite;
+    margin-bottom: 20px!important
+}
