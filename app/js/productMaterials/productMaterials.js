@@ -69,7 +69,7 @@ $(document).ready(function() {
     $(document).on('click', '.updateMaterials', function(e) {
         $('.cardAddMaterials').show(800);
         $('#btnAddMaterials').html('Actualizar');
-
+        
         let row = $(this).parent().parent()[0]
         let data = tblConfigMaterials.fnGetData(row)
 

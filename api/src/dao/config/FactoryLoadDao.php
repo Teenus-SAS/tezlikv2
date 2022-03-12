@@ -39,7 +39,7 @@ class FactoryLoadDao
       $stmt->execute([
         'id_machine' => $dataFactoryLoad['idMachine'],
         'id_company' => $id_company,
-        'input' => ucfirst(strtolower($dataFactoryLoad['description'])),
+        'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
         'cost' => $dataFactoryLoad['cost'],
         'cost_minute' => $dataFactoryLoad['costMinute']
       ]);
@@ -62,7 +62,7 @@ class FactoryLoadDao
       $stmt->execute([
         'id_manufacturing_load' => $dataFactoryLoad['idManufacturingLoad'],
         'id_machine' => $dataFactoryLoad['idMachine'],
-        'input' => ucfirst(strtolower($dataFactoryLoad['description'])),
+        'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
         'cost' => $dataFactoryLoad['cost'],
         'cost_minute' => $dataFactoryLoad['costMinute']
       ]);

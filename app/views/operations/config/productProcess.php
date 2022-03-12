@@ -87,7 +87,7 @@
     </div>
 </div>
 
-<script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
+<!-- <script src="../../app/js/rawMaterials/configRawMaterials.js"></script> -->
 
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/process/configProcess.js"></script>

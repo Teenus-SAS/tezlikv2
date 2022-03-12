@@ -22,7 +22,8 @@ class ProductsProcessDao
         $id_company = $_SESSION['id_company'];
 
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT p.id_product, p.reference, p.product, pp.id_product_process, pp.enlistment_time, pp.operation_time, mc.machine, pc.process
+        $stmt = $connection->prepare("SELECT p.id_product, p.reference, p.product, pp.id_process, pp.id_machine, pp.id_product_process,
+                                                     pp.enlistment_time, pp.operation_time, mc.machine, pc.process
                                   FROM products p 
                                   LEFT JOIN products_process pp ON pp.id_product = p.id_product
                                   LEFT JOIN machines mc ON mc.id_machine = pp.id_machine 

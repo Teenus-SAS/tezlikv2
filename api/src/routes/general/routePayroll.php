@@ -69,7 +69,7 @@ $app->get('/deletePayroll/{id_payroll}', function (Request $request, Response $r
     $payroll = $payrollDao->deletePayroll($args['id_payroll']);
 
     if ($payroll == null)
-        $resp = array('succes' => true, 'message' => 'Nomina eliminada correctamente');
+        $resp = array('success' => true, 'message' => 'Nomina eliminada correctamente');
     if ($payroll != null)
         $resp = array('error' => true, 'message' => 'No es posible eliminar la nomina, existe información asociada a ella');
 

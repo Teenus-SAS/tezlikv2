@@ -24,7 +24,7 @@ $app->post('/addExternalService', function (Request $request, Response $response
         $externalServices = $externalServicesDao->insertExternalServicesByCompany($dataExternalService, $id_company);
 
         if ($externalServices == 1)
-            $resp = array('succes' => true, 'message' => 'Servicio externo ingresado correctamente');
+            $resp = array('success' => true, 'message' => 'Servicio externo ingresado correctamente');
         else
             $resp = $externalServices;
     }
@@ -41,7 +41,7 @@ $app->post('/updateExternalService', function (Request $request, Response $respo
         $externalServices = $externalServicesDao->updateExternalServices($dataExternalService);
 
         if ($externalServices == 2)
-            $resp = array('succes' => true, 'message' => 'Servicio externo actualizado correctamente');
+            $resp = array('success' => true, 'message' => 'Servicio externo actualizado correctamente');
         else
             $resp = $externalServices;
     }
@@ -52,7 +52,7 @@ $app->post('/updateExternalService', function (Request $request, Response $respo
 $app->get('/deleteExternalService/{id_service}', function (Request $request, Response $response, $args) use ($externalServicesDao) {
     $externalServices = $externalServicesDao->deleteExternalService($args['id_service']);
     if ($externalServices == null)
-        $resp = array('succes' => true, 'message' => 'Servicio externo eliminado correctamente');
+        $resp = array('success' => true, 'message' => 'Servicio externo eliminado correctamente');
     if ($externalServices != null)
         $resp = array('error' => true, 'message' => 'No es posible eliminar el servicio externo, existe información asociada a él');
     $response->getBody()->write(json_encode($resp));

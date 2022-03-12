@@ -14,8 +14,13 @@ $(document).ready(function() {
         $('.cardAddProcess').toggle(800);
         $('#btnAddProcess').html('Asignar');
 
-        $('#idProcess').val('');
-        $('#idMachine').val('');
+        sessionStorage.removeItem('id_product_process');
+
+        $("#idProcess option:contains(Seleccionar)").prop('selected', true);
+        $("#idMachine option:contains(Seleccionar)").prop('selected', true);
+        
+        //$('#idProcess').val('');
+        //$('#idMachine').val('');
         $('#enlistmentTime').val('');
         $('#operationTime').val('');
         $('#totalTime').val('');
@@ -100,11 +105,13 @@ $(document).ready(function() {
 
         let row = $(this).parent().parent()[0]
         let data = tblConfigProcess.fnGetData(row)
-
+        
         sessionStorage.setItem('id_product_process', data.id_product_process)
-
-        $('#idProcess').val(data.process);
-        $('#idMachine').val(data.machine);
+        
+        $(`#idProcess option[value=${data.id_process}]`).attr("selected", true);
+        $(`#idMachine option[value=${data.id_machine}]`).attr("selected", true);
+        //$('#idProcess').val(data.process);
+        //$('#idMachine').val(data.machine);
         $('#enlistmentTime').val(data.enlistment_time);
         $('#operationTime').val(data.operation_time);
         $('#totalTime').val(data.total_time);

@@ -23,7 +23,7 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
     $dataFactoryLoad = $request->getParsedBody();
 
     if (
-        empty($dataFactoryLoad['idMachine']) || empty($dataFactoryLoad['description']) || empty($dataFactoryLoad['cost'])
+        empty($dataFactoryLoad['idMachine']) || empty($dataFactoryLoad['descriptionFactoryLoad']) || empty($dataFactoryLoad['cost'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
@@ -42,9 +42,9 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
     $dataFactoryLoad = $request->getParsedBody();
 
     if (
-        empty($dataFactoryLoad['idMachine']) || empty($dataFactoryLoad['description']) || empty($dataFactoryLoad['cost'])
+        empty($dataFactoryLoad['idMachine']) || empty($dataFactoryLoad['descriptionFactoryLoad']) || empty($dataFactoryLoad['cost'])
     )
-        $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+        $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
     else {
         $factoryLoad = $factoryloadDao->updateFactoryLoad($dataFactoryLoad);
 

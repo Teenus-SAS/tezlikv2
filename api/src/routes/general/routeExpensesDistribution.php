@@ -27,7 +27,7 @@ $app->post('/addExpensesDistribution', function (Request $request, Response $res
         $expensesDistribution = $expensesDistributionDao->insertExpensesDistributionByCompany($dataExpensesDistribution, $id_company);
 
         if ($expensesDistribution == 1)
-            $resp = array('succes' => true, 'message' => 'Distribución de gasto asignado correctamente');
+            $resp = array('success' => true, 'message' => 'Distribución de gasto asignado correctamente');
         else
             $resp = $expensesDistribution;
     }
@@ -44,7 +44,7 @@ $app->post('/updateExpensesDistribution', function (Request $request, Response $
         $expensesDistribution = $expensesDistributionDao->updateExpensesDistribution($dataExpensesDistribution);
 
         if ($expensesDistribution == 1)
-            $resp = array('succes' => true, 'message' => 'Distribución de gasto actualizada correctamente');
+            $resp = array('success' => true, 'message' => 'Distribución de gasto actualizada correctamente');
         else
             $resp = $expensesDistribution;
     }

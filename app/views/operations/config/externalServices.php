@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Nuevo Servicio</button>
+                    <button class="btn btn-primary" id="btnNewService">Nuevo Servicio</button>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body">                         
                         <div class="gridx2">
                             <label for="">Referencia</label>
                             <label for="">Producto</label>
@@ -43,14 +43,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx3">
-                            <label for="">Servicio</label>
-                            <label for="">Costo</label>
-                            <label for=""></label>
-                            <input class="form-control" type="text" name="" id="">
-                            <input class="form-control" type="number" name="" id="">
-                            <button class="btn btn-primary" id="btnAddService">Adicionar</button>
-                        </div>
+                        <form id="formAddService">
+                            <div class="gridx3">
+                                <label for="">Servicio</label>
+                                <label for="">Costo</label>
+                                <label for=""></label>
+                                <input class="form-control" type="text" name="service" id="service">
+                                <input class="form-control text-center" type="number" name="cost" id="cost">
+                                <button class="btn btn-primary" id="btnAddService">Adicionar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -82,4 +84,6 @@
     </div> -->
 
 <script src="../../app/js/products/configProducts.js"></script>
+
+<script src="../../app/js/services/externalServices.js"></script>
 <script src="../../app/js/services/tblConfigExternalServices.js"></script>

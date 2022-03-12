@@ -24,18 +24,20 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx5fl">
-                            <label for="">Máquina</label>
-                            <label for="">Descripción Carga fabril</label>
-                            <label for="">Costo</label>
-                            <label for="">Valor Minuto</label>
-                            <label for=""></label>
-                            <select class="form-control" name="maquine" id="maquine"></select>
-                            <input class="form-control" name="descriptionFactoryLoad" id="descriptionFactoryLoad" />
-                            <input class="form-control" name="cost" id="cost" />
-                            <input class="form-control" name="valueMinute" id="valueMinute" disabled />
-                            <button class="btn btn-primary" id="btnCreateFactory Load">Crear</button>
-                        </div>
+                        <form id="formNewFactoryLoad">
+                            <div class="gridx5fl">
+                                <label for="">Máquina</label>
+                                <label for="">Descripción Carga fabril</label>
+                                <label for="">Costo</label>
+                                <label for="">Valor Minuto</label>
+                                <label for=""></label>
+                                <select class="form-control" name="idMachine" id="idMachine"></select>
+                                <input class="form-control" name="descriptionFactoryLoad" id="descriptionFactoryLoad" />
+                                <input class="form-control text-center" type="number" name="cost" id="cost" />
+                                <input class="form-control text-center" type="number" name="costMinute" id="costMinute" disabled />
+                                <button class="btn btn-primary" id="btnCreateFactoryLoad">Crear</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -66,5 +68,8 @@
         </div>
     </div> -->
 
-<script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/services/tblFactoryLoad.js"></script>
+
+<script src="../../app/js/machines/configMachines.js"></script>
+<!-- <script src="../../app/js/products/configProducts.js"></script> -->
+<script src="../../app/js/factoryLoad/factoryLoad.js"></script>
+<script src="../../app/js/factoryLoad/tblFactoryLoad.js"></script>
