@@ -69,7 +69,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigExternalServices">
+                            <table class="table table-striped" id="tblExternalServices">
 
                             </table>
                         </div>
@@ -86,4 +86,4 @@
 <script src="../../app/js/products/configProducts.js"></script>
 
 <script src="../../app/js/services/externalServices.js"></script>
-<script src="../../app/js/services/tblConfigExternalServices.js"></script>
+<script src="../../app/js/services/tblExternalServices.js"></script>

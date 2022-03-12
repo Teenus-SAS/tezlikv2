@@ -21,7 +21,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Nuevo Gasto</button>
+                    <button class="btn btn-primary" id="btnNewExpense">Nuevo Gasto</button>
                 </div>
             </div>
         </div>
@@ -34,14 +34,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx3">
-                            <label for="">Cuenta</label>
-                            <label for="">Valor</label>
-                            <label for=""></label>
-                            <select class="form-control" name="countNameExpenses" id="countNameExpenses"></select>
-                            <input type="number" class="form-control valueExpenses text-center" id="valueExpenses" name="valueExpenses" min='0'>
-                            <button class="btn btn-primary" id="btnCreateExpense">Crear</button>
-                        </div>
+                        <form id="formCreateExpenses">
+                            <div class="gridx3">
+                                <label for="">Cuenta</label>
+                                <label for="">Valor</label>
+                                <label for=""></label>
+                                <select class="form-control" name="idPuc" id="idPuc"></select>
+                                <input type="number" class="form-control value text-center" id="value" name="value">
+                                <button class="btn btn-primary" id="btnCreateExpense">Crear Gasto</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -72,5 +74,7 @@
         </div>
     </div> -->
 
+
 <script src="../../app/js/expenses/expenses.js"></script>
 <script src="../../app/js/expenses/tblExpenses.js"></script>
+<script src="../../app/js/puc/configPuc.js"></script>

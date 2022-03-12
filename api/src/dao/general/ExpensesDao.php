@@ -21,7 +21,7 @@ class ExpensesDao
     session_start();
     $id_company = $_SESSION['id_company'];
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT p.number_count, p.count, e.value 
+    $stmt = $connection->prepare("SELECT e.id_expense, p.number_count, p.count, e.value 
                                   FROM expenses e 
                                   INNER JOIN puc p ON e.id_puc = p.id_puc 
                                   WHERE e.id_company = :id_company;");
@@ -63,11 +63,11 @@ class ExpensesDao
 
     try {
       $stmt = $connection->prepare("UPDATE expenses SET id_puc = :id_puc, value = :value
-                                      WHERE id_expenses = :id_expenses");
+                                      WHERE id_expense = :id_expense");
       $stmt->execute([
         'id_puc' => $dataExpenses['idPuc'],
         'value' => $dataExpenses['value'],
-        'id_expenses' => $dataExpenses['idExpenses']
+        'id_expense' => $dataExpenses['idExpense']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;
@@ -78,17 +78,17 @@ class ExpensesDao
     }
   }
 
-  public function deleteExpenses($id_expenses)
+  public function deleteExpenses($id_expense)
   {
     $connection = Connection::getInstance()->getConnection();
 
-    $stmt = $connection->prepare("SELECT * FROM expenses WHERE id_expenses = :id_expenses");
-    $stmt->execute(['id_expenses' => $id_expenses]);
+    $stmt = $connection->prepare("SELECT * FROM expenses WHERE id_expense = :id_expense");
+    $stmt->execute(['id_expense' => $id_expense]);
     $row = $stmt->rowCount();
 
     if ($row > 0) {
-      $stmt = $connection->prepare("DELETE FROM expenses WHERE id_expenses = :id_expenses");
-      $stmt->execute(['id_expenses' => $id_expenses]);
+      $stmt = $connection->prepare("DELETE FROM expenses WHERE id_expense = :id_expense");
+      $stmt->execute(['id_expense' => $id_expense]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }

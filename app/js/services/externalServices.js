@@ -69,7 +69,7 @@ $(document).ready(function() {
         $('#btnAddService').html('Actualizar');
         
         let row = $(this).parent().parent()[0]
-        let data = tblConfigExternalServices.fnGetData(row)
+        let data = tblExternalServices.fnGetData(row)
 
         sessionStorage.setItem('id_service', data.id_service)
 
@@ -126,7 +126,7 @@ $(document).ready(function() {
 
     function updateTable() {
 
-        $('#tblConfigExternalServices').DataTable().clear();
-        $('#tblConfigExternalServices').DataTable().ajax.reload();
+        $('#tblExternalServices').DataTable().clear();
+        $('#tblExternalServices').DataTable().ajax.reload();
     }
 });

@@ -53,8 +53,8 @@ $app->post('/updateExpenses', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteExpenses/{id_expenses}', function (Request $request, Response $response, $args) use ($expensesDao) {
-    $expenses = $expensesDao->deleteExpenses($args['id_expenses']);
+$app->get('/deleteExpenses/{id_expense}', function (Request $request, Response $response, $args) use ($expensesDao) {
+    $expenses = $expensesDao->deleteExpenses($args['id_expense']);
 
     if ($expenses == null)
         $resp = array('success' => true, 'message' => 'Gasto eliminado correctamente');
