@@ -60,7 +60,7 @@ $(document).ready(function() {
                     render: $.fn.dataTable.render.number(".", ",", 0, ""),
                 },
                 {
-                    title: 'Precio',
+                    title: 'Precio Unitario',
                     data: "cost",
                     className: 'classRight',
                     render: $.fn.dataTable.render.number(".", ",", 0, "$ "),
