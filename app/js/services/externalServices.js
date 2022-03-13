@@ -17,7 +17,7 @@ $(document).ready(function() {
         sessionStorage.removeItem('id_service');
 
         $('#service').val('');
-        $('#cost').val('');
+        $('#costService').val('');
     });
 
     /* Seleccionar producto */
@@ -38,7 +38,7 @@ $(document).ready(function() {
         if (idService == '' || idService == null) {
             idProduct = parseInt($('#selectNameProduct').val());
             service = $('#service').val();
-            cost = parseInt($('#cost').val());
+            cost = parseInt($('#costService').val());
 
             data = idProduct * cost
 
@@ -67,14 +67,14 @@ $(document).ready(function() {
         debugger
         $('.cardAddService').show(800);
         $('#btnAddService').html('Actualizar');
-        
+
         let row = $(this).parent().parent()[0]
         let data = tblExternalServices.fnGetData(row)
 
         sessionStorage.setItem('id_service', data.id_service)
 
         $('#service').val(data.service);
-        $('#cost').val(data.cost);
+        $('#costService').val(data.cost);
 
         $('html, body').animate({
             scrollTop: 0

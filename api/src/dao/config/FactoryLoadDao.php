@@ -19,7 +19,10 @@ class FactoryLoadDao
   public function findAllFactoryLoadByCompany($id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT * FROM manufacturing_load WHERE id_company = :id_company;");
+    $stmt = $connection->prepare("SELECT ml.id_machine, m.machine, ml.input, ml.cost, ml.cost_minute 
+                                  FROM manufacturing_load ml
+                                  INNER JOIN machines m ON ml.id_machine = m.id_machine
+                                  WHERE ml.id_company = :id_company;");
     $stmt->execute(['id_company' => $id_company]);
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

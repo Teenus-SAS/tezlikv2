@@ -44,15 +44,27 @@
     grid-column-gap: 1em;
 }
 
+.gridx4 {
+    display: grid;
+    grid-template-columns: 110px 1fr 110px 150px;
+    grid-column-gap: 1em;
+}
+
 .gridx4pm {
     display: grid;
     grid-template-columns: 1fr 200px 100px 200px;
     grid-column-gap: 1em;
 }
 
-.gridx4 {
+.gridx4cm {
     display: grid;
-    grid-template-columns: 110px 1fr 110px 150px;
+    grid-template-columns: 1fr repeat(3, 200px);
+    grid-column-gap: 1em;
+}
+
+.gridx4m {
+    display: grid;
+    grid-template-columns: repeat(6, 200px);
     grid-column-gap: 1em;
 }
 
@@ -89,7 +101,7 @@
 
 .gridx8 {
     display: grid;
-    grid-template-columns: 1fr 120px 120px 120px 120px 120px 140px 120px;
+    grid-template-columns: 1fr 120px 120px 140px 140px 120px 150px 120px;
     grid-column-gap: 1em;
 }
 

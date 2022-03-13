@@ -26,17 +26,26 @@
                     <div class="card-body">
                         <form name="formCreateMaterial" id="formCreateMaterial">
                             <div class="gridx5">
-                                <label for="">Referencia</label>
-                                <label for="">Nombre Materia Prima</label>
-                                <label for="">Unidad</label>
-                                <label for="">Costo</label>
-                                <label for=""></label>
-                                <input type="text" class="form-control" id="idMaterial" name="idMaterial" hidden>
-                                <input type="text" class="form-control" id="refRawMaterial" name="refRawMaterial">
-                                <input type="text" class="form-control" id="nameRawMaterial" name="nameRawMaterial">
-                                <input type="text" class="form-control text-center" id="unityRawMaterial" name="unityRawMaterial">
-                                <input type="text" class="form-control text-center" id="costRawMaterial" name="costRawMaterial">
-                                <button class="btn btn-info" id="btnCreateMaterial" name="btnCreateMaterial">Crear Material</button>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control" id="idMaterial" name="idMaterial" hidden>
+                                    <input type="text" class="form-control" id="refRawMaterial" name="refRawMaterial">
+                                    <label for="">Referencia</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control" id="nameRawMaterial" name="nameRawMaterial">
+                                    <label for="">Nombre Materia Prima</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control text-center" id="unityRawMaterial" name="unityRawMaterial">
+                                    <label for="">Unidad</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control text-center" id="costRawMaterial" name="costRawMaterial">
+                                    <label for="">Costo</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:5px">
+                                    <button class="btn btn-info" id="btnCreateMaterial" name="btnCreateMaterial">Crear Material</button>
+                                </div>
                             </div>
                         </form>
                     </div>

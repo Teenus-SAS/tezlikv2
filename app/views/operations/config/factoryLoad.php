@@ -33,8 +33,8 @@
                                 <label for=""></label>
                                 <select class="form-control" name="idMachine" id="idMachine"></select>
                                 <input class="form-control" name="descriptionFactoryLoad" id="descriptionFactoryLoad" />
-                                <input class="form-control text-center" type="number" name="cost" id="cost" />
-                                <input class="form-control text-center" type="text" name="costMinute" id="costMinute" disabled />
+                                <input class="form-control text-center" type="number" name="costFactory" id="costFactory" />
+                                <input class="form-control text-center" type="text" name="costMinute" id="costMinute" />
                                 <button class="btn btn-primary" id="btnCreateFactoryLoad">Crear</button>
                             </div>
                         </form>

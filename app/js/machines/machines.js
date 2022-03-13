@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     /* Abrir panel para crear Machinees */
 
-    $('#btnCreateMachine').click(function(e) {
+    $('#btnNewMachine').click(function(e) {
         e.preventDefault();
         $('.cardCreateMachines').toggle(800);
         $('#idMachine').val('');

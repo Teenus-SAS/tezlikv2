@@ -23,16 +23,16 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Crear Procesos</h5>
-                    </div>
                     <form id="formCreateProcess">
                         <div class="card-body">
                             <div class="gridx2p">
-                                <label for="">Proceso</label>
-                                <label for=""></label>
-                                <input type="text" class="form-control" id="process" name="process">
-                                <button class="btn btn-primary" id="btnCreateProcess">Crear Proceso</button>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <label for="">Proceso</label>
+                                    <input type="text" class="form-control" id="process" name="process">
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:4px">
+                                    <button class="btn btn-primary" id="btnCreateProcess">Crear Proceso</button>
+                                </div>
                             </div>
                         </div>
                     </form>

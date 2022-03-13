@@ -1,4 +1,3 @@
-
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -32,15 +31,22 @@
                     <div class="card-body">
                         <form id="formCreateProduct">
                             <div class="gridx4">
-                                <label for="">Referencia</label>
-                                <label for="">Nombre Producto</label>
-                                <label for="">Rentabilidad(%)</label>
-                                <label for=""></label>
-                                <input type="text" class="form-control" name="idProduct" id="idProduct" hidden>
-                                <input type="text" class="form-control" name="referenceProduct" id="referenceProduct">
-                                <input type="text" class="form-control" name="product" id="product">
-                                <input type="text" class="form-control text-center" name="profitability" id="profitability">
-                                <button class="btn btn-primary" id="btnCreateProduct">Crear Producto</button>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control" name="idProduct" id="idProduct" hidden>
+                                    <input type="text" class="form-control" name="referenceProduct" id="referenceProduct">
+                                    <label for="">Referencia</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label"  style="margin-bottom:0px">
+                                    <input type="text" class="form-control" name="product" id="product">
+                                    <label for="">Nombre Producto</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label"  style="margin-bottom:0px">
+                                    <input type="text" class="form-control text-center" name="profitability" id="profitability">
+                                    <label for="">Rentabilidad(%)</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label"  style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-primary" id="btnCreateProduct">Crear Producto</button>
+                                </div>
                             </div>
                         </form>
                     </div>

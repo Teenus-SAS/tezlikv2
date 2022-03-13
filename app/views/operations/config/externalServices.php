@@ -49,7 +49,7 @@
                                 <label for="">Costo</label>
                                 <label for=""></label>
                                 <input class="form-control" type="text" name="service" id="service">
-                                <input class="form-control text-center" type="number" name="cost" id="cost">
+                                <input class="form-control text-center" type="number" name="costService" id="costService">
                                 <button class="btn btn-primary" id="btnAddService">Adicionar</button>
                             </div>
                         </form>
@@ -84,6 +84,5 @@
     </div> -->
 
 <script src="../../app/js/products/configProducts.js"></script>
-
 <script src="../../app/js/services/externalServices.js"></script>
 <script src="../../app/js/services/tblExternalServices.js"></script>

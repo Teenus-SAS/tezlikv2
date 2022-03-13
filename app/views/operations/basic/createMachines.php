@@ -28,24 +28,42 @@
                     </div>
                     <div class="card-body">
                         <form id="formMachine" name="formMachine">
-                            <div class="gridx8">
-                                <label for="">Nombre</label>
-                                <label for="">Precio</label>
-                                <label for="">Valor Residual</label>
-                                <label for="">Años Depreciación</label>
-                                <label for="">Horas de Trabajo</label>
-                                <label for="">Dias de Trabajo</label>
-                                <label for="">Depreciación x Min</label>
-                                <label></label>
-                                <input type="text" class="form-control" name="idMachine" id="idMachine" hidden>
-                                <input type="text" class="form-control" name="machine" id="machine">
-                                <input type="text" class="form-control money text-center" name="price" id="price">
-                                <input type="text" class="form-control money text-center" name="residualValue" id="residualValue">
-                                <input type="text" class="form-control number text-center" name="depreciationYears" id="depreciationYears">
-                                <input type="number" class="form-control money text-center" name="hoursMachine" id="hoursMachine">
-                                <input type="number" class="form-control money text-center" name="daysMachine" id="daysMachine">
-                                <input type="text" class="form-control money text-center" name="depreciationMinute" id="depreciationMinute" disabled>
-                                <button class="btn btn-primary" id="btnCreateMachine">Crear Máquina</button>
+                            <div class="gridx4cm">
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control" name="idMachine" id="idMachine" hidden>
+                                    <input type="text" class="form-control" name="machine" id="machine">
+                                    <label for="">Nombre</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control money text-center" name="price" id="price">
+                                    <label for="">Precio</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control money text-center" name="residualValue" id="residualValue">
+                                    <label for="">Valor Residual</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control number text-center" name="depreciationYears" id="depreciationYears">
+                                    <label for="">Años Depreciación</label>
+                                </div>
+                            </div>
+                            <div class="gridx4m mt-3">
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="number" class="form-control money text-center" name="hoursMachine" id="hoursMachine">
+                                    <label for="">Horas de Trabajo</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="number" class="form-control money text-center" name="daysMachine" id="daysMachine">
+                                    <label for="">Dias de Trabajo</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input type="text" class="form-control money text-center" name="depreciationMinute" id="depreciationMinute" disabled>
+                                    <label for="">Depreciación x Min</label>
+                                </div>
+                                <div style="margin-bottom:0px;margin-top:5px;">
+                                    <button class="btn btn-primary" id="btnCreateMachine">Crear Máquina</button>
+                                </div>
+
                             </div>
                         </form>
                     </div>
