@@ -39,7 +39,7 @@ class ExternalServicesDao
                                           VALUES(:service, :cost, :id_product, :id_company)");
             $stmt->execute([
                 'service' => ucfirst(strtolower($dataExternalService['service'])),
-                'cost' => $dataExternalService['cost'],
+                'cost' => $dataExternalService['costService'],
                 'id_product' => $dataExternalService['idProduct'],
                 'id_company' => $id_company
             ]);
@@ -64,7 +64,7 @@ class ExternalServicesDao
             $stmt->execute([
                 'id_service' => $dataExternalService['idService'],
                 'service' => ucfirst(strtolower($dataExternalService['service'])),
-                'cost' => $dataExternalService['cost'],
+                'cost' => $dataExternalService['costService'],
                 'id_product' => $dataExternalService['idProduct']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

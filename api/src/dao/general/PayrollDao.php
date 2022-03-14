@@ -38,17 +38,20 @@ class PayrollDao
 
     try {
       $stmt = $connection->prepare("INSERT INTO payroll (id_company,id_process,employee,salary,transport,extra_time,bonification,endowment,
-                                                        working_days_month,hours_day,factor_benefit,salary_net,contract,minute_value)
+                                                        working_days_month,hours_day,factor_benefit,,contract)
                                     VALUES (:id_company,:id_process,:employee,:salary,:transport,:extra_time,:bonification,:endowment,
-                                            :working_days_month,:hours_day,:factor_benefit,:salary_net,:contract,:minute_value)");
+                                            :working_days_month,:hours_day,:factor_benefit,:contract)");
       $stmt->execute([
         'id_company' => $id_company,                  'employee' => ucfirst(strtolower($dataPayroll['employee'])),
-        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataPayroll['salary'],
+        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataPayroll['basicSalary'],
         'transport' => $dataPayroll['transport'],                 'extra_time' => $dataPayroll['extraTime'],
         'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
-        'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['hoursDay'],
-        'factor_benefit' => $dataPayroll['factorBenefit'],        'salary_net' => $dataPayroll['salaryNet'],
-        'contract' => $dataPayroll['contract'],                   'minute_value' => $dataPayroll['minuteValue']
+        'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
+        'factor_benefit' => $dataPayroll['factor'],
+        'contract' => $dataPayroll['typeFactor']
+
+        // 'salary_net' => $dataPayroll['salaryNet'] salary_net, :salary_net,
+        // 'minute_value' => $dataPayroll['minuteValue'] ,:minute_value, minute_value
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
@@ -72,12 +75,12 @@ class PayrollDao
                                     WHERE id_payroll = :id_payroll");
       $stmt->execute([
         'id_payroll' => $dataPayroll['idPayroll'],                'employee' => ucfirst(strtolower($dataPayroll['employee'])),
-        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataPayroll['salary'],
+        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataPayroll['basicSalary'],
         'transport' => $dataPayroll['transport'],                 'extra_time' => $dataPayroll['extraTime'],
         'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
-        'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['hoursDay'],
-        'factor_benefit' => $dataPayroll['factorBenefit'],        'salary_net' => $dataPayroll['salaryNet'],
-        'contract' => $dataPayroll['contract'],                   'minute_value' => $dataPayroll['minuteValue']
+        'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
+        'factor_benefit' => $dataPayroll['factor'],        'salary_net' => $dataPayroll['salaryNet'],
+        'contract' => $dataPayroll['typeFactor'],                   'minute_value' => $dataPayroll['minuteValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

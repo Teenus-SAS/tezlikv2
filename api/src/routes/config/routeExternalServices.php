@@ -18,7 +18,7 @@ $app->post('/addExternalService', function (Request $request, Response $response
     $id_company = $_SESSION['id_company'];
     $dataExternalService = $request->getParsedBody();
 
-    if (empty($dataExternalService['service']) || empty($dataExternalService['cost']) || empty($dataExternalService['idProduct']))
+    if (empty($dataExternalService['service']) || empty($dataExternalService['costService']) || empty($dataExternalService['idProduct']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $externalServices = $externalServicesDao->insertExternalServicesByCompany($dataExternalService, $id_company);
@@ -35,7 +35,7 @@ $app->post('/addExternalService', function (Request $request, Response $response
 $app->post('/updateExternalService', function (Request $request, Response $response, $args) use ($externalServicesDao) {
     $dataExternalService = $request->getParsedBody();
 
-    if (empty($dataExternalService['service']) || empty($dataExternalService['cost']) || empty($dataExternalService['idProduct']))
+    if (empty($dataExternalService['service']) || empty($dataExternalService['costService']) || empty($dataExternalService['idProduct']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $externalServices = $externalServicesDao->updateExternalServices($dataExternalService);

@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreatePayroll">Crear Nómina</button>
+                    <button class="btn btn-primary" id="btnNewPayroll">Nueva Nómina</button>
                 </div>
             </div>
         </div>
@@ -47,6 +47,8 @@
         </div>
     </div>
 </div>
+
+<script src="../../app/js/process/configProcess.js"></script>
 
 <script src="../../app/js/payroll/tblPayroll.js"></script>
 <script src="../../app/js/payroll/payroll.js"></script>

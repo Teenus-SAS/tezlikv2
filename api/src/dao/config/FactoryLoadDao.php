@@ -19,7 +19,7 @@ class FactoryLoadDao
   public function findAllFactoryLoadByCompany($id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT ml.id_machine, m.machine, ml.input, ml.cost, ml.cost_minute 
+    $stmt = $connection->prepare("SELECT ml.id_manufacturing_load, ml.id_machine, m.machine, ml.input, ml.cost, ml.cost_minute 
                                   FROM manufacturing_load ml
                                   INNER JOIN machines m ON ml.id_machine = m.id_machine
                                   WHERE ml.id_company = :id_company;");
@@ -43,7 +43,7 @@ class FactoryLoadDao
         'id_machine' => $dataFactoryLoad['idMachine'],
         'id_company' => $id_company,
         'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
-        'cost' => $dataFactoryLoad['cost'],
+        'cost' => $dataFactoryLoad['costFactory'],
         'cost_minute' => $dataFactoryLoad['costMinute']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -66,7 +66,7 @@ class FactoryLoadDao
         'id_manufacturing_load' => $dataFactoryLoad['idManufacturingLoad'],
         'id_machine' => $dataFactoryLoad['idMachine'],
         'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
-        'cost' => $dataFactoryLoad['cost'],
+        'cost' => $dataFactoryLoad['costFactory'],
         'cost_minute' => $dataFactoryLoad['costMinute']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

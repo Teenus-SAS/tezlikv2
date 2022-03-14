@@ -1,132 +1,134 @@
-$(document).ready(function() {
+$(document).ready(function () {
+  let idProduct;
 
-    let idProduct;
+  /* Ocultar panel Nuevo Servicio */
 
-    /* Ocultar panel Nuevo Servicio */
+  $('.cardAddService').hide();
 
-    $('.cardAddService').hide();
+  /* Abrir panel crear carga fabril */
 
-    /* Abrir panel crear carga fabril */
+  $('#btnNewService').click(function (e) {
+    e.preventDefault();
 
-    $('#btnNewService').click(function(e) {
-        e.preventDefault();
+    $('.cardAddService').toggle(800);
+    $('#btnAddService').html('Adicionar');
 
-        $('.cardAddService').toggle(800);
-        $('#btnAddService').html('Adicionar');
+    sessionStorage.removeItem('id_service');
 
-        sessionStorage.removeItem('id_service');
+    $('#service').val('');
+    $('#costService').val('');
+  });
 
-        $('#service').val('');
-        $('#costService').val('');
-    });
+  /* Seleccionar producto */
 
-    /* Seleccionar producto */
+  $('#selectNameProduct').change(function (e) {
+    e.preventDefault();
+    idProduct = $('#selectNameProduct').val();
+  });
 
-    $('#selectNameProduct').change(function(e) {
-        e.preventDefault();
-        idProduct = $('#selectNameProduct').val();
-    });
+  /* Adicionar nueva carga fabril */
 
-    /* Adicionar nueva carga fabril */
+  $('#btnAddService').click(function (e) {
+    e.preventDefault();
 
-    $('#btnAddService').click(function(e) {
-        debugger
-        e.preventDefault();
+    let idService = sessionStorage.getItem('id_service');
 
-        let idService = sessionStorage.getItem('id_service')
+    if (idService == '' || idService == null) {
+      idProduct = parseInt($('#selectNameProduct').val());
+      service = $('#service').val();
+      cost = parseInt($('#costService').val());
 
-        if (idService == '' || idService == null) {
-            idProduct = parseInt($('#selectNameProduct').val());
-            service = $('#service').val();
-            cost = parseInt($('#costService').val());
+      data = idProduct * cost;
 
-            data = idProduct * cost
+      if (!data || service == '' || service == 0) {
+        toastr.error('Ingrese todos los campos');
+        return false;
+      }
 
-            if (!data || service == '' || service == 0) {
-                toastr.error('Ingrese todos los campos')
-                return false
-            }
+      externalServices = $('#formAddService').serialize();
 
-            externalServices = $('#formAddService').serialize();
+      externalServices = externalServices + '&idProduct=' + idProduct;
 
-            externalServices = externalServices + '&idProduct=' + idProduct;
-
-            $.post("../../api/addExternalService", externalServices,
-                function(data, textStatus, jqXHR) {
-                    message(data)
-                },
-            );
-        } else {
-            updateExternalService();
+      $.post(
+        '../../api/addExternalService',
+        externalServices,
+        function (data, textStatus, jqXHR) {
+          message(data);
         }
-    });
-
-    /* Actualizar servicio */
-
-    $(document).on('click', '.updateExternalService', function(e) {
-        debugger
-        $('.cardAddService').show(800);
-        $('#btnAddService').html('Actualizar');
-
-        let row = $(this).parent().parent()[0]
-        let data = tblExternalServices.fnGetData(row)
-
-        sessionStorage.setItem('id_service', data.id_service)
-
-        $('#service').val(data.service);
-        $('#costService').val(data.cost);
-
-        $('html, body').animate({
-            scrollTop: 0
-        }, 1000);
-    });
-
-    updateExternalService = () => {
-        let data = $('#formAddService').serialize();
-        idProduct = $('#selectNameProduct').val();
-        idService = sessionStorage.getItem('id_service');
-
-        data = data + '&idService=' + idService + '&idProduct=' + idProduct;
-
-        $.post("../../api/updateExternalService", data,
-            function(data, textStatus, jqXHR) {
-                message(data)
-            },
-        );
+      );
+    } else {
+      updateExternalService();
     }
+  });
 
-    /* Eliminar servicio */
+  /* Actualizar servicio */
 
-    $(document).on('click', '.deleteExternalService', function(e) {
-        debugger
-        let id_service = this.id
-        $.get(`../../api/deleteExternalService/${id_service}`,
-            function(data, textStatus, jqXHR) {
-                message(data)
-            }
-        )
-    });
+  $(document).on('click', '.updateExternalService', function (e) {
+    $('.cardAddService').show(800);
+    $('#btnAddService').html('Actualizar');
 
-    /* Mensaje de exito */
+    let row = $(this).parent().parent()[0];
+    let data = tblExternalServices.fnGetData(row);
 
-    message = (data) => {
-        if (data.success == true) {
-            $('.cardAddService').hide(800);
-            $("#formAddService")[0].reset();
-            updateTable();
-            toastr.success(data.message)
-                //return false
-        } else if (data.error == true)
-            toastr.error(data.message)
-        else if (data.info == true)
-            toastr.info(data.message)
-    }
+    sessionStorage.setItem('id_service', data.id_service);
 
-    /* Actualizar tabla */
+    $('#service').val(data.service);
+    $('#costService').val(data.cost);
 
-    function updateTable() {
+    $('html, body').animate(
+      {
+        scrollTop: 0,
+      },
+      1000
+    );
+  });
 
-        $('#tblExternalServices').DataTable().clear();
-        $('#tblExternalServices').DataTable().ajax.reload();
-    }
+  updateExternalService = () => {
+    let data = $('#formAddService').serialize();
+    idProduct = $('#selectNameProduct').val();
+    idService = sessionStorage.getItem('id_service');
+
+    data = data + '&idService=' + idService + '&idProduct=' + idProduct;
+
+    $.post(
+      '../../api/updateExternalService',
+      data,
+      function (data, textStatus, jqXHR) {
+        message(data);
+      }
+    );
+  };
+
+  /* Eliminar servicio */
+
+  $(document).on('click', '.deleteExternalService', function (e) {
+    debugger;
+    let id_service = this.id;
+    $.get(
+      `../../api/deleteExternalService/${id_service}`,
+      function (data, textStatus, jqXHR) {
+        message(data);
+      }
+    );
+  });
+
+  /* Mensaje de exito */
+
+  message = (data) => {
+    if (data.success == true) {
+      $('.cardAddService').hide(800);
+      $('#formAddService')[0].reset();
+      updateTable();
+      toastr.success(data.message);
+      //return false
+    } else if (data.error == true) toastr.error(data.message);
+    else if (data.info == true) toastr.info(data.message);
+  };
+
+  /* Actualizar tabla */
+
+  function updateTable() {
+    $('#tblExternalServices').DataTable().clear();
+    $('#tblExternalServices').DataTable().ajax.reload();
+  }
 });

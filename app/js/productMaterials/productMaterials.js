@@ -109,7 +109,6 @@ $(document).ready(function () {
   /* Eliminar materia prima */
 
   $(document).on('click', '.deleteMaterials', function (e) {
-    debugger;
     let id_product_material = this.id;
     $.get(
       `../../api/deleteProductMaterial/${id_product_material}`,

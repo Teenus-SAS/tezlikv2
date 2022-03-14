@@ -10,21 +10,22 @@
                     <div class="container-fluid">
                         <div class="vertical-app-tabs" id="rootwizard">
                             <div class="col-md-12 col-lg-12">
-                                <form id="project-details">
+                                <form id="formCreatePayroll">
                                     <div class="row mt-5">
                                         <div class="col-12 col-lg-12 titlePayroll">
                                             <label for=""><b>Descripción</b></label>
                                         </div>
                                         <div class="col-12 col-lg-6">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="employee" name="validation-employee" type="text" class="form-control">
+                                                <input id="employee" name="employee" type="text" class="form-control">
                                                 <label for="employee">Nombres y Apellidos <span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-6">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="process" name="validation-process" type="text" class="form-control">
+                                                <select class="form-control" name="idProcess" id="idProcess"></select>
+                                                <!-- <input id="process" name="validation-process" type="text" class="form-control"> -->
                                                 <label for="process">Proceso <span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -36,7 +37,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="basicSalary" name="validation-basicSalary" type="number" class="form-control text-center">
+                                                <input id="basicSalary" name="basicSalary" type="number" class="form-control text-center">
                                                 <label for="basicSalary">Salario Básico<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -44,7 +45,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="transport" name="validation-transport" type="number" class="form-control text-center">
+                                                <input id="transport" name="transport" type="number" class="form-control text-center">
                                                 <label for="transport">Transporte<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -52,7 +53,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="endowment" name="validation-endowment" type="number" class="form-control text-center">
+                                                <input id="endowment" name="endowment" type="number" class="form-control text-center">
                                                 <label for="endowment">Dotaciones<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -60,7 +61,7 @@
 
                                         <div class="col-12 col-lg-3">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="extraTime" name="validation-extraTime" type="number" class="form-control text-center">
+                                                <input id="extraTime" name="extraTime" type="number" class="form-control text-center">
                                                 <label for="extraTime">Horas Extras<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -68,7 +69,7 @@
 
                                         <div class="col-12 col-lg-3">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="otherIncome" name="validation-otherIncome" type="number" class="form-control text-center">
+                                                <input id="bonification" name="bonification" type="number" class="form-control text-center">
                                                 <label for="otherIncome">Otros Ingresos<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -80,7 +81,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="workingHoursDay" name="validation-workingHoursDay" type="number" class="form-control text-center">
+                                                <input id="workingHoursDay" name="workingHoursDay" type="number" class="form-control text-center">
                                                 <label for="workingHoursDay">Horas Trabajo x Día<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -88,7 +89,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="workingDaysMonth" name="validation-workingDaysMonth" type="number" class="form-control text-center">
+                                                <input id="workingDaysMonth" name="workingDaysMonth" type="number" class="form-control text-center">
                                                 <label for="workingDaysMonth">Dias Trabajo x Mes<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -100,7 +101,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <select id="typeFactor" name="validation-typeFactor" type="number" class="form-control">
+                                                <select id="typeFactor" name="typeFactor" type="number" class="form-control">
                                                     <option value="0">Seleccionar</option>
                                                     <option value="1">Nómina</option>
                                                     <option value="2">Servicios</option>
@@ -113,12 +114,12 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="factor" name="validation-factor" type="number" class="form-control text-center" disabled>
+                                                <input id="factor" name="factor" type="number" class="form-control text-center">
                                                 <label for="factor">Factor<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
                                         </div>
-                                        
+
                                         <hr>
 
                                     </div>
@@ -133,8 +134,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCloseCardPayroll">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btnCreatePayroll">Crear</button>
             </div>
         </div>
     </div>
