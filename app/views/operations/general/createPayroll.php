@@ -52,4 +52,5 @@
 
 <script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/payroll/tblPayroll.js"></script>
+<script src="../../app/js/payroll/configPayroll.js"></script>
 <script src="../../app/js/payroll/payroll.js"></script>

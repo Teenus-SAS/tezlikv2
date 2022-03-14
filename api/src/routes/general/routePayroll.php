@@ -50,7 +50,7 @@ $app->post('/updatePayroll', function (Request $request, Response $response, $ar
     if (
         empty($dataPayroll['employee']) || empty($dataPayroll['basicSalary']) ||
         empty($dataPayroll['workingDaysMonth']) || empty($dataPayroll['workingHoursDay'])
-        || empty($dataPayroll['bonification']) || empty($dataPayroll['typeFactor'])
+        || empty($dataPayroll['typeFactor'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {

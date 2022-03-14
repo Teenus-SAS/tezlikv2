@@ -68,10 +68,12 @@ class PayrollDao
   {
     $connection = Connection::getInstance()->getConnection();
 
+    $payrollCalculate = $this->calculateValueMinute($dataPayroll['basicSalary'], $dataPayroll);
+
     try {
       $stmt = $connection->prepare("UPDATE payroll SET employee=:employee, id_process=:id_process, salary=:salary, transport=:transport, extra_time=:extra_time,
                                             bonification=:bonification, endowment=:endowment, working_days_month=:working_days_month,
-                                            hours_day=:hours_day, factor_benefit=:factor_benefit, salary_net=:salary_net, contract=:contract, minute_value=:minute_value
+                                            hours_day=:hours_day, factor_benefit=:factor_benefit, salary_net= :salary_net, type_contract=:type_contract, minute_value=:minute_value
                                     WHERE id_payroll = :id_payroll");
       $stmt->execute([
         'id_payroll' => $dataPayroll['idPayroll'],                'employee' => ucfirst(strtolower($dataPayroll['employee'])),
@@ -79,8 +81,8 @@ class PayrollDao
         'transport' => $dataPayroll['transport'],                 'extra_time' => $dataPayroll['extraTime'],
         'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
         'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
-        'factor_benefit' => $dataPayroll['factor'],        'salary_net' => $dataPayroll['salaryNet'],
-        'contract' => $dataPayroll['typeFactor'],                   'minute_value' => $dataPayroll['minuteValue']
+        'factor_benefit' => $dataPayroll['factor'],                 'salary_net' => $payrollCalculate['salaryNet'],
+        'type_contract' => $dataPayroll['typeFactor'],                   'minute_value' => $payrollCalculate['minuteValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

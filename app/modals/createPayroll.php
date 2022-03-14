@@ -9,7 +9,7 @@
                 <div class="page-content-wrapper mt--45">
                     <div class="container-fluid">
                         <div class="vertical-app-tabs" id="rootwizard">
-                            <div class="col-md-12 col-lg-12">
+                            <div class="col-md-12 col-lg-12 InputGroup">
                                 <form id="formCreatePayroll">
                                     <div class="row mt-5">
                                         <div class="col-12 col-lg-12 titlePayroll">
