@@ -25,9 +25,9 @@ $app->post('/addPayroll', function (Request $request, Response $response) use ($
 
     if (
         // || empty($dataPayroll['minuteValue']) empty($dataPayroll['endowment']) || 
-        empty($dataPayroll['employee']) || empty($dataPayroll['basicSalary']) ||
+        empty($dataPayroll['employee']) || empty($dataPayroll['basicSalary']) || empty($dataPayroll['idProcess']) ||
         empty($dataPayroll['workingDaysMonth']) || empty($dataPayroll['workingHoursDay']) ||
-        empty($dataPayroll['bonification']) || empty($dataPayroll['typeFactor'])
+        empty($dataPayroll['typeFactor'])
     )
 
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');

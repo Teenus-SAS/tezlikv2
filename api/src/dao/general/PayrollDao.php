@@ -19,7 +19,7 @@ class PayrollDao
   public function findAllPayrollByCompany($id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT p.id_payroll, p.id_company, p.employee, p.salary, p.transport, p.extra_time, p.bonification, p.endowment, p.working_days_month, p.hours_day, p.factor_benefit, p.salary_net, p.contract, p.minute_value, pp.process 
+    $stmt = $connection->prepare("SELECT p.id_payroll, p.id_company, p.employee, p.salary, p.transport, p.extra_time, p.bonification, p.endowment, p.working_days_month, p.hours_day, p.factor_benefit, p.salary_net, p.type_contract, p.minute_value, pp.process 
                                   FROM payroll p 
                                   INNER JOIN process pp ON p.id_process = pp.id_process
                                   WHERE p.id_company = :id_company;");
@@ -35,30 +35,30 @@ class PayrollDao
   public function insertPayrollByCompany($dataPayroll, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
+    $salaryBasic = str_replace('.', '', $dataPayroll['basicSalary']);
+
+    $payrollCalculate = $this->calculateValueMinute($salaryBasic, $dataPayroll);
 
     try {
-      $stmt = $connection->prepare("INSERT INTO payroll (id_company,id_process,employee,salary,transport,extra_time,bonification,endowment,
-                                                        working_days_month,hours_day,factor_benefit,,contract)
-                                    VALUES (:id_company,:id_process,:employee,:salary,:transport,:extra_time,:bonification,:endowment,
-                                            :working_days_month,:hours_day,:factor_benefit,:contract)");
+      $stmt = $connection->prepare("INSERT INTO payroll (id_company, id_process, employee, salary, transport, extra_time, bonification, endowment,
+                                                        working_days_month, hours_day, factor_benefit, salary_net, type_contract, minute_value)
+                                    VALUES (:id_company, :id_process, :employee, :salary, :transport, :extra_time, :bonification, :endowment,
+                                            :working_days_month, :hours_day, :factor_benefit, :salary_net, :type_contract, :minute_value)");
       $stmt->execute([
         'id_company' => $id_company,                  'employee' => ucfirst(strtolower($dataPayroll['employee'])),
-        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataPayroll['basicSalary'],
+        'id_process' => $dataPayroll['idProcess'],                'salary' => $salaryBasic,
         'transport' => $dataPayroll['transport'],                 'extra_time' => $dataPayroll['extraTime'],
         'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
         'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
-        'factor_benefit' => $dataPayroll['factor'],
-        'contract' => $dataPayroll['typeFactor']
-
-        // 'salary_net' => $dataPayroll['salaryNet'] salary_net, :salary_net,
-        // 'minute_value' => $dataPayroll['minuteValue'] ,:minute_value, minute_value
+        'factor_benefit' => $dataPayroll['factor'],               'type_contract' => $dataPayroll['typeFactor'],
+        'salary_net' => $payrollCalculate['salaryNet'],           'minute_value' => $payrollCalculate['minuteValue'],
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
       if ($e->getCode() == 23000)
-        $message = 'Nomina duplicada. Ingrese una nueva Nomina';
+        $message = 'Registro duplicada. Ingrese una nuevo Registro';
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
@@ -104,5 +104,22 @@ class PayrollDao
       $stmt->execute(['id_payroll' => $id_payroll]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
+  }
+
+  public function calculateValueMinute($salaryBasic, $dataPayroll)
+  {
+    /* Calcular salario neto */
+    $salaryNet = intval($salaryBasic) * (1 + (intval($dataPayroll['factor']) / 100)) + intval($dataPayroll['bonification']) + intval($dataPayroll['endowment']);
+
+    /* Total horas */
+    $totalHoursMonth = intval($dataPayroll['workingDaysMonth']) * intval($dataPayroll['workingHoursDay']);
+    $hourCost = $salaryNet / $totalHoursMonth;
+
+    /* Calcular valor minuto salario */
+    $minuteValue =  $hourCost / 60;
+
+    /* retorna los valores calculados */
+    $payrollCalculate = array('salaryNet' => $salaryNet, 'minuteValue' => $minuteValue);
+    return $payrollCalculate;
   }
 }

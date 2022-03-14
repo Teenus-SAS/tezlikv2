@@ -37,7 +37,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="basicSalary" name="basicSalary" type="number" class="form-control text-center">
+                                                <input id="basicSalary" name="basicSalary" type="text" class="form-control text-center number">
                                                 <label for="basicSalary">Salario Básico<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
