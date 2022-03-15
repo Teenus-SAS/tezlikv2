@@ -67,8 +67,8 @@ class PayrollDao
   public function updatePayroll($dataPayroll)
   {
     $connection = Connection::getInstance()->getConnection();
-
-    $payrollCalculate = $this->calculateValueMinute($dataPayroll['basicSalary'], $dataPayroll);
+    $salaryBasic = str_replace('.', '', $dataPayroll['basicSalary']);
+    $payrollCalculate = $this->calculateValueMinute($salaryBasic, $dataPayroll);
 
     try {
       $stmt = $connection->prepare("UPDATE payroll SET employee=:employee, id_process=:id_process, salary=:salary, transport=:transport, extra_time=:extra_time,
@@ -77,7 +77,7 @@ class PayrollDao
                                     WHERE id_payroll = :id_payroll");
       $stmt->execute([
         'id_payroll' => $dataPayroll['idPayroll'],                'employee' => ucfirst(strtolower($dataPayroll['employee'])),
-        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataPayroll['basicSalary'],
+        'id_process' => $dataPayroll['idProcess'],                'salary' => $salaryBasic,
         'transport' => $dataPayroll['transport'],                 'extra_time' => $dataPayroll['extraTime'],
         'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
         'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
