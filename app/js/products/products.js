@@ -85,7 +85,7 @@ $(document).ready(function() {
             message: "Está seguro de eliminar este producto? Esta acción no se puede reversar",
             buttons: {
                 confirm: {
-                    label: 'Yes',
+                    label: 'Si',
                     className: 'btn-success'
                 },
                 cancel: {
@@ -94,12 +94,14 @@ $(document).ready(function() {
                 }
             },
             callback: function(result) {
-                //console.log('This was logged in the callback: ' + result);
-                let id_product = this.id
-                $.get(`../../../api/deleteProduct/${id_product}`,
-                    function(data, textStatus, jqXHR) {
-                        message(data)
-                    })
+                if (result == true) {
+                    let id_product = this.id
+                    $.get(`../../../api/deleteProduct/${id_product}`,
+                        function(data, textStatus, jqXHR) {
+                            message(data)
+                        })
+                }
+
             }
         });
 
