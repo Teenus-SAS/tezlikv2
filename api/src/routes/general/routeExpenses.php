@@ -20,7 +20,7 @@ $app->post('/addExpenses', function (Request $request, Response $response, $args
     $id_company = $_SESSION['id_company'];
     $dataExpenses = $request->getParsedBody();
 
-    if (empty($dataExpenses['idPuc']) || empty($dataExpenses['value']))
+    if (empty($dataExpenses['idPuc']) || empty($dataExpenses['expenseValue']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expenses = $expensesDao->insertExpensesByCompany($dataExpenses, $id_company);
@@ -38,7 +38,7 @@ $app->post('/addExpenses', function (Request $request, Response $response, $args
 $app->post('/updateExpenses', function (Request $request, Response $response, $args) use ($expensesDao) {
     $dataExpenses = $request->getParsedBody();
 
-    if (empty($dataExpenses['idPuc']) || empty($dataExpenses['value']))
+    if (empty($dataExpenses['idPuc']) || empty($dataExpenses['expenseValue']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expenses = $expensesDao->updateExpenses($dataExpenses);

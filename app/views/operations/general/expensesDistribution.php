@@ -25,8 +25,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="gridx2">
+                            <label for="">Referencia</label>
                             <label for="">Gastos a distribuir</label>
-                            <input type="number" class="form-control text-center" id="expensesToDistribution" style="width: 200px;" disabled>
+                            <select class="form-control" name="refProduct" id="refProduct"></select>
+                            <input type="number" class="form-control text-center" id="expensesToDistribution" name="assignableExpense" style="width: 200px;" disabled>
                         </div>
                     </div>
                 </div>
@@ -41,18 +43,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx5">
-                            <label for="">Referencia</label>
-                            <label for="">Nombre Producto</label>
-                            <label for="">Und Vendidas</label>
-                            <label for="">Vol Ventas</label>
-                            <label for=""></label>
-                            <select class="form-control" name="refProduct" id="refProduct"></select>
-                            <select class="form-control" name="selectNameProduct" id="selectNameProduct"></select>
-                            <input type="number" class="form-control text-center" id="undVendidas">
-                            <input type="number" class="form-control text-center" id="volVendidas">
-                            <button class="btn btn-primary" id="btnAssignExpenses">Asignar Gasto</button>
-                        </div>
+                        <form id="formExpensesDistribution">
+                            <div class="gridx4pm">
+                                <label for="">Nombre Producto</label>
+                                <label for="">Und Vendidas</label>
+                                <label for="">Vol Ventas</label>
+                                <label for=""></label>
+                                <select class="form-control" name="selectNameProduct" id="selectNameProduct"></select>
+                                <input type="text" class="form-control number text-center" id="undVendidas" name="unitsSold">
+                                <input type="text" class="form-control number text-center" id="volVendidas" name="turnover">
+                                <button class="btn btn-primary" id="btnAssignExpenses">Asignar Gasto</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -80,6 +82,7 @@
     </div>
 </div>
 
+<script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/expenses/tblExpensesDistribution.js"></script>
 <script src="../../app/js/expenses/expensesDistribution.js"></script>

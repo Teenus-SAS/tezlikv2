@@ -21,7 +21,7 @@ class ExpensesDao
     session_start();
     $id_company = $_SESSION['id_company'];
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT e.id_expense, e.id_puc, p.number_count, p.count, e.value 
+    $stmt = $connection->prepare("SELECT e.id_expense, e.id_puc, p.number_count, p.count, e.expense_value 
                                   FROM expenses e 
                                   INNER JOIN puc p ON e.id_puc = p.id_puc 
                                   WHERE e.id_company = :id_company;");
@@ -37,14 +37,15 @@ class ExpensesDao
   public function insertExpensesByCompany($dataExpenses, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
+    $expenseValue = str_replace('.', '', $dataExpenses['expenseValue']);
 
     try {
-      $stmt = $connection->prepare("INSERT INTO expenses (id_puc, id_company, value)
-                                    VALUES (:id_puc, :id_company, :value)");
+      $stmt = $connection->prepare("INSERT INTO expenses (id_puc, id_company, expense_value)
+                                    VALUES (:id_puc, :id_company, :expense_value)");
       $stmt->execute([
         'id_puc' => $dataExpenses['idPuc'],
         'id_company' => $id_company,
-        'value' => $dataExpenses['value']
+        'expense_value' => $expenseValue
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
@@ -60,13 +61,14 @@ class ExpensesDao
   public function updateExpenses($dataExpenses)
   {
     $connection = Connection::getInstance()->getConnection();
+    $expenseValue = str_replace('.', '', $dataExpenses['expenseValue']);
 
     try {
-      $stmt = $connection->prepare("UPDATE expenses SET id_puc = :id_puc, value = :value
+      $stmt = $connection->prepare("UPDATE expenses SET id_puc = :id_puc, expense_value = :expense_value
                                       WHERE id_expense = :id_expense");
       $stmt->execute([
         'id_puc' => $dataExpenses['idPuc'],
-        'value' => $dataExpenses['value'],
+        'expense_value' => $expenseValue,
         'id_expense' => $dataExpenses['idExpense']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

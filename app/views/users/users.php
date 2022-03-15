@@ -11,31 +11,32 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Nuevo Usuario</button>
+                    <button class="btn btn-primary" id="btnNewUser">Nuevo Usuario</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- <div class="page-content-wrapper mt--45 mb-5 cardCreateRawMaterials">
+<div class="page-content-wrapper mt--45 mb-5 cardCreateUsers">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="gridx2">
-                            <label for="">Referencia</label>
-                            <label for="">Producto</label>
-                            <select class="form-control" name="refProduct" id="refProduct"></select>
-                            <select class="form-control" name="selectNameProduct" id="selectNameProduct"></select>
-                        </div>
+                        <form id="formCreateUser">
+                            <div class="gridx2">
+                                <!-- <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label> -->
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <!-- page content -->
 <div class="page-content-wrapper mt--45">
@@ -57,4 +58,5 @@
     </div>
 </div>
 
+<script src="../../../app/js/users/users.js"></script>
 <script src="../../../app/js/users/tblUsers.js"></script>

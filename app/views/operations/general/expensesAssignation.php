@@ -40,7 +40,7 @@
                                 <label for="">Valor</label>
                                 <label for=""></label>
                                 <select class="form-control" name="idPuc" id="idPuc"></select>
-                                <input type="number" class="form-control value text-center" id="value" name="value">
+                                <input type="text" class="form-control number text-center" id="expenseValue" name="expenseValue">
                                 <button class="btn btn-primary" id="btnCreateExpense">Crear Gasto</button>
                             </div>
                         </form>
@@ -75,6 +75,7 @@
     </div> -->
 
 
+<script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/expenses/expense.js"></script>
 <script src="../../app/js/expenses/tblExpenses.js"></script>
 <script src="../../app/js/puc/configPuc.js"></script>

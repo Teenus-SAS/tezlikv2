@@ -2,7 +2,6 @@ $(document).ready(function () {
   $('.cardCreateExpenses').hide();
 
   $('#btnNewExpense').click(function (e) {
-    debugger;
     e.preventDefault();
 
     $('.cardCreateExpenses').toggle(800);
@@ -11,18 +10,17 @@ $(document).ready(function () {
     sessionStorage.removeItem('id_expense');
 
     $('#idPuc option:contains(Seleccionar)').prop('selected', true);
-    $('#value').val('');
+    $('#expenseValue').val('');
   });
 
   $('#btnCreateExpense').click(function (e) {
-    debugger;
     e.preventDefault();
 
     let idExpense = sessionStorage.getItem('id_expense');
 
     if (idExpense == '' || idExpense == null) {
       puc = parseInt($('#idPuc').val());
-      value = parseInt($('#value').val());
+      value = parseInt($('#expenseValue').val());
 
       data = puc * value;
 
@@ -54,8 +52,8 @@ $(document).ready(function () {
 
     sessionStorage.setItem('id_expense', data.id_expense);
 
-    $(`#idPuc option[value=${data.id_puc}]`).attr('selected', true);
-    $('#value').val(data.value);
+    $(`#idPuc option:contains(${data.id_puc})`).attr('selected', true);
+    $('#expenseValue').val(data.value);
 
     $('html, body').animate(
       {
@@ -80,7 +78,6 @@ $(document).ready(function () {
   };
 
   $(document).on('click', '.deleteExpenses', function (e) {
-    debugger;
     let id_expense = this.id;
     $.get(
       `../../api/deleteExpenses/${id_expense}`,
@@ -98,7 +95,7 @@ $(document).ready(function () {
       $('#formCreateExpenses')[0].reset();
       updateTable();
       toastr.success(data.message);
-      //return false
+      //return false;
     } else if (data.error == true) toastr.error(data.message);
     else if (data.info == true) toastr.info(data.message);
   };

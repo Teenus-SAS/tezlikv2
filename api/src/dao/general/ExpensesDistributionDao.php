@@ -38,16 +38,21 @@ class ExpensesDistributionDao
     {
         $connection = Connection::getInstance()->getConnection();
 
+        $unitsSold = str_replace('.', '', $dataExpensesDistribution['unitsSold']);
+        $turnover = str_replace('.', '', $dataExpensesDistribution['turnover']);
+
+
         try {
             $stmt = $connection->prepare("INSERT INTO expenses_distribution (id_product, id_company, units_sold, 
                                                                             turnover, assignable_expense)
                                           VALUES (:id_product, :id_company, :units_sold, :turnover, :assignable_expense)");
             $stmt->execute([
-                'id_product' => $dataExpensesDistribution['idProduct'],
+                'id_product' => $dataExpensesDistribution['selectNameProduct'],
                 'id_company' => $id_company,
-                'units_sold' => $dataExpensesDistribution['unitsSold'],
-                'turnover' => $dataExpensesDistribution['turnover'],
-                'assignable_expense' => $dataExpensesDistribution['assignableExpense']
+                'units_sold' => $unitsSold,
+                'turnover' => $turnover,
+                'assignable_expense' => 0
+                //'assignable_expense' => $dataExpensesDistribution['assignableExpense']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
             return 1;
@@ -64,15 +69,18 @@ class ExpensesDistributionDao
     {
         $connection = Connection::getInstance()->getConnection();
 
+        $unitsSold = str_replace('.', '', $dataExpensesDistribution['unitsSold']);
+        $turnover = str_replace('.', '', $dataExpensesDistribution['turnover']);
+
         try {
             $stmt = $connection->prepare("UPDATE expenses_distribution SET id_product = :id_product, units_sold = :units_sold,
                                                                 turnover = :turnover, assignable_expense = :assignable_expense
                                           WHERE id_expenses_distribution = :id_expenses_distribution");
             $stmt->execute([
-                'id_expenses_distribution' => $dataExpensesDistribution['idExpenses'],
-                'id_product' => $dataExpensesDistribution['idProduct'],
-                'units_sold' => $dataExpensesDistribution['unitsSold'],
-                'turnover' => $dataExpensesDistribution['turnover'],
+                'id_expenses_distribution' => $dataExpensesDistribution['idExpensesDistribution'],
+                'id_product' => $dataExpensesDistribution['selectNameProduct'],
+                'units_sold' => $unitsSold,
+                'turnover' => $turnover,
                 'assignable_expense' => $dataExpensesDistribution['assignableExpense']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

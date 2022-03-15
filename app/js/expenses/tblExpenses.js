@@ -30,7 +30,7 @@ $(document).ready(function () {
       },
       {
         title: 'Valor',
-        data: 'value',
+        data: 'expense_value',
         className: 'classRight',
         render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
       },

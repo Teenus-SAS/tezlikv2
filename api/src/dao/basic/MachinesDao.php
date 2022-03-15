@@ -32,6 +32,8 @@ class MachinesDao
   public function insertMachinesByCompany($dataMachine, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
+    $costMachine = str_replace('.', '', $dataMachine['cost']);
+    $residualValue = str_replace('.', '', $dataMachine['residualValue']);
 
     try {
       $stmt = $connection->prepare("INSERT INTO machines (id_company ,machine, cost, years_depreciation, 
@@ -41,10 +43,10 @@ class MachinesDao
       $stmt->execute([
         'id_company' => $id_company,
         'machine' => ucfirst(strtolower($dataMachine['machine'])),
-        'cost' => $dataMachine['cost'],
-        'years_depreciation' => $dataMachine['yearsDepreciation'],
-        'minute_depreciation' => $dataMachine['minuteDepreciation'],
-        'residual_value' => $dataMachine['residualValue'],
+        'cost' => $costMachine,
+        'years_depreciation' => $dataMachine['depreciationYears'],
+        'minute_depreciation' => $dataMachine['depreciationMinute'],
+        'residual_value' => $residualValue,
         'hours_machine' => $dataMachine['hoursMachine'],
         'days_machine' => $dataMachine['daysMachine']
       ]);
@@ -66,6 +68,8 @@ class MachinesDao
   public function updateMachine($dataMachine)
   {
     $connection = Connection::getInstance()->getConnection();
+    $costMachine = str_replace('.', '', $dataMachine['cost']);
+    $residualValue = str_replace('.', '', $dataMachine['residualValue']);
 
     try {
       $stmt = $connection->prepare("UPDATE machines SET machine = :machine, cost = :cost, years_depreciation = :years_depreciation,
@@ -75,10 +79,10 @@ class MachinesDao
       $stmt->execute([
         'id_machine' => $dataMachine['idMachine'],
         'machine' => ucfirst(strtolower($dataMachine['machine'])),
-        'cost' => $dataMachine['cost'],
-        'years_depreciation' => $dataMachine['yearsDepreciation'],
-        'minute_depreciation' => $dataMachine['minuteDepreciation'],
-        'residual_value' => $dataMachine['residualValue'],
+        'cost' => $costMachine,
+        'years_depreciation' => $dataMachine['depreciationYears'],
+        'minute_depreciation' => $dataMachine['depreciationMinute'],
+        'residual_value' => $residualValue,
         'hours_machine' => $dataMachine['hoursMachine'],
         'days_machine' => $dataMachine['daysMachine']
       ]);

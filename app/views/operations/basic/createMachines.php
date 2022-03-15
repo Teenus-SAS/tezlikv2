@@ -27,15 +27,15 @@
                         <h5 class="card-title">Crear Máquina</h5>
                     </div>
                     <div class="card-body">
-                        <form id="formMachine" name="formMachine">
+                        <form id="formCreateMachine">
                             <div class="gridx4cm">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control" name="idMachine" id="idMachine" hidden>
+                                    <!-- <input type="text" class="form-control" name="idMachine" id="idMachine" hidden> -->
                                     <input type="text" class="form-control" name="machine" id="machine">
                                     <label for="">Nombre</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control money text-center" name="price" id="price">
+                                    <input type="text" class="form-control money text-center" name="cost" id="costMachine">
                                     <label for="">Precio</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
@@ -57,7 +57,7 @@
                                     <label for="">Dias de Trabajo</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control money text-center" name="depreciationMinute" id="depreciationMinute" disabled>
+                                    <input type="text" class="form-control money text-center" name="depreciationMinute" id="depreciationMinute">
                                     <label for="">Depreciación x Min</label>
                                 </div>
                                 <div style="margin-bottom:0px;margin-top:5px;">

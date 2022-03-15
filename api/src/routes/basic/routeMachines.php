@@ -23,8 +23,8 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
     $dataMachine = $request->getParsedBody();
 
     if (
-        empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['yearsDepreciation']) ||
-        empty($dataMachine['minuteDepreciation']) || empty($dataMachine['residualValue'])
+        empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['depreciationYears']) ||
+        empty($dataMachine['depreciationMinute']) || empty($dataMachine['residualValue'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
@@ -45,8 +45,8 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
     $dataMachine = $request->getParsedBody();
 
     if (
-        empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['yearsDepreciation']) ||
-        empty($dataMachine['minuteDepreciation']) || empty($dataMachine['residualValue'])
+        empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['depreciationYears']) ||
+        empty($dataMachine['depreciationMinute']) || empty($dataMachine['residualValue'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {

@@ -21,7 +21,7 @@ $app->post('/addExpensesDistribution', function (Request $request, Response $res
     $id_company = $_SESSION['id_company'];
     $dataExpensesDistribution = $request->getParsedBody();
 
-    if (empty($dataExpensesDistribution['idProduct']) || empty($dataExpensesDistribution['unitsSold']) || empty($dataExpensesDistribution['turnover']))
+    if (empty($dataExpensesDistribution['selectNameProduct']) || empty($dataExpensesDistribution['unitsSold']) || empty($dataExpensesDistribution['turnover']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expensesDistribution = $expensesDistributionDao->insertExpensesDistributionByCompany($dataExpensesDistribution, $id_company);
@@ -38,7 +38,7 @@ $app->post('/addExpensesDistribution', function (Request $request, Response $res
 $app->post('/updateExpensesDistribution', function (Request $request, Response $response, $args) use ($expensesDistributionDao) {
     $dataExpensesDistribution = $request->getParsedBody();
 
-    if (empty($dataExpensesDistribution['idProduct']) || empty($dataExpensesDistribution['unitsSold']) || empty($dataExpensesDistribution['turnover']))
+    if (empty($dataExpensesDistribution['selectNameProduct']) || empty($dataExpensesDistribution['unitsSold']) || empty($dataExpensesDistribution['turnover']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expensesDistribution = $expensesDistributionDao->updateExpensesDistribution($dataExpensesDistribution);

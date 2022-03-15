@@ -39,54 +39,12 @@ $(document).ready(function () {
         className: 'classRight',
         render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
       },
-      /*
       {
-        title: 'Transporte',
-        data: 'transport',
+        title: 'Valor Minuto',
+        data: 'minute_value',
         className: 'classRight',
         render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
       },
-      {
-        title: 'Dotación',
-        data: 'endowment',
-        className: 'classRight',
-        render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      },
-      {
-        title: 'Tienpo extra',
-        data: 'extra_time',
-        className: 'classRight',
-        render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      },
-      {
-        title: 'Bonificación',
-        data: 'bonification',
-        className: 'classRight',
-        render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      },
-      {
-        title: 'Tiempo trabajo dias',
-        data: 'hours_day',
-        className: 'classRight',
-      },
-      {
-        title: 'Tiempo trabajo horas',
-        data: 'hours_day',
-        className: 'classRight',
-        render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      },
-      {
-        title: 'Tipo nomina',
-        data: 'contract',
-        className: 'classRight',
-        render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      },
-      {
-        title: 'Factor',
-        data: 'factor_benefit',
-        className: 'classRight',
-        render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      },*/
       {
         title: 'Acciones',
         data: 'id_payroll',
