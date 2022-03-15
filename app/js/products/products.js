@@ -79,11 +79,30 @@ $(document).ready(function() {
     /* Eliminar productos */
 
     $(document).on('click', '.deleteProducts', function(e) {
-        let id_product = this.id
-        $.get(`../../../api/deleteProduct/${id_product}`,
-            function(data, textStatus, jqXHR) {
-                message(data)
-            })
+
+        bootbox.confirm({
+            title: "Eliminar",
+            message: "Está seguro de eliminar este producto? Esta acción no se puede reversar",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function(result) {
+                //console.log('This was logged in the callback: ' + result);
+                let id_product = this.id
+                $.get(`../../../api/deleteProduct/${id_product}`,
+                    function(data, textStatus, jqXHR) {
+                        message(data)
+                    })
+            }
+        });
+
     })
 
 

@@ -16,6 +16,12 @@ $app->get('/expensesDistribution', function (Request $request, Response $respons
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->post('/expenseTotal', function (Request $request, Response $response, $args) use ($expensesDistributionDao) {
+    $totalExpense = $expensesDistributionDao->findTotalExpenseByCompany();
+    $response->getBody()->write(json_encode($totalExpense, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->post('/addExpensesDistribution', function (Request $request, Response $response, $args) use ($expensesDistributionDao) {
     session_start();
     $id_company = $_SESSION['id_company'];

@@ -25,10 +25,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="gridx2">
-                            <label for="">Referencia</label>
                             <label for="">Gastos a distribuir</label>
-                            <select class="form-control" name="refProduct" id="refProduct"></select>
-                            <input type="number" class="form-control text-center" id="expensesToDistribution" name="assignableExpense" style="width: 200px;" disabled>
+                            <input type="number" class="form-control text-center" id="expensesToDistribution" name="assignableExpense" style="width: 200px;">
                         </div>
                     </div>
                 </div>
@@ -44,11 +42,13 @@
                 <div class="card">
                     <div class="card-body">
                         <form id="formExpensesDistribution">
-                            <div class="gridx4pm">
+                            <div class="gridx5">
+                                <label for="">Referencia</label>
                                 <label for="">Nombre Producto</label>
                                 <label for="">Und Vendidas</label>
                                 <label for="">Vol Ventas</label>
                                 <label for=""></label>
+                                <select class="form-control" name="refProduct" id="refProduct"></select>
                                 <select class="form-control" name="selectNameProduct" id="selectNameProduct"></select>
                                 <input type="text" class="form-control number text-center" id="undVendidas" name="unitsSold">
                                 <input type="text" class="form-control number text-center" id="volVendidas" name="turnover">

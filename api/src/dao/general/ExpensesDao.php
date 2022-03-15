@@ -39,6 +39,8 @@ class ExpensesDao
     $connection = Connection::getInstance()->getConnection();
     $expenseValue = str_replace('.', '', $dataExpenses['expenseValue']);
 
+    /* Inserta los valores generales del gasto */
+
     try {
       $stmt = $connection->prepare("INSERT INTO expenses (id_puc, id_company, expense_value)
                                     VALUES (:id_puc, :id_company, :expense_value)");
@@ -47,6 +49,11 @@ class ExpensesDao
         'id_company' => $id_company,
         'expense_value' => $expenseValue
       ]);
+
+      /* Inserta o actualiza el valor total del gasto */
+
+      $this->InsertUpdateTotalExpense($id_company);
+
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 1;
     } catch (\Exception $e) {
@@ -60,6 +67,9 @@ class ExpensesDao
 
   public function updateExpenses($dataExpenses)
   {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+
     $connection = Connection::getInstance()->getConnection();
     $expenseValue = str_replace('.', '', $dataExpenses['expenseValue']);
 
@@ -71,6 +81,9 @@ class ExpensesDao
         'expense_value' => $expenseValue,
         'id_expense' => $dataExpenses['idExpense']
       ]);
+
+      $this->InsertUpdateTotalExpense($id_company);
+
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;
     } catch (\Exception $e) {
@@ -82,6 +95,9 @@ class ExpensesDao
 
   public function deleteExpenses($id_expense)
   {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT * FROM expenses WHERE id_expense = :id_expense");
@@ -91,6 +107,41 @@ class ExpensesDao
     if ($row > 0) {
       $stmt = $connection->prepare("DELETE FROM expenses WHERE id_expense = :id_expense");
       $stmt->execute(['id_expense' => $id_expense]);
+
+      $this->InsertUpdateTotalExpense($id_company);
+
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    }
+  }
+
+  public function InsertUpdateTotalExpense($id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    /* Verificar que exista un registro en la tabla */
+
+    $stmt = $connection->prepare("SELECT * FROM expenses_distribute WHERE id_company = :id_company");
+    $stmt->execute(['id_company' => $id_company]);
+    $row = $stmt->rowCount();
+
+    /* hallar valor total de los gastos */
+
+    $stmt = $connection->prepare("SELECT SUM(expense_value) as expenses_value 
+                                  FROM `expenses` WHERE id_company = :id_company;");
+    $stmt->execute(['id_company' => $id_company]);
+    $total_expense = $stmt->fetch($connection::FETCH_ASSOC);
+
+    if ($row > 0) {
+      /* update */
+      $stmt = $connection->prepare("UPDATE expenses_distribute SET total_expense = :total_expense 
+                                    WHERE id_company = :id_company");
+      $stmt->execute(['total_expense' => $total_expense['expenses_value'], 'id_company' => $id_company]);
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    } else {
+      /* Inserta */
+      $stmt = $connection->prepare("INSERT INTO expenses_distribute 
+                                    SET total_expense = :total_expense, id_company = :id_company ");
+      $stmt->execute(['total_expense' => $total_expense['expenses_value'], 'id_company' => $id_company]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }
