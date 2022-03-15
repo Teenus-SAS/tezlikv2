@@ -79,6 +79,7 @@ $(document).ready(function() {
     /* Eliminar productos */
 
     $(document).on('click', '.deleteProducts', function(e) {
+        let id_product = this.id
 
         bootbox.confirm({
             title: "Eliminar",
@@ -95,11 +96,12 @@ $(document).ready(function() {
             },
             callback: function(result) {
                 if (result == true) {
-                    let id_product = this.id
+                    debugger
                     $.get(`../../../api/deleteProduct/${id_product}`,
                         function(data, textStatus, jqXHR) {
                             message(data)
                         })
+
                 }
 
             }
