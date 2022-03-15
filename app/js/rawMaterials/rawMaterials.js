@@ -72,7 +72,7 @@ $(document).ready(function() {
     })
 
     updateMaterial = () => {
-        debugger
+
         let data = $('#formCreateMaterial').serialize();
         $.post("../../../api/updateMaterials", data,
             function(data, textStatus, jqXHR) {
@@ -83,7 +83,7 @@ $(document).ready(function() {
     /* Eliminar productos */
 
     $(document).on('click', '.deleteRawMaterials', function(e) {
-        debugger
+
         let id_material = this.id
         $.get(`../../../api/deleteMaterial/${id_material}`,
             function(data, textStatus, jqXHR) {

@@ -96,7 +96,7 @@ $(document).ready(function() {
             },
             callback: function(result) {
                 if (result == true) {
-                    debugger
+
                     $.get(`../../../api/deleteProduct/${id_product}`,
                         function(data, textStatus, jqXHR) {
                             message(data)

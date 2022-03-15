@@ -118,7 +118,7 @@ $(document).ready(function() {
     /* Eliminar gasto */
 
     $(document).on('click', '.deleteExpenseDistribution', function(e) {
-        debugger;
+
         let id_expenses_distribution = this.id;
 
         $.get(
