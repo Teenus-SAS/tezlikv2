@@ -38,9 +38,21 @@
     grid-column-gap: 1em;
 }
 
+.gridx3estandar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 1em;
+}
+
 .gridx3 {
     display: grid;
     grid-template-columns: 1fr 200px 150px;
+    grid-column-gap: 1em;
+}
+
+.gridx4standar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 150px;
     grid-column-gap: 1em;
 }
 
@@ -108,4 +120,25 @@
 .titlePayroll {
     background: antiquewhite;
     margin-bottom: 20px!important
+}
+
+.gridx13 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+}
+
+.namesUserAccess {
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+.btnCreateAccessUser {
+    display: grid;
+    grid-column-start: 4;
+    grid-column-end: 5;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    width: fit-content;
 }

@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-4 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnNewProduct">Nuevo Producto</button>
+                    <button class="btn btn-warning" id="btnNewProduct">Nuevo Producto</button>
                 </div>
             </div>
             <!-- <div class="col-sm-4 col-xl-6">
@@ -45,7 +45,7 @@
                                     <label for="">Rentabilidad(%)</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label"  style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-primary" id="btnCreateProduct">Crear Producto</button>
+                                    <button type="text" class="btn btn-success" id="btnCreateProduct">Crear Producto</button>
                                 </div>
                             </div>
                         </form>
