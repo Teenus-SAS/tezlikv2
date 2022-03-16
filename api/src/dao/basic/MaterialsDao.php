@@ -32,6 +32,8 @@ class MaterialsDao
   public function insertMaterialsByCompany($dataMaterial, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
+    $costRawMaterial = str_replace('.', '', $dataMaterial['costRawMaterial']);
+
     try {
       $stmt = $connection->prepare("INSERT INTO materials (id_company ,reference, material, unit, cost) 
                                       VALUES(:id_company ,:reference, :material, :unit, :cost)");
@@ -40,7 +42,7 @@ class MaterialsDao
         'reference' => $dataMaterial['refRawMaterial'],
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
         'unit' => $dataMaterial['unityRawMaterial'],
-        'cost' => $dataMaterial['costRawMaterial']
+        'cost' => $costRawMaterial
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -59,6 +61,7 @@ class MaterialsDao
   public function updateMaterialsByCompany($dataMaterial)
   {
     $connection = Connection::getInstance()->getConnection();
+    $costRawMaterial = str_replace('.', '', $dataMaterial['costRawMaterial']);
 
     try {
       $stmt = $connection->prepare("UPDATE materials SET reference = :reference, material = :material, unit = :unit, cost = :cost 
@@ -68,7 +71,7 @@ class MaterialsDao
         'reference' => $dataMaterial['refRawMaterial'],
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
         'unit' => $dataMaterial['unityRawMaterial'],
-        'cost' => $dataMaterial['costRawMaterial']
+        'cost' => $costRawMaterial
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       return 2;

@@ -47,7 +47,7 @@ $(document).ready(function () {
 
   $('#btnCreatePayroll').click(function (e) {
     e.preventDefault();
-    let idPayroll = sessionStorage.getItem('idPayroll');
+    let idPayroll = sessionStorage.getItem('id_payroll');
 
     if (idPayroll == '' || idPayroll == null) {
       employee = $('#employee').val();
@@ -96,7 +96,7 @@ $(document).ready(function () {
     $('#btnCreatePayroll').html('Actualizar');
 
     idPayroll = this.id;
-    idPayroll = sessionStorage.setItem('idPayroll', idPayroll);
+    idPayroll = sessionStorage.setItem('id_payroll', idPayroll);
 
     let row = $(this).parent().parent()[0];
     let data = tblPayroll.fnGetData(row);
@@ -127,7 +127,7 @@ $(document).ready(function () {
   updatePayroll = () => {
     $('#factor').prop('disabled', false);
     let data = $('#formCreatePayroll').serialize();
-    idPayroll = sessionStorage.getItem('idPayroll');
+    idPayroll = sessionStorage.getItem('id_payroll');
     data = data + '&idPayroll=' + idPayroll;
 
     $.post('../../api/updatePayroll', data, function (data, textStatus, jqXHR) {
@@ -142,12 +142,31 @@ $(document).ready(function () {
   $(document).on('click', '.deletePayroll', function (e) {
     let id_payroll = this.id;
 
-    $.get(
-      `../../api/deletePayroll/${id_payroll}`,
-      function (data, textStatus, jqXHR) {
-        message(data);
-      }
-    );
+    bootbox.confirm({
+      title: 'Eliminar',
+      message:
+        'Está seguro de eliminar esta nómina? Esta acción no se puede reversar.',
+      buttons: {
+        confirm: {
+          label: 'Si',
+          className: 'btn-success',
+        },
+        cancel: {
+          label: 'No',
+          className: 'btn-danger',
+        },
+      },
+      callback: function (result) {
+        if (result == true) {
+          $.get(
+            `../../api/deletePayroll/${id_payroll}`,
+            function (data, textStatus, jqXHR) {
+              message(data);
+            }
+          );
+        }
+      },
+    });
   });
 
   /* Mensaje de exito */

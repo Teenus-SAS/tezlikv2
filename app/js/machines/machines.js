@@ -14,11 +14,6 @@ $(document).ready(function () {
     sessionStorage.removeItem('id_machine');
 
     $('#formCreateMachine').trigger('reset');
-    // $('#machine').val('');
-    // $('costMachine').val('');
-    // $('#residualValue').val('');
-    // $('#depreciationYears').val('');
-    // $('#depreciationMinute').val('');
   });
 
   /* Calcular depreciación */
@@ -126,12 +121,32 @@ $(document).ready(function () {
 
   $(document).on('click', '.deleteMachines', function (e) {
     let id_machine = this.id;
-    $.get(
-      `../../api/deleteMachine/${id_machine}`,
-      function (data, textStatus, jqXHR) {
-        message(data);
-      }
-    );
+
+    bootbox.confirm({
+      title: 'Eliminar',
+      message:
+        'Está seguro de eliminar esta maquina? Esta acción no se puede reversar.',
+      buttons: {
+        confirm: {
+          label: 'Si',
+          className: 'btn-success',
+        },
+        cancel: {
+          label: 'No',
+          className: 'btn-danger',
+        },
+      },
+      callback: function (result) {
+        if (result == true) {
+          $.get(
+            `../../api/deleteMachine/${id_machine}`,
+            function (data, textStatus, jqXHR) {
+              message(data);
+            }
+          );
+        }
+      },
+    });
   });
 
   /* Mensaje de exito */

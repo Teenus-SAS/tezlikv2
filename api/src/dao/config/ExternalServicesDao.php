@@ -22,8 +22,9 @@ class ExternalServicesDao
         $id_company = $_SESSION['id_company'];
 
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT * FROM services sx
-                                  WHERE sx.id_product = :id_product AND sx.id_company = :id_company;");
+        $stmt = $connection->prepare("SELECT sx.id_service, p.reference, sx.name_service, sx.cost, sx.id_product 
+                                        FROM services sx INNER JOIN products p ON sx.id_product = p.id_product 
+                                        WHERE sx.id_product = :id_product AND sx.id_company = :id_company;");
         $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
         $externalservices = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("products", array('products' => $externalservices));
@@ -33,13 +34,14 @@ class ExternalServicesDao
     public function insertExternalServicesByCompany($dataExternalService, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
+        $costService = str_replace('.', '', $dataExternalService['costService']);
 
         try {
-            $stmt = $connection->prepare("INSERT INTO services(service, cost, id_product, id_company)
-                                          VALUES(:service, :cost, :id_product, :id_company)");
+            $stmt = $connection->prepare("INSERT INTO services(name_service, cost, id_product, id_company)
+                                          VALUES(:name_service, :cost, :id_product, :id_company)");
             $stmt->execute([
-                'service' => ucfirst(strtolower($dataExternalService['service'])),
-                'cost' => $dataExternalService['costService'],
+                'name_service' => ucfirst(strtolower($dataExternalService['service'])),
+                'cost' => $costService,
                 'id_product' => $dataExternalService['idProduct'],
                 'id_company' => $id_company
             ]);
@@ -57,14 +59,15 @@ class ExternalServicesDao
     public function updateExternalServices($dataExternalService)
     {
         $connection = Connection::getInstance()->getConnection();
+        $costService = str_replace('.', '', $dataExternalService['costService']);
 
         try {
-            $stmt = $connection->prepare("UPDATE services SET service=:service, cost=:cost, id_product=:id_product
+            $stmt = $connection->prepare("UPDATE services SET name_service=:name_service, cost=:cost, id_product=:id_product
                                           WHERE id_service = :id_service");
             $stmt->execute([
                 'id_service' => $dataExternalService['idService'],
-                'service' => ucfirst(strtolower($dataExternalService['service'])),
-                'cost' => $dataExternalService['costService'],
+                'name_service' => ucfirst(strtolower($dataExternalService['service'])),
+                'cost' => $costService,
                 'id_product' => $dataExternalService['idProduct']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

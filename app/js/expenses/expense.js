@@ -1,108 +1,133 @@
-$(document).ready(function() {
-    $('.cardCreateExpenses').hide();
+$(document).ready(function () {
+  $('.cardCreateExpenses').hide();
 
-    $('#btnNewExpense').click(function(e) {
-        e.preventDefault();
+  $('#btnNewExpense').click(function (e) {
+    e.preventDefault();
 
-        $('.cardCreateExpenses').toggle(800);
-        $('#btnCreateExpense').html('Crear');
+    $('.cardCreateExpenses').toggle(800);
+    $('#btnCreateExpense').html('Crear');
 
-        sessionStorage.removeItem('id_expense');
+    sessionStorage.removeItem('id_expense');
 
-        $('#idPuc option:contains(Seleccionar)').prop('selected', true);
-        $('#expenseValue').val('');
-    });
+    $('#idPuc option:contains(Seleccionar)').prop('selected', true);
+    $('#expenseValue').val('');
+  });
 
-    $('#btnCreateExpense').click(function(e) {
-        e.preventDefault();
+  $('#btnCreateExpense').click(function (e) {
+    e.preventDefault();
 
-        let idExpense = sessionStorage.getItem('id_expense');
+    let idExpense = sessionStorage.getItem('id_expense');
 
-        if (idExpense == '' || idExpense == null) {
-            puc = parseInt($('#idPuc').val());
-            value = parseInt($('#expenseValue').val());
+    if (idExpense == '' || idExpense == null) {
+      puc = parseInt($('#idPuc').val());
+      value = parseInt($('#expenseValue').val());
 
-            data = puc * value;
+      data = puc * value;
 
-            if (!data) {
-                toastr.error('Ingrese todos los campos');
-                return false;
-            }
+      if (!data) {
+        toastr.error('Ingrese todos los campos');
+        return false;
+      }
 
-            expenses = $('#formCreateExpenses').serialize();
+      expenses = $('#formCreateExpenses').serialize();
 
-            $.post(
-                '../../api/addExpenses',
-                expenses,
-                function(data, textStatus, jqXHR) {
-                    message(data);
-                }
-            );
-        } else {
-            updateExpenses();
+      $.post(
+        '../../api/addExpenses',
+        expenses,
+        function (data, textStatus, jqXHR) {
+          message(data);
         }
-    });
-
-    $(document).on('click', '.updateExpenses', function(e) {
-        $('.cardCreateExpenses').show(800);
-        $('#btnCreateExpense').html('Actualizar');
-
-        let row = $(this).parent().parent()[0];
-        let data = tblExpenses.fnGetData(row);
-
-        sessionStorage.setItem('id_expense', data.id_expense);
-
-        $(`#idPuc option:contains(${data.id_puc})`).attr('selected', true);
-        $('#expenseValue').val(data.expense_value);
-
-        $('html, body').animate({
-                scrollTop: 0,
-            },
-            1000
-        );
-    });
-
-    updateExpenses = () => {
-        let data = $('#formCreateExpenses').serialize();
-        idExpense = sessionStorage.getItem('id_expense');
-        data = data + '&idExpense=' + idExpense;
-
-        $.post(
-            '../../api/updateExpenses',
-            data,
-            function(data, textStatus, jqXHR) {
-                message(data);
-            }
-        );
-    };
-
-    $(document).on('click', '.deleteExpenses', function(e) {
-        let id_expense = this.id;
-        $.get(
-            `../../api/deleteExpenses/${id_expense}`,
-            function(data, textStatus, jqXHR) {
-                message(data);
-            }
-        );
-    });
-
-    /* Mensaje de exito */
-
-    message = (data) => {
-        if (data.success == true) {
-            $('.cardCreateExpenses').hide(800);
-            $('#formCreateExpenses')[0].reset();
-            updateTable();
-            toastr.success(data.message);
-            //return false;
-        } else if (data.error == true) toastr.error(data.message);
-        else if (data.info == true) toastr.info(data.message);
-    };
-
-    /* Actualizar tabla */
-
-    function updateTable() {
-        $('#tblExpenses').DataTable().clear();
-        $('#tblExpenses').DataTable().ajax.reload();
+      );
+    } else {
+      updateExpenses();
     }
+  });
+
+  $(document).on('click', '.updateExpenses', function (e) {
+    $('.cardCreateExpenses').show(800);
+    $('#btnCreateExpense').html('Actualizar');
+
+    let row = $(this).parent().parent()[0];
+    let data = tblExpenses.fnGetData(row);
+
+    let idExpense = this.id;
+    idExpense = sessionStorage.setItem('id_expense', idExpense);
+
+    $(`#idPuc option:contains(${data.number_count} - ${data.count})`).attr(
+      'selected',
+      true
+    );
+    $('#expenseValue').val(data.expense_value);
+
+    $('html, body').animate(
+      {
+        scrollTop: 0,
+      },
+      1000
+    );
+  });
+
+  updateExpenses = () => {
+    let data = $('#formCreateExpenses').serialize();
+    idExpense = sessionStorage.getItem('id_expense');
+    data = data + '&idExpense=' + idExpense;
+
+    $.post(
+      '../../api/updateExpenses',
+      data,
+      function (data, textStatus, jqXHR) {
+        message(data);
+      }
+    );
+  };
+
+  $(document).on('click', '.deleteExpenses', function (e) {
+    let id_expense = this.id;
+
+    bootbox.confirm({
+      title: 'Eliminar',
+      message:
+        'Está seguro de eliminar este gasto? Esta acción no se puede reversar.',
+      buttons: {
+        confirm: {
+          label: 'Si',
+          className: 'btn-success',
+        },
+        cancel: {
+          label: 'No',
+          className: 'btn-danger',
+        },
+      },
+      callback: function (result) {
+        if (result == true) {
+          $.get(
+            `../../api/deleteExpenses/${id_expense}`,
+            function (data, textStatus, jqXHR) {
+              message(data);
+            }
+          );
+        }
+      },
+    });
+  });
+
+  /* Mensaje de exito */
+
+  message = (data) => {
+    if (data.success == true) {
+      $('.cardCreateExpenses').hide(800);
+      $('#formCreateExpenses')[0].reset();
+      updateTable();
+      toastr.success(data.message);
+      return false;
+    } else if (data.error == true) toastr.error(data.message);
+    else if (data.info == true) toastr.info(data.message);
+  };
+
+  /* Actualizar tabla */
+
+  function updateTable() {
+    $('#tblExpenses').DataTable().clear();
+    $('#tblExpenses').DataTable().ajax.reload();
+  }
 });

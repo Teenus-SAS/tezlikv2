@@ -110,12 +110,32 @@ $(document).ready(function () {
 
   $(document).on('click', '.deleteMaterials', function (e) {
     let id_product_material = this.id;
-    $.get(
-      `../../api/deleteProductMaterial/${id_product_material}`,
-      function (data, textStatus, jqXHR) {
-        message(data);
-      }
-    );
+
+    bootbox.confirm({
+      title: 'Eliminar',
+      message:
+        'Está seguro de eliminar esta Materia prima? Esta acción no se puede reversar.',
+      buttons: {
+        confirm: {
+          label: 'Si',
+          className: 'btn-success',
+        },
+        cancel: {
+          label: 'No',
+          className: 'btn-danger',
+        },
+      },
+      callback: function (result) {
+        if (result == true) {
+          $.get(
+            `../../api/deleteProductMaterial/${id_product_material}`,
+            function (data, textStatus, jqXHR) {
+              message(data);
+            }
+          );
+        }
+      },
+    });
   });
 
   /* Mensaje de exito */

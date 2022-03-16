@@ -33,8 +33,8 @@
                                 <label for=""></label>
                                 <select class="form-control" name="idMachine" id="idMachine"></select>
                                 <input class="form-control" name="descriptionFactoryLoad" id="descriptionFactoryLoad" />
-                                <input class="form-control text-center" type="number" name="costFactory" id="costFactory" />
-                                <input class="form-control text-center" type="text" name="costMinute" id="costMinute" />
+                                <input class="form-control text-center number" type="text" name="costFactory" id="costFactory" />
+                                <input class="form-control text-center number" type="text" name="costMinute" id="costMinute" />
                                 <button class="btn btn-primary" id="btnCreateFactoryLoad">Crear</button>
                             </div>
                         </form>
@@ -69,7 +69,7 @@
     </div> -->
 
 
+<script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/machines/configMachines.js"></script>
-<!-- <script src="../../app/js/products/configProducts.js"></script> -->
 <script src="../../app/js/factoryLoad/factoryLoad.js"></script>
 <script src="../../app/js/factoryLoad/tblFactoryLoad.js"></script>

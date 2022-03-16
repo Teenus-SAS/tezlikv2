@@ -55,7 +55,7 @@
                                 <select class="form-control" name="idProcess" id="idProcess"></select>
                                 <select class="form-control" name="idMachine" id="idMachine"></select>
                                 <input class="form-control text-center" type="number" name="enlistmentTime" id="enlistmentTime">
-                                <input class="form- text-center" type="number" name="operationTime" id="operationTime">
+                                <input class="form-control text-center" type="number" name="operationTime" id="operationTime">
                                 <input class="form-control text-center" type="text" name="totalTime" id="totalTime" disabled>
                                 <button class="btn btn-primary" id="btnAddProcess">Adicionar</button>
                             </div>
@@ -86,8 +86,6 @@
         </div>
     </div>
 </div>
-
-<!-- <script src="../../app/js/rawMaterials/configRawMaterials.js"></script> -->
 
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/process/configProcess.js"></script>

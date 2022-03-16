@@ -23,6 +23,11 @@ $(document).ready(function () {
   /* Calcular Valor por minuto  */
 
   $(document).on('click keyup', '#costFactory', function (e) {
+    costFactory = this.value;
+
+    costFactory = costFactory.replace('.', '');
+    costFactory = parseFloat(costFactory);
+
     machinesData = sessionStorage.getItem('machinesData');
     machinesData = JSON.parse(machinesData);
 
@@ -49,7 +54,7 @@ $(document).ready(function () {
       }
     }
 
-    value = this.value / daysMachine / hoursMachine / 60;
+    value = costFactory / daysMachine / hoursMachine / 60;
     isNaN(value) ? (value = 0) : value;
     $('#costMinute').val(value.toFixed(2));
   });
@@ -58,7 +63,6 @@ $(document).ready(function () {
 
   $('#btnCreateFactoryLoad').click(function (e) {
     e.preventDefault();
-
     let idManufacturingLoad = sessionStorage.getItem('id_manufacturing_load');
 
     if (idManufacturingLoad == '' || idManufacturingLoad == null) {
@@ -132,12 +136,31 @@ $(document).ready(function () {
 
   $(document).on('click', '.deleteFactoryLoad', function (e) {
     let id_manufacturing_load = this.id;
-    $.get(
-      `../../api/deleteFactoryLoad/${id_manufacturing_load}`,
-      function (data, textStatus, jqXHR) {
-        message(data);
-      }
-    );
+    bootbox.confirm({
+      title: 'Eliminar',
+      message:
+        'Está seguro de eliminar este fabril? Esta acción no se puede reversar.',
+      buttons: {
+        confirm: {
+          label: 'Si',
+          className: 'btn-success',
+        },
+        cancel: {
+          label: 'No',
+          className: 'btn-danger',
+        },
+      },
+      callback: function (result) {
+        if (result == true) {
+          $.get(
+            `../../api/deleteFactoryLoad/${id_manufacturing_load}`,
+            function (data, textStatus, jqXHR) {
+              message(data);
+            }
+          );
+        }
+      },
+    });
   });
 
   /* Mensaje de exito */

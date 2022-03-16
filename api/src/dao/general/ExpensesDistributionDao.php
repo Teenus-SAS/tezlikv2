@@ -89,6 +89,7 @@ class ExpensesDistributionDao
 
     public function updateExpensesDistribution($dataExpensesDistribution)
     {
+        session_start();
         $connection = Connection::getInstance()->getConnection();
 
         $unitsSold = str_replace('.', '', $dataExpensesDistribution['unitsSold']);
@@ -131,13 +132,13 @@ class ExpensesDistributionDao
             $stmt->execute(['id_expenses_distribution' => $id_expenses_distribution]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
-        
+
         //$assignableExpense = $this->distributionExpenses($unitsSold, $turnover);
     }
 
     public function distributionExpenses($unitsSold, $turnover)
     {
-        session_start();
+        //session_start();
         $id_company = $_SESSION['id_company'];
 
         $connection = Connection::getInstance()->getConnection();

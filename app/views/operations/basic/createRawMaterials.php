@@ -27,7 +27,6 @@
                         <form name="formCreateMaterial" id="formCreateMaterial">
                             <div class="gridx5">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control" id="idMaterial" name="idMaterial" hidden>
                                     <input type="text" class="form-control" id="refRawMaterial" name="refRawMaterial">
                                     <label for="">Referencia</label>
                                 </div>
@@ -40,7 +39,7 @@
                                     <label for="">Unidad</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control text-center" id="costRawMaterial" name="costRawMaterial">
+                                    <input type="text" class="form-control text-center number" id="costRawMaterial" name="costRawMaterial">
                                     <label for="">Costo</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:5px">
@@ -71,38 +70,14 @@
 
                             </table>
                         </div>
-                        <!-- <div class="my-3 d-flex justify-content-end">
-                            <ul class="pagination  flat-rounded-pagination">
-                                <li class="page-item disabled">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Previous" tabindex="-1" aria-disabled="true">
-                                        <i class="bx bx-chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">1</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">2</a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="javascript:void(0)" class="page-link" data-effect="wave" aria-label="Next">
-                                        <i class="bx bx-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div> -->
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- </div>
-        </div>
-    </div> -->
 
+<script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/rawMaterials/tblRawMaterials.js"></script>
 <script src="../../app/js/rawMaterials/rawMaterials.js"></script>
