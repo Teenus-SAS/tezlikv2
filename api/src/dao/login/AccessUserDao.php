@@ -21,7 +21,7 @@ class AccessUserDao
         $rol = $_SESSION['rol'];
 
         if ($rol == 2) {
-            $stmt = $connection->prepare("SELECT usa.id_user, us.firstname, us.lastname, us.email, usa.create_product, usa.create_materials, usa.create_machines,
+            $stmt = $connection->prepare("SELECT usa.id_user_access, usa.id_user, us.firstname, us.lastname, us.email, usa.create_product, usa.create_materials, usa.create_machines,
                                              usa.create_process, usa.product_materials, usa.product_process, usa.factory_load, usa.external_service, 
                                                     usa.product_line, usa.payroll_load, usa.expense, usa.expense_distribution, usa.user  
                                       FROM users_access usa 
