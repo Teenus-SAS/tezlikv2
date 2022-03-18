@@ -45,7 +45,11 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
         if (empty($dataUser['names']) && empty($dataUser['lastnames']) && empty($dataUser['email'])) /* { */
             $resp = array('error' => true, 'message' => 'Complete todos los datos');
 
+        /* Almacena el usuario */
         $users = $userDao->saveUser($dataUser, $id_company);
+
+        /* Almacene los acceso */
+        //$users = $userDao->saveUser($dataUser, $id_company);
 
         if ($users == 1)
             $resp = array('error' => true, 'message' => 'El email ya se encuentra registrado. Intente con uno nuevo');

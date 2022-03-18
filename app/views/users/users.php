@@ -137,6 +137,16 @@
                                     <input id="checkbox-8" name="externalService" type="checkbox">
                                     <label for="checkbox-8">Servicios Externos</label>
                                 </div>
+
+                                <div class="checkbox checkbox-success checkbox-circle mb-1">
+                                </div>
+
+                                <div class="checkbox checkbox-success checkbox-circle mb-1">
+                                </div>
+                                
+                                <div class="checkbox checkbox-success checkbox-circle mb-1">
+                                </div>
+
                                 <div class="checkbox checkbox-success checkbox-circle mb-1">
                                     <input id="checkbox-9" name="productLine" type="checkbox">
                                     <label for="checkbox-9">Lineas de Producto</label>
