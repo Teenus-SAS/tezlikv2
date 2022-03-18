@@ -9,6 +9,11 @@ use tezlikv2\dao\QuantityUsersDao;
 
 $quantityUsersDao = new QuantityUsersDao();
 
+//Acceso de usuario
+use tezlikv2\dao\AccessUserDao;
+
+$AccesuserDao = new AccessUserDao();
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -30,7 +35,7 @@ $app->get('/user', function (Request $request, Response $response, $args) use ($
 
 /* Insertar usuario */
 
-$app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao, $quantityUsersDao) {
+$app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao, $quantityUsersDao, $AccesuserDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataUser = $request->getParsedBody();
@@ -42,14 +47,14 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
     if ($quantityAllowsUsers >= $quantityCreatedUsers)
         $resp = array('error' => true, 'message' => 'Cantidad de usuarios maxima alcanzada');
     else {
-        if (empty($dataUser['names']) && empty($dataUser['lastnames']) && empty($dataUser['email'])) /* { */
+        if (empty($dataUser['nameUser']) && empty($dataUser['lastnameUser']) && empty($dataUser['emailUser'])) /* { */
             $resp = array('error' => true, 'message' => 'Complete todos los datos');
 
         /* Almacena el usuario */
         $users = $userDao->saveUser($dataUser, $id_company);
 
         /* Almacene los acceso */
-        //$users = $userDao->saveUser($dataUser, $id_company);
+        $usersAccess = $AccesuserDao->insertUserAccessByUsers($dataUser);
 
         if ($users == 1)
             $resp = array('error' => true, 'message' => 'El email ya se encuentra registrado. Intente con uno nuevo');
@@ -70,7 +75,7 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
     $dataUser = $request->getParsedBody();
     $files = $request->getUploadedFiles();
 
-    if (empty($dataUser['names']) && empty($dataUser['lastnames'])) {
+    if (empty($dataUser['nameUser']) && empty($dataUser['lastnameUser'])) {
         $resp = array('error' => true, 'message' => 'Ingrese sus Nombres y Apellidos completos');
     } else {
         if (empty($dataUser['avatar'])) {
