@@ -40,62 +40,53 @@ $(document).ready(function() {
                 toastr.error('Ingrese nombre, apellido y/o email');
             }
 
+            /* Validar que al menos un acceso sea otorgado */
+            if ($('input[type=checkbox]:checked').length === 0) {
+                toastr.error('Debe seleccionar al menos un acceso');
+            }
+
             /* Obtener los checkbox seleccionados */
 
-            dataUser = {}
-            dataUser['nameUser'] = nameUser
-            dataUser['lastnameUser'] = lastnameUser
-            dataUser['emailUser'] = emailUser
+            dataUser = {};
+            dataUser['nameUser'] = nameUser;
+            dataUser['lastnameUser'] = lastnameUser;
+            dataUser['emailUser'] = emailUser;
 
             for (let i = 1; i <= 13; i++) {
                 if ($(`#checkbox-${i}`).is(':checked')) {
-                    if (i == 1)
-                        dataUser['createProducts'] = '1'
-                    if (i == 2)
-                        dataUser['createMaterials'] = '1'
-                    if (i == 3)
-                        dataUser['createMachines'] = '1'
-                    if (i == 4)
-                        dataUser['createProcess'] = '1'
-                    if (i == 5)
-                        dataUser['productsMaterials'] = '1'
+                    if (i == 1) dataUser['createProducts'] = '1';
+                    if (i == 2) dataUser['createMaterials'] = '1';
+                    if (i == 3) dataUser['createMachines'] = '1';
+                    if (i == 4) dataUser['createProcess'] = '1';
+                    if (i == 5) dataUser['productMaterials'] = '1';
+                    if (i == 6) dataUser['productProcess'] = '1';
+                    if (i == 7) dataUser['factoryLoad'] = '1';
+                    if (i == 8) dataUser['externalService'] = '1';
+                    if (i == 9) dataUser['productLine'] = '1';
+                    if (i == 10) dataUser['payrollLoad'] = '1';
+                    if (i == 11) dataUser['expense'] = '1';
+                    if (i == 12) dataUser['expenseDistribution'] = '1';
+                    if (i == 13) dataUser['user'] = '1';
                 } else {
-                    if (i == 1)
-                        dataUser['createProducts'] = '0'
-                    if (i == 2)
-                        dataUser['createMaterials'] = '0'
-                    if (i == 3)
-                        dataUser['createMachines'] = '0'
-                    if (i == 4)
-                        dataUser['createProcess'] = '0'
-                    if (i == 5)
-                        dataUser['productsMaterials'] = '0'
+                    if (i == 1) dataUser['createProducts'] = '0';
+                    if (i == 2) dataUser['createMaterials'] = '0';
+                    if (i == 3) dataUser['createMachines'] = '0';
+                    if (i == 4) dataUser['createProcess'] = '0';
+                    if (i == 5) dataUser['productMaterials'] = '0';
+                    if (i == 6) dataUser['productProcess'] = '0';
+                    if (i == 7) dataUser['factoryLoad'] = '0';
+                    if (i == 8) dataUser['externalService'] = '0';
+                    if (i == 9) dataUser['productLine'] = '0';
+                    if (i == 10) dataUser['payrollLoad'] = '0';
+                    if (i == 11) dataUser['expense'] = '0';
+                    if (i == 12) dataUser['expenseDistribution'] = '0';
+                    if (i == 13) dataUser['user'] = '0';
                 }
             }
-
-            /* Validar que al menos un acceso sea otorgado */
-
-            if (accessSelected.length == 0) {
-                toastr.error('Seleccione al menos un acceso');
-                return false;
-            }
-
-            debugger
 
             $.post('../../api/addUser', dataUser, function(data, textStatus, jqXHR) {
                 message(data);
             });
-
-            /* userAccess = $('#formCreateAccessUser').serialize();
-
-            $.post(
-                '../../api/addUserAccess',
-                userAccess,
-                function(data, textStatus, jqXHR) {
-                    message(data);
-                }
-            );*/
-
         } else {
             updateUserAccess();
         }
@@ -176,14 +167,6 @@ $(document).ready(function() {
         let dataUserAccess = $('#formCreateAccessUser').serialize();
         idUserAccess = sessionStorage.getItem('id_user_access');
         dataUserAccess = dataUserAccess + '&idUserAccess=' + idUserAccess;
-
-        $.post(
-            '../../api/updateUserAccess',
-            dataUserAccess,
-            function(data, textStatus, jqXHR) {
-                message(data);
-            }
-        );
     };
 
     /* Eliminar usuario */
