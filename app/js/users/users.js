@@ -29,15 +29,9 @@ $(document).ready(function() {
             lastnameUser = $('#lastnameUser').val();
             emailUser = $('#emailUser').val();
 
-            if (
-                nameUser == '' ||
-                nameUser == null ||
-                lastnameUser == '' ||
-                lastnameUser == null ||
-                emailUser == '' ||
-                emailUser == null
-            ) {
+            if (nameUser == '' || nameUser == null || lastnameUser == '' || lastnameUser == null || emailUser == '' || emailUser == null) {
                 toastr.error('Ingrese nombre, apellido y/o email');
+                return false
             }
 
             /* Validar que al menos un acceso sea otorgado */
