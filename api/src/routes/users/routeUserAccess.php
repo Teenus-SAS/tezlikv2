@@ -39,7 +39,7 @@ $app->post('/addUserAccess', function (Request $request, Response $response, $ar
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
-        $userAccess = $userAccessDao->insertUserAccessByUsers($dataUserAccess, $id_user);
+        $userAccess = $userAccessDao->insertUserAccessByUser($dataUserAccess, $id_user);
 
         if ($userAccess == 1)
             $resp = array('success' => true, 'message' => 'Acceso de usuario creado correctamente');
@@ -53,21 +53,15 @@ $app->post('/addUserAccess', function (Request $request, Response $response, $ar
 $app->post('/updateUserAccess', function (Request $request, Response $response, $args) use ($userAccessDao) {
     session_start();
     $dataUserAccess = $request->getParsedBody();
-    $id_user = $_SESSION['idUser'];
 
-    if (
-        empty($dataUserAccess['createProduct']) && empty($dataUserAccess['createMaterials']) &&
-        empty($dataUserAccess['createMachines']) && empty($dataUserAccess['createProcess'])
-    )
-        $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
-    else {
-        $userAccess = $userAccessDao->updateUserAccessByUsers($dataUserAccess, $id_user);
+    $userAccess = $userAccessDao->updateUserAccessByUsers($dataUserAccess);
 
-        if ($userAccess == 2)
-            $resp = array('success' => true, 'message' => 'Acceso de usuario actualizado correctamente');
-        else
-            $resp = $userAccess;
-    }
+    if ($userAccess == 2)
+        $resp = array('success' => true, 'message' => 'Acceso de usuario actualizado correctamente');
+    else
+        $resp = $userAccess;
+
+
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });

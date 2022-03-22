@@ -53,7 +53,7 @@ class AccessUserDao
         }
     }
 
-    public function insertUserAccessByUsers($dataUser)
+    public function insertUserAccessByUser($dataUser)
     {
         //session_start();
         $id_company = $_SESSION['id_company'];
@@ -73,7 +73,7 @@ class AccessUserDao
                                                 :product_materials, :product_process, :factory_load, :external_service,
                                                 :product_line, :payroll_load, :expense, :expense_distribution, :user)");
             $stmt->execute([
-                'id_user' => $idUser,                                        'factory_load' => $dataUser['factoryLoad'],
+                'id_user' => $idUser['idUser'],                                        'factory_load' => $dataUser['factoryLoad'],
                 'create_product' => $dataUser['createProducts'],           'external_service' => $dataUser['externalService'],
                 'create_materials' => $dataUser['createMaterials'],       'product_line' => $dataUser['productLine'],
                 'create_machines' => $dataUser['createMachines'],         'payroll_load' => $dataUser['payrollLoad'],
@@ -92,20 +92,15 @@ class AccessUserDao
 
     public function updateUserAccessByUsers($dataUser)
     {
-        // $id_company = $_SESSION['id_company'];
         $connection = Connection::getInstance()->getConnection();
-
-        /*$stmt = $connection->prepare("SELECT MAX(id_user) AS idUser FROM users WHERE id_company = :id_company");
-        $stmt->execute(['id_company' => $id_company]);
-        $idUser = $stmt->fetch($connection::FETCH_ASSOC);*/
 
         try {
             $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials, create_machines = :create_machines, create_process = :create_process, 
                                                         product_materials = :product_materials, product_process = :product_process, factory_load = :factory_load, external_service = :external_service,
                                                         product_line = :product_line, payroll_load = :payroll_load, expense = :expense, expense_distribution = :expense_distribution, user = :user
-                                          WHERE id_user = :id_user");
+                                          WHERE id_user_access = :id_user_access");
             $stmt->execute([
-                'id_user' => $dataUser['idUser'],                                          'factory_load' => $dataUser['factoryLoad'],
+                'id_user_access' => $dataUser['idUser'],                                          'factory_load' => $dataUser['factoryLoad'],
                 'create_product' => $dataUser['createProducts'],           'external_service' => $dataUser['externalService'],
                 'create_materials' => $dataUser['createMaterials'],       'product_line' => $dataUser['productLine'],
                 'create_machines' => $dataUser['createMachines'],         'payroll_load' => $dataUser['payrollLoad'],

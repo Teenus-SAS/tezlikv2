@@ -1,18 +1,14 @@
 <?php
 
 use tezlikv2\dao\UsersDao;
-
-$userDao = new UsersDao();
-
 // Cantidad de usuarios
 use tezlikv2\dao\QuantityUsersDao;
-
-$quantityUsersDao = new QuantityUsersDao();
-
 //Acceso de usuario
 use tezlikv2\dao\AccessUserDao;
 
-$AccesuserDao = new AccessUserDao();
+$userDao = new UsersDao();
+$quantityUsersDao = new QuantityUsersDao();
+$accessUserDao = new AccessUserDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -35,7 +31,7 @@ $app->get('/user', function (Request $request, Response $response, $args) use ($
 
 /* Insertar usuario */
 
-$app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao, $quantityUsersDao, $AccesuserDao) {
+$app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao, $quantityUsersDao, $accessUserDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataUser = $request->getParsedBody();
@@ -47,14 +43,16 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
     if ($quantityAllowsUsers >= $quantityCreatedUsers)
         $resp = array('error' => true, 'message' => 'Cantidad de usuarios maxima alcanzada');
     else {
-        if (empty($dataUser['nameUser']) && empty($dataUser['lastnameUser']) && empty($dataUser['emailUser'])) /* { */
+        if (empty($dataUser['nameUser']) && empty($dataUser['lastnameUser']) && empty($dataUser['emailUser'])) { 
             $resp = array('error' => true, 'message' => 'Complete todos los datos');
+            exit();
+        }
 
         /* Almacena el usuario */
         $users = $userDao->saveUser($dataUser, $id_company);
 
-        /* Almacene los acceso */
-        $usersAccess = $AccesuserDao->insertUserAccessByUsers($dataUser);
+        /* Almacena los accesos */
+        $usersAccess = $accessUserDao->insertUserAccessByUser($dataUser);
 
         if ($users == 1)
             $resp = array('error' => true, 'message' => 'El email ya se encuentra registrado. Intente con uno nuevo');
@@ -71,7 +69,7 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateUser', function (Request $request, Response $response, $args) use ($userDao, $AccesuserDao) {
+$app->post('/updateUser', function (Request $request, Response $response, $args) use ($userDao, $accessUserDao) {
     $dataUser = $request->getParsedBody();
     $files = $request->getUploadedFiles();
 
@@ -81,7 +79,7 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
         if (empty($dataUser['avatar'])) {
             $users = $userDao->updateUser($dataUser, null);
             /* Actualizar los accesos */
-            $usersAccess = $AccesuserDao->updateUserAccessByUsers($dataUser);
+            $usersAccess = $accessUserDao->updateUserAccessByUsers($dataUser);
         } else {
             foreach ($files as $file) {
                 $name = $file->getClientFilename();
@@ -100,7 +98,7 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
                         $path = "../../../app/assets/images/avatars/" . $name[0] . '.' . $ext;
                         $users = $userDao->updateUser($dataUser, $path);
                         /* Actualizar los accesos */
-                        $usersAccess = $AccesuserDao->updateUserAccessByUsers($dataUser);
+                        $usersAccess = $accessUserDao->updateUserAccessByUsers($dataUser);
                         // Creacion carpeta de la img
                         $path = "../../../app/assets/images/avatars/44";
                         if (!file_exists($path)) {
@@ -121,7 +119,10 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
 });
 
 $app->get('/deleteUser/{idUser}', function (Request $request, Response $response, $args) use ($userDao) {
+    
     $users = $userDao->deleteUser($args['idUser']);
+    /* falta borrar los acceso */
+    
     if ($users == null)
         $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
 

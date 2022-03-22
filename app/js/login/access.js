@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $.ajax({
+    /* $.ajax({
         type: "POST",
         url: "../../../api/userAccess",
         success: function(r) {
@@ -12,7 +12,7 @@ $(document).ready(function() {
                 $('.createMachines').remove();
             if (r[0].create_process == 0)
                 $('.createProcess').remove();
-
+    
             if (r[0].product_materials == 0)
                 $('.productsMaterials').remove();
             if (r[0].product_process == 0)
@@ -21,7 +21,7 @@ $(document).ready(function() {
                 $('.servicesExternal').remove();
             if (r[0].create_process == 0)
                 $('.linesProducts').remove();
-
+    
             if (r[0].general_data == 0)
                 $('.generalData').remove();
             if (r[0].payroll == 0)
@@ -32,6 +32,6 @@ $(document).ready(function() {
                 $('.distributionExpenses').remove();
             if (r[0].users == 0)
                 $('.users').remove();
-        }
-    });
+        } 
+    });*/
 });
