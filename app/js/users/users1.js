@@ -68,11 +68,9 @@ $(document).ready(function () {
           if (i == 11) dataUser['expense'] = '1';
           if (i == 12) dataUser['expenseDistribution'] = '1';
           if (i == 13) dataUser['user'] = '1';
-$(document).ready(function() {
-    /* Ocultar panel Nuevo usuario */
-
-    $('.cardCreateUsers').hide();
-    $('.cardCreateAccessUser').hide();
+        
+        };
+       
 
     /* Abrir panel Nuevo usuario */
 
@@ -88,8 +86,8 @@ $(document).ready(function() {
         $('#formCreateAccessUser').trigger('reset');
     });
 
-    /* Agregar nuevo usuario */
-
+     /* Agregar nuevo usuario */
+/*
     $('#btnCreateUserAndAccess').click(function(e) {
         e.preventDefault();
         let idUserAccess = sessionStorage.getItem('id_user_access');
@@ -110,12 +108,13 @@ $(document).ready(function() {
                 toastr.error('Ingrese nombre, apellido y/o email');
             }
 
-            /* Validar que al menos un acceso sea otorgado */
+       
             if ($('input[type=checkbox]:checked').length === 0) {
                 toastr.error('Debe seleccionar al menos un acceso');
+                return false
             }
 
-            /* Obtener los checkbox seleccionados */
+       
 
             dataUser = {};
             dataUser['nameUser'] = nameUser;
@@ -161,7 +160,7 @@ $(document).ready(function() {
             updateUserAccess();
         }
     });
-
+ */
     /* Actualizar User */
 
     $(document).on('click', '.updateUser', function(e) {
@@ -170,109 +169,38 @@ $(document).ready(function() {
         $('.cardCreateAccessUser').show(800);
         $('#btnCreateUserAndAccess').html('Actualizar');
 
-    $('.cardCreateUsers').show(800);
-    $('.cardCreateAccessUser').show(800);
-    $('#btnCreateUserAndAccess').html('Actualizar');
+        $('.cardCreateUsers').show(800);
+        $('.cardCreateAccessUser').show(800);
+        $('#btnCreateUserAndAccess').html('Actualizar');
         let row = $(this).parent().parent()[0];
 
         let idUserAccess = this.id;
 
-    //let idUserAccess = this.id;
-    // let idUser = this.id;
-    idUserAccess = sessionStorage.setItem('id_user_access', idUserAccess);
-    // idUser = sessionStorage.setItem('id_user', idUser);
+        //let idUserAccess = this.id;
+        // let idUser = this.id;
+        idUserAccess = sessionStorage.setItem('id_user_access', idUserAccess);
+        // idUser = sessionStorage.setItem('id_user', idUser);
         $('#nameUser').val(data.firstname);
         $('#lastnameUser').val(data.lastname);
         $('#emailUser').val(data.email);
 
-        if (data.create_product == 1) {
-            $('#checkbox-1').prop('checked', true);
-        }
-        if (data.create_materials == 1) {
-            $('#checkbox-2').prop('checked', true);
-        }
-        if (data.create_machines == 1) {
-            $('#checkbox-3').prop('checked', true);
-        }
-        if (data.create_process == 1) {
-            $('#checkbox-4').prop('checked', true);
-        }
-        if (data.product_materials == 1) {
-            $('#checkbox-5').prop('checked', true);
-        }
-        if (data.product_process == 1) {
-            $('#checkbox-6').prop('checked', true);
-        }
-        if (data.factory_load == 1) {
-            $('#checkbox-7').prop('checked', true);
-        }
-        if (data.external_service == 1) {
-            $('#checkbox-8').prop('checked', true);
-        }
-        if (data.product_line == 1) {
-            $('#checkbox-9').prop('checked', true);
-        }
-        if (data.payroll_load == 1) {
-            $('#checkbox-10').prop('checked', true);
-        }
-        if (data.expense == 1) {
-            $('#checkbox-11').prop('checked', true);
-        }
-        if (data.expense_distribution == 1) {
-            $('#checkbox-12').prop('checked', true);
-        }
-        if (data.user == 1) {
-            $('#checkbox-13').prop('checked', true);
-        }
+        if (data.create_product == 1) $('#checkbox-1').prop('checked', true);
+        if (data.create_materials == 1) $('#checkbox-2').prop('checked', true);
+        if (data.create_machines == 1) $('#checkbox-3').prop('checked', true);
+        if (data.create_process == 1) $('#checkbox-4').prop('checked', true);
+        if (data.product_materials == 1) $('#checkbox-5').prop('checked', true);
+        if (data.product_process == 1) $('#checkbox-6').prop('checked', true);
+        if (data.factory_load == 1) $('#checkbox-7').prop('checked', true);
+        if (data.external_service == 1) $('#checkbox-8').prop('checked', true);
+        if (data.product_line == 1) $('#checkbox-9').prop('checked', true);
+        if (data.payroll_load == 1) $('#checkbox-10').prop('checked', true);
+        if (data.expense == 1) $('#checkbox-11').prop('checked', true);
+        if (data.expense_distribution == 1) $('#checkbox-12').prop('checked', true);
+        if (data.user == 1) $('#checkbox-13').prop('checked', true);
+        
     });
 
-    updateUserAccess = () => {
-        let dataUser = $('#formCreateUser').serialize();
-        idUser = sessionStorage.getItem('id_user');
-        dataUser = dataUser + '&idUser=' + idUser;
-
-<<<<<<< HEAD
-    if (data.create_product == 1) {
-      $('#checkbox-1').prop('checked', true);
-    }
-    if (data.create_materials == 1) {
-      $('#checkbox-2').prop('checked', true);
-    }
-    if (data.create_machines == 1) {
-      $('#checkbox-3').prop('checked', true);
-    }
-    if (data.create_process == 1) {
-      $('#checkbox-4').prop('checked', true);
-    }
-    if (data.product_materials == 1) {
-      $('#checkbox-5').prop('checked', true);
-    }
-    if (data.product_process == 1) {
-      $('#checkbox-6').prop('checked', true);
-    }
-    if (data.factory_load == 1) {
-      $('#checkbox-7').prop('checked', true);
-    }
-    if (data.external_service == 1) {
-      $('#checkbox-8').prop('checked', true);
-    }
-    if (data.product_line == 1) {
-      $('#checkbox-9').prop('checked', true);
-    }
-    if (data.payroll_load == 1) {
-      $('#checkbox-10').prop('checked', true);
-    }
-    if (data.expense == 1) {
-      $('#checkbox-11').prop('checked', true);
-    }
-    if (data.expense_distribution == 1) {
-      $('#checkbox-12').prop('checked', true);
-    }
-    if (data.user == 1) {
-      $('#checkbox-13').prop('checked', true);
-    }
-  });
-
+    
   updateUserAccess = () => {
     debugger;
 
@@ -327,45 +255,6 @@ $(document).ready(function() {
     );
   };
 
-  /* Eliminar usuario */
-
-  $(document).on('click', '.deleteUser', function (e) {
-    let idUser = this.id;
-
-    bootbox.confirm({
-      title: 'Eliminar',
-      message:
-        'Está seguro de eliminar este Usuario? Esta acción no se puede reversar.',
-      buttons: {
-        confirm: {
-          label: 'Si',
-          className: 'btn-success',
-        },
-        cancel: {
-          label: 'No',
-          className: 'btn-danger',
-        },
-      },
-      callback: function (result) {
-        if (result == true) {
-          $.get(
-            `../../api/deleteUser/${idUser}`,
-            function (data, textStatus, jqXHR) {
-              message(data);
-=======
-        $.post(
-            '../../api/updateUser',
-            dataUser,
-            function(data, textStatus, jqXHR) {
-                message(data);
->>>>>>> c2140e5650d6aa83b9a53a68b829badd38061bb8
-            }
-        );
-
-        let dataUserAccess = $('#formCreateAccessUser').serialize();
-        idUserAccess = sessionStorage.getItem('id_user_access');
-        dataUserAccess = dataUserAccess + '&idUserAccess=' + idUserAccess;
-    };
 
     /* Eliminar usuario */
 
