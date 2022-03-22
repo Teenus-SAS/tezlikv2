@@ -152,7 +152,7 @@ $(document).ready(function () {
       },
       {
         title: 'Usuarios',
-        data: 'users',
+        data: 'user',
         className: 'uniqueClassName',
         render: function (data, type, row) {
           return data == 1

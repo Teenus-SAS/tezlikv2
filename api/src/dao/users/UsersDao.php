@@ -121,7 +121,7 @@ class UsersDao
   }
 
 
-  public function deleteUser($idUser)
+  public function deleteUser($dataUser)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -131,7 +131,7 @@ class UsersDao
 
     if ($rows > 1) {
       $stmt = $connection->prepare("DELETE FROM users WHERE id_user = :id");
-      $stmt->execute(['id' => $idUser]);
+      $stmt->execute(['id' => $dataUser['idUser']]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }
