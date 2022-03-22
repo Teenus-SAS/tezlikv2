@@ -90,9 +90,14 @@ class AccessUserDao
         }
     }
 
-    public function updateUserAccessByUsers($dataUserAccess, $id_user)
+    public function updateUserAccessByUsers($dataUser)
     {
+        // $id_company = $_SESSION['id_company'];
         $connection = Connection::getInstance()->getConnection();
+
+        /*$stmt = $connection->prepare("SELECT MAX(id_user) AS idUser FROM users WHERE id_company = :id_company");
+        $stmt->execute(['id_company' => $id_company]);
+        $idUser = $stmt->fetch($connection::FETCH_ASSOC);*/
 
         try {
             $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials, create_machines = :create_machines, create_process = :create_process, 
@@ -100,13 +105,13 @@ class AccessUserDao
                                                         product_line = :product_line, payroll_load = :payroll_load, expense = :expense, expense_distribution = :expense_distribution, user = :user
                                           WHERE id_user = :id_user");
             $stmt->execute([
-                'id_user' => $id_user,                                          'factory_load' => $dataUserAccess['factoryLoad'],
-                'create_product' => $dataUserAccess['createProducts'],           'external_service' => $dataUserAccess['externalService'],
-                'create_materials' => $dataUserAccess['createMaterials'],       'product_line' => $dataUserAccess['productLine'],
-                'create_machines' => $dataUserAccess['createMachines'],         'payroll_load' => $dataUserAccess['payrollLoad'],
-                'create_process' => $dataUserAccess['createProcess'],           'expense' => $dataUserAccess['expense'],
-                'product_materials' => $dataUserAccess['productMaterials'],     'expense_distribution' => $dataUserAccess['expenseDistribution'],
-                'product_process' => $dataUserAccess['productProcess'],         'user' => $dataUserAccess['user']
+                'id_user' => $dataUser['idUser'],                                          'factory_load' => $dataUser['factoryLoad'],
+                'create_product' => $dataUser['createProducts'],           'external_service' => $dataUser['externalService'],
+                'create_materials' => $dataUser['createMaterials'],       'product_line' => $dataUser['productLine'],
+                'create_machines' => $dataUser['createMachines'],         'payroll_load' => $dataUser['payrollLoad'],
+                'create_process' => $dataUser['createProcess'],           'expense' => $dataUser['expense'],
+                'product_materials' => $dataUser['productMaterials'],     'expense_distribution' => $dataUser['expenseDistribution'],
+                'product_process' => $dataUser['productProcess'],         'user' => $dataUser['user']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
             return 2;

@@ -98,8 +98,8 @@ class UsersDao
       $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, active = :active
                                       WHERE id_user = :id_user");
       $stmt->execute([
-        'firstname' => ucwords(strtolower(trim($dataUser['names']))),
-        'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
+        'firstname' => ucwords(strtolower(trim($dataUser['nameUser']))),
+        'lastname' => ucwords(strtolower(trim($dataUser['lastnameUser']))),
         'active' => 1,
         'id_user' => $dataUser['idUser']
       ]);
@@ -108,8 +108,8 @@ class UsersDao
       $stmt = $connection->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, avatar = :avatar, active = :active
                                         WHERE id_user = :id_user");
       $stmt->execute([
-        'firstname' => ucwords(strtolower(trim($dataUser['names']))),
-        'lastname' => ucwords(strtolower(trim($dataUser['lastnames']))),
+        'firstname' => ucwords(strtolower(trim($dataUser['nameUser']))),
+        'lastname' => ucwords(strtolower(trim($dataUser['lastnameUser']))),
         'avatar' => $pathAvatar,
         'active' => 1,
         'id_user' => $dataUser['idUser']

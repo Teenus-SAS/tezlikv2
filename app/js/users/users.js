@@ -21,6 +21,7 @@ $(document).ready(function () {
   /* Agregar nuevo usuario */
 
   $('#btnCreateUserAndAccess').click(function (e) {
+    debugger;
     e.preventDefault();
     let idUserAccess = sessionStorage.getItem('id_user_access');
 
@@ -95,7 +96,6 @@ $(document).ready(function () {
   /* Actualizar User */
 
   $(document).on('click', '.updateUser', function (e) {
-    debugger;
     $('.cardCreateUsers').show(800);
     $('.cardCreateAccessUser').show(800);
     $('#btnCreateUserAndAccess').html('Actualizar');
@@ -104,7 +104,9 @@ $(document).ready(function () {
     let data = tblUsers.fnGetData(row);
 
     let idUserAccess = this.id;
+    // let idUser = this.id;
     idUserAccess = sessionStorage.setItem('id_user_access', idUserAccess);
+    // idUser = sessionStorage.setItem('id_user', idUser);
 
     $('#nameUser').val(data.firstname);
     $('#lastnameUser').val(data.lastname);
@@ -152,9 +154,49 @@ $(document).ready(function () {
   });
 
   updateUserAccess = () => {
-    let dataUser = $('#formCreateUser').serialize();
+    debugger;
+
+    dataUser = {};
+    dataUser['nameUser'] = $('#nameUser').val();
+    dataUser['lastnameUser'] = $('#lastnameUser').val();
+    dataUser['emailUser'] = $('#emailUser').val();
+
+    for (let i = 1; i <= 13; i++) {
+      if ($(`#checkbox-${i}`).is(':checked')) {
+        if (i == 1) dataUser['createProducts'] = '1';
+        if (i == 2) dataUser['createMaterials'] = '1';
+        if (i == 3) dataUser['createMachines'] = '1';
+        if (i == 4) dataUser['createProcess'] = '1';
+        if (i == 5) dataUser['productMaterials'] = '1';
+        if (i == 6) dataUser['productProcess'] = '1';
+        if (i == 7) dataUser['factoryLoad'] = '1';
+        if (i == 8) dataUser['externalService'] = '1';
+        if (i == 9) dataUser['productLine'] = '1';
+        if (i == 10) dataUser['payrollLoad'] = '1';
+        if (i == 11) dataUser['expense'] = '1';
+        if (i == 12) dataUser['expenseDistribution'] = '1';
+        if (i == 13) dataUser['user'] = '1';
+      } else {
+        if (i == 1) dataUser['createProducts'] = '0';
+        if (i == 2) dataUser['createMaterials'] = '0';
+        if (i == 3) dataUser['createMachines'] = '0';
+        if (i == 4) dataUser['createProcess'] = '0';
+        if (i == 5) dataUser['productMaterials'] = '0';
+        if (i == 6) dataUser['productProcess'] = '0';
+        if (i == 7) dataUser['factoryLoad'] = '0';
+        if (i == 8) dataUser['externalService'] = '0';
+        if (i == 9) dataUser['productLine'] = '0';
+        if (i == 10) dataUser['payrollLoad'] = '0';
+        if (i == 11) dataUser['expense'] = '0';
+        if (i == 12) dataUser['expenseDistribution'] = '0';
+        if (i == 13) dataUser['user'] = '0';
+      }
+    }
+    // let dataUser = $('#formCreateUser').serialize();
+    // idUser = sessionStorage.getItem('id_user');
+    // dataUser = dataUser + '&idUser=' + idUser;
     idUser = sessionStorage.getItem('id_user');
-    dataUser = dataUser + '&idUser=' + idUser;
+    dataUser['idUser'] = idUser;
 
     $.post(
       '../../api/updateUser',
@@ -163,10 +205,6 @@ $(document).ready(function () {
         message(data);
       }
     );
-
-    let dataUserAccess = $('#formCreateAccessUser').serialize();
-    idUserAccess = sessionStorage.getItem('id_user_access');
-    dataUserAccess = dataUserAccess + '&idUserAccess=' + idUserAccess;
   };
 
   /* Eliminar usuario */
