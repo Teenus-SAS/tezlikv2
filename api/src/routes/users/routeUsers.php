@@ -71,7 +71,7 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateUser', function (Request $request, Response $response, $args) use ($userDao) {
+$app->post('/updateUser', function (Request $request, Response $response, $args) use ($userDao, $AccesuserDao) {
     $dataUser = $request->getParsedBody();
     $files = $request->getUploadedFiles();
 
@@ -80,6 +80,8 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
     } else {
         if (empty($dataUser['avatar'])) {
             $users = $userDao->updateUser($dataUser, null);
+            /* Actualizar los accesos */
+            $usersAccess = $AccesuserDao->updateUserAccessByUsers($dataUser);
         } else {
             foreach ($files as $file) {
                 $name = $file->getClientFilename();
@@ -97,7 +99,8 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
                         $file->moveTo("../app/assets/images/avatars/" . $name[0] . '.' . $ext);
                         $path = "../../../app/assets/images/avatars/" . $name[0] . '.' . $ext;
                         $users = $userDao->updateUser($dataUser, $path);
-
+                        /* Actualizar los accesos */
+                        $usersAccess = $AccesuserDao->updateUserAccessByUsers($dataUser);
                         // Creacion carpeta de la img
                         $path = "../../../app/assets/images/avatars/44";
                         if (!file_exists($path)) {
@@ -108,12 +111,10 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
             }
         }
     }
-
     if ($users == 1)
         $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
     else
         $resp = array('error' => true, 'message' => 'Ocurrio un error, Intente nuevamente');
-
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
