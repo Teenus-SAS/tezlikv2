@@ -75,10 +75,10 @@ $(document).ready(function() {
 
             /* Validar que al menos un acceso sea otorgado */
 
-            /* if (accessSelected.length == 0) {
+            if (accessSelected.length == 0) {
                 toastr.error('Seleccione al menos un acceso');
                 return false;
-            } */
+            }
 
             debugger
 
