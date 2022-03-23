@@ -40,7 +40,6 @@ $(document).ready(function () {
         toastr.error('Ingrese todos los campos');
         return false;
       }
-
       product = $('#formCreateProduct').serialize();
 
       $.post(
@@ -96,7 +95,9 @@ $(document).ready(function () {
   /* Eliminar productos */
 
   $(document).on('click', '.deleteProducts', function (e) {
-    let id_product = this.id;
+    let idProduct = this.id;
+    dataProduct = {};
+    dataProduct['idProduct'] = idProduct;
 
     bootbox.confirm({
       title: 'Eliminar',
@@ -114,8 +115,9 @@ $(document).ready(function () {
       },
       callback: function (result) {
         if (result == true) {
-          $.get(
-            `../../api/deleteProduct/${id_product}`,
+          $.post(
+            '../../api/deleteProduct',
+            dataProduct,
             function (data, textStatus, jqXHR) {
               message(data);
             }

@@ -1,8 +1,10 @@
 <?php
 
 use tezlikv2\dao\ProductsMaterialsDao;
+use tezlikv2\dao\ProductsCostDao;
 
 $productsMaterialsDao = new ProductsMaterialsDao();
+$productsCostDao = new ProductsCostDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -13,7 +15,7 @@ $app->get('/productsMaterials/{idProduct}', function (Request $request, Response
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
+$app->post('/addProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao, $productsCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProductMaterial = $request->getParsedBody();
@@ -21,8 +23,9 @@ $app->post('/addProductsMaterials', function (Request $request, Response $respon
     if (empty($dataProductMaterial['material']) || empty($dataProductMaterial['idProduct'] || empty($dataProductMaterial['quantity'])))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
-        //$productMaterials = $productsMaterialsDao->insertProductsMaterialsByCompany($dataProductMaterial);
         $productMaterials = $productsMaterialsDao->insertProductsMaterialsByCompany($dataProductMaterial, $id_company);
+        //Metodo calcular precio total materias
+        $productCost = $productsCostDao->costProducts($dataProductMaterial, $id_company);
 
         if ($productMaterials == 1)
             $resp = array('success' => true, 'message' => 'Materia prima asignada correctamente');
@@ -33,13 +36,17 @@ $app->post('/addProductsMaterials', function (Request $request, Response $respon
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
+$app->post('/updateProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao, $productsCostDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
     $dataProductMaterial = $request->getParsedBody();
 
     if (empty($dataProductMaterial['material']) || empty($dataProductMaterial['idProduct'] || empty($dataProductMaterial['quantity'])))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $productMaterials = $productsMaterialsDao->updateProductsMaterials($dataProductMaterial);
+        //Metodo calcular precio total materias
+        $productCost = $productsCostDao->costProducts($dataProductMaterial, $id_company);
 
         if ($productMaterials == 2)
             $resp = array('success' => true, 'message' => 'Materia prima actualizada correctamente');
@@ -50,8 +57,15 @@ $app->post('/updateProductsMaterials', function (Request $request, Response $res
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteProductMaterial/{id_product_material}', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
-    $product = $productsMaterialsDao->deleteProductMaterial($args['id_product_material']);
+$app->post('/deleteProductMaterial', function (Request $request, Response $response, $args) use ($productsMaterialsDao, $productsCostDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+    $dataProductMaterial = $request->getParsedBody();
+
+    $product = $productsMaterialsDao->deleteProductMaterial($dataProductMaterial);
+    //Metodo calcular precio total materias
+    $productCost = $productsCostDao->costProducts($dataProductMaterial, $id_company);
+
     if ($product == null)
         $resp = array('success' => true, 'message' => 'Materia prima eliminada correctamente');
 

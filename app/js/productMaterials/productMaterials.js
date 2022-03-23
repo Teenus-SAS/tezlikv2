@@ -16,7 +16,6 @@ $(document).ready(function () {
     sessionStorage.removeItem('id_product_material');
 
     $('#material option:contains(Seleccionar)').prop('selected', true);
-    //$('#material').val('');
     $('#quantity').val('');
     $('#unity').val('');
   });
@@ -109,7 +108,11 @@ $(document).ready(function () {
   /* Eliminar materia prima */
 
   $(document).on('click', '.deleteMaterials', function (e) {
-    let id_product_material = this.id;
+    let idProductMaterial = this.id;
+    idProduct = $('#selectNameProduct').val();
+    dataProductMaterial = {};
+    dataProductMaterial['idProductMaterial'] = idProductMaterial;
+    dataProductMaterial['idProduct'] = idProduct;
 
     bootbox.confirm({
       title: 'Eliminar',
@@ -127,8 +130,9 @@ $(document).ready(function () {
       },
       callback: function (result) {
         if (result == true) {
-          $.get(
-            `../../api/deleteProductMaterial/${id_product_material}`,
+          $.post(
+            '../../api/deleteProductMaterial',
+            dataProductMaterial,
             function (data, textStatus, jqXHR) {
               message(data);
             }

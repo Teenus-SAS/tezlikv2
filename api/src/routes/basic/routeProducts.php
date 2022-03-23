@@ -1,8 +1,10 @@
 <?php
 
 use tezlikv2\dao\ProductsDao;
+use tezlikv2\dao\ProductsCostDao;
 
 $productsDao = new ProductsDao();
+$productsCostDao = new ProductsCostDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -17,7 +19,7 @@ $app->get('/products', function (Request $request, Response $response, $args) us
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addProducts', function (Request $request, Response $response, $args) use ($productsDao) {
+$app->post('/addProducts', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProduct = $request->getParsedBody();
@@ -25,10 +27,13 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
 
+    //empty($dataProduct['commisionSale']
     if (empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) || empty($dataProduct['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
+        //Insertar en products_costs
+        $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
 
         if ($products == 1)
             $resp = array('success' => true, 'message' => 'Producto creado correctamente');
@@ -40,17 +45,18 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao) {
+$app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao) {
     $dataProduct = $request->getParsedBody();
 
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
 
+    //empty($dataProduct['commisionSale']
     if (empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) || empty($dataProduct['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
-
         $products = $productsDao->updateProduct($dataProduct);
+        $productsCost = $productsCostDao->updateProductsCost($dataProduct);
 
         if ($products == 2)
             $resp = array('success' => true, 'message' => 'Producto actualizado correctamente');
@@ -62,8 +68,12 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteProduct/{id_product}', function (Request $request, Response $response, $args) use ($productsDao) {
-    $product = $productsDao->deleteProduct($args['id_product']);
+$app->post('/deleteProduct', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao) {
+    $dataProduct = $request->getParsedBody();
+
+    $productsCost = $productsCostDao->deleteProductsCost($dataProduct);
+    $product = $productsDao->deleteProduct($dataProduct);
+
     if ($product == null)
         $resp = array('success' => true, 'message' => 'Producto eliminado correctamente');
 
