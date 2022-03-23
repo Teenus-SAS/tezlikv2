@@ -150,7 +150,7 @@
                             <li class="list-group-item py-4">
                                 <div class="media">
                                     <div class="media-body">
-                                        <p class="text-muted mb-2">Product Sold</p>
+                                        <p class="text-muted mb-2">Precio de Venta Recomendado</p>
                                         <h4 class="mb-0">8,235</h4>
                                     </div>
                                     <div class="avatar avatar-md bg-success mr-0 align-self-center">
@@ -166,7 +166,7 @@
             <div class="col-md-8 col-lg-9">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Statistics</h5>
+                        <h5 class="card-title">Costos y Precio</h5>
                     </div>
                     <div class="card-body pt-2">
                         <div id="stats-chart"></div>

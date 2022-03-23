@@ -14,6 +14,36 @@
     text-align: left;
 }
 
+.drag-area {
+    border: 2px dashed #ddd;
+    height: 50px;
+    width: 500px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.drag-area button {
+    padding: auto;
+    font-size: auto;
+    border: 0;
+    outline: none;
+    /* background-color: bisque; */
+    color: gray;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}
+
 .gridx2 {
     display: grid;
     grid-template-columns: 200px 1fr;

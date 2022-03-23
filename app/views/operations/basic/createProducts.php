@@ -36,18 +36,25 @@
                                     <input type="text" class="form-control" name="referenceProduct" id="referenceProduct">
                                     <label for="">Referencia</label>
                                 </div>
-                                <div class="form-group floating-label enable-floating-label show-label"  style="margin-bottom:0px">
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
                                     <input type="text" class="form-control" name="product" id="product">
                                     <label for="">Nombre Producto</label>
                                 </div>
-                                <div class="form-group floating-label enable-floating-label show-label"  style="margin-bottom:0px">
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
                                     <input type="text" class="form-control text-center" name="profitability" id="profitability">
                                     <label for="">Rentabilidad(%)</label>
                                 </div>
-                                <div class="form-group floating-label enable-floating-label show-label"  style="margin-bottom:0px;margin-top:7px">
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
                                     <button type="text" class="btn btn-success" id="btnCreateProduct">Crear Producto</button>
                                 </div>
                             </div>
+                            <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-bottom:0px">
+                                <!-- <input class="form-control form-control-sm" id="formFile" type="file" style="padding:10px;width:40%"> -->
+                                <input class="form-control" type="file" id="formFile" hidden>
+                                <button class="btn btn-warning">Seleccionar Imagen</button>
+                                <label for="formFile" class="form-label"> Cargar imagen producto</label>
+                            </div>
+                            <div id="preview"></div>
                         </form>
                     </div>
                 </div>
