@@ -21,6 +21,9 @@ require_once('../api/src/routes/config/routeFactoryLoad.php');
 require_once('../api/src/routes/config/routeProductsMaterials.php');
 require_once('../api/src/routes/config/routeProductsProcess.php');
 
+// Dashboard
+require_once('../api/src/routes/dashboard/routeDashboard.php');
+
 // General
 require_once('../api/src/routes/general/routeExpenses.php');
 require_once('../api/src/routes/general/routeExpensesDistribution.php');

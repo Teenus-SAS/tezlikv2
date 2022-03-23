@@ -43,7 +43,7 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
     if ($quantityAllowsUsers >= $quantityCreatedUsers)
         $resp = array('error' => true, 'message' => 'Cantidad de usuarios maxima alcanzada');
     else {
-        if (empty($dataUser['nameUser']) && empty($dataUser['lastnameUser']) && empty($dataUser['emailUser'])) { 
+        if (empty($dataUser['nameUser']) && empty($dataUser['lastnameUser']) && empty($dataUser['emailUser'])) {
             $resp = array('error' => true, 'message' => 'Complete todos los datos');
             exit();
         }
@@ -118,17 +118,15 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteUser/{idUser}', function (Request $request, Response $response, $args) use ($userDao) {
-    
-    $users = $userDao->deleteUser($args['idUser']);
-    /* falta borrar los acceso */
-    
-    if ($users == null)
-        $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
+$app->post('/deleteUser', function (Request $request, Response $response, $args) use ($userDao, $accessUserDao) {
+    $dataUser = $request->getParsedBody();
 
-    if ($users != null)
-        $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
+    $users = $userDao->deleteUser($dataUser);
+    $usersAccess = $accessUserDao->deleteUserAccess($dataUser);
+
+    if ($users == null) $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
+    if ($users != null) $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
 
     $response->getBody()->write(json_encode($resp));
-    return $response->withHeader('Content-Type', 'application/json');
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
