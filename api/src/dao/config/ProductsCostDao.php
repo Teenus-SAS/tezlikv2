@@ -16,7 +16,7 @@ class ProductsCostDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    /* Productos */
+    /* Falta la funcion de consultar */
 
     public function insertProductsCostByCompany($dataProduct, $id_company)
     {
@@ -73,37 +73,5 @@ class ProductsCostDao
             $stmt->execute(['id_product' => $dataProduct['idProduct']]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
-    }
-
-    /* Asignar materia prima a producto */
-
-    public function costProducts($dataProductMaterial, $id_company)
-    {
-        //session_start();
-        //$id_company = $_SESSION['id_company'];
-        $connection = Connection::getInstance()->getConnection();
-
-        /* Suma todas las cantidades y costos de products_materials ingresados */
-        $stmt = $connection->prepare("SELECT SUM(pm.quantity) as quantity, SUM(m.cost) as cost 
-                                        FROM products_materials pm 
-                                        INNER JOIN materials m ON pm.id_material = m.id_material 
-                                        WHERE pm.id_company = :id_company AND pm.id_product = :id_product");
-        $stmt->execute(['id_company' => $id_company, 'id_product' => $dataProductMaterial['idProduct']]);
-        $quantityProducts = $stmt->fetch($connection::FETCH_ASSOC);
-
-        /* Calcular costo total de products_materials */
-        $totalCost = $quantityProducts['quantity'] * $quantityProducts['cost'];
-
-        /* Modificar costo total de products_costs */
-        $stmt = $connection->prepare("UPDATE products_costs SET materials = :materials
-                                         WHERE id_product = :id_product AND id_company = :id_company");
-        $stmt->execute([
-            'materials' => $totalCost,
-            'id_product' => $dataProductMaterial['idProduct'],
-            'id_company' => $id_company
-        ]);
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        return false;
     }
 }

@@ -31,10 +31,10 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     if (empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) || empty($dataProduct['profitability']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
-        $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
         //Insertar en products_costs
+        $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
         $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
-
+        
         if ($products == 1)
             $resp = array('success' => true, 'message' => 'Producto creado correctamente');
         else

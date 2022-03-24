@@ -19,7 +19,7 @@ class ProductsDao
   public function findAllProductsByCompany($id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $stmt = $connection->prepare("SELECT p.id_product, p.reference, p.product, pc.profitability, p.price, p.img 
+    $stmt = $connection->prepare("SELECT p.id_product, p.reference, p.product, pc.profitability, pc.price, p.img 
                                   FROM products p 
                                   INNER JOIN products_costs pc ON p.id_product = pc.id_product
                                   WHERE p.id_company = :id_company");
@@ -47,7 +47,7 @@ class ProductsDao
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        return 1;
+        //return 1;
       } catch (\Exception $e) {
         $message = $e->getMessage();
         if ($e->getCode() == 23000)
@@ -56,8 +56,8 @@ class ProductsDao
         return $error;
       }
     } else {
-      $stmt = $connection->prepare("INSERT INTO products (reference, product, img) 
-        VALUES(:reference, :product, :img)");
+      $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, img) 
+        VALUES(:id_company, :reference, :product, :img)");
       $stmt->execute([
         'id_company' => $id_company,
         'reference' => $dataProduct['referenceProduct'],
