@@ -47,10 +47,9 @@ class CalcProductsCostDao
         $connection = Connection::getInstance()->getConnection();
 
         /* Sumar tiempo total por valor por minuto */
-        $stmt = $connection->prepare("SELECT SUM(p.minute_value)* SUM(pp.enlistment_time + pp.operation_time) as costPayroll
+        $stmt = $connection->prepare("SELECT SUM(p.minute_value * (pp.enlistment_time + pp.operation_time)) AS costPayroll
                                         FROM products_process pp 
-                                        LEFT JOIN machines m ON m.id_machine = pp.id_machine 
-                                        LEFT JOIN payroll p ON p.id_process = pp.id_process 
+                                        INNER JOIN payroll p ON p.id_process = pp.id_process 
                                         WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
         $stmt->execute([
             'id_product' => $dataProductProcess['idProduct'],
@@ -59,7 +58,7 @@ class CalcProductsCostDao
         $payroll = $stmt->fetch($connection::FETCH_ASSOC);
 
         /* Modificar costo de nomina de products_costs */
-        $stmt = $connection->prepare("UPDATE products_costs SET workforce = :workforce
+        $stmt = $connection->prepare("UPDATE products_costs SET cost_workforce = :workforce
                                         WHERE id_product = :id_product AND id_company = :id_company");
         $stmt->execute([
             'workforce' => $payroll['costPayroll'],

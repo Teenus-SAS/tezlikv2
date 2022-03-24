@@ -20,16 +20,6 @@ $(document).ready(function() {
                     `<option value = ${value.id_process}> ${value.process} </option>`,
                 )
             });
-
-            // let $select1 = $(`#selectNameProduct`)
-            // $select1.empty()
-
-            // $select1.append(`<option disabled selected>Seleccionar</option>`)
-            // $.each(r, function(i, value) {
-            //     $select1.append(
-            //         `<option value = ${value.id_material}> ${value.product} </option>`,
-            //     )
-            // })
         }
     });
 
