@@ -140,7 +140,11 @@ $(document).ready(function () {
   /* Eliminar proceso */
 
   $(document).on('click', '.deleteProcess', function (e) {
-    let id_product_process = this.id;
+    let idProductProcess = this.id;
+    idProduct = $('#selectNameProduct').val();
+    dataProductProcess = {};
+    dataProductProcess['idProductProcess'] = idProductProcess;
+    dataProductProcess['idProduct'] = idProduct;
 
     bootbox.confirm({
       title: 'Eliminar',
@@ -158,8 +162,9 @@ $(document).ready(function () {
       },
       callback: function (result) {
         if (result == true) {
-          $.get(
-            `../../api/deleteProductProcess/${id_product_process}`,
+          $.post(
+            '../../api/deleteProductProcess',
+            dataProductProcess,
             function (data, textStatus, jqXHR) {
               message(data);
             }
@@ -173,7 +178,7 @@ $(document).ready(function () {
 
   message = (data) => {
     if (data.success == true) {
-      // $('.cardCreateRawMaterials').toggle(800);
+      // $('.cardCreateRawProcesss').toggle(800);
       $('.cardAddProcess').hide(800);
       $('#formAddProcess')[0].reset();
       updateTable();

@@ -25,7 +25,7 @@ $app->post('/addProductsMaterials', function (Request $request, Response $respon
     else {
         $productMaterials = $productsMaterialsDao->insertProductsMaterialsByCompany($dataProductMaterial, $id_company);
         //Metodo calcular precio total materias
-        $productCost = $calcProductsCostDao->calCostMaterialsProduct($dataProductMaterial, $id_company);
+        $productCost = $calcProductsCostDao->calcCostMaterialsProduct($dataProductMaterial, $id_company);
 
         if ($productMaterials == 1)
             $resp = array('success' => true, 'message' => 'Materia prima asignada correctamente');
@@ -46,7 +46,7 @@ $app->post('/updateProductsMaterials', function (Request $request, Response $res
     else {
         $productMaterials = $productsMaterialsDao->updateProductsMaterials($dataProductMaterial);
         //Metodo calcular precio total materias
-        //$productCost = $calcProductsCostDao->costProducts($dataProductMaterial, $id_company);
+        $productCost = $calcProductsCostDao->calcCostMaterialsProduct($dataProductMaterial, $id_company);
 
         if ($productMaterials == 2)
             $resp = array('success' => true, 'message' => 'Materia prima actualizada correctamente');
@@ -64,7 +64,7 @@ $app->post('/deleteProductMaterial', function (Request $request, Response $respo
 
     $product = $productsMaterialsDao->deleteProductMaterial($dataProductMaterial);
     //Metodo calcular precio total materias
-    //$productCost = $calcProductsCostDao->costProducts($dataProductMaterial, $id_company);
+    $productCost = $calcProductsCostDao->calcCostMaterialsProduct($dataProductMaterial, $id_company);
 
     if ($product == null)
         $resp = array('success' => true, 'message' => 'Materia prima eliminada correctamente');
