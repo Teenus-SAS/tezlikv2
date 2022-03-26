@@ -28,6 +28,7 @@ require_once('../api/src/routes/dashboard/routeDashboard.php');
 require_once('../api/src/routes/general/routeExpenses.php');
 require_once('../api/src/routes/general/routeExpensesDistribution.php');
 require_once('../api/src/routes/general/routePayroll.php');
+require_once('../api/src/routes/general/routeProcessPayroll.php');
 
 // Global
 require_once('../api/src/routes/global/routeCompany.php');

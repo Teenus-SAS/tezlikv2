@@ -77,7 +77,7 @@ class CalcProductsCostDao
         /* Sumar costo por minuto de nomina */
         $stmt = $connection->prepare("SELECT SUM(ml.cost_minute) as costMinute
                                         FROM manufacturing_load ml
-                                        LEFT JOIN products_process pp ON pp.id_machine = ml.id_machine
+                                        INNER JOIN products_process pp ON pp.id_machine = ml.id_machine
                                         WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
         $stmt->execute([
             'id_product' => $dataProductProcess['idProduct'],
@@ -90,7 +90,7 @@ class CalcProductsCostDao
         $stmt = $connection->prepare("SELECT SUM(m.minute_depreciation) as totalMinuteDepreciation, 
                                                 SUM(pp.enlistment_time + pp.operation_time) as totalTime
                                         FROM products_process pp
-                                        LEFT JOIN machines m ON m.id_machine = pp.id_machine
+                                        INNER JOIN machines m ON m.id_machine = pp.id_machine
                                         WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
         $stmt->execute([
             'id_product' => $dataProductProcess['idProduct'],

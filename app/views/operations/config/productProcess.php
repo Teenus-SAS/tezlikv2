@@ -88,7 +88,7 @@
 </div>
 
 <script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/process/configProcess.js"></script>
+<script src="../../app/js/payroll/configProcessPayroll.js"></script>
 <script src="../../app/js/machines/configMachines.js"></script>
 
 <script src="../../app/js/productProcess/tblConfigProcess.js"></script>

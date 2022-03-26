@@ -1,6 +1,5 @@
 <?php
 
-use LDAP\Result;
 use tezlikv2\dao\PayrollDao;
 
 $payrollDao = new PayrollDao();
