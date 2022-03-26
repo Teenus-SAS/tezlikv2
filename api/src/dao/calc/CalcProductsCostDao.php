@@ -74,32 +74,38 @@ class CalcProductsCostDao
     {
         $connection = Connection::getInstance()->getConnection();
 
-        /* Sumar costo por minuto de nomina */
-        $stmt = $connection->prepare("SELECT SUM(ml.cost_minute) as costMinute
-                                        FROM manufacturing_load ml
-                                        INNER JOIN products_process pp ON pp.id_machine = ml.id_machine
-                                        WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
-        $stmt->execute([
-            'id_product' => $dataProductProcess['idProduct'],
-            'id_company' => $id_company
-        ]);
-        $dataCostMinute = $stmt->fetch($connection::FETCH_ASSOC);
+        $dataTableProductsProcess = json_decode($dataProductProcess['dataTable'], true);
 
-        /* Sumar el resto de columnas */
+        $indirectCost = 0;
 
-        $stmt = $connection->prepare("SELECT SUM(m.minute_depreciation) as totalMinuteDepreciation, 
-                                                SUM(pp.enlistment_time + pp.operation_time) as totalTime
-                                        FROM products_process pp
-                                        INNER JOIN machines m ON m.id_machine = pp.id_machine
-                                        WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
-        $stmt->execute([
-            'id_product' => $dataProductProcess['idProduct'],
-            'id_company' => $id_company
-        ]);
-        $dataIndirectCost = $stmt->fetch($connection::FETCH_ASSOC);
+        for ($i = 0; $i < sizeof($dataTableProductsProcess); $i++) {
 
-        /* Calcular costos indirectos de products_costs */
-        $indirectCost = ($dataCostMinute['costMinute'] + $dataIndirectCost['totalMinuteDepreciation']) * ($dataIndirectCost['totalTime']);
+            /* Sumar costo por minuto de la carga fabril */
+            $stmt = $connection->prepare("SELECT SUM(cost_minute) as cost_minute FROM manufacturing_load WHERE id_machine = :id_machine;");
+            $stmt->execute(['id_machine' => $dataTableProductsProcess[$i]['id_machine']]);
+            $dataCostManufacturingLoad = $stmt->fetch($connection::FETCH_ASSOC);
+
+            /* Sumar el costo de por minuto de la depreciacion  */
+            $stmt = $connection->prepare("SELECT minute_depreciation FROM machines WHERE id_machine = :id_machine;");
+            $stmt->execute(['id_machine' => $dataTableProductsProcess[$i]['id_machine']]);
+            $dataCostDepreciationMachine = $stmt->fetch($connection::FETCH_ASSOC);
+
+            /* Sumar el tiempo del proceso para el update  */
+
+            if ($i + 1 == sizeof($dataTableProductsProcess))
+                $dataTotalTime = $dataProductProcess['enlistmentTime'] + $dataProductProcess['operationTime'];
+            else
+                $dataTotalTime = $dataTableProductsProcess[$i]['enlistment_time'] + $dataTableProductsProcess[$i]['operation_time'];
+
+
+            /* Calcular costo indirecto de proceso y maquina */
+            $processMachineindirectCost = ($dataCostManufacturingLoad['cost_minute'] + $dataCostDepreciationMachine['minute_depreciation']) * $dataTotalTime;
+
+            $indirectCost = $indirectCost + $processMachineindirectCost;
+        }
+
+
+
 
         /* Modificar costo indirecto de products_costs */
         $stmt = $connection->prepare("UPDATE products_costs SET cost_indirect_cost = :cost_indirect_cost
@@ -111,6 +117,6 @@ class CalcProductsCostDao
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        return false;
+        
     }
 }
