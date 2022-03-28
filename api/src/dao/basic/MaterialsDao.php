@@ -82,17 +82,17 @@ class MaterialsDao
     }
   }
 
-  public function deleteMaterial($id_material)
+  public function deleteMaterial($dataMaterial)
   {
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT * FROM materials WHERE id_material = :id_material");
-    $stmt->execute(['id_material' => $id_material]);
+    $stmt->execute(['id_material' => $dataMaterial['idMaterial']]);
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
       $stmt = $connection->prepare("DELETE FROM materials WHERE id_material = :id_material");
-      $stmt->execute(['id_material' => $id_material]);
+      $stmt->execute(['id_material' => $dataMaterial['idMaterial']]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }

@@ -1,8 +1,10 @@
 <?php
 
 use tezlikv2\dao\MaterialsDao;
+use tezlikv2\dao\CalcProductsCostDao;
 
 $materialsDao = new MaterialsDao();
+$calcProductsCostDao = new CalcProductsCostDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -38,9 +40,14 @@ $app->post('/addMaterials', function (Request $request, Response $response, $arg
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
-    $dataMaterials = $request->getParsedBody();
-    $materials = $materialsDao->updateMaterialsByCompany($dataMaterials);
+$app->post('/updateMaterials', function (Request $request, Response $response, $args) use ($materialsDao, $calcProductsCostDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+    $dataMaterial = $request->getParsedBody();
+
+    $materials = $materialsDao->updateMaterialsByCompany($dataMaterial);
+    // Calcular precio total materias
+    $productCost = $calcProductsCostDao->calcCostMaterialsByRawMaterials($dataMaterial, $id_company);
 
     if ($materials == 2)
         $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');
@@ -51,8 +58,14 @@ $app->post('/updateMaterials', function (Request $request, Response $response, $
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteMaterial/{id_material}', function (Request $request, Response $response, $args) use ($materialsDao) {
-    $materials = $materialsDao->deleteMaterial($args['id_material']);
+$app->post('/deleteMaterial', function (Request $request, Response $response, $args) use ($materialsDao, $calcProductsCostDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+    $dataMaterial = $request->getParsedBody();
+
+    $materials = $materialsDao->deleteMaterial($dataMaterial);
+    // Calcular precio total materias
+    $productCost = $calcProductsCostDao->calcCostMaterialsByRawMaterials($dataMaterial, $id_company);
 
     if ($materials == null)
         $resp = array('success' => true, 'message' => 'Material eliminado correctamente');

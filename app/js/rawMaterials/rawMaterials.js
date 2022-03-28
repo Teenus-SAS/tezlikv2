@@ -100,7 +100,9 @@ $(document).ready(function () {
   /* Eliminar productos */
 
   $(document).on('click', '.deleteRawMaterials', function (e) {
-    let id_material = this.id;
+    let idMaterial = this.id;
+    dataMaterial = {};
+    dataMaterial['idMaterial'] = idMaterial;
 
     bootbox.confirm({
       title: 'Eliminar',
@@ -118,8 +120,9 @@ $(document).ready(function () {
       },
       callback: function (result) {
         if (result == true) {
-          $.get(
-            `../../api/deleteMaterial/${id_material}`,
+          $.post(
+            '../../api/deleteMaterial',
+            dataMaterial,
             function (data, textStatus, jqXHR) {
               message(data);
             }
