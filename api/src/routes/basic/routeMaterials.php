@@ -65,7 +65,7 @@ $app->post('/deleteMaterial', function (Request $request, Response $response, $a
 
     $materials = $materialsDao->deleteMaterial($dataMaterial);
     // Calcular precio total materias
-    $productCost = $calcProductsCostDao->calcCostMaterialsByRawMaterials($dataMaterial, $id_company);
+    //$productCost = $calcProductsCostDao->calcCostMaterialsByRawMaterials($dataMaterial, $id_company);
 
     if ($materials == null)
         $resp = array('success' => true, 'message' => 'Material eliminado correctamente');
