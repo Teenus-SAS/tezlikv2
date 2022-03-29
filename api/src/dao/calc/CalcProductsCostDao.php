@@ -108,10 +108,9 @@ class CalcProductsCostDao
 
         // Obtener idProduct atravez de nomina
         $stmt = $connection->prepare("SELECT pp.id_product as idProduct
-                                        FROM products_process pp
-                                        INNER JOIN payroll py ON py.id_process = pp.id_process
-                                        WHERE py.id_payroll = :id_payroll AND pp.id_company = :id_company");
-        $stmt->execute(['id_payroll' => $dataPayroll['idPayroll'], 'id_company' => $id_company]);
+                                      FROM products_process pp
+                                      WHERE pp.id_process = :id_process AND pp.id_company = :id_company");
+        $stmt->execute(['id_process' => $dataPayroll['idProcess'], 'id_company' => $id_company]);
         $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
 
         for ($i = 0; $i < sizeof($dataProduct); $i++) {
@@ -127,6 +126,7 @@ class CalcProductsCostDao
             $payroll = $stmt->fetch($connection::FETCH_ASSOC);
 
             // Modificar costo de nomina de products_costs
+
             $stmt = $connection->prepare("UPDATE products_costs SET cost_workforce = :workforce
                                         WHERE id_product = :id_product AND id_company = :id_company");
             $stmt->execute([
@@ -188,12 +188,13 @@ class CalcProductsCostDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
 
-    /* Al modificar la maquina
+    /* Al modificar la maquina */
     public function calcCostIndirectCostByMachine($dataMachines, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $dataTableProductsProcess = json_decode($dataProductProcess['dataTable'], true);
+        /* Buscar todos los productos que regisren el id de la maquina */
+
 
         $indirectCost = 0;
 
@@ -233,5 +234,5 @@ class CalcProductsCostDao
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    }*/
+    }
 }

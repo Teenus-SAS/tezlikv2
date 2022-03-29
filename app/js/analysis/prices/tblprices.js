@@ -42,7 +42,7 @@ $(document).ready(function() {
             },
             {
                 title: 'Acciones',
-                data: 'id_maquine',
+                data: 'id_product',
                 className: 'uniqueClassName',
                 render: function(data) {
                     return `
