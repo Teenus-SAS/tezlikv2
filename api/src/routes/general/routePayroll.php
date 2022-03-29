@@ -1,8 +1,10 @@
 <?php
 
 use tezlikv2\dao\PayrollDao;
+use tezlikv2\dao\CalcProductsCostDao;
 
 $payrollDao = new PayrollDao();
+$calcProductsCostDao = new CalcProductsCostDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -43,7 +45,9 @@ $app->post('/addPayroll', function (Request $request, Response $response) use ($
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updatePayroll', function (Request $request, Response $response, $args) use ($payrollDao) {
+$app->post('/updatePayroll', function (Request $request, Response $response, $args) use ($payrollDao, $calcProductsCostDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
     $dataPayroll = $request->getParsedBody();
 
     if (
@@ -52,8 +56,12 @@ $app->post('/updatePayroll', function (Request $request, Response $response, $ar
         || empty($dataPayroll['typeFactor'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+
     else {
         $payroll = $payrollDao->updatePayroll($dataPayroll);
+
+        // Calcular costo nomina
+        $calcCostPayroll = $calcProductsCostDao->calcCostPayrollByPayroll($dataPayroll, $id_company);
 
         if ($payroll == 2)
             $resp = array('success' => true, 'message' => 'Nomina actualizada correctamente');
