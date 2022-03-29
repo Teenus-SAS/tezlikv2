@@ -79,7 +79,6 @@ $(document).ready(function () {
   $(document).on('click', '.updateMachines', function (e) {
     $('.cardCreateMachines').show(800);
     $('#btnCreateMachine').html('Actualizar');
-
     idMachine = this.id;
     idMachine = sessionStorage.setItem('id_machine', idMachine);
 
@@ -100,13 +99,19 @@ $(document).ready(function () {
       },
       1000
     );
+    let rowsRegistered = tblConfigProcess.fnGetData(row);
+
+    rowsRegistered = JSON.stringify(rowsRegistered);
+    sessionStorage.setItem('rowsRegistered', rowsRegistered);
   });
 
   updateMachine = () => {
     $('#depreciationMinute').prop('disabled', false);
     let data = $('#formCreateMachine').serialize();
     idMachine = sessionStorage.getItem('id_machine');
-    data = data + '&idMachine=' + idMachine;
+    rowsRegistered = sessionStorage.getItem('rowsRegistered');
+
+    data = data + '&idMachine=' + idMachine + '&dataTable=' + rowsRegistered;
     $.post(
       '../../api/updateMachines',
       data,

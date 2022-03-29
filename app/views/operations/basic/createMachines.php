@@ -99,3 +99,4 @@
 <script src="../../app/js/machines/tblMachines.js"></script>
 <script src="../../app/js/machines/machines.js"></script>
 <script src="../../app/js/global/number.js"></script>
+<script src="../../app/js/productProcess/tblConfigProcess.js"></script>

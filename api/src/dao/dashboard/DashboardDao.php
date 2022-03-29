@@ -16,7 +16,20 @@ class DashboardDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    public function findAllExpensesDashboardByCompany($id_company)
+    public function findAllExpensesDashboardProductsByCompany($dataExpenses, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT cost_materials, cost_workforce, cost_indirect_cost, profitability 
+                                      FROM products_costs WHERE id_product = :id_product AND id_company = :id_company");
+        $stmt->execute(['id_product' => $dataExpenses['idProduct'], 'id_company' => $id_company]);
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+
+        $expenses = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("expenses", array('expenses' => $expenses));
+        return $expenses;
+    }
+    public function findAllExpensesDashboardGeneralsByCompany($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT ex.id_expense, p.count, ex.expense_value 
