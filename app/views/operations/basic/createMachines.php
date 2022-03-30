@@ -23,9 +23,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                   <!--  <div class="card-header">
                         <h5 class="card-title">Crear Máquina</h5>
-                    </div>
+                    </div> -->
                     <div class="card-body">
                         <form id="formCreateMachine">
                             <div class="gridx4cm">
