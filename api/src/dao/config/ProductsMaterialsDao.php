@@ -16,11 +16,8 @@ class ProductsMaterialsDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    public function productsmaterials($idProduct)
+    public function productsmaterials($idProduct, $id_company)
     {
-        session_start();
-        $id_company = $_SESSION['id_company'];
-
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT  pm.id_product_material, m.id_material, m.reference, m.material, m.unit, pm.quantity, m.cost FROM products p 
                                     INNER JOIN products_materials pm ON pm.id_product = p.id_product 

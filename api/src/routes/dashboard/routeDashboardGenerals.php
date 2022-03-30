@@ -13,7 +13,8 @@ $app->get('/dashboardExpensesGenerals', function (Request $request, Response $re
     session_start();
     $id_company = $_SESSION['id_company'];
 
-    $expenses = $dashboardDao->findAllExpensesDashboardGeneralsByCompany($id_company);
-    $response->getBody()->write(json_encode($expenses, JSON_NUMERIC_CHECK));
+    $generalExpenses = $dashboardDao->findAllPricesDashboardGeneralsByCompany($id_company);
+
+    $response->getBody()->write(json_encode($generalExpenses, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });

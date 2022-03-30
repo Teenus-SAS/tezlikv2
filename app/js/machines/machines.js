@@ -100,18 +100,14 @@ $(document).ready(function () {
       1000
     );
     let rowsRegistered = tblConfigProcess.fnGetData(row);
-
-    rowsRegistered = JSON.stringify(rowsRegistered);
-    sessionStorage.setItem('rowsRegistered', rowsRegistered);
   });
 
   updateMachine = () => {
     $('#depreciationMinute').prop('disabled', false);
     let data = $('#formCreateMachine').serialize();
     idMachine = sessionStorage.getItem('id_machine');
-    rowsRegistered = sessionStorage.getItem('rowsRegistered');
 
-    data = data + '&idMachine=' + idMachine + '&dataTable=' + rowsRegistered;
+    data = data + '&idMachine=' + idMachine;
     $.post(
       '../../api/updateMachines',
       data,

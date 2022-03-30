@@ -203,7 +203,7 @@ class CalcProductsCostDao
 
         for ($i = 0; $i < sizeof($dataProduct); $i++) {
 
-            //$dataTableMachine = json_decode($dataMachine['dataTable'], true);
+            // Buscar el id material, tiempo de enlistamiento y tiempo de operacion del producto
             $stmt = $connection->prepare("SELECT id_machine AS id_machine, enlistment_time AS enlistment_time, operation_time AS operation_time
                                           FROM products_process 
                                           WHERE id_product =:id_product");

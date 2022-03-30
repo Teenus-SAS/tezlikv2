@@ -11,7 +11,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 // Productos procesos
 $app->get('/productsProcess/{idProduct}', function (Request $request, Response $response, $args) use ($productsProcessDao) {
-    $productProcess = $productsProcessDao->productsprocess($args['idProduct']);
+    session_start();
+    $id_company = $_SESSION['id_company'];
+
+    $productProcess = $productsProcessDao->productsprocess($args['idProduct'], $id_company);
     $response->getBody()->write(json_encode($productProcess, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
