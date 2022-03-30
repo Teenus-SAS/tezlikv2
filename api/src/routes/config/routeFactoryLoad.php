@@ -1,8 +1,10 @@
 <?php
 
 use tezlikv2\dao\FactoryLoadDao;
+use tezlikv2\dao\CalcProductsCostDao;
 
 $factoryloadDao = new FactoryLoadDao();
+$calcProductsCostDao = new CalcProductsCostDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -38,7 +40,9 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao) {
+$app->post('/updateFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $calcProductsCostDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
     $dataFactoryLoad = $request->getParsedBody();
 
     if (
@@ -47,6 +51,9 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
         $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
     else {
         $factoryLoad = $factoryloadDao->updateFactoryLoad($dataFactoryLoad);
+
+        // Calcular costo indirecto
+        $calcProductsCost = $calcProductsCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
         if ($factoryLoad == 2)
             $resp = array('success' => true, 'message' => 'Carga fabril actualizada correctamente');

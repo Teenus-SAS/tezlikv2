@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('#btnAddProcess').html('Asignar');
 
     sessionStorage.removeItem('id_product_process');
-    sessionStorage.removeItem('rowsRegistered');
+    //sessionStorage.removeItem('rowsRegistered');
 
     $('#idProcess option:contains(Seleccionar)').prop('selected', true);
     $('#idMachine option:contains(Seleccionar)').prop('selected', true);
@@ -74,13 +74,11 @@ $(document).ready(function () {
         return false;
       }
 
-      let rowsRegistered = tblConfigProcess.rows().count();
+      //let rowsRegistered = tblConfigProcess.rows().count();rowsRegistered
 
       productProcess = $('#formAddProcess').serialize();
 
-      productProcess =
-        productProcess + '&idProduct=' + idProduct + rowsRegistered;
-
+      productProcess = productProcess + '&idProduct=' + idProduct;
       $.post(
         '../../api/addProductsProcess',
         productProcess,
@@ -101,12 +99,12 @@ $(document).ready(function () {
 
     let row = $(this).parent().parent()[0];
     let data = tblConfigProcess.fnGetData(row);
-    let rowsRegistered = tblConfigProcess.fnGetData();
+    //let rowsRegistered = tblConfigProcess.fnGetData();
 
     sessionStorage.setItem('id_product_process', data.id_product_process);
 
-    rowsRegistered = JSON.stringify(rowsRegistered);
-    sessionStorage.setItem('rowsRegistered', rowsRegistered);
+    /*rowsRegistered = JSON.stringify(rowsRegistered);
+    sessionStorage.setItem('rowsRegistered', rowsRegistered);*/
 
     $(`#idProcess option[value=${data.id_process}]`).attr('selected', true);
     $(`#idMachine option[value=${data.id_machine}]`).attr('selected', true);
@@ -129,17 +127,15 @@ $(document).ready(function () {
     let data = $('#formAddProcess').serialize();
     idProduct = $('#selectNameProduct').val();
     idProductProcess = sessionStorage.getItem('id_product_process');
-    rowsRegistered = sessionStorage.getItem('rowsRegistered');
+    //rowsRegistered = sessionStorage.getItem('rowsRegistered');
 
-    //rowsRegistered = JSON.stringify(rowsRegistered)
+    //rowsRegistered = JSON.stringify(rowsRegistered)+'&dataTable=' +rowsRegistered;
     data =
       data +
       '&idProductProcess=' +
       idProductProcess +
       '&idProduct=' +
-      idProduct +
-      '&dataTable=' +
-      rowsRegistered;
+      idProduct;
 
     $.post(
       '../../api/updateProductsProcess',

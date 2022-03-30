@@ -143,38 +143,41 @@ class CalcProductsCostDao
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $dataTableProductsProcess = json_decode($dataProductProcess['dataTable'], true);
+        // Buscar el producto asociado a la maquina modificada
+        $stmt = $connection->prepare("SELECT id_product_process, id_machine 
+                                      FROM products_process 
+                                      WHERE id_product = :id_product");
+        $stmt->execute(['id_product' => $dataProductProcess['idProduct']]);
+        $dataTableProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
 
         $indirectCost = 0;
 
         for ($i = 0; $i < sizeof($dataTableProductsProcess); $i++) {
 
-            /* Sumar costo por minuto de la carga fabril */
-            $stmt = $connection->prepare("SELECT SUM(cost_minute) as cost_minute FROM manufacturing_load WHERE id_machine = :id_machine;");
+            // Suma aparte del cost_minute de la carga fabril
+            $stmt = $connection->prepare("SELECT SUM(cost_minute) as totalCostMinute 
+                                            FROM manufacturing_load WHERE id_machine = :id_machine");
             $stmt->execute(['id_machine' => $dataTableProductsProcess[$i]['id_machine']]);
             $dataCostManufacturingLoad = $stmt->fetch($connection::FETCH_ASSOC);
 
-            /* Sumar el costo de por minuto de la depreciacion  */
-            $stmt = $connection->prepare("SELECT minute_depreciation FROM machines WHERE id_machine = :id_machine;");
-            $stmt->execute(['id_machine' => $dataTableProductsProcess[$i]['id_machine']]);
-            $dataCostDepreciationMachine = $stmt->fetch($connection::FETCH_ASSOC);
+            // Captura de depreciacion por minuto y tiempo total de costo indirecto por materia
+            $stmt = $connection->prepare("SELECT pp.id_machine, m.minute_depreciation, (pp.enlistment_time + pp.operation_time) AS totalTime
+                                            FROM products_process pp
+                                            INNER JOIN machines m ON m.id_machine = pp.id_machine
+                                            WHERE pp.id_machine = :id_machine AND pp.id_product = :id_product
+                                            AND pp.id_product_process = :id_product_process");
+            $stmt->execute([
+                'id_machine' => $dataTableProductsProcess[$i]['id_machine'],
+                'id_product' => $dataProductProcess['idProduct'],
+                'id_product_process' => $dataTableProductsProcess[$i]['id_product_process']
+            ]);
+            $productProcessIndirectCost = $stmt->fetch($connection::FETCH_ASSOC);
 
-            /* Sumar el tiempo del proceso para el update */
-
-            if ($i + 1 == sizeof($dataTableProductsProcess))
-                $dataTotalTime = $dataProductProcess['enlistmentTime'] + $dataProductProcess['operationTime'];
-            else
-                $dataTotalTime = $dataTableProductsProcess[$i]['enlistment_time'] + $dataTableProductsProcess[$i]['operation_time'];
-
-
-            /* Calcular costo indirecto de proceso y maquina */
-            $processMachineindirectCost = ($dataCostManufacturingLoad['cost_minute'] + $dataCostDepreciationMachine['minute_depreciation']) * $dataTotalTime;
+            // Calculo costo indirecto
+            $processMachineindirectCost = ($dataCostManufacturingLoad['totalCostMinute'] + $productProcessIndirectCost['minute_depreciation']) * $productProcessIndirectCost['totalTime'];
 
             $indirectCost = $indirectCost + $processMachineindirectCost;
         }
-
-
-
 
         /* Modificar costo indirecto de products_costs */
         $stmt = $connection->prepare("UPDATE products_costs SET cost_indirect_cost = :cost_indirect_cost
@@ -198,6 +201,59 @@ class CalcProductsCostDao
                                       FROM products_process
                                       WHERE id_machine = :id_machine AND id_company = :id_company");
         $stmt->execute(['id_machine' => $dataMachine['idMachine'], 'id_company' => $id_company]);
+        $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
+
+
+        for ($i = 0; $i < sizeof($dataProduct); $i++) {
+
+            // Buscar el producto asociado a la maquina modificada
+            $stmt = $connection->prepare("SELECT id_machine
+                                          FROM products_process 
+                                          WHERE id_product = :id_product");
+            $stmt->execute(['id_product' => $dataProduct[$i]['idProduct']]);
+            $dataProductMachine = $stmt->fetchAll($connection::FETCH_ASSOC);
+
+            $indirectCost = 0;
+
+            for ($j = 0; $j < sizeof($dataProductMachine); $j++) {
+                /* Calcula la carga fabril por maquina y producto */
+                $stmt = $connection->prepare("SELECT pp.id_machine, SUM(ml.cost_minute) AS costMinuteLoadManufacturing, m.minute_depreciation, pp.enlistment_time, pp.operation_time, (pp.enlistment_time + pp.operation_time) AS totalTimeProcess, ((m.minute_depreciation + SUM(ml.cost_minute))* (pp.enlistment_time + pp.operation_time)) AS indirectCost
+                                              FROM manufacturing_load ml
+                                              INNER JOIN machines m ON ml.id_machine = m.id_machine
+                                              INNER JOIN products_process pp ON pp.id_machine = ml.id_machine
+                                              WHERE m.id_machine = :id_machine AND pp.id_product = :id_product;");
+                $stmt->execute([
+                    'id_machine' => $dataProductMachine[$j]['id_machine'],
+                    'id_product' => $dataProduct[$i]['idProduct']
+                ]);
+
+                $processMachineindirectCost = $stmt->fetch($connection::FETCH_ASSOC);
+                $indirectCost = $indirectCost + $processMachineindirectCost['indirectCost'];
+            }
+
+            // Modificar costo indirecto de products_costs
+            $stmt = $connection->prepare("UPDATE products_costs SET cost_indirect_cost = :cost_indirect_cost
+                                            WHERE id_product = :id_product AND id_company = :id_company");
+            $stmt->execute([
+                'cost_indirect_cost' => $indirectCost,
+                'id_product' => $dataProduct[$i]['idProduct'],
+                'id_company' => $id_company
+            ]);
+        }
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    }
+
+    /* Al modificar la carga fabril */
+    public function calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        // Buscar todos los productos que registren el id de la carga fabril
+        $stmt = $connection->prepare("SELECT id_product AS idProduct 
+                                      FROM products_process
+                                      WHERE id_machine = :id_machine AND id_company = :id_company");
+        $stmt->execute(['id_machine' => $dataFactoryLoad['idMachine'], 'id_company' => $id_company]);
         $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
 
 
