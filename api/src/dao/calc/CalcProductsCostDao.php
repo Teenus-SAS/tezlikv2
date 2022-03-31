@@ -144,37 +144,25 @@ class CalcProductsCostDao
         $connection = Connection::getInstance()->getConnection();
 
         // Buscar el producto asociado a la maquina modificada
-        $stmt = $connection->prepare("SELECT id_product_process, id_machine 
-                                      FROM products_process 
-                                      WHERE id_product = :id_product");
+        $stmt = $connection->prepare("SELECT pp.id_machine, m.minute_depreciation, (pp.enlistment_time + pp.operation_time) AS totalTime 
+                                      FROM products_process pp 
+                                      INNER JOIN machines m ON m.id_machine = pp.id_machine 
+                                      WHERE pp.id_product = :id_product");
         $stmt->execute(['id_product' => $dataProductProcess['idProduct']]);
-        $dataTableProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $dataProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
 
         $indirectCost = 0;
 
-        for ($i = 0; $i < sizeof($dataTableProductsProcess); $i++) {
+        for ($i = 0; $i < sizeof($dataProductsProcess); $i++) {
 
             // Suma aparte del cost_minute de la carga fabril
             $stmt = $connection->prepare("SELECT SUM(cost_minute) as totalCostMinute 
                                             FROM manufacturing_load WHERE id_machine = :id_machine");
-            $stmt->execute(['id_machine' => $dataTableProductsProcess[$i]['id_machine']]);
+            $stmt->execute(['id_machine' => $dataProductsProcess[$i]['id_machine']]);
             $dataCostManufacturingLoad = $stmt->fetch($connection::FETCH_ASSOC);
 
-            // Captura de depreciacion por minuto y tiempo total de costo indirecto por materia
-            $stmt = $connection->prepare("SELECT pp.id_machine, m.minute_depreciation, (pp.enlistment_time + pp.operation_time) AS totalTime
-                                            FROM products_process pp
-                                            INNER JOIN machines m ON m.id_machine = pp.id_machine
-                                            WHERE pp.id_machine = :id_machine AND pp.id_product = :id_product
-                                            AND pp.id_product_process = :id_product_process");
-            $stmt->execute([
-                'id_machine' => $dataTableProductsProcess[$i]['id_machine'],
-                'id_product' => $dataProductProcess['idProduct'],
-                'id_product_process' => $dataTableProductsProcess[$i]['id_product_process']
-            ]);
-            $productProcessIndirectCost = $stmt->fetch($connection::FETCH_ASSOC);
-
             // Calculo costo indirecto
-            $processMachineindirectCost = ($dataCostManufacturingLoad['totalCostMinute'] + $productProcessIndirectCost['minute_depreciation']) * $productProcessIndirectCost['totalTime'];
+            $processMachineindirectCost = ($dataCostManufacturingLoad['totalCostMinute'] + $dataProductsProcess[$i]['minute_depreciation']) * $dataProductsProcess[$i]['totalTime'];
 
             $indirectCost = $indirectCost + $processMachineindirectCost;
         }
@@ -217,7 +205,7 @@ class CalcProductsCostDao
 
             for ($j = 0; $j < sizeof($dataProductMachine); $j++) {
                 /* Calcula la carga fabril por maquina y producto */
-                $stmt = $connection->prepare("SELECT pp.id_machine, SUM(ml.cost_minute) AS costMinuteLoadManufacturing, m.minute_depreciation, pp.enlistment_time, pp.operation_time, (pp.enlistment_time + pp.operation_time) AS totalTimeProcess, ((m.minute_depreciation + SUM(ml.cost_minute))* (pp.enlistment_time + pp.operation_time)) AS indirectCost
+                $stmt = $connection->prepare("SELECT pp.id_machine, ((m.minute_depreciation + SUM(ml.cost_minute))* (pp.enlistment_time + pp.operation_time)) AS indirectCost
                                               FROM manufacturing_load ml
                                               INNER JOIN machines m ON ml.id_machine = m.id_machine
                                               INNER JOIN products_process pp ON pp.id_machine = ml.id_machine
