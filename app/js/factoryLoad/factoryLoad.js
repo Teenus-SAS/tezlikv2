@@ -24,7 +24,6 @@ $(document).ready(function () {
 
   $(document).on('click keyup', '#costFactory', function (e) {
     costFactory = this.value;
-
     costFactory = costFactory.replace('.', '');
     costFactory = parseFloat(costFactory);
 

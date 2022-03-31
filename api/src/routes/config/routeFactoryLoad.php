@@ -19,7 +19,7 @@ $app->get('/factoryLoad', function (Request $request, Response $response, $args)
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao) {
+$app->post('/addFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $calcProductsCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataFactoryLoad = $request->getParsedBody();
@@ -30,6 +30,9 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $factoryLoad = $factoryloadDao->insertFactoryLoadByCompany($dataFactoryLoad, $id_company);
+
+        // Calcular costo indirecto
+        $calcProductsCost = $calcProductsCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
         if ($factoryLoad == 1)
             $resp = array('success' => true, 'message' => 'Carga fabril creada correctamente');
