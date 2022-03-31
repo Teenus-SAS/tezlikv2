@@ -1,10 +1,10 @@
 <?php
 
 use tezlikv2\dao\FactoryLoadDao;
-use tezlikv2\dao\CalcProductsCostDao;
+use tezlikv2\dao\IndirectCostDao;
 
 $factoryloadDao = new FactoryLoadDao();
-$calcProductsCostDao = new CalcProductsCostDao();
+$indirectCostDao = new IndirectCostDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -19,7 +19,7 @@ $app->get('/factoryLoad', function (Request $request, Response $response, $args)
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $calcProductsCostDao) {
+$app->post('/addFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataFactoryLoad = $request->getParsedBody();
@@ -32,7 +32,7 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
         $factoryLoad = $factoryloadDao->insertFactoryLoadByCompany($dataFactoryLoad, $id_company);
 
         // Calcular costo indirecto
-        $calcProductsCost = $calcProductsCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
+        $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
         if ($factoryLoad == 1)
             $resp = array('success' => true, 'message' => 'Carga fabril creada correctamente');
@@ -43,7 +43,7 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $calcProductsCostDao) {
+$app->post('/updateFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataFactoryLoad = $request->getParsedBody();
@@ -56,7 +56,7 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
         $factoryLoad = $factoryloadDao->updateFactoryLoad($dataFactoryLoad);
 
         // Calcular costo indirecto
-        $calcProductsCost = $calcProductsCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
+        $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
         if ($factoryLoad == 2)
             $resp = array('success' => true, 'message' => 'Carga fabril actualizada correctamente');
@@ -67,8 +67,16 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteFactoryLoad/{id_manufacturing_load}', function (Request $request, Response $response, $args) use ($factoryloadDao) {
-    $factoryLoad = $factoryloadDao->deleteFactoryLoad($args['id_manufacturing_load']);
+$app->post('/deleteFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+    $dataFactoryLoad = $request->getParsedBody();
+
+    $factoryLoad = $factoryloadDao->deleteFactoryLoad($dataFactoryLoad);
+
+    // Calcular costo indirecto
+    $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
+
 
     if ($factoryLoad == null)
         $resp = array('success' => true, 'message' => 'Carga fabril eliminada correctamente');

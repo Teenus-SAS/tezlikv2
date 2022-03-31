@@ -1,8 +1,10 @@
 <?php
 
 use tezlikv2\dao\ExpensesDao;
+use tezlikv2\dao\TotalExpenseDao;
 
 $expensesDao = new ExpensesDao();
+$totalExpenseDao = new TotalExpenseDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -15,7 +17,7 @@ $app->get('/expenses', function (Request $request, Response $response, $args) us
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addExpenses', function (Request $request, Response $response, $args) use ($expensesDao) {
+$app->post('/addExpenses', function (Request $request, Response $response, $args) use ($expensesDao, $totalExpenseDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataExpenses = $request->getParsedBody();
@@ -24,6 +26,9 @@ $app->post('/addExpenses', function (Request $request, Response $response, $args
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expenses = $expensesDao->insertExpensesByCompany($dataExpenses, $id_company);
+
+        // Calcular total del gasto
+        $totalExpense = $totalExpenseDao->insertUpdateTotalExpense($id_company);
 
         if ($expenses == 1)
             $resp = array('success' => true, 'message' => 'Gasto creado correctamente');
@@ -35,13 +40,18 @@ $app->post('/addExpenses', function (Request $request, Response $response, $args
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateExpenses', function (Request $request, Response $response, $args) use ($expensesDao) {
+$app->post('/updateExpenses', function (Request $request, Response $response, $args) use ($expensesDao, $totalExpenseDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
     $dataExpenses = $request->getParsedBody();
 
     if (empty($dataExpenses['idPuc']) || empty($dataExpenses['expenseValue']))
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expenses = $expensesDao->updateExpenses($dataExpenses);
+
+        // Calcular total del gasto
+        $totalExpense = $totalExpenseDao->insertUpdateTotalExpense($id_company);
 
         if ($expenses == 2)
             $resp = array('success' => true, 'message' => 'Gasto actualizado correctamente');
@@ -53,8 +63,14 @@ $app->post('/updateExpenses', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteExpenses/{id_expense}', function (Request $request, Response $response, $args) use ($expensesDao) {
+$app->get('/deleteExpenses/{id_expense}', function (Request $request, Response $response, $args) use ($expensesDao, $totalExpenseDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
+
     $expenses = $expensesDao->deleteExpenses($args['id_expense']);
+
+    // Calcular total del gasto
+    $totalExpense = $totalExpenseDao->insertUpdateTotalExpense($id_company);
 
     if ($expenses == null)
         $resp = array('success' => true, 'message' => 'Gasto eliminado correctamente');

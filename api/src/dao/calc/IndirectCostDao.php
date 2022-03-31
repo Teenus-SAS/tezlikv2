@@ -6,7 +6,7 @@ use tezlikv2\Constants\Constants;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
-class CalcProductsCostDao
+class IndirectCostDao
 {
     private $logger;
 
@@ -16,128 +16,6 @@ class CalcProductsCostDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-
-    public function calcCostMaterialsProduct($dataProductMaterial, $id_company)
-    {
-        $connection = Connection::getInstance()->getConnection();
-
-        /* Suma todas las cantidades y costos de products_materials ingresados */
-        $stmt = $connection->prepare("SELECT SUM(pm.quantity * m.cost) as cost 
-                                        FROM products_materials pm 
-                                        INNER JOIN materials m ON pm.id_material = m.id_material 
-                                        WHERE pm.id_company = :id_company AND pm.id_product = :id_product");
-        $stmt->execute(['id_company' => $id_company, 'id_product' => $dataProductMaterial['idProduct']]);
-        $costMaterialsProduct = $stmt->fetch($connection::FETCH_ASSOC);
-
-        /* Modificar costo total de products_costs */
-        $stmt = $connection->prepare("UPDATE products_costs SET cost_materials = :materials
-                                         WHERE id_product = :id_product AND id_company = :id_company");
-        $stmt->execute([
-            'materials' => $costMaterialsProduct['cost'],
-            'id_product' => $dataProductMaterial['idProduct'],
-            'id_company' => $id_company
-        ]);
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    }
-
-    /* Al modificar materia prima */
-    public function calcCostMaterialsByRawMaterials($dataMaterials, $id_company)
-    {
-        $connection = Connection::getInstance()->getConnection();
-
-        $stmt = $connection->prepare("SELECT id_product AS idProduct FROM products_materials WHERE id_material =:id_material AND id_company = :id_company");
-        $stmt->execute(['id_material' => $dataMaterials['idMaterial'], 'id_company' => $id_company]);
-        $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
-
-        /* Suma todas las cantidades y costos de products_materials ingresados */
-
-        for ($i = 0; $i < sizeof($dataProduct); $i++) {
-            $stmt = $connection->prepare("SELECT SUM(pm.quantity * m.cost) as cost 
-                                          FROM products_materials pm 
-                                          INNER JOIN materials m ON pm.id_material = m.id_material 
-                                          WHERE pm.id_company = :id_company AND pm.id_product = :id_product");
-            $stmt->execute(['id_company' => $id_company, 'id_product' => $dataProduct[$i]['idProduct']]);
-            $costMaterialsProduct = $stmt->fetch($connection::FETCH_ASSOC);
-
-            /* Modificar costo total de products_costs */
-            $stmt = $connection->prepare("UPDATE products_costs SET cost_materials = :materials
-                                         WHERE id_product = :id_product AND id_company = :id_company");
-            $stmt->execute([
-                'materials' => $costMaterialsProduct['cost'],
-                'id_product' => $dataProduct[$i]['idProduct'],
-                'id_company' => $id_company
-            ]);
-        }
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    }
-
-
-    public function calcCostPayroll($dataProductProcess, $id_company)
-    {
-        $connection = Connection::getInstance()->getConnection();
-
-        /* Sumar tiempo total por valor por minuto */
-        $stmt = $connection->prepare("SELECT SUM(p.minute_value * (pp.enlistment_time + pp.operation_time)) AS costPayroll
-                                        FROM products_process pp 
-                                        INNER JOIN payroll p ON p.id_process = pp.id_process 
-                                        WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
-        $stmt->execute([
-            'id_product' => $dataProductProcess['idProduct'],
-            'id_company' => $id_company
-        ]);
-        $payroll = $stmt->fetch($connection::FETCH_ASSOC);
-
-        /* Modificar costo de nomina de products_costs */
-        $stmt = $connection->prepare("UPDATE products_costs SET cost_workforce = :workforce
-                                        WHERE id_product = :id_product AND id_company = :id_company");
-        $stmt->execute([
-            'workforce' => $payroll['costPayroll'],
-            'id_product' => $dataProductProcess['idProduct'],
-            'id_company' => $id_company
-        ]);
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    }
-
-    /* Al modificar la nomina */
-    public function calcCostPayrollByPayroll($dataPayroll, $id_company)
-    {
-        $connection = Connection::getInstance()->getConnection();
-
-        // Obtener idProduct atravez de nomina
-        $stmt = $connection->prepare("SELECT pp.id_product as idProduct
-                                      FROM products_process pp
-                                      WHERE pp.id_process = :id_process AND pp.id_company = :id_company");
-        $stmt->execute(['id_process' => $dataPayroll['idProcess'], 'id_company' => $id_company]);
-        $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
-
-        for ($i = 0; $i < sizeof($dataProduct); $i++) {
-            // Sumar tiempo total por valor por minuto
-            $stmt = $connection->prepare("SELECT SUM(p.minute_value * (pp.enlistment_time + pp.operation_time)) AS costPayroll
-                                        FROM products_process pp 
-                                        INNER JOIN payroll p ON p.id_process = pp.id_process 
-                                        WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
-            $stmt->execute([
-                'id_product' => $dataProduct[$i]['idProduct'],
-                'id_company' => $id_company
-            ]);
-            $payroll = $stmt->fetch($connection::FETCH_ASSOC);
-
-            // Modificar costo de nomina de products_costs
-
-            $stmt = $connection->prepare("UPDATE products_costs SET cost_workforce = :workforce
-                                        WHERE id_product = :id_product AND id_company = :id_company");
-            $stmt->execute([
-                'workforce' => $payroll['costPayroll'],
-                'id_product' => $dataProduct[$i]['idProduct'],
-                'id_company' => $id_company
-            ]);
-        }
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    }
 
     public function calcCostIndirectCost($dataProductProcess, $id_company)
     {

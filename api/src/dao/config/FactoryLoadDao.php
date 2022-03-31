@@ -83,17 +83,17 @@ class FactoryLoadDao
     }
   }
 
-  public function deleteFactoryLoad($id_manufacturing_load)
+  public function deleteFactoryLoad($dataFactoryLoad)
   {
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT * FROM manufacturing_load WHERE id_manufacturing_load = :id_manufacturing_load");
-    $stmt->execute(['id_manufacturing_load' => $id_manufacturing_load]);
+    $stmt->execute(['id_manufacturing_load' => $dataFactoryLoad['idManufacturingLoad']]);
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
       $stmt = $connection->prepare("DELETE FROM manufacturing_load WHERE id_manufacturing_load = :id_manufacturing_load");
-      $stmt->execute(['id_manufacturing_load' => $id_manufacturing_load]);
+      $stmt->execute(['id_manufacturing_load' => $dataFactoryLoad['idManufacturingLoad']]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }

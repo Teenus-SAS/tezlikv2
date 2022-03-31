@@ -1,10 +1,12 @@
 <?php
 
 use tezlikv2\dao\ProductsProcessDao;
-use tezlikv2\dao\CalcProductsCostDao;
+use tezlikv2\dao\CostWorkforceDao;
+use tezlikv2\dao\IndirectCostDao;
 
 $productsProcessDao = new ProductsProcessDao();
-$calcProductsCostDao = new CalcProductsCostDao();
+$costWorkforceDao = new CostWorkforceDao();
+$indirectCostDao = new IndirectCostDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -19,7 +21,7 @@ $app->get('/productsProcess/{idProduct}', function (Request $request, Response $
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao, $calcProductsCostDao) {
+$app->post('/addProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao, $costWorkforceDao, $indirectCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProductProcess = $request->getParsedBody();
@@ -30,10 +32,10 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
         $productProcess = $productsProcessDao->insertProductsProcessByCompany($dataProductProcess, $id_company);
 
         /* Calcular costo nomina */
-        $calcCostPayroll = $calcProductsCostDao->calcCostPayroll($dataProductProcess, $id_company);
+        $costPayroll = $costWorkforceDao->calcCostPayroll($dataProductProcess, $id_company);
 
         /* Calcular costo indirecto */
-        $calcIndirectCost = $calcProductsCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
+        $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
 
         if ($productProcess == 1)
             $resp = array('success' => true, 'message' => 'Proceso asignado correctamente');
@@ -44,7 +46,7 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao, $calcProductsCostDao) {
+$app->post('/updateProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao, $costWorkforceDao, $indirectCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProductProcess = $request->getParsedBody();
@@ -55,10 +57,10 @@ $app->post('/updateProductsProcess', function (Request $request, Response $respo
         $productProcess = $productsProcessDao->updateProductsProcess($dataProductProcess);
 
         /* Calcular costo nomina */
-        $calcCostPayroll = $calcProductsCostDao->calcCostPayroll($dataProductProcess, $id_company);
+        $costPayroll = $costWorkforceDao->calcCostPayroll($dataProductProcess, $id_company);
 
         /* Calcular costo indirecto */
-        $calcIndirectCost = $calcProductsCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
+        $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
 
 
         if ($productProcess == 2)
@@ -70,7 +72,7 @@ $app->post('/updateProductsProcess', function (Request $request, Response $respo
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/deleteProductProcess', function (Request $request, Response $response, $args) use ($productsProcessDao, $calcProductsCostDao) {
+$app->post('/deleteProductProcess', function (Request $request, Response $response, $args) use ($productsProcessDao, $costWorkforceDao, $indirectCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProductProcess = $request->getParsedBody();
@@ -78,10 +80,10 @@ $app->post('/deleteProductProcess', function (Request $request, Response $respon
     $product = $productsProcessDao->deleteProductProcess($dataProductProcess);
 
     /* Calcular costo nomina */
-    $calcCostPayroll = $calcProductsCostDao->calcCostPayroll($dataProductProcess, $id_company);
+    $costPayroll = $costWorkforceDao->calcCostPayroll($dataProductProcess, $id_company);
 
     /* Calcular costo indirecto */
-    $calcIndirectCost = $calcProductsCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
+    $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
 
 
     if ($product == null)

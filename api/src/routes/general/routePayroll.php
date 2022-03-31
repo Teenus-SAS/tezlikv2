@@ -1,10 +1,10 @@
 <?php
 
 use tezlikv2\dao\PayrollDao;
-use tezlikv2\dao\CalcProductsCostDao;
+use tezlikv2\dao\CostWorkforceDao;
 
 $payrollDao = new PayrollDao();
-$calcProductsCostDao = new CalcProductsCostDao();
+$costWorkforceDao = new CostWorkforceDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -45,7 +45,7 @@ $app->post('/addPayroll', function (Request $request, Response $response) use ($
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updatePayroll', function (Request $request, Response $response, $args) use ($payrollDao, $calcProductsCostDao) {
+$app->post('/updatePayroll', function (Request $request, Response $response, $args) use ($payrollDao, $costWorkforceDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataPayroll = $request->getParsedBody();
@@ -61,7 +61,7 @@ $app->post('/updatePayroll', function (Request $request, Response $response, $ar
         $payroll = $payrollDao->updatePayroll($dataPayroll);
 
         // Calcular costo nomina
-        $calcCostPayroll = $calcProductsCostDao->calcCostPayrollByPayroll($dataPayroll, $id_company);
+        $costWorkforce = $costWorkforceDao->calcCostPayrollByPayroll($dataPayroll, $id_company);
 
         if ($payroll == 2)
             $resp = array('success' => true, 'message' => 'Nomina actualizada correctamente');

@@ -135,6 +135,15 @@ $(document).ready(function () {
 
   $(document).on('click', '.deleteFactoryLoad', function (e) {
     let id_manufacturing_load = this.id;
+    let row = $(this).parent().parent()[0];
+    let data = tblFactoryLoad.fnGetData(row);
+
+    idMachine = data.id_machine;
+
+    dataFactoryLoad = {};
+    dataFactoryLoad['idManufacturingLoad'] = id_manufacturing_load;
+    dataFactoryLoad['idMachine'] = idMachine;
+
     bootbox.confirm({
       title: 'Eliminar',
       message:
@@ -151,8 +160,9 @@ $(document).ready(function () {
       },
       callback: function (result) {
         if (result == true) {
-          $.get(
-            `../../api/deleteFactoryLoad/${id_manufacturing_load}`,
+          $.post(
+            '../../api/deleteFactoryLoad',
+            dataFactoryLoad,
             function (data, textStatus, jqXHR) {
               message(data);
             }
