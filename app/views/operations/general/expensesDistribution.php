@@ -27,6 +27,7 @@
                         <div class="gridx2">
                             <label for="">Gastos a distribuir</label>
                             <input type="number" class="form-control text-center" id="expensesToDistribution" name="assignableExpense" style="width: 200px;">
+                            <h1 id="expensesToDistribution"></h1>
                         </div>
                     </div>
                 </div>
@@ -85,6 +86,6 @@
 <script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/products/configProducts.js"></script>
 
-<script src="../../app/js/expenses/configExpensesDistribution.js"></script>
 <script src="../../app/js/expenses/tblExpensesDistribution.js"></script>
 <script src="../../app/js/expenses/expensesDistribution.js"></script>
+<script src="../../app/js/expenses/configExpensesDistribution.js"></script>
