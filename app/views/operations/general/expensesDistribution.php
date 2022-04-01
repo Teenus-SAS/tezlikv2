@@ -85,6 +85,6 @@
 <script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/products/configProducts.js"></script>
 
-<script src="../../app/js/expenses/configExpensesDistribution.js"></script>
 <script src="../../app/js/expenses/tblExpensesDistribution.js"></script>
 <script src="../../app/js/expenses/expensesDistribution.js"></script>
+<script src="../../app/js/expenses/configExpensesDistribution.js"></script>
