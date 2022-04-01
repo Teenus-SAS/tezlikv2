@@ -12,6 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-primary" id="btnExpensesDistribution">Distribuir Gastos</button>
+                    <!-- <input type="number" class="form-control text-center" id="expensesToDistribution" name="assignableExpense" style="width: 200px;"> -->
                 </div>
             </div>
         </div>
@@ -26,7 +27,7 @@
                     <div class="card-body">
                         <div class="gridx2">
                             <label for="">Gastos a distribuir</label>
-                            <input type="number" class="form-control text-center" id="expensesToDistribution" name="assignableExpense" style="width: 200px;">
+                            <input type="text" class="form-control number text-center" id="expensesToDistribution" name="assignableExpense" style="width: 200px;">
                         </div>
                     </div>
                 </div>
@@ -34,7 +35,6 @@
         </div>
     </div>
 </div>
-
 <div class="page-content-wrapper mt--45 mb-5 cardExpensesDistribution">
     <div class="container-fluid">
         <div class="row">

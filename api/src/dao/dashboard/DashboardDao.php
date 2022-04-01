@@ -30,6 +30,7 @@ class DashboardDao
         $this->logger->notice("prices", array('prices' => $pricesProductsCost));
         return $pricesProductsCost;
     }
+
     public function findPricesDashboardExpensesDistribution($dataPrice, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();

@@ -22,7 +22,7 @@ class TotalExpenseDao
         $id_company = $_SESSION['id_company'];
 
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT * FROM general_data
+        $stmt = $connection->prepare("SELECT total_expense FROM general_data
                                       WHERE id_company = :id_company;");
         $stmt->execute(['id_company' => $id_company]);
 

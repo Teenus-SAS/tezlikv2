@@ -16,8 +16,6 @@ $(document).ready(function () {
     $('#selectNameProduct option:contains(Seleccionar)').prop('selected', true);
     $('#undVendidas').val('');
     $('#volVendidas').val('');
-
-    $('#expensesToDistribution').val('');
   });
 
   $('#btnAssignExpenses').click(function (e) {
