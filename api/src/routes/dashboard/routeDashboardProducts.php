@@ -1,10 +1,10 @@
 <?php
 
-use tezlikv2\dao\DashboardDao;
+use tezlikv2\dao\DashboardProductsDao;
 use tezlikv2\dao\ProductsProcessDao;
 use tezlikv2\dao\ProductsMaterialsDao;
 
-$dashboardDao = new DashboardDao();
+$dashboardProductsDao = new DashboardProductsDao();
 $productProcessDao = new ProductsProcessDao();
 $productsMaterialsDao = new ProductsMaterialsDao();
 
@@ -13,16 +13,16 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Consulta todos */
 
-$app->get('/dashboardPricesProducts', function (Request $request, Response $response, $args) use ($dashboardDao, $productProcessDao, $productsMaterialsDao) {
+$app->get('/dashboardPricesProducts', function (Request $request, Response $response, $args) use ($dashboardProductsDao, $productProcessDao, $productsMaterialsDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataPrice = $request->getParsedBody();
 
     // Consultar costo del producto
-    $pricesProductsCost = $dashboardDao->findPricesDashboardProductsCost($dataPrice, $id_company);
+    $pricesProductsCost = $dashboardProductsDao->findPricesDashboardProductsCost($dataPrice, $id_company);
 
     // Consultar Distribucion de gasto del producto
-    $pricesExpensesDistribution = $dashboardDao->findPricesDashboardExpensesDistribution($dataPrice, $id_company);
+    $pricesExpensesDistribution = $dashboardProductsDao->findPricesDashboardExpensesDistribution($dataPrice, $id_company);
 
     // Consultar Proceso del producto
     $pricesProductProcess = $productProcessDao->productsprocess($dataPrice['idProduct'], $id_company);
