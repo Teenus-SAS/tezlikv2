@@ -47,4 +47,21 @@ class DashboardGeneralDao
         $this->logger->notice("factoryLoadMinuteValue", array('factoryLoadMinuteValue' => $factoryLoadMinuteValue));
         return $factoryLoadMinuteValue;
     }
+
+    public function findExpensesValueByCompany($id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT ex.id_puc, p.number_count, SUM(ex.expense_value) as totalExpenseValue
+                                      FROM expenses ex
+                                      LEFT JOIN puc p ON p.id_puc = ex.id_puc
+                                      WHERE ex.id_company = :id_company AND
+                                      p.number_count LIKE '51%'"); /* OR p.number_count LIKE '52%' */
+        $stmt->execute(['id_company' => $id_company]);
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+
+        $expenseValue = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("expenseValue", array('expenseValue' => $expenseValue));
+        return $expenseValue;
+    }
 }
