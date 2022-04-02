@@ -53,7 +53,6 @@ class LicenseCompanyDao
                     'status' => 1
                 ]);
             } else {
-
                 $stmt = $connection->prepare("INSERT INTO companies_licenses (id_company, license_start, quantity_user, status)
                                           VALUES (:id_company, :license_start, :quantity_user, :status)");
                 $stmt->execute([
@@ -64,9 +63,7 @@ class LicenseCompanyDao
                     'status' => 1
                 ]);
             }
-
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-            return 1;
         } catch (\Exception $e) {
             $message = $e->getMessage();
             $error = array('info' => true, 'message' => $message);
@@ -88,7 +85,6 @@ class LicenseCompanyDao
                 'status' => 1
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-            return 2;
         } catch (\Exception $e) {
             $message = $e->getMessage();
             $error = array('info' => true, 'message' => $message);

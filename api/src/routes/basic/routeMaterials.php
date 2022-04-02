@@ -30,10 +30,10 @@ $app->post('/addMaterials', function (Request $request, Response $response, $arg
 
         $materials = $materialsDao->insertMaterialsByCompany($dataMaterial, $id_company);
 
-        if ($materials == 1)
+        if ($materials == null)
             $resp = array('success' => true, 'message' => 'Materia Prima creada correctamente');
         else
-            $resp = $materials;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -50,18 +50,18 @@ $app->post('/updateMaterials', function (Request $request, Response $response, $
     // Calcular precio total materias
     $costMaterials = $costMaterialsDao->calcCostMaterialsByRawMaterial($dataMaterial, $id_company);
 
-    if ($materials == 2)
+    if ($materials == null && $costMaterials == null)
         $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');
     else
-        $resp = $materials;
+        $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
 $app->post('/deleteMaterial', function (Request $request, Response $response, $args) use ($materialsDao) {
-    session_start();
-    $id_company = $_SESSION['id_company'];
+    /*session_start();
+    $id_company = $_SESSION['id_company'];*/
     $dataMaterial = $request->getParsedBody();
 
     $materials = $materialsDao->deleteMaterial($dataMaterial);

@@ -23,11 +23,10 @@ $app->post('/addPuc', function (Request $request, Response $response, $args) use
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $puc = $pucDao->insertPuc($dataPuc);
-        if ($puc == 1)
+        if ($puc == null)
             $resp = array('success' => true, 'message' => 'Datos ingresados correctamente');
-        else {
-            $resp = $puc;
-        }
+        else
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -41,11 +40,10 @@ $app->post('/updatePuc', function (Request $request, Response $response, $args) 
         $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
     else {
         $puc = $pucDao->updatePuc($dataPuc);
-        if ($puc == 2)
+        if ($puc == null)
             $resp = array('success' => true, 'message' => 'Datos actualizados correctamente');
-        else {
-            $resp = $puc;
-        }
+        else
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -55,7 +53,7 @@ $app->get('/deletePuc/{id_puc}', function (Request $request, Response $response,
     $puc = $pucDao->deletePuc($args['id_puc']);
     if ($puc == null)
         $resp = array('success' => true, 'message' => 'Datos eliminado correctamente');
-    if ($puc != null)
+    else
         $resp = array('error' => true, 'message' => 'Error al eliminar');
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');

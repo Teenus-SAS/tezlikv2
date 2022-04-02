@@ -57,8 +57,10 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
         if ($users == 1)
             $resp = array('error' => true, 'message' => 'El email ya se encuentra registrado. Intente con uno nuevo');
 
-        if ($users == 2)
+        if ($users == null && $usersAccess == null)
             $resp = array('success' => true, 'message' => 'Usuario creado correctamente');
+        else
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
 
         // if ($users == 3)
         //     $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
@@ -109,7 +111,7 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
             }
         }
     }
-    if ($users == 1)
+    if ($users == null && $usersAccess == null)
         $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
     else
         $resp = array('error' => true, 'message' => 'Ocurrio un error, Intente nuevamente');
@@ -124,9 +126,10 @@ $app->post('/deleteUser', function (Request $request, Response $response, $args)
     $users = $userDao->deleteUser($dataUser);
     $usersAccess = $accessUserDao->deleteUserAccess($dataUser);
 
-    if ($users == null) $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
-    if ($users != null) $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
-
+    if ($users == null && $usersAccess)
+        $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
+    else
+        $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });

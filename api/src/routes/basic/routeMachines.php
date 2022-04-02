@@ -33,10 +33,10 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
 
         $machines = $machinesDao->insertMachinesByCompany($dataMachine, $id_company);
 
-        if ($machines == 1)
+        if ($machines == null)
             $resp = array('success' => true, 'message' => 'Maquina creada correctamente');
         else
-            $resp = $machines;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -60,10 +60,10 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
         // Calcular costo indirecto
         $indirectCost = $indirectCostDao->calcCostIndirectCostByMachine($dataMachine, $id_company);
 
-        if ($machines == 2)
+        if ($machines == null && $indirectCost == null)
             $resp = array('success' => true, 'message' => 'Maquina actualizada correctamente');
         else
-            $resp = $machines;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));

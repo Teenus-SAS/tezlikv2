@@ -52,7 +52,6 @@ class MachinesDao
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 1;
     } catch (\Exception $e) {
 
       $message = $e->getMessage();
@@ -87,7 +86,6 @@ class MachinesDao
         'days_machine' => $dataMachine['daysMachine']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
       $error = array('info' => true, 'message' => $message);

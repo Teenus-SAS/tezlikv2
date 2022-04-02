@@ -31,10 +31,10 @@ $app->post('/addProductsMaterials', function (Request $request, Response $respon
         //Metodo calcular precio total materias
         $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial, $id_company);
 
-        if ($productMaterials == 1)
+        if ($productMaterials == null && $costMaterials == null)
             $resp = array('success' => true, 'message' => 'Materia prima asignada correctamente');
         else
-            $resp = $productMaterials;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras asignaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -52,10 +52,10 @@ $app->post('/updateProductsMaterials', function (Request $request, Response $res
         //Metodo calcular precio total materias
         $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial, $id_company);
 
-        if ($productMaterials == 2)
+        if ($productMaterials == null && $costMaterials == null)
             $resp = array('success' => true, 'message' => 'Materia prima actualizada correctamente');
         else
-            $resp = $productMaterials;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -70,10 +70,10 @@ $app->post('/deleteProductMaterial', function (Request $request, Response $respo
     //Metodo calcular precio total materias
     $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial, $id_company);
 
-    if ($product == null)
+    if ($product == null && $costMaterials == null)
         $resp = array('success' => true, 'message' => 'Materia prima eliminada correctamente');
 
-    if ($product != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar la materia prima asignada, existe información asociada a él');
 
     $response->getBody()->write(json_encode($resp));

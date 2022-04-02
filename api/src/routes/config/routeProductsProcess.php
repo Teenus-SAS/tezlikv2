@@ -37,10 +37,10 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
         /* Calcular costo indirecto */
         $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
 
-        if ($productProcess == 1)
+        if ($productProcess == null && $costPayroll == null && $indirectCost == null)
             $resp = array('success' => true, 'message' => 'Proceso asignado correctamente');
         else
-            $resp = $productProcess;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras asignaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -63,10 +63,10 @@ $app->post('/updateProductsProcess', function (Request $request, Response $respo
         $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
 
 
-        if ($productProcess == 2)
+        if ($productProcess == null && $costPayroll == null && $indirectCost == null)
             $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');
         else
-            $resp = $productProcess;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -86,10 +86,9 @@ $app->post('/deleteProductProcess', function (Request $request, Response $respon
     $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
 
 
-    if ($product == null)
+    if ($product == null && $costPayroll == null && $indirectCost == null)
         $resp = array('success' => true, 'message' => 'Proceso eliminado correctamente');
-
-    if ($product != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar el proceso asignado, existe información asociada a él');
 
     $response->getBody()->write(json_encode($resp));

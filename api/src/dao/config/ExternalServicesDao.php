@@ -46,7 +46,6 @@ class ExternalServicesDao
                 'id_company' => $id_company
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-            return 1;
         } catch (\Exception $e) {
             $message = $e->getMessage();
             if ($e->getCode() == 23000)
@@ -71,7 +70,6 @@ class ExternalServicesDao
                 'id_product' => $dataExternalService['idProduct']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-            return 2;
         } catch (\Exception $e) {
             $message = $e->getMessage();
             $error = array('info' => true, 'message' => $message);

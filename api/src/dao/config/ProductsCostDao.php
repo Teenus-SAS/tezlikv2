@@ -40,7 +40,6 @@ class ProductsCostDao
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        return 1;
     }
 
     public function updateProductsCost($dataProduct)
@@ -57,7 +56,6 @@ class ProductsCostDao
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        return 2;
     }
 
     public function deleteProductsCost($dataProduct)

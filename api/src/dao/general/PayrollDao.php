@@ -54,7 +54,6 @@ class PayrollDao
         'salary_net' => $payrollCalculate['salaryNet'],           'minute_value' => $payrollCalculate['minuteValue'],
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 1;
     } catch (\Exception $e) {
       $message = $e->getMessage();
       if ($e->getCode() == 23000)
@@ -85,7 +84,6 @@ class PayrollDao
         'type_contract' => $dataPayroll['typeFactor'],                   'minute_value' => $payrollCalculate['minuteValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
       $error = array('info' => true, 'message' => $message);

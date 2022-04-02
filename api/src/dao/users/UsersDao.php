@@ -87,7 +87,6 @@ class UsersDao
     /* Enviar email al usuario creado */
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    return 2;
   }
 
   public function updateUser($dataUser, $pathAvatar)
@@ -115,9 +114,7 @@ class UsersDao
         'id_user' => $dataUser['idUser']
       ]);
     }
-
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    return 1;
   }
 
 

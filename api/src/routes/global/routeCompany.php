@@ -30,7 +30,7 @@ $app->post('/addCompany', function (Request $request, Response $response, $args)
 
         $userDao = new UsersDao();
         $licenseCompanyDao = new LicenseCompanyDao();
-        
+
         $id_company = $companyDao->insertCompany($data);
         $userDao->saveUser($data, $id_company);
         $licenseCompany = $licenseCompanyDao->insertLicenseCompanyByCompany($data, $id_company);
@@ -55,10 +55,10 @@ $app->post('/updateCompany', function (Request $request, Response $response, $ar
         $resp = array('error' => true, 'message' => 'No hubo cambio alguno');
     else {
         $company = $companyDao->updateCompany($dataCompany);
-        if ($company == 2)
+        if ($company == null)
             $resp = array('success' => true, 'message' => 'Compañia actualizada correctamente');
         else
-            $resp = $company;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -69,7 +69,7 @@ $app->get('/deleteCompany/{id_company}', function (Request $request, Response $r
 
     if ($company == null)
         $resp = array('success' => true, 'message' => 'Compañia eliminada correctamente');
-    if ($company != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar la compañia, existe información asociada a ella');
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');

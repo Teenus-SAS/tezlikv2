@@ -34,11 +34,11 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
         //Insertar en products_costs
         $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
         $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
-        
-        if ($products == 1)
+
+        if ($products == null && $productsCost == null)
             $resp = array('success' => true, 'message' => 'Producto creado correctamente');
         else
-            $resp = $products;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -58,10 +58,10 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
         $products = $productsDao->updateProduct($dataProduct);
         $productsCost = $productsCostDao->updateProductsCost($dataProduct);
 
-        if ($products == 2)
+        if ($products == null && $productsCost == null)
             $resp = array('success' => true, 'message' => 'Producto actualizado correctamente');
         else
-            $resp = $products;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -74,10 +74,9 @@ $app->post('/deleteProduct', function (Request $request, Response $response, $ar
     $productsCost = $productsCostDao->deleteProductsCost($dataProduct);
     $product = $productsDao->deleteProduct($dataProduct);
 
-    if ($product == null)
+    if ($product == null && $productsCost == null)
         $resp = array('success' => true, 'message' => 'Producto eliminado correctamente');
-
-    if ($product != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar el producto, existe información asociada a él');
 
     $response->getBody()->write(json_encode($resp));

@@ -41,10 +41,10 @@ $app->post('/addUserAccess', function (Request $request, Response $response, $ar
     else {
         $userAccess = $userAccessDao->insertUserAccessByUser($dataUserAccess, $id_user);
 
-        if ($userAccess == 1)
+        if ($userAccess == null)
             $resp = array('success' => true, 'message' => 'Acceso de usuario creado correctamente');
         else
-            $resp = $userAccess;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -56,11 +56,10 @@ $app->post('/updateUserAccess', function (Request $request, Response $response, 
 
     $userAccess = $userAccessDao->updateUserAccessByUsers($dataUserAccess);
 
-    if ($userAccess == 2)
+    if ($userAccess == null)
         $resp = array('success' => true, 'message' => 'Acceso de usuario actualizado correctamente');
     else
-        $resp = $userAccess;
-
+        $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');

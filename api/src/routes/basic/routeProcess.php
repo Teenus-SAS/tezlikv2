@@ -27,10 +27,10 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
     else {
         $process = $processDao->insertProcessByCompany($dataProcess, $id_company);
 
-        if ($process == 1)
+        if ($process == null)
             $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
         else
-            $resp = $process;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -38,7 +38,7 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
 });
 
 $app->post('/updateProcess', function (Request $request, Response $response, $args) use ($processDao) {
-    
+
     $dataProcess = $request->getParsedBody();
 
     if (empty($dataProcess['process']))
@@ -49,7 +49,7 @@ $app->post('/updateProcess', function (Request $request, Response $response, $ar
         if ($process == null)
             $resp = array('success' => true, 'message' => 'Proceso actualizado correctamente');
         else
-            $resp = $process;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));

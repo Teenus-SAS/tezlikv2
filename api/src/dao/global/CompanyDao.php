@@ -71,7 +71,7 @@ class CompanyDao
     try {
       session_start();
       $id_company = $_SESSION['id_company'];
-      
+
       $stmt = $connection->prepare("UPDATE companies SET company = :company, state = :state, city = :city, country = :country, address = :address, 
                                                   telephone = :telephone, nit = :nit, logo = :logo, created_at = :created_at, creador =:creador
                                     WHERE id_company = :id_company");
@@ -89,7 +89,6 @@ class CompanyDao
         'id_company' => $id_company
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
       $error = array('info' => true, 'message' => $message);

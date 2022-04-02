@@ -17,7 +17,7 @@ class DashboardGeneralDao
     }
 
     //Gastos generales
-    public function findAllPricesDashboardGeneralsByCompany($id_company)
+    public function findProcessMinuteValueByCompany($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT pc.process, py.minute_value FROM payroll py 
@@ -27,8 +27,24 @@ class DashboardGeneralDao
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
-        $generalExpenses = $stmt->fetchAll($connection::FETCH_ASSOC);
-        $this->logger->notice("expenses", array('expenses' => $generalExpenses));
-        return $generalExpenses;
+        $processMinuteValue = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("processMinuteValue", array('processMinuteValue' => $processMinuteValue));
+        return $processMinuteValue;
+    }
+
+    public function findfactoryLoadMinuteValueByCompany($id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT m.machine, SUM(ml.cost_minute) AS totalCostMinute
+                                      FROM machines m 
+                                      INNER JOIN manufacturing_load ml ON ml.id_machine = m.id_machine 
+                                      WHERE ml.id_company = :id_company GROUP BY m.machine");
+        $stmt->execute(['id_company' => $id_company]);
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+
+        $factoryLoadMinuteValue = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("factoryLoadMinuteValue", array('factoryLoadMinuteValue' => $factoryLoadMinuteValue));
+        return $factoryLoadMinuteValue;
     }
 }

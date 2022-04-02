@@ -39,7 +39,6 @@ class PucDao
         'count' => ucfirst(strtolower($dataPuc['count']))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 1;
     } catch (\Exception $e) {
       if ($e->getCode() == 23000)
         $message = 'Numero de cuenta duplicada. Ingrese un nuevo numero';
@@ -61,7 +60,6 @@ class PucDao
         'count' => ucfirst(strtolower($dataPuc['count']))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      return 2;
     } catch (\Exception $e) {
       $message = $e->getMessage();
       $error = array('info' => true, 'message' => $message);

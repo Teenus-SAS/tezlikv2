@@ -35,10 +35,10 @@ $app->post('/addPayroll', function (Request $request, Response $response) use ($
     else {
         $payroll = $payrollDao->insertPayrollByCompany($dataPayroll, $id_company);
 
-        if ($payroll == 1)
+        if ($payroll == null)
             $resp = array('success' => true, 'message' => 'Nomina creada correctamente');
         else
-            $resp = $payroll;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -63,10 +63,10 @@ $app->post('/updatePayroll', function (Request $request, Response $response, $ar
         // Calcular costo nomina
         $costWorkforce = $costWorkforceDao->calcCostPayrollByPayroll($dataPayroll, $id_company);
 
-        if ($payroll == 2)
+        if ($payroll == null && $costWorkforce == null)
             $resp = array('success' => true, 'message' => 'Nomina actualizada correctamente');
         else
-            $resp = $payroll;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -78,7 +78,7 @@ $app->get('/deletePayroll/{id_payroll}', function (Request $request, Response $r
 
     if ($payroll == null)
         $resp = array('success' => true, 'message' => 'Nomina eliminada correctamente');
-    if ($payroll != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar la nomina, existe información asociada a ella');
 
     $response->getBody()->write(json_encode($resp));

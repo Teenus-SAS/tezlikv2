@@ -30,10 +30,10 @@ $app->post('/addExpenses', function (Request $request, Response $response, $args
         // Calcular total del gasto
         $totalExpense = $totalExpenseDao->insertUpdateTotalExpense($id_company);
 
-        if ($expenses == 1)
+        if ($expenses == null && $totalExpense == null)
             $resp = array('success' => true, 'message' => 'Gasto creado correctamente');
         else
-            $resp = $expenses;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -53,10 +53,10 @@ $app->post('/updateExpenses', function (Request $request, Response $response, $a
         // Calcular total del gasto
         $totalExpense = $totalExpenseDao->insertUpdateTotalExpense($id_company);
 
-        if ($expenses == 2)
+        if ($expenses == null && $totalExpense == null)
             $resp = array('success' => true, 'message' => 'Gasto actualizado correctamente');
         else
-            $resp = $expenses;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -72,9 +72,9 @@ $app->get('/deleteExpenses/{id_expense}', function (Request $request, Response $
     // Calcular total del gasto
     $totalExpense = $totalExpenseDao->insertUpdateTotalExpense($id_company);
 
-    if ($expenses == null)
+    if ($expenses == null && $totalExpense == null)
         $resp = array('success' => true, 'message' => 'Gasto eliminado correctamente');
-    if ($expenses != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar el gasto, existe información asociada a él');
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');

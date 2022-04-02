@@ -34,10 +34,10 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
         // Calcular costo indirecto
         $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
-        if ($factoryLoad == 1)
+        if ($factoryLoad == null && $indirectCost == null)
             $resp = array('success' => true, 'message' => 'Carga fabril creada correctamente');
         else
-            $resp = $factoryLoad;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -58,10 +58,10 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
         // Calcular costo indirecto
         $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
-        if ($factoryLoad == 2)
+        if ($factoryLoad == null && $indirectCost == null)
             $resp = array('success' => true, 'message' => 'Carga fabril actualizada correctamente');
         else
-            $resp = $factoryLoad;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -78,9 +78,9 @@ $app->post('/deleteFactoryLoad', function (Request $request, Response $response,
     $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
 
-    if ($factoryLoad == null)
+    if ($factoryLoad == null && $indirectCost == null)
         $resp = array('success' => true, 'message' => 'Carga fabril eliminada correctamente');
-    if ($factoryLoad != null)
+    else
         $resp = array('error' => true, 'message' => 'No se pudo eliminar la carga fabril, existe información asociada a ella');
     $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');

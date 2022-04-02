@@ -23,10 +23,10 @@ $app->post('/addExternalService', function (Request $request, Response $response
     else {
         $externalServices = $externalServicesDao->insertExternalServicesByCompany($dataExternalService, $id_company);
 
-        if ($externalServices == 1)
+        if ($externalServices == null)
             $resp = array('success' => true, 'message' => 'Servicio externo ingresado correctamente');
         else
-            $resp = $externalServices;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -40,10 +40,10 @@ $app->post('/updateExternalService', function (Request $request, Response $respo
     else {
         $externalServices = $externalServicesDao->updateExternalServices($dataExternalService);
 
-        if ($externalServices == 2)
+        if ($externalServices == null)
             $resp = array('success' => true, 'message' => 'Servicio externo actualizado correctamente');
         else
-            $resp = $externalServices;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -53,7 +53,7 @@ $app->get('/deleteExternalService/{id_service}', function (Request $request, Res
     $externalServices = $externalServicesDao->deleteExternalService($args['id_service']);
     if ($externalServices == null)
         $resp = array('success' => true, 'message' => 'Servicio externo eliminado correctamente');
-    if ($externalServices != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar el servicio externo, existe información asociada a él');
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
