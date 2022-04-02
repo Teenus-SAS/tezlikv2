@@ -34,14 +34,13 @@ $app->post('/addExpensesDistribution', function (Request $request, Response $res
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expensesDistribution = $expensesDistributionDao->insertExpensesDistributionByCompany($dataExpensesDistribution, $id_company);
-
         // Calcular gasto asignable
-        $assignableExpense = $assignableExpenseDao->calcAssignableExpense($dataExpensesDistribution, $id_company);
+        $assignableExpense = $assignableExpenseDao->calcAssignableExpense($id_company);
 
-        if ($expensesDistribution == 1)
+        if ($expensesDistribution == null && $assignableExpense == null)
             $resp = array('success' => true, 'message' => 'Distribución de gasto asignado correctamente');
         else
-            $resp = $expensesDistribution;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -56,27 +55,30 @@ $app->post('/updateExpensesDistribution', function (Request $request, Response $
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
         $expensesDistribution = $expensesDistributionDao->updateExpensesDistribution($dataExpensesDistribution);
-
         // Calcular gasto asignable
-        $assignableExpense = $assignableExpenseDao->calcAssignableExpense($dataExpensesDistribution, $id_company);
+        $assignableExpense = $assignableExpenseDao->calcAssignableExpense($id_company);
 
-
-        if ($expensesDistribution == 1)
+        if ($expensesDistribution == null && $assignableExpense == null)
             $resp = array('success' => true, 'message' => 'Distribución de gasto actualizada correctamente');
         else
-            $resp = $expensesDistribution;
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/deleteExpensesDistribution/{id_expenses_distribution}', function (Request $request, Response $response, $args) use ($expensesDistributionDao) {
-    $expensesDistribution = $expensesDistributionDao->deleteExpensesDistribution($args['id_expenses_distribution']);
+$app->get('/deleteExpensesDistribution/{id_expenses_distribution}', function (Request $request, Response $response, $args) use ($expensesDistributionDao, $assignableExpenseDao) {
+    session_start();
+    $id_company = $_SESSION['id_company'];
 
-    if ($expensesDistribution == null)
+    $expensesDistribution = $expensesDistributionDao->deleteExpensesDistribution($args['id_expenses_distribution']);
+    $assignableExpense = $assignableExpenseDao->calcAssignableExpense($id_company);
+
+    if ($expensesDistribution == null && $assignableExpense == null)
         $resp = array('success' => true, 'message' => 'Distribucion de gasto eliminado correctamente');
-    if ($expensesDistribution != null)
+    else
         $resp = array('error' => true, 'message' => 'No es posible eliminar el gasto, existe información asociada a él');
-    $response->getBody()->write(json_encode($resp));
+    
+        $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');
 });
