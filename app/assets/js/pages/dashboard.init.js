@@ -47,7 +47,7 @@ function statisticChart() {
                     } */
         ],
         xaxis: {
-            categories: ["Mano de Obra", "Materia Prima", "Costos Indirectos", "Precio"]
+            categories: ["Mano de Obra", "Materia Prima", "Costos Indirectos", "Gastos Generales"]
         },
         legend: {
             fontFamily: "Nunito Sans, sans-serif",
@@ -86,6 +86,7 @@ function todayRevenue() {
     var e = { type: "doughnut", data: { datasets: [{ data: [600, 1400], backgroundColor: [colors.white, "rgba(255,255,255,0.3)"], hoverBackgroundColor: [colors.white, "rgba(255,255,255,0.3)"], borderWidth: 0 }] }, options: { cutoutPercentage: 94, responsive: !0, maintainAspectRatio: !1, scales: { xAxes: [{ display: !1 }], yAxes: [{ display: !1 }] }, legend: { display: !1 }, tooltips: { enabled: !1 } } };
     new Chart(document.getElementById("today-revenue"), e)
 }
+
 $(function() {
     var e;
     statsChart(), statsChart2(), statsChart3(), statsChart4(), statisticChart(), quarterlyChart(), todaySaleChart(), e = statsPerWeekChart("weekly", !1, e), todayRevenue(), $(".earningTabs button").on("click", function() { $(this).addClass("btn-primary").removeClass("btn-outline-primary"), $(this).siblings().removeClass("btn-primary").addClass("btn-outline-primary"), statsPerWeekChart($(this).attr("data-type"), !0, e) })

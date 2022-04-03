@@ -16,11 +16,11 @@ class DashboardProductsDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    // Gastos productos
+    // Costos y Gastos productos
     public function findCostAnalysisByProduct($dataPrice, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT pc.cost_materials, pc.cost_workforce, pc.cost_indirect_cost, pc.profitability, ed.turnover
+        $stmt = $connection->prepare("SELECT pc.cost_materials, pc.cost_workforce, pc.cost_indirect_cost, ed.assignable_expense, pc.profitability, ed.units_sold, ed.turnover
                                       FROM products_costs pc
                                       INNER JOIN expenses_distribution ed ON ed.id_product = pc.id_product
                                       WHERE id_product = :id_product AND id_company = :id_company");
@@ -81,18 +81,4 @@ class DashboardProductsDao
         $this->logger->notice("costRawMaterials", array('costRawMaterials' => $costRawMaterials));
         return $costRawMaterials;
     }
-
-    /*public function findPricesDashboardExpensesDistribution($dataPrice, $id_company)
-    {
-        $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare(["SELECT units_sold, turnover, assignable_expense 
-                                      FROM expenses_distribution WHERE id_product = :id_product AND id_company = :id_company"]);
-        $stmt->execute(['id_product' => $dataPrice['idProduct'], 'id_company' => $id_company]);
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-
-        $pricesExpensesDistribution = $stmt->fetchAll($connection::FETCH_ASSOC);
-        $this->logger->notice("prices", array('prices' => $pricesExpensesDistribution));
-        return $pricesExpensesDistribution;
-    }*/
 }

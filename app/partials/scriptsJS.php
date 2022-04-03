@@ -13,6 +13,8 @@
 <script src="assets/js/utils/colors.js"></script>
 <script src="assets/js/pages/dashboard.init.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!-- page JS -->
 <script src="assets/js/app.js"></script>
 

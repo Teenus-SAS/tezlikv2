@@ -49,11 +49,11 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Materia Prima</span>
-                                <h2 class="mb-0 mt-1">$24.257</h2>
+                                <h2 class="mb-0 mt-1">$1.290.100</h2>
                             </div>
                             <div class="text-center">
-                                <div id="t-rev"></div>
-                                <span class="text-success font-weight-bold font-size-13">
+                                <!-- <div id="t-rev"></div> -->
+                                <span class="text-success font-weight-bold" style="font-size:large">
                                     <i class="bx bx-up-arrow-alt"></i> 10.21%
                                 </span>
                             </div>
@@ -67,11 +67,11 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Mano de Obra</span>
-                                <h2 class="mb-0 mt-1">$15.623</h2>
+                                <h2 class="mb-0 mt-1">$38.736</h2>
                             </div>
                             <div class="text-center">
-                                <div id="t-order"></div>
-                                <span class="text-danger font-weight-bold font-size-13">
+                                <!-- <div id="t-order"></div> -->
+                                <span class="text-danger font-weight-bold" style="font-size:large">
                                     <i class="bx bx-down-arrow-alt"></i> 5.05%
                                 </span>
                             </div>
@@ -85,11 +85,11 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Costos Indirectos</span>
-                                <h2 class="mb-0 mt-1">$3.157.749</h2>
+                                <h2 class="mb-0 mt-1">$2.139</h2>
                             </div>
                             <div class="text-center">
-                                <div id="t-user"></div>
-                                <span class="text-success font-weight-bold font-size-13">
+                                <!-- <div id="t-user"></div> -->
+                                <span class="text-success font-weight-bold" style="font-size:large">
                                     <i class="bx bx-up-arrow-alt"></i> 25.21%
                                 </span>
                             </div>
@@ -102,12 +102,12 @@
                     <div class="card-body">
                         <div class="media align-items-center">
                             <div class="media-body">
-                                <span class="text-muted text-uppercase font-size-12 font-weight-bold">Rentabilidad</span>
-                                <h2 class="mb-0 mt-1">35%</h2>
+                                <span class="text-muted text-uppercase font-size-12 font-weight-bold">Gastos Generales</span>
+                                <h2 class="mb-0 mt-1">5.500</h2>
                             </div>
                             <div class="text-center">
-                                <div id="t-visitor"></div>
-                                <span class="text-danger font-weight-bold font-size-13">
+                                <!-- <div id="t-visitor"></div> -->
+                                <span class="text-danger font-weight-bold" style="font-size:large">
                                     <i class="bx bx-down-arrow-alt"></i> 5.16%
                                 </span>
                             </div>
@@ -163,22 +163,144 @@
                 </div>
             </div>
             <!-- Begin total revenue chart -->
-            <div class="col-md-8 col-lg-9">
+            <div class="col-md-4 col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Costos y Precio</h5>
+                        <h5 class="card-title">Costos y Gastos</h5>
                     </div>
                     <div class="card-body pt-2">
-                        <div id="stats-chart"></div>
+                        <!-- <div id="chartProductCosts"></div> -->
+                        <canvas id="chartProductCosts"></canvas>
                     </div>
                 </div>
             </div>
             <!-- End total revenue chart -->
+            <div class="col-md-4 col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Costeo Total</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item py-4">
+                                <div class="media">
+                                    <div class="media-body">
+                                        <div style="display: grid;grid-template-columns:1fr 1fr">
+                                            <p class="mb-2" style="color:green">Precio de Venta</p>
+                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+                                            <p class="mb-2" style="color:darkcyan">Total Costos</p>
+                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+                                            <p class="mb-2" style="color:darkcyan">Costos</p>
+                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+                                            <p class="text-muted mb-2 pl-3">Materia Prima</p>
+                                            <h6 class="mb-0 pl-3">$ 1.625.000</h5>
+                                                <p class="text-muted mb-2 pl-3">Mano de Obra</p>
+                                                <h6 class="mb-0 pl-3">$ 1.625.000</h5>
+                                                    <p class="text-muted mb-2 pl-3">Costos Indirectos</p>
+                                                    <h6 class="mb-0 pl-3">$ 1.625.000</h5>
+                                                        <p class="mb-2" style="color:darkcyan">Gastos</p>
+                                                        <h6 class="mb-0 pl-3">$ 1.625.000</h5>
+                                                            <p class="mb-2" style="color:darkcyan">Comisión Ventas</p>
+                                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+                                                            <p class="mb-2" style="color:darkcyan">Rentabilidad</p>
+                                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row 4-->
+        <div class="row">
+            <!-- Begin total sales chart -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Costo Mano de Obra</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div class="chart">
+                                <canvas id="charWorkForce" style="width: 90%;"></canvas>
+                            </div>
+                            <!-- <div class="center-text">
+                                <p class="text-muted mb-1 font-weight-600">Total Costo </p>
+                                <h4 class="mb-0 font-weight-bold">$38.736</h4>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Total Tiempo Proceso</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div class="chart">
+                                <canvas id="charTimeProcess" style="width: 90%;"></canvas>
+                            </div>
+                            <!-- <div class="center-text">
+                                <p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
+                                <h4 class="mb-0 font-weight-bold">120 min</h4>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End total sales chart -->
+            <!-- Begin earning chart -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header dflex-between-center">
+                        <h5 class="card-title">Costos Materia Prima</h5>
+                    </div>
+                    <div class="card-body pt-2">
+                        <canvas id="chartMaterialsCosts"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- End earning chart -->
+            <!-- Begin today sale -->
+            <!-- <div class="col-lg-3">
+                <div class="card revenue-card">
+                    <div class="card-header bg-info">
+                        <h5 class="card-title text-white">Revenue</h5>
+                    </div>
+                    <div class="card-body bg-info position-relative">
+                        <div class="chart-container">
+                            <div class="chart h-150">
+                                <canvas id="today-revenue"></canvas>
+                            </div>
+                        </div>
+                        <div class="center-text">
+                            <p class="text-light mb-1 font-weight-600">Sale </p>
+                            <h4 class="text-white mb-0 font-weight-bold">$600</h4>
+                        </div>
+                    </div>
+                    <div class="revenue-stats p-4">
+                        <div>
+                            <p class="text-muted">Target</p>
+                            <h4>$2000</h4>
+                        </div>
+                        <div>
+                            <p class="text-muted">Current</p>
+                            <h4>$1500</h4>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- End today sale -->
         </div>
         <!-- Row 3-->
-        <div class="row">
-            <!-- Begin recent orders -->
-            <div class="col-12 col-lg-8">
+        <!-- <div class="row"> -->
+        <!-- Begin recent orders -->
+        <!-- <div class="col-12 col-lg-8">
                 <div class="card">
                     <div class="card-header dflex-between-center">
                         <h5 class="card-title">Recent Orders</h5>
@@ -240,10 +362,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- End recent orders -->
-            <!-- Begin quarter sale -->
-            <div class="col-12 col-lg-4">
+            </div> -->
+        <!-- End recent orders -->
+        <!-- Begin quarter sale -->
+        <!-- <div class="col-12 col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Quartly Sale</h5>
@@ -252,84 +374,12 @@
                         <div id="quartly-sale"></div>
                     </div>
                 </div>
-            </div>
-            <!-- End quarter sale -->
-        </div>
-        <!-- Row 4-->
-        <div class="row">
-            <!-- Begin total sales chart -->
-            <div class="col-lg-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Total Sales</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <div class="chart">
-                                <canvas id="total-sale"></canvas>
-                            </div>
-                            <div class="center-text">
-                                <p class="text-muted mb-1 font-weight-600">Total Sale </p>
-                                <h4 class="mb-0 font-weight-bold">130</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End total sales chart -->
-            <!-- Begin earning chart -->
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header dflex-between-center">
-                        <h5 class="card-title">Earning Statastics</h5>
-                        <div class="btn-group earningTabs">
-                            <button class="btn btn-primary btn-sm" data-effect="wave" data-type="weekly">
-                                Weekly
-                            </button>
-                            <button class="btn btn-outline-primary btn-sm" data-effect="wave" data-type="monthly">
-                                Monthly
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body pt-2">
-                        <div id="sales-order"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- End earning chart -->
-            <!-- Begin today sale -->
-            <div class="col-lg-3">
-                <div class="card revenue-card">
-                    <div class="card-header bg-info">
-                        <h5 class="card-title text-white">Revenue</h5>
-                    </div>
-                    <div class="card-body bg-info position-relative">
-                        <div class="chart-container">
-                            <div class="chart h-150">
-                                <canvas id="today-revenue"></canvas>
-                            </div>
-                        </div>
-                        <div class="center-text">
-                            <p class="text-light mb-1 font-weight-600">Sale </p>
-                            <h4 class="text-white mb-0 font-weight-bold">$600</h4>
-                        </div>
-                    </div>
-                    <div class="revenue-stats p-4">
-                        <div>
-                            <p class="text-muted">Target</p>
-                            <h4>$2000</h4>
-                        </div>
-                        <div>
-                            <p class="text-muted">Current</p>
-                            <h4>$1500</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End today sale -->
-        </div>
+            </div> -->
+        <!-- End quarter sale -->
+        <!-- </div> -->
+
         <!-- Row 5 -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -454,9 +504,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 
-<script src="../../app/assets/js/pages/dashboard.init.js"></script>
-<script src="../../app/assets/js/app.js"></script>
+<!-- <script src="../../app/assets/js/pages/dashboard.init.js"></script> -->
+<!-- <script src="../../app/assets/js/app.js"></script> -->
+<script src="../../app/js/dashboard/dashboardProduct.js"></script>

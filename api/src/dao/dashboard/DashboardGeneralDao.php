@@ -47,4 +47,6 @@ class DashboardGeneralDao
         $this->logger->notice("factoryLoadMinuteValue", array('factoryLoadMinuteValue' => $factoryLoadMinuteValue));
         return $factoryLoadMinuteValue;
     }
+
+    /* gastos generales */
 }
