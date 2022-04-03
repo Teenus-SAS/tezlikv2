@@ -20,7 +20,7 @@ class DashboardProductsDao
     public function findCostAnalysisByProduct($dataPrice, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT pc.cost_materials, pc.cost_workforce, pc.cost_indirect_cost, ed.assignable_expense, pc.profitability, ed.units_sold, ed.turnover
+        $stmt = $connection->prepare("SELECT pc.cost_materials, pc.cost_workforce, ed.assignable_expense, pc.cost_indirect_cost, pc.profitability, ed.units_sold, ed.turnover
                                       FROM products_costs pc
                                       INNER JOIN expenses_distribution ed ON ed.id_product = pc.id_product
                                       WHERE id_product = :id_product AND id_company = :id_company");
