@@ -19,7 +19,7 @@ $app->get('/expensesDistribution', function (Request $request, Response $respons
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/expenseTotal', function (Request $request, Response $response, $args) use ($totalExpenseDao) {
+$app->get('/expenseTotal', function (Request $request, Response $response, $args) use ($totalExpenseDao) {
     $totalExpense = $totalExpenseDao->findTotalExpenseByCompany();
     $response->getBody()->write(json_encode($totalExpense, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
@@ -78,7 +78,7 @@ $app->get('/deleteExpensesDistribution/{id_expenses_distribution}', function (Re
         $resp = array('success' => true, 'message' => 'Distribucion de gasto eliminado correctamente');
     else
         $resp = array('error' => true, 'message' => 'No es posible eliminar el gasto, existe información asociada a él');
-    
-        $response->getBody()->write(json_encode($resp));
+
+    $response->getBody()->write(json_encode($resp));
     return $response->withHeader('Content-Type', 'application/json');
 });

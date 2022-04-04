@@ -49,7 +49,7 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Materia Prima</span>
-                                <h2 class="mb-0 mt-1">$1.290.100</h2>
+                                <h2 class="mb-0 mt-1" id="rawMaterial"></h2>
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-rev"></div> -->
@@ -204,7 +204,6 @@
                                                             <h6 class="mb-0 pl-3">$ 1.625.000</h6>
                                                             <p class="mb-2" style="color:darkcyan">Rentabilidad</p>
                                                             <h6 class="mb-0 pl-3">$ 1.625.000</h6>
-
                                         </div>
                                     </div>
                                 </div>
@@ -510,4 +509,7 @@
 
 <!-- <script src="../../app/assets/js/pages/dashboard.init.js"></script> -->
 <!-- <script src="../../app/assets/js/app.js"></script> -->
+
 <script src="../../app/js/dashboard/dashboardProduct.js"></script>
+
+<!-- <script src="../../app/js/dashboard/configDashboardProducts.js"></script> -->

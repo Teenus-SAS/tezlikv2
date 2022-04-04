@@ -23,7 +23,7 @@ require_once('../api/src/routes/config/routeProductsProcess.php');
 
 // Dashboard
 require_once('../api/src/routes/dashboard/routeDashboardGenerals.php');
-//require_once('../api/src/routes/dashboard/routeDashboardProducts.php');
+require_once('../api/src/routes/dashboard/routeDashboardProducts.php');
 
 // General
 require_once('../api/src/routes/general/routeExpenses.php');

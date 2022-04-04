@@ -44,4 +44,5 @@
         </div>
     </div> -->
 
+<script src="../../app/js/analysis/prices/configPrices.js"></script>
 <script src="../../app/js/analysis/prices/tblprices.js"></script>

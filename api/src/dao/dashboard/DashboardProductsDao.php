@@ -17,14 +17,14 @@ class DashboardProductsDao
     }
 
     // Costos y Gastos productos
-    public function findCostAnalysisByProduct($dataPrice, $id_company)
+    public function findCostAnalysisByProduct($id_product, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT pc.cost_materials, pc.cost_workforce, ed.assignable_expense, pc.cost_indirect_cost, pc.profitability, ed.units_sold, ed.turnover
                                       FROM products_costs pc
                                       INNER JOIN expenses_distribution ed ON ed.id_product = pc.id_product
-                                      WHERE id_product = :id_product AND id_company = :id_company");
-        $stmt->execute(['id_product' => $dataPrice['idProduct'], 'id_company' => $id_company]);
+                                      WHERE pc.id_product = :id_product AND pc.id_company = :id_company");
+        $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
@@ -33,14 +33,14 @@ class DashboardProductsDao
         return $costAnalysisProducts;
     }
 
-    public function findProductProcessByProduct($dataPrice, $id_company)
+    public function findProductProcessByProduct($id_product, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT pc.process, (pp.enlistment_time + pp.operation_time) AS totalTime
                                       FROM products_process pp 
                                       INNER JOIN process pc ON pc.id_process = pp.id_process
                                       WHERE pp.id_product = :id_product AND pp.id_company = :id_company");
-        $stmt->execute(['id_product' => $dataPrice['idProduct'], 'id_company' => $id_company]);
+        $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
@@ -49,7 +49,7 @@ class DashboardProductsDao
         return $totalTimeProcess;
     }
 
-    public function findCostWorkforceByProduct($dataPrice, $id_company)
+    public function findCostWorkforceByProduct($id_product, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT p.process, ((pp.enlistment_time + pp.operation_time) * py.minute_value) AS workforce
@@ -57,7 +57,7 @@ class DashboardProductsDao
                                       INNER JOIN process p ON p.id_process = py.id_process
                                       INNER JOIN products_process pp ON pp.id_process = py.id_process
                                       WHERE pp.id_product = :id_product AND py.id_company = :id_company");
-        $stmt->execute(['id_product' => $dataPrice['idProduct'], 'id_company' => $id_company]);
+        $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
@@ -66,14 +66,14 @@ class DashboardProductsDao
         return $costWorkforce;
     }
 
-    public function findCostRawMaterialsByProduct($dataPrice, $id_company)
+    public function findCostRawMaterialsByProduct($id_product, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT m.material, (pm.quantity * m.cost) AS totalCostMaterial
                                       FROM products_materials pm
                                       INNER JOIN materials m ON m.id_material = pm.id_material
                                       WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
-        $stmt->execute(['id_product' => $dataPrice['idProduct'], 'id_company' => $id_company]);
+        $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
