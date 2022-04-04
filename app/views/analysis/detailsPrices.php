@@ -49,7 +49,7 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Materia Prima</span>
-                                <h2 class="mb-0 mt-1" id="rawMaterial"></h2>
+                                <h2 class="mb-0 mt-1 costProduct" id="rawMaterial"></h2>
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-rev"></div> -->
@@ -67,7 +67,7 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Mano de Obra</span>
-                                <h2 class="mb-0 mt-1">$38.736</h2>
+                                <h2 class="mb-0 mt-1" id="workforce"></h2>
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-order"></div> -->
@@ -85,7 +85,7 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Costos Indirectos</span>
-                                <h2 class="mb-0 mt-1">$2.139</h2>
+                                <h2 class="mb-0 mt-1 number" id="indirectCost"></h2>
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-user"></div> -->
@@ -103,7 +103,7 @@
                         <div class="media align-items-center">
                             <div class="media-body">
                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">Gastos Generales</span>
-                                <h2 class="mb-0 mt-1">5.500</h2>
+                                <h2 class="mb-0 mt-1 number" id="assignableExpenses"></h2>
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-visitor"></div> -->
@@ -129,7 +129,7 @@
                                 <div class="media">
                                     <div class="media-body">
                                         <p class="text-muted mb-2">Número de Unidades</p>
-                                        <h4 class="mb-0">1.625.000</h4>
+                                        <h4 class="mb-0" id="unitsSold"></h4>
                                     </div>
                                     <div class="avatar avatar-md bg-info mr-0 align-self-center">
                                         <i class="bx bx-layer fs-lg"></i>
@@ -140,7 +140,7 @@
                                 <div class="media">
                                     <div class="media-body">
                                         <p class="text-muted mb-2">Ingresos</p>
-                                        <h4 class="mb-0">$ 42.235.000</h4>
+                                        <h4 class="mb-0" id="turnover"></h4>
                                     </div>
                                     <div class="avatar avatar-md bg-primary mr-0 align-self-center">
                                         <i class="bx bx-bar-chart-alt fs-lg"></i>
@@ -189,21 +189,21 @@
                                             <p class="mb-2" style="color:green">Precio de Venta</p>
                                             <h6 class="mb-0 pl-3">$ 1.625.000</h6>
                                             <p class="mb-2" style="color:darkcyan">Total Costos</p>
-                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+                                            <h6 class="mb-0 pl-3" id="costTotal"></h6>
                                             <p class="mb-2" style="color:darkcyan">Costos</p>
-                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+                                            <h6 class="mb-0 pl-3" id="cost"></h6>
                                             <p class="text-muted mb-2 pl-3">Materia Prima</p>
-                                            <h6 class="mb-0 pl-3">$ 1.625.000</h5>
-                                                <p class="text-muted mb-2 pl-3">Mano de Obra</p>
-                                                <h6 class="mb-0 pl-3">$ 1.625.000</h5>
-                                                    <p class="text-muted mb-2 pl-3">Costos Indirectos</p>
-                                                    <h6 class="mb-0 pl-3">$ 1.625.000</h5>
-                                                        <p class="mb-2" style="color:darkcyan">Gastos</p>
-                                                        <h6 class="mb-0 pl-3">$ 1.625.000</h5>
-                                                            <p class="mb-2" style="color:darkcyan">Comisión Ventas</p>
-                                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
-                                                            <p class="mb-2" style="color:darkcyan">Rentabilidad</p>
-                                                            <h6 class="mb-0 pl-3">$ 1.625.000</h6>
+                                            <h6 class="mb-0 pl-3" id="payRawMaterial"></h6>
+                                            <p class="text-muted mb-2 pl-3">Mano de Obra</p>
+                                            <h6 class="mb-0 pl-3" id="payWorkforce">$</h6>
+                                            <p class="text-muted mb-2 pl-3">Costos Indirectos</p>
+                                            <h6 class="mb-0 pl-3 " id="payIndirectCost">$</h6>
+                                            <p class="mb-2" style="color:darkcyan">Gastos</p>
+                                            <h6 class="mb-0 pl-3" id="payAssignableExpenses"></h6>
+                                            <p class="mb-2" style="color:darkcyan">Comisión Ventas</p>
+                                            <h6 class="mb-0 pl-3" id="commisionSale"></h6>
+                                            <p class="mb-2" style="color:darkcyan">Rentabilidad</p>
+                                            <h6 class="mb-0 pl-3" id="profitability"></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -510,6 +510,7 @@
 <!-- <script src="../../app/assets/js/pages/dashboard.init.js"></script> -->
 <!-- <script src="../../app/assets/js/app.js"></script> -->
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="../../app/js/dashboard/dashboardProduct.js"></script>
 
 <!-- <script src="../../app/js/dashboard/configDashboardProducts.js"></script> -->
