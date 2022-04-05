@@ -507,10 +507,7 @@
     </div>
 </div>
 
+<!-- <script src="../../app/js/dashboard/configDashboardProducts.js"></script> -->
 <!-- <script src="../../app/assets/js/pages/dashboard.init.js"></script> -->
 <!-- <script src="../../app/assets/js/app.js"></script> -->
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="../../app/js/dashboard/dashboardProduct.js"></script>
-
-<!-- <script src="../../app/js/dashboard/configDashboardProducts.js"></script> -->
