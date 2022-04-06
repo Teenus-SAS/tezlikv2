@@ -46,7 +46,8 @@ class CostMaterialsDao
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("SELECT id_product AS idProduct FROM products_materials WHERE id_material =:id_material AND id_company = :id_company");
+        $stmt = $connection->prepare("SELECT id_product AS idProduct FROM products_materials 
+                                      WHERE id_material =:id_material AND id_company = :id_company");
         $stmt->execute(['id_material' => $dataMaterials['idMaterial'], 'id_company' => $id_company]);
         $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
 

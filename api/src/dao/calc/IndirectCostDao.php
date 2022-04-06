@@ -16,7 +16,7 @@ class IndirectCostDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    public function findMachineByProduct($dataProductProcess, $id_company)
+    public function findMachineByProduct($idProduct, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -25,66 +25,107 @@ class IndirectCostDao
                                       FROM products_process pp 
                                       INNER JOIN machines m ON m.id_machine = pp.id_machine 
                                       WHERE pp.id_product = :id_product AND pp.id_company = :id_company ");
-        $stmt->execute(['id_product' => $dataProductProcess['idProduct'], 'id_company' => $id_company]);
-        $dataProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
-        return $dataProductsProcess;
+        $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
+        $dataProductMachine = $stmt->fetchAll($connection::FETCH_ASSOC);
+        return $dataProductMachine;
     }
 
-    public function calcCostIndirectCost($dataProductProcess, $id_company)
+    public function calcCostMinuteAndIndirectCost($idProduct, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
         // Buscar el producto asociado a la maquina modificada
-        /*  $stmt = $connection->prepare("SELECT pp.id_machine, m.minute_depreciation, (pp.enlistment_time + pp.operation_time) AS totalTime 
-                                      FROM products_process pp 
-                                      INNER JOIN machines m ON m.id_machine = pp.id_machine 
-                                      WHERE pp.id_product = :id_product");
-        $stmt->execute(['id_product' => $dataProductProcess['idProduct']]);
-        $dataProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC); */
-        $dataProductsProcess = $this->findMachineByProduct($dataProductProcess, $id_company);
+        $dataProductMachine = $this->findMachineByProduct($idProduct, $id_company);
 
         $indirectCost = 0;
 
-        for ($i = 0; $i < sizeof($dataProductsProcess); $i++) {
+        for ($i = 0; $i < sizeof($dataProductMachine); $i++) {
 
-            // Suma aparte del cost_minute de la carga fabril
-            $stmt = $connection->prepare("SELECT SUM(cost_minute) as totalCostMinute 
-                                            FROM manufacturing_load WHERE id_machine = :id_machine");
-            $stmt->execute(['id_machine' => $dataProductsProcess[$i]['id_machine']]);
+            // Suma el costo por minuto de la carga fabril
+
+            $stmt = $connection->prepare("SELECT SUM(cost_minute) AS totalCostMinute
+                                          FROM manufacturing_load
+                                          WHERE id_machine = :id_machine");
+            $stmt->execute([
+                'id_machine' => $dataProductMachine[$i]['id_machine']
+            ]);
             $dataCostManufacturingLoad = $stmt->fetch($connection::FETCH_ASSOC);
 
             // Calculo costo indirecto
-            $processMachineindirectCost = ($dataCostManufacturingLoad['totalCostMinute'] + $dataProductsProcess[$i]['minute_depreciation']) * $dataProductsProcess[$i]['totalTime'];
+            $processMachineindirectCost = ($dataCostManufacturingLoad['totalCostMinute'] + $dataProductMachine[$i]['minute_depreciation']) * $dataProductMachine[$i]['totalTime'];
 
             $indirectCost = $indirectCost + $processMachineindirectCost;
         }
+        return $indirectCost;
+    }
 
-        /* Modificar costo indirecto de products_costs */
+    public function findProductAndIndirectCostToModify($idMachine, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        //$dataProduct = $this->findProductByMachine($idMachine, $id_company);
+        $stmt = $connection->prepare("SELECT id_product 
+                                      FROM products_process
+                                      WHERE id_machine = :id_machine AND id_company = :id_company");
+        $stmt->execute(['id_machine' => $idMachine, 'id_company' => $id_company]);
+        $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
+
+        for ($i = 0; $i < sizeof($dataProduct); $i++) {
+
+            // Buscar el producto asociado a la maquina modificada
+            $this->findMachineByProduct($dataProduct[$i]['id_product'], $id_company);
+
+            // Suma el costo por minuto de la carga fabril y calcular costo indirecto
+            $indirectCost = $this->calcCostMinuteAndIndirectCost($dataProduct[$i]['id_product'], $id_company);
+
+            // Modificar costo indirecto del producto 
+            $this->updateCostIndirectCost($indirectCost, $dataProduct[$i]['id_product'], $id_company);
+        }
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    }
+
+    public function updateCostIndirectCost($indirectCost, $idProduct, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        // Modificar costo indirecto de products_costs
         $stmt = $connection->prepare("UPDATE products_costs SET cost_indirect_cost = :cost_indirect_cost
-                                        WHERE id_product = :id_product AND id_company = :id_company");
+                                      WHERE id_product = :id_product AND id_company = :id_company");
         $stmt->execute([
             'cost_indirect_cost' => $indirectCost,
-            'id_product' => $dataProductProcess['idProduct'],
+            'id_product' => $idProduct,
             'id_company' => $id_company
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
 
+    public function calcCostIndirectCost($dataProductProcess, $id_company)
+    {
+        // Buscar el producto asociado a la maquina modificada
+        $this->findMachineByProduct($dataProductProcess['idProduct'], $id_company);
+
+        // Suma el costo por minuto de la carga fabril y calcular costo indirecto
+        $indirectCost = $this->calcCostMinuteAndIndirectCost($dataProductProcess['idProduct'], $id_company);
+
+        // Modificar costo indirecto del producto 
+        $this->updateCostIndirectCost($indirectCost, $dataProductProcess['idProduct'], $id_company);
+    }
+
     /* Al modificar la maquina */
     public function calcCostIndirectCostByMachine($dataMachine, $id_company)
     {
-        $connection = Connection::getInstance()->getConnection();
-
         // Buscar todos los productos que registren el id de la maquina
-        $stmt = $connection->prepare("SELECT id_product AS idProduct 
-                                      FROM products_process
-                                      WHERE id_machine = :id_machine AND id_company = :id_company");
-        $stmt->execute(['id_machine' => $dataMachine['idMachine'], 'id_company' => $id_company]);
-        $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
+        // $stmt = $connection->prepare("SELECT id_product AS idProduct 
+        //                               FROM products_process
+        //                               WHERE id_machine = :id_machine AND id_company = :id_company");
+        // $stmt->execute(['id_machine' => $dataMachine['idMachine'], 'id_company' => $id_company]);
+        // $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
+        //$this->findProductByMachine($dataMachine['idMachine'], $id_company);
+        $this->findProductAndIndirectCostToModify($dataMachine['idMachine'], $id_company);
 
-
-        for ($i = 0; $i < sizeof($dataProduct); $i++) {
+        /*for ($i = 0; $i < sizeof($dataProduct); $i++) {
 
             // Buscar el producto asociado a la maquina modificada
             $stmt = $connection->prepare("SELECT pp.id_machine, m.minute_depreciation, (pp.enlistment_time + pp.operation_time) AS totalTime
@@ -120,22 +161,21 @@ class IndirectCostDao
                 'id_product' => $dataProduct[$i]['idProduct'],
                 'id_company' => $id_company
             ]);
-        }
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        }*/
     }
 
     /* Al modificar la carga fabril */
     public function calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company)
     {
-        $connection = Connection::getInstance()->getConnection();
-
+        $this->findProductAndIndirectCostToModify($dataFactoryLoad['idMachine'], $id_company);
+        /*$connection = Connection::getInstance()->getConnection();
         // Buscar todos los productos que registren el id de la carga fabril
-        $stmt = $connection->prepare("SELECT id_product AS idProduct 
-                                      FROM products_process
-                                      WHERE id_machine = :id_machine AND id_company = :id_company");
-        $stmt->execute(['id_machine' => $dataFactoryLoad['idMachine'], 'id_company' => $id_company]);
-        $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
+        // $stmt = $connection->prepare("SELECT id_product AS idProduct 
+        //                               FROM products_process
+        //                               WHERE id_machine = :id_machine AND id_company = :id_company");
+        // $stmt->execute(['id_machine' => $dataFactoryLoad['idMachine'], 'id_company' => $id_company]);
+        // $dataProduct = $stmt->fetchAll($connection::FETCH_ASSOC);
+        //$dataProduct = $this->findProductByMachine($dataFactoryLoad['idMachine'], $id_company);
 
 
         for ($i = 0; $i < sizeof($dataProduct); $i++) {
@@ -176,8 +216,6 @@ class IndirectCostDao
                 'id_product' => $dataProduct[$i]['idProduct'],
                 'id_company' => $id_company
             ]);
-        }
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        }*/
     }
 }
