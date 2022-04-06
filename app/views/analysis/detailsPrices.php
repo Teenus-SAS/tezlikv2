@@ -151,7 +151,7 @@
                                 <div class="media">
                                     <div class="media-body">
                                         <p class="text-muted mb-2">Precio de Venta Recomendado</p>
-                                        <h4 class="mb-0">8,235</h4>
+                                        <h4 class="mb-0">$</h4>
                                     </div>
                                     <div class="avatar avatar-md bg-success mr-0 align-self-center">
                                         <i class="bx bx-chart fs-lg"></i>
@@ -187,7 +187,7 @@
                                     <div class="media-body">
                                         <div style="display: grid;grid-template-columns:1fr 1fr">
                                             <p class="mb-2" style="color:green">Precio de Venta</p>
-                                            <h6 class="mb-0 pl-3 text-right">$ 1.625.000</h6>
+                                            <h6 class="mb-0 pl-3 text-right">$</h6>
                                             <p class="mb-2" style="color:darkcyan">Total Costos</p>
                                             <h6 class="mb-0 pl-3 text-right" id="costTotal"></h6>
                                             <p class="mb-2" style="color:darkcyan">Costos</p>
@@ -507,7 +507,7 @@
     </div>
 </div>
 
-<!-- <script src="../../app/js/dashboard/configDashboardProducts.js"></script> -->
+<script src="../../app/js/dashboard/configDashboardProducts.js"></script>
 <!-- <script src="../../app/assets/js/pages/dashboard.init.js"></script> -->
 <!-- <script src="../../app/assets/js/app.js"></script> -->
 <script src="../../app/js/dashboard/dashboardProduct.js"></script>

@@ -2,9 +2,11 @@
 
 use tezlikv2\dao\MaterialsDao;
 use tezlikv2\dao\CostMaterialsDao;
+use tezlikv2\dao\PriceProductDao;
 
 $materialsDao = new MaterialsDao();
 $costMaterialsDao = new CostMaterialsDao();
+$priceProductDao = new PriceProductDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -40,7 +42,7 @@ $app->post('/addMaterials', function (Request $request, Response $response, $arg
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateMaterials', function (Request $request, Response $response, $args) use ($materialsDao, $costMaterialsDao) {
+$app->post('/updateMaterials', function (Request $request, Response $response, $args) use ($materialsDao, $costMaterialsDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataMaterial = $request->getParsedBody();
@@ -50,7 +52,10 @@ $app->post('/updateMaterials', function (Request $request, Response $response, $
     // Calcular precio total materias
     $costMaterials = $costMaterialsDao->calcCostMaterialsByRawMaterial($dataMaterial, $id_company);
 
-    if ($materials == null && $costMaterials == null)
+    // Calcular precio
+    $priceProduct = $priceProductDao->calcPriceByMaterial($dataMaterial['idMaterial']);
+
+    if ($materials == null && $costMaterials == null && $priceProduct == null)
         $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');
     else
         $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');

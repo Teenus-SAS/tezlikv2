@@ -2,9 +2,11 @@
 
 use tezlikv2\dao\PayrollDao;
 use tezlikv2\dao\CostWorkforceDao;
+use tezlikv2\dao\PriceProductDao;
 
 $payrollDao = new PayrollDao();
 $costWorkforceDao = new CostWorkforceDao();
+$priceProductDao = new PriceProductDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -45,7 +47,7 @@ $app->post('/addPayroll', function (Request $request, Response $response) use ($
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updatePayroll', function (Request $request, Response $response, $args) use ($payrollDao, $costWorkforceDao) {
+$app->post('/updatePayroll', function (Request $request, Response $response, $args) use ($payrollDao, $costWorkforceDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataPayroll = $request->getParsedBody();
@@ -63,7 +65,10 @@ $app->post('/updatePayroll', function (Request $request, Response $response, $ar
         // Calcular costo nomina
         $costWorkforce = $costWorkforceDao->calcCostPayrollByPayroll($dataPayroll, $id_company);
 
-        if ($payroll == null && $costWorkforce == null)
+        // Calcular precio products_costs
+        $priceProduct = $priceProductDao->calcPriceByPayroll($dataPayroll['idProcess']);
+
+        if ($payroll == null && $costWorkforce == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Nomina actualizada correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');

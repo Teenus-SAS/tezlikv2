@@ -2,9 +2,11 @@
 
 use tezlikv2\dao\ProductsDao;
 use tezlikv2\dao\ProductsCostDao;
+use tezlikv2\dao\PriceProductDao;
 
 $productsDao = new ProductsDao();
 $productsCostDao = new ProductsCostDao();
+$priceProductDao = new PriceProductDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -45,7 +47,7 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao) {
+$app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao, $priceProductDao) {
     $dataProduct = $request->getParsedBody();
 
     //$files = $request->getUploadedFiles();
@@ -58,7 +60,10 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
         $products = $productsDao->updateProduct($dataProduct);
         $productsCost = $productsCostDao->updateProductsCost($dataProduct);
 
-        if ($products == null && $productsCost == null)
+        // Calcular Precio del producto
+        $priceProduct = $priceProductDao->calcPrice($dataProduct['idProduct']);
+
+        if ($products == null && $productsCost == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Producto actualizado correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');

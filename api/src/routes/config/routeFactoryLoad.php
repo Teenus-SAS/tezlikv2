@@ -2,9 +2,11 @@
 
 use tezlikv2\dao\FactoryLoadDao;
 use tezlikv2\dao\IndirectCostDao;
+use tezlikv2\dao\PriceProductDao;
 
 $factoryloadDao = new FactoryLoadDao();
 $indirectCostDao = new IndirectCostDao();
+$priceProductDao = new PriceProductDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -19,7 +21,7 @@ $app->get('/factoryLoad', function (Request $request, Response $response, $args)
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao) {
+$app->post('/addFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataFactoryLoad = $request->getParsedBody();
@@ -34,7 +36,10 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
         // Calcular costo indirecto
         $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
-        if ($factoryLoad == null && $indirectCost == null)
+        // Calcular Precio products_costs
+        $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine']);
+
+        if ($factoryLoad == null && $indirectCost == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Carga fabril creada correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
@@ -43,7 +48,7 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao) {
+$app->post('/updateFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataFactoryLoad = $request->getParsedBody();
@@ -58,7 +63,10 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
         // Calcular costo indirecto
         $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
-        if ($factoryLoad == null && $indirectCost == null)
+        // Calcular Precio products_costs
+        $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine']);
+
+        if ($factoryLoad == null && $indirectCost == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Carga fabril actualizada correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
@@ -67,7 +75,7 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/deleteFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao) {
+$app->post('/deleteFactoryLoad', function (Request $request, Response $response, $args) use ($factoryloadDao, $indirectCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataFactoryLoad = $request->getParsedBody();
@@ -77,8 +85,10 @@ $app->post('/deleteFactoryLoad', function (Request $request, Response $response,
     // Calcular costo indirecto
     $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
+    // Calcular Precio products_costs
+    $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine']);
 
-    if ($factoryLoad == null && $indirectCost == null)
+    if ($factoryLoad == null && $indirectCost == null && $priceProduct == null)
         $resp = array('success' => true, 'message' => 'Carga fabril eliminada correctamente');
     else
         $resp = array('error' => true, 'message' => 'No se pudo eliminar la carga fabril, existe información asociada a ella');

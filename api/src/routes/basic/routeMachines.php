@@ -2,9 +2,11 @@
 
 use tezlikv2\dao\MachinesDao;
 use tezlikv2\dao\IndirectCostDao;
+use tezlikv2\dao\PriceProductDao;
 
 $machinesDao = new MachinesDao();
 $indirectCostDao = new IndirectCostDao();
+$priceProductDao = new PriceProductDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -43,7 +45,7 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateMachines', function (Request $request, Response $response, $args) use ($machinesDao, $indirectCostDao) {
+$app->post('/updateMachines', function (Request $request, Response $response, $args) use ($machinesDao, $indirectCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataMachine = $request->getParsedBody();
@@ -60,7 +62,10 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
         // Calcular costo indirecto
         $indirectCost = $indirectCostDao->calcCostIndirectCostByMachine($dataMachine, $id_company);
 
-        if ($machines == null && $indirectCost == null)
+        // Calcular precio products_costs
+        $priceProduct = $priceProductDao->calcPriceByMachine($dataMachine['idMachine']);
+
+        if ($machines == null && $indirectCost == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Maquina actualizada correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');

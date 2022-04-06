@@ -3,10 +3,12 @@
 use tezlikv2\dao\ExpensesDistributionDao;
 use tezlikv2\dao\TotalExpenseDao;
 use tezlikv2\dao\AssignableExpenseDao;
+use tezlikv2\dao\PriceProductDao;
 
 $expensesDistributionDao = new ExpensesDistributionDao();
 $totalExpenseDao = new TotalExpenseDao();
 $assignableExpenseDao = new AssignableExpenseDao();
+$priceProductDao = new PriceProductDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -46,7 +48,7 @@ $app->post('/addExpensesDistribution', function (Request $request, Response $res
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/updateExpensesDistribution', function (Request $request, Response $response, $args) use ($expensesDistributionDao, $assignableExpenseDao) {
+$app->post('/updateExpensesDistribution', function (Request $request, Response $response, $args) use ($expensesDistributionDao, $assignableExpenseDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataExpensesDistribution = $request->getParsedBody();
@@ -57,6 +59,9 @@ $app->post('/updateExpensesDistribution', function (Request $request, Response $
         $expensesDistribution = $expensesDistributionDao->updateExpensesDistribution($dataExpensesDistribution);
         // Calcular gasto asignable
         $assignableExpense = $assignableExpenseDao->calcAssignableExpense($id_company);
+
+        // Calcular Precio del producto
+        //$priceProduct = $priceProductDao->calcPrice($dataExpensesDistribution['refProduct']); && $priceProduct == null
 
         if ($expensesDistribution == null && $assignableExpense == null)
             $resp = array('success' => true, 'message' => 'Distribución de gasto actualizada correctamente');
