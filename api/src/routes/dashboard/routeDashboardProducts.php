@@ -25,8 +25,13 @@ $app->get('/dashboardPricesProducts/{id_product}', function (Request $request, R
     // Consultar Costo Materia prima por producto
     $costRawMaterials = $dashboardProductsDao->findCostRawMaterialsByProduct($args['id_product'], $id_company);
 
-    $prices = array_merge($costAnalysisProducts, $totalTimeProcess, $costWorkforce, $costRawMaterials);
+    /* Creacion de arrays */
 
-    $response->getBody()->write(json_encode($prices, JSON_NUMERIC_CHECK));
+    $costProduct['cost_product'] = $costAnalysisProducts;
+    $costProduct['cost_time_process'] = $totalTimeProcess;
+    $costProduct['cost_workforce'] = $costWorkforce;
+    $costProduct['cost_materials'] = $costRawMaterials;
+
+    $response->getBody()->write(json_encode($costProduct, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
