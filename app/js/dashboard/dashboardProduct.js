@@ -24,7 +24,6 @@ $(document).ready(function() {
 
         for (var i = 0; i < 6; i++)
             color += letters[Math.floor(Math.random() * 16)];
-
         return color;
     }
 
@@ -32,8 +31,6 @@ $(document).ready(function() {
         let color = [];
         for (i = 0; i < a; i++)
             color.push(dynamicColors());
-
-        debugger
         return color;
     }
 
