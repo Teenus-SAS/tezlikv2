@@ -16,8 +16,7 @@ class IndirectCostDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-
-    public function calcCostIndirectCost($dataProductProcess, $id_company)
+    public function findMachineByProduct($dataProductProcess, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -25,9 +24,24 @@ class IndirectCostDao
         $stmt = $connection->prepare("SELECT pp.id_machine, m.minute_depreciation, (pp.enlistment_time + pp.operation_time) AS totalTime 
                                       FROM products_process pp 
                                       INNER JOIN machines m ON m.id_machine = pp.id_machine 
+                                      WHERE pp.id_product = :id_product AND pp.id_company = :id_company ");
+        $stmt->execute(['id_product' => $dataProductProcess['idProduct'], 'id_company' => $id_company]);
+        $dataProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
+        return $dataProductsProcess;
+    }
+
+    public function calcCostIndirectCost($dataProductProcess, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        // Buscar el producto asociado a la maquina modificada
+        /*  $stmt = $connection->prepare("SELECT pp.id_machine, m.minute_depreciation, (pp.enlistment_time + pp.operation_time) AS totalTime 
+                                      FROM products_process pp 
+                                      INNER JOIN machines m ON m.id_machine = pp.id_machine 
                                       WHERE pp.id_product = :id_product");
         $stmt->execute(['id_product' => $dataProductProcess['idProduct']]);
-        $dataProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $dataProductsProcess = $stmt->fetchAll($connection::FETCH_ASSOC); */
+        $dataProductsProcess = $this->findMachineByProduct($dataProductProcess, $id_company);
 
         $indirectCost = 0;
 

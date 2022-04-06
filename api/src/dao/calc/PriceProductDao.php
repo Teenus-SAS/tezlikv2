@@ -23,7 +23,7 @@ class PriceProductDao
 
         // Calcular precio del producto
         $stmt = $connection->prepare("SELECT
-                                        ((pc.cost_workforce+ pc.cost_materials + pc.cost_indirect_cost + ed.assignable_expense)/((100-pc.commision_sale-pc.profitability)/100)) as totalPrice 
+                                        ((pc.cost_workforce + pc.cost_materials + pc.cost_indirect_cost + ed.assignable_expense)/((100-pc.commision_sale-pc.profitability)/100)) as totalPrice 
                                       FROM products_costs pc
                                       INNER JOIN expenses_distribution ed ON ed.id_product = pc.id_product
                                       WHERE pc.id_product = :id_product");

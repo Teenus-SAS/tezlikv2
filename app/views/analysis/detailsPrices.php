@@ -507,7 +507,5 @@
     </div>
 </div>
 
-<script src="../../app/js/dashboard/configDashboardProducts.js"></script>
-<!-- <script src="../../app/assets/js/pages/dashboard.init.js"></script> -->
-<!-- <script src="../../app/assets/js/app.js"></script> -->
-<script src="../../app/js/dashboard/dashboardProduct.js"></script>
+<script src="../../app/js/dashboard/dashboardConfigProducts.js"></script>
+<script src="../../app/js/dashboard/dashboardGraphicsProduct.js"></script>
