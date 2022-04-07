@@ -16,6 +16,7 @@ $(document).ready(function () {
     $('#referenceProduct').val('');
     $('#product').val('');
     $('#profitability').val('');
+    $('#commisionSale').val('');
   });
 
   /* Crear producto */
@@ -28,6 +29,7 @@ $(document).ready(function () {
       ref = $('#referenceProduct').val();
       prod = $('#product').val();
       prof = $('#profitability').val();
+      comission = $('#commisionSale').val();
 
       if (
         ref == '' ||
@@ -35,11 +37,14 @@ $(document).ready(function () {
         prod == '' ||
         prod == 0 ||
         prof == '' ||
-        prof == 0
+        prof == 0 ||
+        comission == '' ||
+        comission == 0
       ) {
         toastr.error('Ingrese todos los campos');
         return false;
       }
+      debugger;
       product = $('#formCreateProduct').serialize();
 
       $.post(
@@ -69,6 +74,8 @@ $(document).ready(function () {
     $('#referenceProduct').val(data.reference);
     $('#product').val(data.product);
     $('#profitability').val(data.profitability);
+    $('#commisionSale').val(data.commision_sale);
+    //$('#formFile').val(data.img);
 
     $('html, body').animate(
       {

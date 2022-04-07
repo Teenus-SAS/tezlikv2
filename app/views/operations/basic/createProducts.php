@@ -26,10 +26,10 @@
 <div class="page-content-wrapper mt--45 mb-5 cardCreateProduct">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <form id="formCreateProduct">
+            <form id="formCreateProduct">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="gridx4">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
                                     <input type="text" class="form-control" name="idProduct" id="idProduct" hidden>
@@ -41,28 +41,28 @@
                                     <label for="">Nombre Producto</label>
                                 </div>
                             </div>
-                        </form>
+                            <!-- </form> -->
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body pt-3 pb-0">
-                        <form id="formCreateProduct">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body pt-3 pb-0">
+                            <!-- <form id="formCreateProduct"> -->
                             <div class="gridx4rp">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-top:0px!important">
                                     <input type="text" class="form-control text-center" name="profitability" id="profitability">
                                     <label for="">Rentabilidad(%)</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control text-center" name="profitability" id="profitability">
+                                    <input type="text" class="form-control text-center" name="commisionSale" id="commisionSale">
                                     <label for="">Comisión de Ventas(%)</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
                                     <!-- <input class="form-control form-control-sm" id="formFile" type="file" style="padding:10px;width:40%"> -->
-                                    <input class="form-control" type="file" id="formFile" hidden>
-                                    <button class="btn btn-warning">Seleccionar Imagen</button>
+                                    <input class="form-control" type="file" id="formFile">
+                                    <!-- <button class="btn btn-warning" disabled>Seleccionar Imagen</button> -->
                                     <label for="formFile" class="form-label"> Cargar imagen producto</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
@@ -71,10 +71,10 @@
                             </div>
 
                             <div id="preview"></div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

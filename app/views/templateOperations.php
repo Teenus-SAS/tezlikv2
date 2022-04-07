@@ -87,7 +87,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Productos</span>
-												<h2 class="mb-0 mt-1">5.000</h2>
+												<h2 class="mb-0 mt-1" id="products">5.000</h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-rev"></div>
@@ -105,7 +105,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Rentabilidad (Promedio)</span>
-												<h2 class="mb-0 mt-1">30%</h2>
+												<h2 class="mb-0 mt-1" id="profitabilityAverage">30%</h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-order"></div>
@@ -123,7 +123,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Comisión de Ventas (Promedio)</span>
-												<h2 class="mb-0 mt-1">2%</h2>
+												<h2 class="mb-0 mt-1" id="comissionAverage">2%</h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-user"></div>
@@ -141,7 +141,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Gastos Generales</span>
-												<h2 class="mb-0 mt-1">$ 15.000.000</h2>
+												<h2 class="mb-0 mt-1" id="generalCost">$ 15.000.000</h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-visitor"></div>
@@ -167,7 +167,7 @@ else if (time() - $_SESSION['time'] > 600)
 												<div class="media">
 													<div class="media-body">
 														<p class="text-muted mb-2">Productos Vendidos</p>
-														<h4 class="mb-0">1.625</h4>
+														<h4 class="mb-0" id="productsSold">1.625</h4>
 													</div>
 													<div class="avatar avatar-md bg-info mr-0 align-self-center">
 														<i class="bx bx-layer fs-lg"></i>
@@ -178,7 +178,7 @@ else if (time() - $_SESSION['time'] > 600)
 												<div class="media">
 													<div class="media-body">
 														<p class="text-muted mb-2">Ingresos por Ventas</p>
-														<h4 class="mb-0">$ 42,235</h4>
+														<h4 class="mb-0" id="salesRevenue">$ 42,235</h4>
 													</div>
 													<div class="avatar avatar-md bg-primary mr-0 align-self-center">
 														<i class="bx bx-bar-chart-alt fs-lg"></i>
@@ -221,10 +221,10 @@ else if (time() - $_SESSION['time'] > 600)
 									<div class="card-header">
 										<h5 class="card-title">Costo Carga Fabril</h5>
 									</div>
-									<div class="card-body">
+									<div class="card-body pt-2">
 										<div class="chart-container">
-											<div class="chart">
-												<canvas id="charTimeProcess" style="width: 90%;"></canvas>
+											<div class="chart" style="width: 80%; height: 80%;">
+												<canvas id="charFactoryLoadCost"></canvas>
 											</div>
 											<!-- <div class="center-text">
 											<p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
@@ -243,11 +243,11 @@ else if (time() - $_SESSION['time'] > 600)
 									<div class="card-body">
 										<div class="chart-container">
 											<div class="chart">
-												<canvas id="charWorkForceGeneral" style="width: 90%;"></canvas>
+												<!-- <canvas id="charWorkForceGeneral" style="width: 90%;"></canvas> -->
 											</div>
 											<div class="center-text">
 												<p class="text-muted mb-1 font-weight-600">Total Costo </p>
-												<h4 class="mb-0 font-weight-bold">$38.736</h4>
+												<h4 class="mb-0 font-weight-bold" id="totalCostWorkforce"></h4>
 											</div>
 										</div>
 									</div>
@@ -263,14 +263,14 @@ else if (time() - $_SESSION['time'] > 600)
 									<div class="card-header">
 										<h5 class="card-title">Gastos Generales</h5>
 									</div>
-									<div class="card-body">
+									<div class="card-body pt-2">
 										<div class="chart-container">
 											<div class="chart">
-												<canvas id="charExpensesGenerals" style="width: 90%;"></canvas>
+												<!-- <canvas id="charExpensesGenerals" style="width: 90%;"></canvas> -->
 											</div>
 											<div class="center-text">
 												<p class="text-muted mb-1 font-weight-600">Total Costo </p>
-												<h4 class="mb-0 font-weight-bold">$38.736</h4>
+												<h4 class="mb-0 font-weight-bold" id="totalCost">$38.736</h4>
 											</div>
 										</div>
 									</div>
@@ -282,28 +282,24 @@ else if (time() - $_SESSION['time'] > 600)
 									<div class="card-header">
 										<h5 class="card-title"></h5>
 									</div>
-									<div class="card-body">
+									<div class="card-body pt-2">
 										<div class="chart-container">
-											<div class="chart">
-												<canvas id="charTimeProcess" style="width: 90%;"></canvas>
+											<div class="chart" style="width: 50%; height: 50%;">
+												<canvas id="charExpensesGenerals"></canvas>
 											</div>
-											<!-- <div class="center-text">
+										</div>
+										<!-- <div class="center-text">
 											<p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
 											<h4 class="mb-0 font-weight-bold">120 min</h4>
 										</div> -->
-										</div>
 									</div>
 								</div>
 							</div>
-
-
-
 						</div>
 
 						<!-- Row 3-->
-						<div class="row">
-							<!-- Begin recent orders -->
-							<!-- <div class="col-12 col-lg-8">
+						<!-- <div class="row">
+							<div class="col-12 col-lg-8">
 								<div class="card">
 									<div class="card-header dflex-between-center">
 										<h5 class="card-title">Recent Orders</h5>
@@ -365,10 +361,8 @@ else if (time() - $_SESSION['time'] > 600)
 										</div>
 									</div>
 								</div>
-							</div> -->
-
-							<!-- Begin quarter sale -->
-							<!-- <div class="col-12 col-lg-4">
+							</div>
+							<div class="col-12 col-lg-4">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Quartly Sale</h5>
@@ -377,13 +371,11 @@ else if (time() - $_SESSION['time'] > 600)
 										<div id="quartly-sale"></div>
 									</div>
 								</div>
-							</div> -->
-
-						</div>
+							</div>
+						</div> -->
 						<!-- Row 4-->
-						<div class="row">
-							<!-- Begin total sales chart -->
-							<!-- <div class="col-lg-3">
+						<!-- <div class="row">
+							<div class="col-lg-3">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Total Sales</h5>
@@ -400,10 +392,9 @@ else if (time() - $_SESSION['time'] > 600)
 										</div>
 									</div>
 								</div>
-							</div> -->
+							</div> 
 
-							<!-- Begin earning chart -->
-							<!-- <div class="col-lg-6">
+							<div class="col-lg-6">
 								<div class="card">
 									<div class="card-header dflex-between-center">
 										<h5 class="card-title">Earning Statastics</h5>
@@ -420,10 +411,9 @@ else if (time() - $_SESSION['time'] > 600)
 										<div id="sales-order"></div>
 									</div>
 								</div>
-							</div> -->
+							</div> -
 
-							<!-- Begin today sale -->
-							<!-- <div class="col-lg-3">
+							<div class="col-lg-3">
 								<div class="card revenue-card">
 									<div class="card-header bg-info">
 										<h5 class="card-title text-white">Revenue</h5>
@@ -450,9 +440,8 @@ else if (time() - $_SESSION['time'] > 600)
 										</div>
 									</div>
 								</div>
-							</div> -->
-
-						</div>
+							</div>
+						</div> -->
 						<!-- Row 5 -->
 						<!-- <div class="row">
 							<div class="col-12">
@@ -582,6 +571,8 @@ else if (time() - $_SESSION['time'] > 600)
 						</div> -->
 					</div>
 				</div>
+				<script src="../../app/js/dashboard/indicatorsGeneral.js"></script>
+				<script src="../../app/js/dashboard/graphicsGeneral.js"></script>
 			</div>
 		</div>
 		<!-- main content End -->

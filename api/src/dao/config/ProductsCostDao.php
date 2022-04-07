@@ -28,14 +28,13 @@ class ProductsCostDao
         $stmt->execute(['id_company' => $id_company]);
         $product = $stmt->fetch($connection::FETCH_ASSOC);
 
-        $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability) 
-                                        VALUES (:id_product, :id_company, :profitability)");
-        //commision_sale
+        $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability, commision_sale) 
+                                        VALUES (:id_product, :id_company, :profitability, :commision_sale)");
         $stmt->execute([
             'id_product' => $product['idProduct'],
             'id_company' => $id_company,
-            'profitability' => $dataProduct['profitability']
-            // 'commision_sale' => $dataProduct['commisionSale']
+            'profitability' => $dataProduct['profitability'],
+            'commision_sale' => $dataProduct['commisionSale']
 
         ]);
 
@@ -46,13 +45,13 @@ class ProductsCostDao
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("UPDATE products_costs SET profitability = :profitability
+        $stmt = $connection->prepare("UPDATE products_costs SET profitability = :profitability, commision_sale = :commision_sale
                                       WHERE id_product = :id_product");
-        // commision_sale = :commision_sale
+
         $stmt->execute([
             'profitability' => $dataProduct['profitability'],
-            'id_product' => $dataProduct['idProduct']
-            // 'commision_sale' => $dataProduct['commisionSale']
+            'id_product' => $dataProduct['idProduct'],
+            'commision_sale' => $dataProduct['commisionSale']
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

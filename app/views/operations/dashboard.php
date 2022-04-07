@@ -37,8 +37,8 @@
                     </a>
                     <div class="dropdown-mega dropdown d-none d-lg-block ml-2">
                         <a href="javascript:void(0)" data-toggle="dropdown" id="mega-dropdown" aria-haspopup="true" aria-expanded="false" class="btn header-item">
-                     Mega Menu <i class="bx bx-chevron-down"></i>
-                  </a>
+                            Mega Menu <i class="bx bx-chevron-down"></i>
+                        </a>
                         <div class="dropdown-megamenu dropdown-menu" aria-labelledby="mega-dropdown">
                             <div class="row">
                                 <div class="col-sm-8">
@@ -124,8 +124,8 @@
                     </form>
                     <div class="d-inline-flex ml-0 ml-sm-2 d-lg-none dropdown">
                         <button data-toggle="dropdown" aria-haspopup="true" type="button" id="page-header-search-dropdown" aria-expanded="false" class="btn header-item notify-icon">
-                     <i class="bx bx-search"></i>
-                  </button>
+                            <i class="bx bx-search"></i>
+                        </button>
                         <div aria-labelledby="page-header-search-dropdown" class="dropdown-menu-lg dropdown-menu-right p-0 dropdown-menu">
                             <form class="p-3">
                                 <div class="search-box">
@@ -139,9 +139,9 @@
                     </div>
                     <div class="d-inline-flex ml-0 ml-sm-2 dropdown">
                         <button aria-haspopup="true" data-toggle="dropdown" type="button" id="page-header-country-dropdown" aria-expanded="false" class="btn header-item">
-                     <img src="assets/images/flags/us.svg" class="mh-16" alt="USA">
-                     <span class="ml-2 d-none d-sm-inline-block">EN</span>
-                  </button>
+                            <img src="assets/images/flags/us.svg" class="mh-16" alt="USA">
+                            <span class="ml-2 d-none d-sm-inline-block">EN</span>
+                        </button>
                         <div aria-labelledby="page-header-country-dropdown" id="countries" class="dropdown-menu-right dropdown-menu">
                             <a href="javascript:void(0);" class="dropdown-item">
                                 <img class="mr-1 mh-12" src="assets/images/flags/us.svg" alt="USA">
@@ -163,8 +163,8 @@
                     </div>
                     <div class="d-none d-lg-inline-flex ml-2 dropdown">
                         <button data-toggle="dropdown" aria-haspopup="true" type="button" id="page-header-app-dropdown" aria-expanded="false" class="btn header-item notify-icon">
-                     <i class="bx bx-customize"></i>
-                  </button>
+                            <i class="bx bx-customize"></i>
+                        </button>
                         <div aria-labelledby="page-header-app-dropdown" class="dropdown-menu-lg dropdown-menu-right dropdown-menu">
                             <div class="px-lg-2">
                                 <div class="row no-gutters">
@@ -212,14 +212,14 @@
                     </div>
                     <div class="d-none d-lg-inline-flex ml-2">
                         <button type="button" data-toggle="fullscreen" class="btn header-item notify-icon" id="full-screen">
-                     <i class="bx bx-fullscreen"></i>
-                  </button>
+                            <i class="bx bx-fullscreen"></i>
+                        </button>
                     </div>
                     <div class="d-inline-flex ml-0 ml-sm-2 dropdown">
                         <button data-toggle="dropdown" aria-haspopup="true" type="button" id="page-header-notification-dropdown" aria-expanded="false" class="btn header-item notify-icon position-relative">
-                     <i class="bx bx-bell bx-tada"></i>
-                     <span class="badge badge-danger badge-pill notify-icon-badge">3</span>
-                  </button>
+                            <i class="bx bx-bell bx-tada"></i>
+                            <span class="badge badge-danger badge-pill notify-icon-badge">3</span>
+                        </button>
                         <div aria-labelledby="page-header-notification-dropdown" class="dropdown-menu-lg dropdown-menu-right p-0 dropdown-menu">
                             <div class="notify-title p-3">
                                 <h5 class="font-size-14 font-weight-600 mb-0">
@@ -239,7 +239,8 @@
                                                 </div>
                                                 <p class="media-body">
                                                     New user registered.
-                                                    <small class="text-muted">5 hours ago</small></p>
+                                                    <small class="text-muted">5 hours ago</small>
+                                                </p>
                                             </div>
                                         </a>
                                         <a href="javascript:void(0);" class="dropdown-item notification-item">
@@ -282,7 +283,8 @@
                                                 </div>
                                                 <p class="media-body">
                                                     Someone tag you
-                                                    <small class="text-muted">2 hours ago</small></p>
+                                                    <small class="text-muted">2 hours ago</small>
+                                                </p>
                                             </div>
                                         </a>
                                     </div>
@@ -297,10 +299,10 @@
                     </div>
                     <div class="d-inline-flex ml-0 ml-sm-2 dropdown">
                         <button data-toggle="dropdown" aria-haspopup="true" type="button" id="page-header-profile-dropdown" aria-expanded="false" class="btn header-item">
-                     <img src="assets/images/users/avatar-1.jpg" alt="Header Avatar" class="avatar avatar-xs mr-0">
-                     <span class="d-none d-xl-inline-block ml-1">Henry</span>
-                     <i class="bx bx-chevron-down d-none d-xl-inline-block"></i>
-                  </button>
+                            <img src="assets/images/users/avatar-1.jpg" alt="Header Avatar" class="avatar avatar-xs mr-0">
+                            <span class="d-none d-xl-inline-block ml-1">Henry</span>
+                            <i class="bx bx-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
                         <div aria-labelledby="page-header-profile-dropdown" class="dropdown-menu-right dropdown-menu">
                             <a href="javascript: void(0);" class="dropdown-item">
                                 <i class="bx bx-user mr-1"></i> Profile
@@ -322,8 +324,8 @@
                     </div>
                     <div class="d-inline-flex">
                         <button type="button" id="layout" class="btn header-item notify-icon">
-                     <i class="bx bx-cog bx-spin"></i>
-                  </button>
+                            <i class="bx bx-cog bx-spin"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -708,8 +710,8 @@
                                     </div>
                                     <div class="btn-group dropdown">
                                         <button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
-                                 <i class="bx bx-download mr-1"></i> Download <i class="bx bx-chevron-down"></i>
-                              </button>
+                                            <i class="bx bx-download mr-1"></i> Download <i class="bx bx-chevron-down"></i>
+                                        </button>
                                         <div class="dropdown-menu-right dropdown-menu">
                                             <a href="javascript: void(0);" class="dropdown-item">
                                                 <i class="bx bx-mail-send mr-1"></i> Email
@@ -738,14 +740,14 @@
                                         <div class="media align-items-center">
                                             <div class="media-body">
                                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">today
-                                       revenue</span>
+                                                    revenue</span>
                                                 <h2 class="mb-0 mt-1">5000</h2>
                                             </div>
                                             <div class="text-center">
                                                 <div id="t-rev"></div>
                                                 <span class="text-success font-weight-bold font-size-13">
-                                       <i class="bx bx-up-arrow-alt"></i> 10.21%
-                                    </span>
+                                                    <i class="bx bx-up-arrow-alt"></i> 10.21%
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -757,14 +759,14 @@
                                         <div class="media align-items-center">
                                             <div class="media-body">
                                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">today
-                                       orders</span>
+                                                    orders</span>
                                                 <h2 class="mb-0 mt-1">2000</h2>
                                             </div>
                                             <div class="text-center">
                                                 <div id="t-order"></div>
                                                 <span class="text-danger font-weight-bold font-size-13">
-                                       <i class="bx bx-down-arrow-alt"></i> 5.05%
-                                    </span>
+                                                    <i class="bx bx-down-arrow-alt"></i> 5.05%
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -776,14 +778,14 @@
                                         <div class="media align-items-center">
                                             <div class="media-body">
                                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">new
-                                       users</span>
+                                                    users</span>
                                                 <h2 class="mb-0 mt-1">800</h2>
                                             </div>
                                             <div class="text-center">
                                                 <div id="t-user"></div>
                                                 <span class="text-success font-weight-bold font-size-13">
-                                       <i class="bx bx-up-arrow-alt"></i> 25.21%
-                                    </span>
+                                                    <i class="bx bx-up-arrow-alt"></i> 25.21%
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -795,14 +797,14 @@
                                         <div class="media align-items-center">
                                             <div class="media-body">
                                                 <span class="text-muted text-uppercase font-size-12 font-weight-bold">new
-                                       visitors</span>
+                                                    visitors</span>
                                                 <h2 class="mb-0 mt-1">1500</h2>
                                             </div>
                                             <div class="text-center">
                                                 <div id="t-visitor"></div>
                                                 <span class="text-danger font-weight-bold font-size-13">
-                                       <i class="bx bx-down-arrow-alt"></i> 5.16%
-                                    </span>
+                                                    <i class="bx bx-down-arrow-alt"></i> 5.16%
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -877,8 +879,8 @@
                                         <h5 class="card-title">Recent Orders</h5>
                                         <div class="export-fnc">
                                             <button class="btn btn-primary btn-sm mr-3 ml-1" data-effect="wave">
-                                    <i class="bx bx-export"></i> Export
-                                 </button>
+                                                <i class="bx bx-export"></i> Export
+                                            </button>
                                             <div class="arrow-pagination">
                                                 <ul class="pagination mb-0">
                                                     <li class="page-item disabled"><a class="page-link" data-effect="wave" href="javascript:void(0)"><i class="bx bx-chevron-left"></i></a></li>
@@ -977,11 +979,11 @@
                                         <h5 class="card-title">Earning Statastics</h5>
                                         <div class="btn-group earningTabs">
                                             <button class="btn btn-primary btn-sm" data-effect="wave" data-type="weekly">
-                                    Weekly
-                                 </button>
+                                                Weekly
+                                            </button>
                                             <button class="btn btn-outline-primary btn-sm" data-effect="wave" data-type="monthly">
-                                    Monthly
-                                 </button>
+                                                Monthly
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="card-body pt-2">
@@ -1152,6 +1154,7 @@
                 </div>
             </div>
         </div>
+
         <!-- main content End -->
         <!-- footer -->
         <!-- footer -->

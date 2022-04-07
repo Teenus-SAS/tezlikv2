@@ -51,16 +51,28 @@ class DashboardGeneralDao
     public function findExpensesValueByCompany($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT ex.id_puc, p.number_count, SUM(ex.expense_value) as totalExpenseValue
+        // Busqueda cuenta que empieze por "51"
+        $stmt = $connection->prepare("SELECT p.number_count as count51, SUM(ex.expense_value) as expenseCount51
                                       FROM expenses ex
                                       LEFT JOIN puc p ON p.id_puc = ex.id_puc
                                       WHERE ex.id_company = :id_company AND
-                                      p.number_count LIKE '51%'"); /* OR p.number_count LIKE '52%' */
+                                      p.number_count LIKE '51%'");
         $stmt->execute(['id_company' => $id_company]);
+        $expenseCount51 = $stmt->fetch($connection::FETCH_ASSOC);
+
+        // Busqueda cuenta que empieze por "52"
+        $stmt = $connection->prepare("SELECT p.number_count as count52, SUM(ex.expense_value) as expenseCount52
+                                      FROM expenses ex
+                                      LEFT JOIN puc p ON p.id_puc = ex.id_puc
+                                      WHERE ex.id_company = :id_company AND
+                                      p.number_count LIKE '52%'");
+        $stmt->execute(['id_company' => $id_company]);
+        $expenseCount52 = $stmt->fetch($connection::FETCH_ASSOC);
+
+        $expenseValue = array_merge($expenseCount51, $expenseCount52);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
-        $expenseValue = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("expenseValue", array('expenseValue' => $expenseValue));
         return $expenseValue;
     }

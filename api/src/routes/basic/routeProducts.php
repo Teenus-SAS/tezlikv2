@@ -29,12 +29,14 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
 
-    //empty($dataProduct['commisionSale']
-    if (empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) || empty($dataProduct['profitability']))
+    if (
+        empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) ||
+        empty($dataProduct['profitability']) || empty($dataProduct['commisionSale'])
+    )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
     else {
-        //Insertar en products_costs
         $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
+        //Insertar en products_costs
         $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
 
         if ($products == null && $productsCost == null)
@@ -53,8 +55,10 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
 
-    //empty($dataProduct['commisionSale']
-    if (empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) || empty($dataProduct['profitability']))
+    if (
+        empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) ||
+        empty($dataProduct['profitability']) || empty($dataProduct['commisionSale'])
+    )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
         $products = $productsDao->updateProduct($dataProduct);
