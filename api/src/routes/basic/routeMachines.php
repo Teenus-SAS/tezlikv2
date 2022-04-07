@@ -63,7 +63,7 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
         $indirectCost = $indirectCostDao->calcCostIndirectCostByMachine($dataMachine, $id_company);
 
         // Calcular precio products_costs
-        $priceProduct = $priceProductDao->calcPriceByMachine($dataMachine['idMachine']);
+        $priceProduct = $priceProductDao->calcPriceByMachine($dataMachine['idMachine'], $id_company);
 
         if ($machines == null && $indirectCost == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Maquina actualizada correctamente');

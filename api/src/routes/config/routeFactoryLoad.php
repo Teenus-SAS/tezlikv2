@@ -37,7 +37,7 @@ $app->post('/addFactoryLoad', function (Request $request, Response $response, $a
         $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
         // Calcular Precio products_costs
-        $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine']);
+        $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine'], $id_company);
 
         if ($factoryLoad == null && $indirectCost == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Carga fabril creada correctamente');
@@ -64,7 +64,7 @@ $app->post('/updateFactoryLoad', function (Request $request, Response $response,
         $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
         // Calcular Precio products_costs
-        $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine']);
+        $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine'], $id_company);
 
         if ($factoryLoad == null && $indirectCost == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Carga fabril actualizada correctamente');
@@ -86,7 +86,7 @@ $app->post('/deleteFactoryLoad', function (Request $request, Response $response,
     $indirectCost = $indirectCostDao->calcCostIndirectCostByFactoryLoad($dataFactoryLoad, $id_company);
 
     // Calcular Precio products_costs
-    $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine']);
+    $priceProduct = $priceProductDao->calcPriceByMachine($dataFactoryLoad['idMachine'], $id_company);
 
     if ($factoryLoad == null && $indirectCost == null && $priceProduct == null)
         $resp = array('success' => true, 'message' => 'Carga fabril eliminada correctamente');

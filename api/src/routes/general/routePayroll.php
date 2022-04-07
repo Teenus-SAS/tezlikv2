@@ -66,7 +66,7 @@ $app->post('/updatePayroll', function (Request $request, Response $response, $ar
         $costWorkforce = $costWorkforceDao->calcCostPayrollByPayroll($dataPayroll, $id_company);
 
         // Calcular precio products_costs
-        $priceProduct = $priceProductDao->calcPriceByPayroll($dataPayroll['idProcess']);
+        $priceProduct = $priceProductDao->calcPriceByPayroll($dataPayroll['idProcess'], $id_company);
 
         if ($payroll == null && $costWorkforce == null && $priceProduct == null)
             $resp = array('success' => true, 'message' => 'Nomina actualizada correctamente');

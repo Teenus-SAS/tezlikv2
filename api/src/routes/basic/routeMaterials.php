@@ -53,7 +53,7 @@ $app->post('/updateMaterials', function (Request $request, Response $response, $
     $costMaterials = $costMaterialsDao->calcCostMaterialsByRawMaterial($dataMaterial, $id_company);
 
     // Calcular precio
-    $priceProduct = $priceProductDao->calcPriceByMaterial($dataMaterial['idMaterial']);
+    $priceProduct = $priceProductDao->calcPriceByMaterial($dataMaterial['idMaterial'], $id_company);
 
     if ($materials == null && $costMaterials == null && $priceProduct == null)
         $resp = array('success' => true, 'message' => 'Materia Prima actualizada correctamente');
