@@ -15,7 +15,6 @@ $(document).ready(function() {
                     'Gastos Generales',
                 ],
                 datasets: [{
-                    label: '',
                     data: [
                         data[0].cost_workforce,
                         data[0].cost_materials,
@@ -31,6 +30,11 @@ $(document).ready(function() {
                 scales: {
                     y: {
                         beginAtZero: true,
+                    },
+                },
+                plugins: {
+                    legend: {
+                        display: false,
                     },
                 },
             },
@@ -54,7 +58,6 @@ $(document).ready(function() {
             data: {
                 labels: process,
                 datasets: [{
-                    //label: '# of Tomatoes',
                     data: workforce,
                     backgroundColor: getRandomColor(data.length),
                     //borderColor: [],

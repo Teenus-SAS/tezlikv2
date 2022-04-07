@@ -92,6 +92,12 @@
     grid-column-gap: 1em;
 }
 
+.gridx4rp {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+}
+
 .gridx4pm {
     display: grid;
     grid-template-columns: 1fr 200px 100px 200px;

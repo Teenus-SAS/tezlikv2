@@ -4,7 +4,7 @@
             <div id="topnav-menu-content" class="collapse navbar-collapse">
                 <ul id="side-menu" class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="topnav-dashboard" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="index.php" id="topnav-dashboard" role="button">
                             <i class="bx bxs-dashboard mr-1"></i> Dashboards
                             <i class="bx bx-chevron-down"></i>
                         </a>
