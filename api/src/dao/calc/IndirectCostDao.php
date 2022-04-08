@@ -60,9 +60,7 @@ class IndirectCostDao
             $stmt = $connection->prepare("SELECT SUM(cost_minute) AS totalCostMinute
                                           FROM manufacturing_load
                                           WHERE id_machine = :id_machine");
-            $stmt->execute([
-                'id_machine' => $dataProductMachine[$i]['id_machine']
-            ]);
+            $stmt->execute(['id_machine' => $dataProductMachine[$i]['id_machine']]);
             $dataCostManufacturingLoad = $stmt->fetch($connection::FETCH_ASSOC);
 
             // Calculo costo indirecto

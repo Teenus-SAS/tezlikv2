@@ -50,7 +50,6 @@ class PriceProductDao
     public function calcPrice($idProduct)
     {
         $dataPrice = $this->findTotalPrice($idProduct);
-
         $this->updatePrice($idProduct, $dataPrice['totalPrice']);
     }
 
@@ -63,9 +62,8 @@ class PriceProductDao
         for ($i = 0; $i < sizeof($dataProduct); $i++) {
             $dataPrice = $this->findTotalPrice($dataProduct[$i]['id_product']);
 
-            if ($dataPrice == false) {
+            if ($dataPrice) {
                 // No existe el producto asociado a la tabla products_cost";
-            } else {
                 $this->updatePrice($dataProduct[$i]['id_product'], $dataPrice['totalPrice']);
             }
         }
@@ -77,9 +75,8 @@ class PriceProductDao
         $material = new CostMaterialsDao();
         $dataProduct = $material->findProductByMaterial($idMaterial, $id_company);
 
-        if (empty($dataProduct)) {
+        if (!empty($dataProduct)) {
             // No hay ningun producto asociado a esa materia prima
-        } else {
             for ($i = 0; $i < sizeof($dataProduct); $i++) {
                 $dataPrice = $this->findTotalPrice($dataProduct[$i]['id_product']);
                 $this->updatePrice($dataProduct[$i]['id_product'], $dataPrice['totalPrice']);
@@ -97,9 +94,8 @@ class PriceProductDao
             // Calcular precio del producto
             $dataPrice = $this->findTotalPrice($dataProduct[$i]['id_product']);
 
-            if ($dataPrice == false) {
+            if ($dataPrice) {
                 // No existe el producto asociado a la tabla products_cost";
-            } else {
                 $this->updatePrice($dataProduct[$i]['id_product'], $dataPrice['totalPrice']);
             }
         }
