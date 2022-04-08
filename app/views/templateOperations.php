@@ -156,7 +156,7 @@ else if (time() - $_SESSION['time'] > 600)
 						</div>
 						<!-- Row 2-->
 						<div class="row align-items-stretch">
-							<div class="col-md-4 col-lg-2">
+							<div class="col-md-4 col-lg-3">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Ventas</h5>
@@ -201,7 +201,7 @@ else if (time() - $_SESSION['time'] > 600)
 								</div>
 							</div>
 							<!-- Begin total revenue chart -->
-							<div class="col-md-4 col-lg-8">
+							<div class="col-md-4 col-lg-7">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Tiempos de Proceso por Producto</h5>
@@ -261,7 +261,25 @@ else if (time() - $_SESSION['time'] > 600)
 						</div>
 
 						<div class="row">
-							<div class="col-lg-9">
+
+							<div class="col-lg-4">
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title">Costo Mano de Obra (Min)</h5>
+									</div>
+									<div class="card-body">
+										<div class="chart-container">
+											<canvas id="charWorkForceGeneral"></canvas>
+											<div class="center-text">
+												<p class="text-muted mb-1 font-weight-600">Total Costo </p>
+												<h4 class="mb-0 font-weight-bold" id="totalCostWorkforce"></h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Costo Carga Fabril</h5>
@@ -269,54 +287,31 @@ else if (time() - $_SESSION['time'] > 600)
 									<div class="card-body">
 										<div class="chart-container">
 											<canvas id="charFactoryLoadCost"></canvas>
-											<!-- <div class="chart">
-											</div> -->
-											<!-- <div class="center-text">
-											<p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
-											<h4 class="mb-0 font-weight-bold">120 min</h4>
-										</div> -->
+											<div class="center-text">
+												<p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
+												<h4 class="mb-0 font-weight-bold" id="factoryLoadCost">$120.000</h4>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="col-lg-3">
-								<div class="card">
-									<div class="card-header">
-										<h5 class="card-title">Costo Mano de Obra (Min)</h5>
-									</div>
-									<div class="card-body">
-										<div class="chart-container">
-											<!-- <div class="chart">
-												</div> -->
-											<canvas id="charWorkForceGeneral"></canvas>
-											<!-- <div class="center-text">
-												<p class="text-muted mb-1 font-weight-600">Total Costo </p>
-												<h4 class="mb-0 font-weight-bold" id="totalCostWorkforce"></h4>
-											</div> -->
-										</div>
-									</div>
-								</div>
-							</div>
+							<!-- </div> -->
 
-						</div>
+							<!-- <div class="row"> -->
 
-						<div class="row">
-
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Gastos Generales</h5>
 									</div>
 									<div class="card-body pt-2">
 										<div class="chart-container">
-											<!--<div class="chart">
-												</div>-->
 											<canvas id="charExpensesGenerals"></canvas>
-											<!-- <div class="center-text">
-												<p class="text-muted mb-1 font-weight-600">Total Costo </p>
+											<div class="center-text">
+												<p class="text-muted mb-1 font-weight-600">Total Gastos </p>
 												<h4 class="mb-0 font-weight-bold" id="totalCost">$38.736</h4>
-											</div> -->
+											</div>
 										</div>
 									</div>
 								</div>

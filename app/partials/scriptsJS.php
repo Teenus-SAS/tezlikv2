@@ -11,9 +11,10 @@
 <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
 <script src="assets/libs/chartjs/js/Chart.bundle.min.js"></script>
 <script src="assets/js/utils/colors.js"></script>
-<script src="assets/js/pages/dashboard.init.js"></script>
+<!-- <script src="assets/js/pages/dashboard.init.js"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
 <!-- page JS -->
 <script src="assets/js/app.js"></script>

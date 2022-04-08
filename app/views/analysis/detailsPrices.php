@@ -226,10 +226,10 @@
                             <div class="chart">
                                 <canvas id="charWorkForce" style="width: 90%;"></canvas>
                             </div>
-                            <!-- <div class="center-text">
+                            <div class="center-text">
                                 <p class="text-muted mb-1 font-weight-600">Total Costo </p>
                                 <h4 class="mb-0 font-weight-bold">$38.736</h4>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -244,10 +244,10 @@
                             <div class="chart">
                                 <canvas id="charTimeProcess" style="width: 90%;"></canvas>
                             </div>
-                            <!-- <div class="center-text">
+                            <div class="center-text">
                                 <p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
                                 <h4 class="mb-0 font-weight-bold">120 min</h4>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>

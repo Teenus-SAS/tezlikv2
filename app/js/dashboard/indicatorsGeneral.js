@@ -3,13 +3,14 @@ fetch(`/api/dashboardExpensesGenerals`)
     .then((data) => {
         data = JSON.parse(data);
         generalIndicators(data.expense_value);
-        debugger
+
         /*
         generalSales(data.);
         */
         graphicsFactoryLoad(data.factory_load_minute_value);
         graphicTimeProcessByProduct(data.process_minute_value);
         graphicGeneralCost(data.expense_value);
+        //graphicProfit(data)
     });
 
 /* Colors */
