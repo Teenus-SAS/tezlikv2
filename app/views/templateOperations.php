@@ -87,7 +87,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Productos</span>
-												<h2 class="mb-0 mt-1" id="products">5.000</h2>
+												<h2 class="mb-0 mt-1" id="products"></h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-rev"></div>
@@ -105,7 +105,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Rentabilidad (Promedio)</span>
-												<h2 class="mb-0 mt-1" id="profitabilityAverage">30%</h2>
+												<h2 class="mb-0 mt-1" id="profitabilityAverage"></h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-order"></div>
@@ -123,7 +123,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Comisión de Ventas (Promedio)</span>
-												<h2 class="mb-0 mt-1" id="comissionAverage">2%</h2>
+												<h2 class="mb-0 mt-1" id="comissionAverage"></h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-user"></div>
@@ -141,7 +141,7 @@ else if (time() - $_SESSION['time'] > 600)
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Gastos Generales</span>
-												<h2 class="mb-0 mt-1" id="generalCost">$ 15.000.000</h2>
+												<h2 class="mb-0 mt-1" id="generalCost"></h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-visitor"></div>
@@ -167,7 +167,7 @@ else if (time() - $_SESSION['time'] > 600)
 												<div class="media">
 													<div class="media-body">
 														<p class="text-muted mb-2">Productos Vendidos</p>
-														<h4 class="mb-0" id="productsSold">1.625</h4>
+														<h4 class="mb-0" id="productsSold"></h4>
 													</div>
 													<div class="avatar avatar-md bg-info mr-0 align-self-center">
 														<i class="bx bx-layer fs-lg"></i>
@@ -178,7 +178,7 @@ else if (time() - $_SESSION['time'] > 600)
 												<div class="media">
 													<div class="media-body">
 														<p class="text-muted mb-2">Ingresos por Ventas</p>
-														<h4 class="mb-0" id="salesRevenue">$ 42,235</h4>
+														<h4 class="mb-0" id="salesRevenue"></h4>
 													</div>
 													<div class="avatar avatar-md bg-primary mr-0 align-self-center">
 														<i class="bx bx-bar-chart-alt fs-lg"></i>
@@ -224,7 +224,7 @@ else if (time() - $_SESSION['time'] > 600)
 												<div class="media">
 													<div class="media-body">
 														<p class="text-muted mb-2">Alistamiento</p>
-														<h4 class="mb-0" id="productsSold">15 min</h4>
+														<h4 class="mb-0 number" id="enlistmentTime"></h4>
 													</div>
 													<div class="avatar avatar-md bg-info mr-0 align-self-center">
 														<i class="bx bx-layer fs-lg"></i>
@@ -235,7 +235,7 @@ else if (time() - $_SESSION['time'] > 600)
 												<div class="media">
 													<div class="media-body">
 														<p class="text-muted mb-2">Operación</p>
-														<h4 class="mb-0" id="salesRevenue">30 min</h4>
+														<h4 class="mb-0 number" id="operationTime"></h4>
 													</div>
 													<div class="avatar avatar-md bg-primary mr-0 align-self-center">
 														<i class="bx bx-bar-chart-alt fs-lg"></i>
@@ -289,7 +289,7 @@ else if (time() - $_SESSION['time'] > 600)
 											<canvas id="charFactoryLoadCost"></canvas>
 											<div class="center-text">
 												<p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
-												<h4 class="mb-0 font-weight-bold" id="factoryLoadCost">$120.000</h4>
+												<h4 class="mb-0 font-weight-bold" id="factoryLoadCost"></h4>
 											</div>
 										</div>
 									</div>
@@ -310,7 +310,7 @@ else if (time() - $_SESSION['time'] > 600)
 											<canvas id="charExpensesGenerals"></canvas>
 											<div class="center-text">
 												<p class="text-muted mb-1 font-weight-600">Total Gastos </p>
-												<h4 class="mb-0 font-weight-bold" id="totalCost">$38.736</h4>
+												<h4 class="mb-0 font-weight-bold" id="totalCost"></h4>
 											</div>
 										</div>
 									</div>

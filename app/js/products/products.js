@@ -74,7 +74,7 @@ $(document).ready(function () {
     $('#referenceProduct').val(data.reference);
     $('#product').val(data.product);
     $('#profitability').val(data.profitability);
-    $('#commisionSale').val(data.commision_sale);
+    $('#commisionSale').val(data.commission_sale);
     //$('#formFile').val(data.img);
 
     $('html, body').animate(

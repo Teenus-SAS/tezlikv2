@@ -28,7 +28,7 @@ class ProductsCostDao
         $stmt->execute(['id_company' => $id_company]);
         $product = $stmt->fetch($connection::FETCH_ASSOC);
 
-        $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability, commision_sale) 
+        $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability, commission_sale) 
                                         VALUES (:id_product, :id_company, :profitability, :commision_sale)");
         $stmt->execute([
             'id_product' => $product['idProduct'],
@@ -45,7 +45,7 @@ class ProductsCostDao
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("UPDATE products_costs SET profitability = :profitability, commision_sale = :commision_sale
+        $stmt = $connection->prepare("UPDATE products_costs SET profitability = :profitability, commission_sale = :commision_sale
                                       WHERE id_product = :id_product");
 
         $stmt->execute([

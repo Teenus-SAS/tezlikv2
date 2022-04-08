@@ -16,7 +16,23 @@ class DashboardGeneralDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    //Gastos generales
+    public function findTimeProcessForProductByCompany($id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT p.product, SUM(pp.enlistment_time) AS enlistmentTime, SUM(pp.operation_time) AS operationTime
+                                      FROM products_process pp
+                                      INNER JOIN products p ON p.id_product = pp.id_product
+                                      WHERE pp.id_company = :id_company 
+                                      GROUP BY p.product  ORDER BY `operationTime` DESC");
+        $stmt->execute(['id_company' => $id_company]);
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+
+        $timeProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("timeProcess", array('timeProcess' => $timeProcess));
+        return $timeProcess;
+    }
+
     public function findProcessMinuteValueByCompany($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
@@ -32,7 +48,7 @@ class DashboardGeneralDao
         return $processMinuteValue;
     }
 
-    public function findfactoryLoadMinuteValueByCompany($id_company)
+    public function findFactoryLoadMinuteValueByCompany($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT m.machine, SUM(ml.cost_minute) AS totalCostMinute
@@ -52,34 +68,24 @@ class DashboardGeneralDao
     public function findExpensesValueByCompany($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        // Busqueda cuenta que empieze por "51"
-        $stmt = $connection->prepare("SELECT p.number_count as count51, SUM(ex.expense_value) as expenseCount51
-                                      FROM expenses ex
-                                      LEFT JOIN puc p ON p.id_puc = ex.id_puc
-                                      WHERE ex.id_company = :id_company AND
-                                      p.number_count LIKE '51%'");
-        $stmt->execute(['id_company' => $id_company]);
-        $expenseCount51 = $stmt->fetch($connection::FETCH_ASSOC);
 
-        // Busqueda cuenta que empieze por "52"
-        $stmt = $connection->prepare("SELECT p.number_count as count52, SUM(ex.expense_value) as expenseCount52
-                                      FROM expenses ex
-                                      LEFT JOIN puc p ON p.id_puc = ex.id_puc
-                                      WHERE ex.id_company = :id_company AND
-                                      p.number_count LIKE '52%'");
+        // Contar todos los productos
+        $stmt = $connection->prepare("SELECT COUNT(product) products FROM products WHERE id_company = :id_company;");
         $stmt->execute(['id_company' => $id_company]);
-        $expenseCount52 = $stmt->fetch($connection::FETCH_ASSOC);
-       
-        // Busqueda cuenta que empieze por "53"
-        $stmt = $connection->prepare("SELECT p.number_count as count53, SUM(ex.expense_value) as expenseCount53
-                                      FROM expenses ex
-                                      LEFT JOIN puc p ON p.id_puc = ex.id_puc
-                                      WHERE ex.id_company = :id_company AND
-                                      p.number_count LIKE '53%'");
-        $stmt->execute(['id_company' => $id_company]);
-        $expenseCount53 = $stmt->fetch($connection::FETCH_ASSOC);
+        $quantityProducts = $stmt->fetch($connection::FETCH_ASSOC);
 
-        $expenseValue = array_merge($expenseCount51, $expenseCount52, $expenseCount53);
+
+        for ($i = 1; $i < 4; $i++) {
+            $stmt = $connection->prepare("SELECT p.number_count, SUM(ex.expense_value) AS expenseCount
+                                      FROM expenses ex
+                                      LEFT JOIN puc p ON p.id_puc = ex.id_puc
+                                      WHERE ex.id_company = :id_company AND
+                                      p.number_count LIKE '5{$i}%'");
+            $stmt->execute(['id_company' => $id_company]);
+            $expenseCount = $stmt->fetch($connection::FETCH_ASSOC);
+            $expenseValue[$i] =  $expenseCount;
+        }
+        $expenseValue = array_merge($expenseValue, $quantityProducts);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 

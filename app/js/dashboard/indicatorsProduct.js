@@ -1,6 +1,5 @@
 $(document).ready(function () {
   id_product = sessionStorage.getItem('idProduct');
-
   fetch(`/api/dashboardPricesProducts/${id_product}`)
     .then((response) => response.text())
     .then((data) => {
@@ -37,9 +36,7 @@ $(document).ready(function () {
     $('#rawMaterial').html(data[0].cost_materials.toLocaleString('es-ES'));
     $('#workforce').html(data[0].cost_workforce.toLocaleString('es-ES'));
     $('#indirectCost').html(data[0].cost_indirect_cost.toLocaleString('es-ES'));
-    $('#assignableExpenses').html(
-      data[0].assignable_expense.toLocaleString('es-ES')
-    );
+    $('#assignableExpenses').html(data[0].assignable_expense.toFixed(2));
   };
 
   /* Ventas */
@@ -47,6 +44,7 @@ $(document).ready(function () {
   UnitsVolSold = (data) => {
     $('#unitsSold').html(data[0].units_sold.toLocaleString('es-ES'));
     $('#turnover').html(data[0].turnover.toLocaleString('es-ES'));
+    $('#recomendedPrice').html(data[0].price.toLocaleString('es-ES'));
   };
 
   /* Costeo Total */
@@ -58,6 +56,7 @@ $(document).ready(function () {
       parseFloat(data[0].cost_indirect_cost);
     costTotal = cost + parseFloat(data[0].assignable_expense);
 
+    $('#salesPrice').html(data[0].price.toLocaleString('es-ES'));
     $('#costTotal').html(costTotal.toLocaleString('es-ES'));
     $('#cost').html(cost.toLocaleString('es-ES'));
     $('#payRawMaterial').html(data[0].cost_materials.toLocaleString('es-ES'));
@@ -65,10 +64,8 @@ $(document).ready(function () {
     $('#payIndirectCost').html(
       data[0].cost_indirect_cost.toLocaleString('es-ES')
     );
-    $('#payAssignableExpenses').html(
-      data[0].assignable_expense.toLocaleString('es-ES')
-    );
-    $('#commisionSale').html(`${data[0].commision_sale}%`);
+    $('#payAssignableExpenses').html(data[0].assignable_expense.toFixed(2));
+    $('#commisionSale').html(`${data[0].commission_sale}%`);
     $('#profitability').html(`${data[0].profitability}%`);
   };
 });

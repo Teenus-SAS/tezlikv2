@@ -55,6 +55,14 @@ $(document).ready(function () {
         },
       },
       {
+        title: 'Comision',
+        data: 'commission_sale',
+        className: 'classCenter',
+        render: function (data) {
+          return data + ' %';
+        },
+      },
+      {
         title: 'Acciones',
         data: 'id_product',
         className: 'uniqueClassName',
