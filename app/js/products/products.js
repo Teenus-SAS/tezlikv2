@@ -44,7 +44,7 @@ $(document).ready(function() {
                 toastr.error('Ingrese todos los campos');
                 return false;
             }
-            debugger;
+
             product = $('#formCreateProduct').serialize();
 
             $.post(

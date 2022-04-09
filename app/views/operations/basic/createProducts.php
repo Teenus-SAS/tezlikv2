@@ -12,7 +12,7 @@
             <div class="col-sm-4 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewProduct">Nuevo Producto</button>
-                    <button class="btn btn-success ml-3" id="btnImportProducts">Importar Productos</button>
+                    <button class="btn btn-success ml-3" id="btnNewImportProducts">Importar Productos</button>
                 </div>
             </div>
         </div>
@@ -78,24 +78,22 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportProducts">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateProduct">
+            <form id="formCreateProduct" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
-                            <!-- <form id="formCreateProduct"> -->
-                            <div class="gridx4rp">
+                            <div class="gridx4ip">
                                 <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
-                                    <!-- <input class="form-control form-control-sm" id="formFile" type="file" style="padding:10px;width:40%"> -->
-                                    <input class="form-control" type="file" id="formFile">
-                                    <!-- <button class="btn btn-warning" disabled>Seleccionar Imagen</button> -->
+                                    <input class="form-control" type="file" id="fileProducts" accept=".xls,.xlsx">
                                     <label for="formFile" class="form-label"> Importar Productos</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-success" id="btnImport">Importar</button>
+                                    <button type="text" class="btn btn-success" id="btnImportProducts">Importar</button>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-warning" id="btnDownloadFormatImportsProducts">Descarga Formato</button>
                                 </div>
                             </div>
-
-                            <div id="preview"></div>
                         </div>
                     </div>
                 </div>
@@ -130,3 +128,6 @@
 <script src="../../app/js/products/tblProducts.js"></script>
 <script src="../../app/js/products/products.js"></script>
 <script src="../../app/js/products/importProducts.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
+<script src="../../app/js/global/validateExt.js"></script>

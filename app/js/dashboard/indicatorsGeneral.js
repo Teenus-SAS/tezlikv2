@@ -62,7 +62,7 @@ averagePrices = (data) => {
 averagesTime = (data) => {
     enlistmentTime = 0;
     operationTime = 0;
-    debugger
+
     for (let i in data) {
         enlistmentTime = enlistmentTime + data[i].enlistmentTime;
         operationTime = operationTime + data[i].operationTime;

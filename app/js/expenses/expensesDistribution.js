@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     $('#btnExpensesDistribution').click(function(e) {
         e.preventDefault();
-        debugger
+
         $('.cardExpensesDistribution').toggle(800);
         $('#btnAssignExpenses').html('Asignar');
 

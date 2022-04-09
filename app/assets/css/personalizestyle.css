@@ -98,6 +98,12 @@
     grid-column-gap: 1em;
 }
 
+.gridx4ip {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr 1fr;
+    grid-column-gap: 1em;
+}
+
 .gridx4pm {
     display: grid;
     grid-template-columns: 1fr 200px 100px 200px;
