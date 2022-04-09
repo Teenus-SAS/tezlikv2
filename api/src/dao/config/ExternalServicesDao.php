@@ -77,17 +77,17 @@ class ExternalServicesDao
         }
     }
 
-    public function deleteExternalService($id_service)
+    public function deleteExternalService($idService)
     {
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT * FROM services WHERE id_service = :id_service");
-        $stmt->execute(['id_service' => $id_service]);
+        $stmt->execute(['id_service' => $idService]);
         $rows = $stmt->rowCount();
 
         if ($rows > 0) {
             $stmt = $connection->prepare("DELETE FROM services WHERE id_service = :id_service");
-            $stmt->execute(['id_service' => $id_service]);
+            $stmt->execute(['id_service' => $idService]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
     }

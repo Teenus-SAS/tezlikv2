@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <div class="col-sm-5 col-xl-6">
                 <div class="page-title">
-                    <h3 class="mb-1 font-weight-bold text-dark">PUERTA 15-100</h3>
+                    <h3 class="mb-1 font-weight-bold text-dark" id="product"></h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
                         <li class="breadcrumb-item active">Análisis de Costos</li>
                     </ol>
@@ -54,7 +54,7 @@
                             <div class="text-center">
                                 <!-- <div id="t-rev"></div> -->
                                 <span class="text-success font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-up-arrow-alt"></i> 10.21%
+                                    <i class="bx bx-up-arrow-alt" id="percentRawMaterial"></i>
                                 </span>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             <div class="text-center">
                                 <!-- <div id="t-order"></div> -->
                                 <span class="text-danger font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-down-arrow-alt"></i> 5.05%
+                                    <i class="bx bx-down-arrow-alt" id="percentWorkforce"></i>
                                 </span>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                             <div class="text-center">
                                 <!-- <div id="t-user"></div> -->
                                 <span class="text-success font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-up-arrow-alt"></i> 25.21%
+                                    <i class="bx bx-up-arrow-alt" id="percentIndirectCost"></i>
                                 </span>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                             <div class="text-center">
                                 <!-- <div id="t-visitor"></div> -->
                                 <span class="text-danger font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-down-arrow-alt"></i> 5.16%
+                                    <i class="bx bx-down-arrow-alt" id="percentAssignableExpenses"></i>
                                 </span>
                             </div>
                         </div>
@@ -201,9 +201,9 @@
                                             <p class="mb-2" style="color:darkcyan">Gastos</p>
                                             <h6 class="mb-0 pl-3 text-right" id="payAssignableExpenses"></h6>
                                             <p class="mb-2" style="color:darkcyan">Comisión Ventas</p>
-                                            <h6 class="mb-0 pl-3 text-right" id="commisionSale"></h6>
+                                            <h6 class="mb-0 pl-3" id="commisionSale"></h6>
                                             <p class="mb-2" style="color:darkcyan">Rentabilidad</p>
-                                            <h6 class="mb-0 pl-3 text-right" id="profitability"></h6>
+                                            <h6 class="mb-0 pl-3" id="profitability"></h6>
                                         </div>
                                     </div>
                                 </div>

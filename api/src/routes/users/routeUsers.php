@@ -126,7 +126,7 @@ $app->post('/deleteUser', function (Request $request, Response $response, $args)
     $users = $userDao->deleteUser($dataUser);
     $usersAccess = $accessUserDao->deleteUserAccess($dataUser);
 
-    if ($users == null && $usersAccess)
+    if ($users == null && $usersAccess == null)
         $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
     else
         $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');

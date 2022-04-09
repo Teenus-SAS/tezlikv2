@@ -102,7 +102,11 @@ $(document).ready(function () {
   /* Eliminar servicio */
 
   $(document).on('click', '.deleteExternalService', function (e) {
-    let id_service = this.id;
+    let idService = this.id;
+
+    dataExternalService = {};
+    dataExternalService['idService'] = idService;
+    dataExternalService['idProduct'] = $('#selectNameProduct').val();
 
     bootbox.confirm({
       title: 'Eliminar',
@@ -120,8 +124,9 @@ $(document).ready(function () {
       },
       callback: function (result) {
         if (result == true) {
-          $.get(
-            `../../api/deleteExternalService/${id_service}`,
+          $.post(
+            '../../api/deleteExternalService',
+            dataExternalService,
             function (data, textStatus, jqXHR) {
               message(data);
             }
