@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    let selectedFile;
+
     $('.cardImportProducts').hide();
 
     $('#btnNewImportProducts').click(function(e) {
@@ -7,24 +9,14 @@ $(document).ready(function() {
         $('.cardImportProducts').toggle(800);
     });
 
-    let selectedFile;
-    //console.log(window.XLSX);
-
     $('#fileProducts').change(function(e) {
         e.preventDefault();
         selectedFile = e.target.files[0];
     });
 
-    /* let data = [{
-        "name": "jayanth",
-        "data": "scd",
-        "abc": "sdef"
-    }]
- */
-
     $('#btnImportProducts').click(function(e) {
         e.preventDefault();
-        debugger
+
         file = $('#fileProducts').val();
 
         if (!file) {
@@ -32,19 +24,7 @@ $(document).ready(function() {
             return false
         }
 
-        //XLSX.utils.json_to_sheet(data, 'out.xlsx');
-        if (selectedFile) {
-            let fileReader = new FileReader();
-            fileReader.readAsBinaryString(selectedFile);
-            fileReader.onload = (event) => {
-                let data = event.target.result;
-                let workbook = XLSX.read(data, { type: "binary" });
-                workbook.SheetNames.forEach(sheet => {
-                    let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
-                    console.log(rowObject);
-                });
-            }
-        }
+        importFile(selectedFile)
     });
 
 });
