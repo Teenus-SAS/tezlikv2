@@ -21,6 +21,9 @@ $app->get('/dashboardExpensesGenerals', function (Request $request, Response $re
     // Consultar tiempos de proceso por producto
     $timeProcess = $dashboardGeneralDao->findTimeProcessForProductByCompany($id_company);
 
+    // Consultar promedio de tiempos procesos
+    $averageTimeProcess = $dashboardGeneralDao->findAverageTimeProcessByCompany($id_company);
+
     // Consultar valor por minuto del proceso (nomina)
     $processMinuteValue = $dashboardGeneralDao->findProcessMinuteValueByCompany($id_company);
 
@@ -32,6 +35,7 @@ $app->get('/dashboardExpensesGenerals', function (Request $request, Response $re
 
     $generalExpenses['details_prices'] = $prices;
     $generalExpenses['time_process'] = $timeProcess;
+    $generalExpenses['average_time_process'] = $averageTimeProcess;
     $generalExpenses['process_minute_value'] = $processMinuteValue;
     $generalExpenses['factory_load_minute_value'] = $factoryLoadMinuteValue;
     $generalExpenses['expense_value'] = $expenseValue;

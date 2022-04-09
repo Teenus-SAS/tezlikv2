@@ -16,14 +16,15 @@ class DashboardGeneralDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
+    // Buscar tiempos procesos
     public function findTimeProcessForProductByCompany($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT p.product, SUM(pp.enlistment_time) AS enlistmentTime, SUM(pp.operation_time) AS operationTime
+        $stmt = $connection->prepare("SELECT p.product, (SUM(pp.enlistment_time) + SUM(pp.operation_time)) AS totalTime
                                       FROM products_process pp
                                       INNER JOIN products p ON p.id_product = pp.id_product
                                       WHERE pp.id_company = :id_company 
-                                      GROUP BY p.product  ORDER BY `operationTime` DESC");
+                                      GROUP BY p.product ORDER BY `totalTime` DESC");
         $stmt->execute(['id_company' => $id_company]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -31,6 +32,26 @@ class DashboardGeneralDao
         $timeProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("timeProcess", array('timeProcess' => $timeProcess));
         return $timeProcess;
+    }
+
+    // Buscar promedio tiempos procesos
+    public function findAverageTimeProcessByCompany($id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT p.product, pp.enlistment_time, pp.operation_time
+                                      FROM products_process pp
+                                      INNER JOIN products p ON p.id_product = pp.id_product
+                                      WHERE pp.id_company = :id_company
+                                      GROUP BY pp.id_product_process
+                                      ORDER BY `p`.`product`  ASC");
+        $stmt->execute(['id_company' => $id_company]);
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+
+        $averageTimeProcess = $stmt->fetchAll($connection::FETCH_ASSOC);
+
+        $this->logger->notice("averageTimeProcess", array('averageTimeProcess' => $averageTimeProcess));
+        return $averageTimeProcess;
     }
 
     public function findProcessMinuteValueByCompany($id_company)
