@@ -127,7 +127,7 @@
 
 <script src="../../app/js/products/tblProducts.js"></script>
 <script src="../../app/js/products/products.js"></script>
-<script src="../../app/js/products/importProducts.js"></script>
 <script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/products/importProducts.js"></script>
 <script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/global/validateExt.js"></script>
