@@ -24,7 +24,12 @@ $(document).ready(function() {
             return false
         }
 
-        importFile(selectedFile)
+        importFile(selectedFile).then(data => {
+            console.log(data);
+        }).catch(() => {
+            console.log('Ocurrio un error. Intente Nuevamente');
+        });
+
     });
 
 });
