@@ -69,7 +69,7 @@
           <div class="card mb-0 p-2 p-md-3 h-100">
             <div class="card-body">
               <div class="clearfix" style="text-align: center;">
-                <img src="app/assets/images/logo/logo_tezlik.png" height="55" class="" alt="logo tezlik">
+                <img src="app/assets/images/logo/logo_tezlik1.png" height="55" class="" alt="logo tezlik">
               </div>
               <h5 class="mt-4 font-weight-600">Bienvenido!</h5>
               <!-- <p class="text-muted mb-4">Login</p> -->
