@@ -1,13 +1,3 @@
-<!-- <body class="horizontal-navbar"> -->
-<!-- Begin Page -->
-<!-- <div class="page-wrapper"> -->
-<!-- Begin Header -->
-
-<!-- Begin main content -->
-<!-- <div class="main-content"> -->
-<!-- content -->
-<!--  <div class="page-content"> -->
-<!-- page header -->
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -21,7 +11,8 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnNewExpense">Nuevo Gasto</button>
+                    <button class="btn btn-warning" id="btnNewExpense">Nuevo Gasto</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewExpenses">Importar Gastos</button>
                 </div>
             </div>
         </div>
@@ -51,6 +42,33 @@
     </div>
 </div>
 
+<div class="page-content-wrapper mt--45 mb-5 cardImportExpensesAssignation">
+    <div class="container-fluid">
+        <div class="row">
+            <form id="formCreateExpesesAssignation" enctype="multipart/form-data">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body pt-3 pb-0">
+                            <div class="gridx4ip">
+                                <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
+                                    <input class="form-control" type="file" id="fileExpensesAssignation" accept=".xls,.xlsx">
+                                    <label for="formFile" class="form-label">Importar Asignacion de Gastos</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-success" id="btnImportExpensesAssignation">Importar</button>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsExpensesAssignation">Descarga Formato</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- page content -->
 <div class="page-content-wrapper mt--45">
     <div class="container-fluid">
@@ -70,10 +88,6 @@
         </div>
     </div>
 </div>
-<!-- </div>
-        </div>
-    </div> -->
-
 
 <script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/expenses/expense.js"></script>

@@ -11,7 +11,8 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProduct">Adicionar Nueva Materia Prima</button>
+                    <button class="btn btn-warning" id="btnCreateProduct">Adicionar Nueva Materia Prima</button>
+                    <button class="btn btn-info ml-3" id="btnImportMaterialsProducts">Importar Materia Prima</button>
                 </div>
             </div>
         </div>
@@ -52,12 +53,39 @@
                                 <select class="form-control" name="material" id="material"></select>
                                 <input class="form-control text-center" type="text" name="quantity" id="quantity">
                                 <input class="form-control text-center" type="text" name="unity" id="unity" disabled>
-                                <button class="btn btn-primary" id="btnAddMaterials">Adicionar Materia Prima</button>
+                                <button class="btn btn-success" id="btnAddMaterials">Adicionar Materia Prima</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-wrapper mt--45 mb-5 cardImportProductsMaterials">
+    <div class="container-fluid">
+        <div class="row">
+            <form id="formCreateProduct" enctype="multipart/form-data">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body pt-3 pb-0">
+                            <div class="gridx4ip">
+                                <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
+                                    <input class="form-control" type="file" id="fileProductsMaterials" accept=".xls,.xlsx">
+                                    <label for="formFile" class="form-label"> Importar Productos*Materia Prima</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-success" id="btnImportProductsMaterials">Importar</button>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsProductsMaterials">Descarga Formato</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

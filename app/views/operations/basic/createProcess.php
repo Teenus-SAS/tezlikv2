@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnNewProcess" name="btnNewProcess">Nuevo Proceso</button>
+                    <button class="btn btn-warning" id="btnNewProcess" name="btnNewProcess">Nuevo Proceso</button>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                                     <input type="text" class="form-control" id="process" name="process">
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:4px">
-                                    <button class="btn btn-primary" id="btnCreateProcess">Crear Proceso</button>
+                                    <button class="btn btn-success" id="btnCreateProcess">Crear Proceso</button>
                                 </div>
                             </div>
                         </div>

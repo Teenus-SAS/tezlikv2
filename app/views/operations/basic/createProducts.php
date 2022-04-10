@@ -12,7 +12,7 @@
             <div class="col-sm-4 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewProduct">Nuevo Producto</button>
-                    <button class="btn btn-success ml-3" id="btnNewImportProducts">Importar Productos</button>
+                    <button class="btn btn-info ml-3" id="btnNewImportProducts">Importar Productos</button>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
                                     <button type="text" class="btn btn-success" id="btnImportProducts">Importar</button>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-warning" id="btnDownloadFormatImportsProducts">Descarga Formato</button>
+                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsProducts">Descarga Formato</button>
                                 </div>
                             </div>
                         </div>

@@ -11,7 +11,8 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnCreateProcess">Nuevo Proceso</button>
+                    <button class="btn btn-warning" id="btnCreateProcess">Nuevo Proceso</button>
+                    <button class="btn btn-info ml-3" id="btnImportProductProcess">Importar Procesos</button>
                 </div>
             </div>
         </div>
@@ -57,12 +58,39 @@
                                 <input class="form-control text-center" type="number" name="enlistmentTime" id="enlistmentTime">
                                 <input class="form-control text-center" type="number" name="operationTime" id="operationTime">
                                 <input class="form-control text-center" type="text" name="totalTime" id="totalTime" disabled>
-                                <button class="btn btn-primary" id="btnAddProcess">Adicionar</button>
+                                <button class="btn btn-success" id="btnAddProcess">Adicionar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-wrapper mt--45 mb-5 cardImportProductsProcess">
+    <div class="container-fluid">
+        <div class="row">
+            <form id="formCreateProduct" enctype="multipart/form-data">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body pt-3 pb-0">
+                            <div class="gridx4ip">
+                                <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
+                                    <input class="form-control" type="file" id="fileProductsProcess" accept=".xls,.xlsx">
+                                    <label for="formFile" class="form-label"> Importar Productos*Procesos</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-success" id="btnImportProductsProcess">Importar</button>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsProductsProcess">Descarga Formato</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

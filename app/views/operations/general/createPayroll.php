@@ -13,9 +13,37 @@
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-primary" id="btnNewPayroll">Nueva Nómina</button>
+                    <button class="btn btn-warning" id="btnNewPayroll">Nueva Nómina</button>
+                    <button class="btn btn-info ml-3" id="btnNewPayroll">Importar Nómina</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-wrapper mt--45 mb-5 cardImportPayroll">
+    <div class="container-fluid">
+        <div class="row">
+            <form id="formCreatePayroll" enctype="multipart/form-data">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body pt-3 pb-0">
+                            <div class="gridx4ip">
+                                <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
+                                    <input class="form-control" type="file" id="filePayroll" accept=".xls,.xlsx">
+                                    <label for="formFile" class="form-label"> Importar Nómina</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-success" id="btnImportPayroll">Importar</button>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsPayroll">Descarga Formato</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
