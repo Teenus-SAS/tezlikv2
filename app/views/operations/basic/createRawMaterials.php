@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewMaterial" name="btnNewMaterial">Nueva Materia Prima</button>
-                    <button class="btn btn-info ml-3" id="btnImportMaterials" name="btnImportMaterials">Importar Materias Primas</button>
+                    <button class="btn btn-info ml-3" id="btnNewImportMaterials" name="btnNewImportMaterials">Importar Materias Primas</button>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportMaterials">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateMaterials" enctype="multipart/form-data">
+            <form id="formImportMaterials" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -109,3 +109,7 @@
 <script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/rawMaterials/tblRawMaterials.js"></script>
 <script src="../../app/js/rawMaterials/rawMaterials.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/rawMaterials/importRawMaterials.js"></script>
+<script src="../../app/js/import/file.js"></script>
+<script src="../../app/js/global/validateExt.js"></script>

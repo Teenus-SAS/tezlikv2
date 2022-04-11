@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  sessionStorage.removeItem('dataMaterials');
   $('.cardRawMaterials').hide();
 
   $('#btnNewMaterial').click(function (e) {
@@ -10,8 +11,8 @@ $(document).ready(function () {
     type: 'GET',
     url: '../../api/materials',
     success: function (r) {
-      //   materialsData = JSON.stringify(r);
-      //   sessionStorage.setItem('materialsData', materialsData);
+      dataMaterials = JSON.stringify(r);
+      sessionStorage.setItem('dataMaterials', dataMaterials);
 
       let $select = $(`#material`);
       $select.empty();

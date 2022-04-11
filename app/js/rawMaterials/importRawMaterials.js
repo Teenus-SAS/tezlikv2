@@ -1,23 +1,23 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportProducts').hide();
+  $('.cardImportMaterials').hide();
 
-  $('#btnNewImportProducts').click(function (e) {
+  $('#btnNewImportMaterials').click(function (e) {
     e.preventDefault();
-    $('.cardCreateProduct').hide(800);
-    $('.cardImportProducts').toggle(800);
+    $('.cardRawMaterials').hide(800);
+    $('.cardImportMaterials').toggle(800);
   });
 
-  $('#fileProducts').change(function (e) {
+  $('#fileMaterials').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportProducts').click(function (e) {
+  $('#btnImportMaterials').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileProducts').val();
+    file = $('#fileMaterials').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -26,25 +26,24 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        //console.log(data);
-        saveProductTable(data);
+        // console.log(data);
+        saveMaterialTable(data);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
       });
   });
 
-  saveProductTable = (data) => {
+  saveMaterialTable = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/addProducts',
-      //data: data,
-      data: { importProducts: data },
+      url: '../api/addMaterials',
+      data: { importMaterials: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportProducts').hide(800);
-          $('#formImportProduct')[0].reset();
+          $('.cardImportMaterials').hide(800);
+          $('#formImportMaterials')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -52,10 +51,9 @@ $(document).ready(function () {
         else if (r.info == true) toastr.info(r.message);
 
         /* Actualizar tabla */
-
         function updateTable() {
-          $('#tblProducts').DataTable().clear();
-          $('#tblProducts').DataTable().ajax.reload();
+          $('#tblRawMaterials').DataTable().clear();
+          $('#tblRawMaterials').DataTable().ajax.reload();
         }
       },
     });

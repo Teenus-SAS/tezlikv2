@@ -32,7 +32,23 @@ class ProductsDao
     return $products;
   }
 
-  public function insertProductByCompany($dataProduct, $id_company)
+  /* Consultar si existe producto en BD */
+  public function findAExistingProduct($referenceProduct)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT id_product AS idProduct FROM `products` WHERE reference = :reference");
+    $stmt->execute(['reference' => $referenceProduct]);
+    $findProduct = $stmt->fetch($connection::FETCH_ASSOC);
+
+    if ($findProduct == false) {
+      return 1;
+    } else
+      return $findProduct;
+  }
+
+  /* insertar producto */
+  public function generalInsertProduct($dataProduct, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -67,7 +83,8 @@ class ProductsDao
     }
   }
 
-  public function updateProduct($dataProduct)
+  /* Actualizar producto */
+  public function generalUpdateProduct($dataProduct, $idProduct)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -76,7 +93,7 @@ class ProductsDao
         $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product 
                                     WHERE id_product = :id_product");
         $stmt->execute([
-          'id_product' => $dataProduct['idProduct'],
+          'id_product' => $idProduct,
           'reference' => $dataProduct['referenceProduct'],
           'product' => ucfirst(strtolower($dataProduct['product']))
         ]);
@@ -87,11 +104,10 @@ class ProductsDao
         return $error;
       }
     } else {
-
       $stmt = $connection->prepare("UPDATE products SET ref = :reference, product = :product, img = :img 
                                     WHERE id_product = :id_product");
       $stmt->execute([
-        'id_product' => $dataProduct['idProduct'],
+        'id_product' => $idProduct,
         'reference' => $dataProduct['referenceProduct'],
         'product' => ucfirst(strtolower($dataProduct['product'])),
         'img' => $dataProduct['img']
@@ -100,6 +116,35 @@ class ProductsDao
     }
   }
 
+  public function insertProductByCompany($dataProduct, $id_company)
+  {
+    $this->generalInsertProduct($dataProduct, $id_company);
+  }
+
+  public function updateProduct($dataProduct)
+  {
+    $this->generalUpdateProduct($dataProduct, $dataProduct['idProduct']);
+  }
+
+  /* Insertar o Actualizar producto importado */
+  public function insertOrUpdateImportProduct($dataProduct, $id_company)
+  {
+    $productCostDao = new ProductsCostDao();
+
+    $findProduct = $this->findAExistingProduct($dataProduct['referenceProduct']);
+
+    if ($findProduct == 1) {
+      // Insertar producto
+      $this->generalInsertProduct($dataProduct, $id_company);
+      // Insertar product_cost
+      $productCostDao->generalInsertProductsCost($dataProduct, $id_company);
+    } else {
+      // Actualizar
+      $this->generalUpdateProduct($dataProduct, $findProduct['idProduct']);
+      // Actualizar
+      $productCostDao->generalUpdateProductsCost($dataProduct, $findProduct['idProduct']);
+    }
+  }
   public function deleteProduct($dataProduct)
   {
     $connection = Connection::getInstance()->getConnection();

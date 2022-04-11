@@ -27,6 +27,23 @@ $(document).ready(function () {
     idProduct = $('#selectNameProduct').val();
   });
 
+  /* Adicionar unidad de materia prima */
+
+  $('#material').change(function (e) {
+    e.preventDefault();
+    id = this.value;
+
+    dataMaterials = sessionStorage.getItem('dataMaterials');
+    dataMaterials = JSON.parse(dataMaterials);
+
+    for (i = 0; i < dataMaterials.length; i++) {
+      if (id == dataMaterials[i]['id_material']) {
+        $('#unity').val(dataMaterials[i].unit);
+        break;
+      }
+    }
+  });
+
   /* Adicionar nueva materia prima */
 
   $('#btnAddMaterials').click(function (e) {

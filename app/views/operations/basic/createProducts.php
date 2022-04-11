@@ -78,7 +78,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportProducts">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateProduct" enctype="multipart/form-data">
+            <form id="formImportProduct" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">

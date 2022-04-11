@@ -29,20 +29,41 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     //$files = $request->getUploadedFiles();
     /* Falta la programacion para la carga de la imagen */
 
-    if (
-        empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) ||
-        empty($dataProduct['profitability']) || empty($dataProduct['commisionSale'])
-    )
-        $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
-    else {
-        $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
-        //Insertar en products_costs
-        $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
+    if (empty($dataProduct['importProducts'])) {
+        if (
+            empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) ||
+            empty($dataProduct['profitability']) && is_numeric($dataProduct['profitability']) ||
+            empty($dataProduct['commisionSale']) && is_numeric($dataProduct['commisionSale'])
+        )
+            $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+        else {
+            $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
 
-        if ($products == null && $productsCost == null)
-            $resp = array('success' => true, 'message' => 'Producto creado correctamente');
+            //Insertar rentabilidad y comision en products_costs
+            $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
+
+            if ($products == null && $productsCost == null)
+                $resp = array('success' => true, 'message' => 'Producto creado correctamente');
+            else
+                $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
+        }
+    } else {
+        for ($i = 0; $i <= sizeof($dataProduct['importProducts']); $i++) {
+            if (
+                empty($dataProduct['importProducts'][$i]['referenceProduct']) || empty($dataProduct['importProducts'][$i]['product']) ||
+                empty($dataProduct['importProducts'][$i]['profitability']) && is_numeric($dataProduct['importProducts'][$i]['profitability']) ||
+                empty($dataProduct['importProducts'][$i]['commisionSale']) && is_numeric($dataProduct['importProducts'][$i]['commisionSale'])
+            )
+                $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+            else {
+                // Insertar o Actualizar producto
+                $products = $productsDao->insertOrUpdateImportProduct($dataProduct['importProducts'][$i], $id_company);
+            }
+        }
+        if ($products == null /*&& $productsCost == null*/)
+            $resp = array('success' => true, 'message' => 'Producto importado correctamente');
         else
-            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));
@@ -62,8 +83,9 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
         $products = $productsDao->updateProduct($dataProduct);
-        $productsCost = $productsCostDao->updateProductsCost($dataProduct);
 
+        // Actualizar rentabilidad y comision en product_cost
+        $productsCost = $productsCostDao->updateProductsCost($dataProduct);
         // Calcular Precio del producto
         $priceProduct = $priceProductDao->calcPrice($dataProduct['idProduct']);
 
