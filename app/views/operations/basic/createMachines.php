@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewMachine" name="btnNewMachine">Nueva Máquina</button>
-                    <button class="btn btn-info ml-3" id="btnNewMachine" name="btnNewImportMachines">Importar Máquinas</button>
+                    <button class="btn btn-info ml-3" id="btnNewImportMachines" name="btnNewImportMachines">Importar Máquinas</button>
                 </div>
             </div>
         </div>
@@ -57,10 +57,10 @@
                                     <input type="number" class="form-control money text-center" name="daysMachine" id="daysMachine">
                                     <label for="">Dias de Trabajo</label>
                                 </div>
-                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                <!--<div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
                                     <input type="text" class="form-control money text-center" name="depreciationMinute" id="depreciationMinute">
                                     <label for="">Depreciación x Min</label>
-                                </div>
+                                </div>-->
                                 <div style="margin-bottom:0px;margin-top:5px;">
                                     <button class="btn btn-success" id="btnCreateMachine">Crear Máquina</button>
                                 </div>
@@ -77,7 +77,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportMachines">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateProduct" enctype="multipart/form-data">
+            <form id="formImportMachines" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -127,3 +127,7 @@
 <script src="../../app/js/machines/tblMachines.js"></script>
 <script src="../../app/js/machines/machines.js"></script>
 <script src="../../app/js/global/number.js"></script>
+<script src="../../app/js/machines/importMachines.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
+<script src="../../app/js/global/validateExt.js"></script>

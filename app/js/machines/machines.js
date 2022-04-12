@@ -16,31 +16,6 @@ $(document).ready(function () {
     $('#formCreateMachine').trigger('reset');
   });
 
-  /* Calcular depreciación */
-
-  $('#costMachine, #residualValue, #depreciationYears').keyup(function (e) {
-    let price = $('#costMachine').val();
-    let residualValue = $('#residualValue').val();
-    let yearsDepreciation = $('#depreciationYears').val();
-
-    price = price.replace('.', '');
-    price = parseFloat(price);
-
-    residualValue = residualValue.replace('.', '');
-    residualValue = parseFloat(residualValue);
-
-    yearsDepreciation = yearsDepreciation.replace('.', '');
-    yearsDepreciation = parseFloat(yearsDepreciation);
-
-    isNaN(price) ? (price = 1) : price;
-    isNaN(residualValue) ? (residualValue = 1) : residualValue;
-    isNaN(yearsDepreciation) ? (yearsDepreciation = 1) : yearsDepreciation;
-
-    value = (((price - residualValue) / 60) * yearsDepreciation) / 60 / 60;
-    number = value.toLocaleString('en-US', { maximumFractionDigits: 2 });
-    $('#depreciationMinute').val(number);
-  });
-
   /* Crear producto */
 
   $('#btnCreateMachine').click(function (e) {
@@ -57,7 +32,6 @@ $(document).ready(function () {
         toastr.error('Ingrese todos los campos');
         return false;
       }
-      $('#depreciationMinute').prop('disabled', false);
 
       machine = $('#formCreateMachine').serialize();
 
@@ -65,7 +39,6 @@ $(document).ready(function () {
         '../../api/addMachines',
         machine,
         function (data, textStatus, jqXHR) {
-          $('#depreciationMinute').prop('disabled', true);
           message(data);
         }
       );
@@ -91,7 +64,6 @@ $(document).ready(function () {
     $('#depreciationYears').val(data.years_depreciation);
     $('#hoursMachine').val(data.hours_machine);
     $('#daysMachine').val(data.days_machine);
-    $('#depreciationMinute').val(data.minute_depreciation);
 
     $('html, body').animate(
       {
@@ -99,11 +71,9 @@ $(document).ready(function () {
       },
       1000
     );
-    let rowsRegistered = tblConfigProcess.fnGetData(row);
   });
 
   updateMachine = () => {
-    $('#depreciationMinute').prop('disabled', false);
     let data = $('#formCreateMachine').serialize();
     idMachine = sessionStorage.getItem('id_machine');
 
@@ -112,7 +82,6 @@ $(document).ready(function () {
       '../../api/updateMachines',
       data,
       function (data, textStatus, jqXHR) {
-        $('#depreciationMinute').prop('disabled', true);
         message(data);
       }
     );

@@ -29,7 +29,23 @@ class MachinesDao
     return $machines;
   }
 
-  public function insertMachinesByCompany($dataMachine, $id_company)
+  /* Buscar si existe maquina en la BD */
+  public function findAExistingMachine($nameMachine)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT id_machine FROM `machines` WHERE machine = :machine");
+    $stmt->execute(['machine' => $nameMachine]);
+    $findMachine = $stmt->fetch($connection::FETCH_ASSOC);
+
+    if ($findMachine == false) {
+      return 1;
+    } else
+      return $findMachine;
+  }
+
+  /* Insertar maquina general */
+  public function generalInsertMachines($dataMachine, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
     $costMachine = str_replace('.', '', $dataMachine['cost']);
@@ -37,15 +53,14 @@ class MachinesDao
 
     try {
       $stmt = $connection->prepare("INSERT INTO machines (id_company ,machine, cost, years_depreciation, 
-                                                minute_depreciation, residual_value, hours_machine, days_machine) 
+                                                residual_value, hours_machine, days_machine) 
                                     VALUES (:id_company ,:machine, :cost, :years_depreciation,
-                                    :minute_depreciation, :residual_value, :hours_machine, :days_machine)");
+                                        :residual_value, :hours_machine, :days_machine)");
       $stmt->execute([
         'id_company' => $id_company,
         'machine' => ucfirst(strtolower($dataMachine['machine'])),
         'cost' => $costMachine,
         'years_depreciation' => $dataMachine['depreciationYears'],
-        'minute_depreciation' => $dataMachine['depreciationMinute'],
         'residual_value' => $residualValue,
         'hours_machine' => $dataMachine['hoursMachine'],
         'days_machine' => $dataMachine['daysMachine']
@@ -64,7 +79,8 @@ class MachinesDao
     }
   }
 
-  public function updateMachine($dataMachine)
+  /* Actualizar maquina general */
+  public function generalUpdateMachine($dataMachine, $idMachine)
   {
     $connection = Connection::getInstance()->getConnection();
     $costMachine = str_replace('.', '', $dataMachine['cost']);
@@ -72,15 +88,13 @@ class MachinesDao
 
     try {
       $stmt = $connection->prepare("UPDATE machines SET machine = :machine, cost = :cost, years_depreciation = :years_depreciation,
-                                       minute_depreciation = :minute_depreciation, residual_value = :residual_value , 
-                                       hours_machine = :hours_machine, days_machine =:days_machine   
+                                       residual_value = :residual_value , hours_machine = :hours_machine, days_machine = :days_machine   
                                     WHERE id_machine = :id_machine");
       $stmt->execute([
-        'id_machine' => $dataMachine['idMachine'],
+        'id_machine' => $idMachine,
         'machine' => ucfirst(strtolower($dataMachine['machine'])),
         'cost' => $costMachine,
         'years_depreciation' => $dataMachine['depreciationYears'],
-        'minute_depreciation' => $dataMachine['depreciationMinute'],
         'residual_value' => $residualValue,
         'hours_machine' => $dataMachine['hoursMachine'],
         'days_machine' => $dataMachine['daysMachine']
@@ -91,6 +105,29 @@ class MachinesDao
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
+  }
+
+  public function insertMachinesByCompany($dataMachine, $id_company)
+  {
+    $this->generalInsertMachines($dataMachine, $id_company);
+  }
+
+  public function updateMachine($dataMachine)
+  {
+    $this->generalUpdateMachine($dataMachine, $dataMachine['idMachine']);
+  }
+
+  /* Insertar o Actualizar Maquina importada */
+  public function insertOrUpdateMachine($dataMachine, $id_company)
+  {
+    $findMachine = $this->findAExistingMachine($dataMachine['machine']);
+
+    if ($findMachine == 1) {
+      // Insert
+      $this->generalInsertMachines($dataMachine, $id_company);
+    } else
+      // Update
+      $this->generalUpdateMachine($dataMachine, $findMachine['id_machine']);
   }
 
   public function deleteMachine($id_machine)

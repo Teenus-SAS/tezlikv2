@@ -47,7 +47,7 @@ class ProductsDao
       return $findProduct;
   }
 
-  /* insertar producto */
+  /* Insertar producto */
   public function generalInsertProduct($dataProduct, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();

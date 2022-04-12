@@ -27,13 +27,45 @@ $(document).ready(function () {
     importFile(selectedFile)
       .then((data) => {
         //console.log(data);
-        saveProductTable(data);
+        checkProduct(data);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
       });
   });
 
+  /* Mensaje de advertencia */
+  checkProduct = (data) => {
+    $.ajax({
+      type: 'POST',
+      url: '../../api/importProduct',
+      //data: data,
+      data: { importProducts: data },
+      success: function (r) {
+        bootbox.confirm({
+          title: 'Desea continuar con la importación?',
+          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${r[0]} <br>Datos a actualizar: ${r[1]}`,
+          buttons: {
+            confirm: {
+              label: 'Si',
+              className: 'btn-success',
+            },
+            cancel: {
+              label: 'No',
+              className: 'btn-danger',
+            },
+          },
+          callback: function (result) {
+            if (result == true) {
+              saveProductTable(data);
+            }
+          },
+        });
+      },
+    });
+  };
+
+  /* Guardar Importacion */
   saveProductTable = (data) => {
     $.ajax({
       type: 'POST',
@@ -52,7 +84,6 @@ $(document).ready(function () {
         else if (r.info == true) toastr.info(r.message);
 
         /* Actualizar tabla */
-
         function updateTable() {
           $('#tblProducts').DataTable().clear();
           $('#tblProducts').DataTable().ajax.reload();

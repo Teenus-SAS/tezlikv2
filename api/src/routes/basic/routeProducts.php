@@ -21,6 +21,27 @@ $app->get('/products', function (Request $request, Response $response, $args) us
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+/* Consultar productos importados */
+$app->post('/importProduct', function (Request $request, Response $response, $args) use ($productsDao) {
+    $dataProduct = $request->getParsedBody();
+
+    $insert = 0;
+    $update = 0;
+    for ($i = 0; $i < sizeof($dataProduct['importProducts']); $i++) {
+        $findProduct = $productsDao->findAExistingProduct($dataProduct['importProducts'][$i]['referenceProduct']);
+
+        if ($findProduct == 1) {
+            $insert = $insert + 1;
+        } else {
+            $update = $update + 1;
+        }
+    }
+    $dataImportProduct = array($insert, $update);
+
+    $response->getBody()->write(json_encode($dataImportProduct, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->post('/addProducts', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
@@ -48,7 +69,7 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
                 $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
         }
     } else {
-        for ($i = 0; $i <= sizeof($dataProduct['importProducts']); $i++) {
+        for ($i = 0; $i < sizeof($dataProduct['importProducts']); $i++) {
             if (
                 empty($dataProduct['importProducts'][$i]['referenceProduct']) || empty($dataProduct['importProducts'][$i]['product']) ||
                 empty($dataProduct['importProducts'][$i]['profitability']) && is_numeric($dataProduct['importProducts'][$i]['profitability']) ||
@@ -60,7 +81,7 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
                 $products = $productsDao->insertOrUpdateImportProduct($dataProduct['importProducts'][$i], $id_company);
             }
         }
-        if ($products == null /*&& $productsCost == null*/)
+        if ($products == null)
             $resp = array('success' => true, 'message' => 'Producto importado correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importaba la información. Intente nuevamente');
