@@ -43,7 +43,7 @@ $(document).ready(function () {
       data: { importProducts: data },
       success: function (r) {
         bootbox.confirm({
-          title: 'Desea continuar con la importación?',
+          title: '¿Desea continuar con la importación?',
           message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${r[0]} <br>Datos a actualizar: ${r[1]}`,
           buttons: {
             confirm: {

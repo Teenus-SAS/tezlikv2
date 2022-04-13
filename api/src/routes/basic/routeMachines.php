@@ -23,6 +23,26 @@ $app->get('/machines', function (Request $request, Response $response, $args) us
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+/* Consultar Maquinas importadas */
+$app->post('/importMachines', function (Request $request, Response $response, $args) use ($machinesDao) {
+    $dataMachine = $request->getParsedBody();
+
+    $insert = 0;
+    $update = 0;
+    for ($i = 0; $i < sizeof($dataMachine['importMachines']); $i++) {
+        $findMachine = $machinesDao->findAExistingMachine($dataMachine['importMachines'][$i]['machine']);
+
+        if ($findMachine == 1) {
+            $insert = $insert + 1;
+        } else
+            $update = $update + 1;
+    }
+    $dataImportMachine = array($insert, $update);
+
+    $response->getBody()->write(json_encode($dataImportMachine, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->post('/addMachines', function (Request $request, Response $response, $args) use ($machinesDao, $minuteDepreciationDao) {
     session_start();
     $id_company = $_SESSION['id_company'];

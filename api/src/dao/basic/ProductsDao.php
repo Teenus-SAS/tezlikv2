@@ -37,7 +37,7 @@ class ProductsDao
   {
     $connection = Connection::getInstance()->getConnection();
 
-    $stmt = $connection->prepare("SELECT id_product AS idProduct FROM `products` WHERE reference = :reference");
+    $stmt = $connection->prepare("SELECT id_product FROM `products` WHERE reference = :reference");
     $stmt->execute(['reference' => $referenceProduct]);
     $findProduct = $stmt->fetch($connection::FETCH_ASSOC);
 
@@ -140,9 +140,9 @@ class ProductsDao
       $productCostDao->generalInsertProductsCost($dataProduct, $id_company);
     } else {
       // Actualizar
-      $this->generalUpdateProduct($dataProduct, $findProduct['idProduct']);
+      $this->generalUpdateProduct($dataProduct, $findProduct['id_product']);
       // Actualizar
-      $productCostDao->generalUpdateProductsCost($dataProduct, $findProduct['idProduct']);
+      $productCostDao->generalUpdateProductsCost($dataProduct, $findProduct['id_product']);
     }
   }
   public function deleteProduct($dataProduct)

@@ -27,18 +27,47 @@ $(document).ready(function () {
     importFile(selectedFile)
       .then((data) => {
         // console.log(data);
-        saveProductTable(data);
+        checkMachine(data);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
       });
   });
 
-  saveProductTable = (data) => {
+  /* Mensaje de advertencia */
+  checkMachine = (data) => {
+    $.ajax({
+      type: 'POST',
+      url: '../../api/importMachines',
+      data: { importMachines: data },
+      success: function (r) {
+        bootbox.confirm({
+          title: '¿Desea continuar con la importación?',
+          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${r[0]} <br>Datos a actualizar: ${r[1]}`,
+          buttons: {
+            confirm: {
+              label: 'Si',
+              className: 'btn-success',
+            },
+            cancel: {
+              label: 'No',
+              className: 'btn-danger',
+            },
+          },
+          callback: function (result) {
+            if (result == true) {
+              saveMachineTable(data);
+            }
+          },
+        });
+      },
+    });
+  };
+
+  saveMachineTable = (data) => {
     $.ajax({
       type: 'POST',
       url: '../../api/addMachines',
-      //data: data,
       data: { importMachines: data },
       success: function (r) {
         /* Mensaje de exito */

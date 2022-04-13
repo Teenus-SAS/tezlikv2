@@ -32,8 +32,50 @@ class ProductsProcessDao
         return $productsprocess;
     }
 
-    public function insertProductsProcessByCompany($dataProductProcess, $id_company)
+    // Consultar si existe el proceso del prodcuto en la BD
+    public function findAExistingProductProcess($dataProductProcess)
     {
+        $connection = Connection::getInstance()->getConnection();
+
+        // Obtener id_producto
+        $product = new ProductsDao();
+        $findProduct = $product->findAExistingProduct($dataProductProcess['referenceProduct']);
+
+        // Obtener id_proceso
+        $stmt = $connection->prepare("SELECT id_process FROM process WHERE process = :process");
+        $stmt->execute(['process' => $dataProductProcess['process']]);
+        $findProcess = $stmt->fetch($connection::FETCH_ASSOC);
+
+        // Obtener id_maquina
+        $machine = new MachinesDao();
+        $findMachine = $machine->findAExistingMachine($dataProductProcess['machine']);
+
+        $stmt = $connection->prepare("SELECT id_product_process FROM products_process 
+                                      WHERE id_product = :id_product AND id_process = :id_process AND id_machine = :id_machine");
+        $stmt->execute([
+            'id_product' => $findProduct['id_product'],
+            'id_process' => $findProcess['id_process'],
+            'id_machine' => $findMachine['id_machine']
+        ]);
+        $findProductProcess = $stmt->fetch($connection::FETCH_ASSOC);
+
+        if ($findProductProcess == false) {
+            $dataFindProductProcess = array_merge($findProduct, $findMachine, $findProcess);
+            return $dataFindProductProcess;
+        } else {
+            $dataFindProductProcess = array_merge($findProductProcess, $findProduct, $findMachine, $findProcess);
+            return $dataFindProductProcess;
+        }
+    }
+
+    // Insertar productos procesos general
+    public function generalInsertProductsProcess(
+        $dataProductProcess,
+        $idMachine,
+        $idProduct,
+        $id_company,
+        $idProcess
+    ) {
         $connection = Connection::getInstance()->getConnection();
 
         try {
@@ -41,10 +83,10 @@ class ProductsProcessDao
                                                           id_machine, enlistment_time, operation_time)
                                     VALUES (:id_product, :id_company, :id_process, :id_machine, :enlistment_time, :operation_time)");
             $stmt->execute([
-                'id_product' => $dataProductProcess['idProduct'],
+                'id_product' => $idProduct,
                 'id_company' => $id_company,
-                'id_process' => $dataProductProcess['idProcess'],
-                'id_machine' => $dataProductProcess['idMachine'],
+                'id_process' => $idProcess,
+                'id_machine' => $idMachine,
                 'enlistment_time' => $dataProductProcess['enlistmentTime'],
                 'operation_time' => $dataProductProcess['operationTime']
             ]);
@@ -57,18 +99,24 @@ class ProductsProcessDao
         }
     }
 
-    public function updateProductsProcess($dataProductProcess)
-    {
+    // Actualizar productos procesos general
+    public function generalUpdateProductsProcess(
+        $dataProductProcess,
+        $idProductProcess,
+        $idProduct,
+        $idProcess,
+        $idMachine
+    ) {
         $connection = Connection::getInstance()->getConnection();
 
         try {
             $stmt = $connection->prepare("UPDATE products_process SET id_product = :id_product, id_process = :id_process, id_machine = :id_machine, enlistment_time = :enlistment_time, operation_time = :operation_time
-                                    WHERE id_product_process = :id_product_process");
+                                          WHERE id_product_process = :id_product_process");
             $stmt->execute([
-                'id_product_process' => $dataProductProcess['idProductProcess'],
-                'id_product' => $dataProductProcess['idProduct'],
-                'id_process' => $dataProductProcess['idProcess'],
-                'id_machine' => $dataProductProcess['idMachine'],
+                'id_product_process' => $idProductProcess,
+                'id_product' => $idProduct,
+                'id_process' => $idProcess,
+                'id_machine' => $idMachine,
                 'enlistment_time' => $dataProductProcess['enlistmentTime'],
                 'operation_time' => $dataProductProcess['operationTime']
             ]);
@@ -79,6 +127,54 @@ class ProductsProcessDao
 
             $error = array('info' => true, 'message' => $message);
             return $error;
+        }
+    }
+
+    public function insertProductsProcessByCompany($dataProductProcess, $id_company)
+    {
+        $this->generalInsertProductsProcess(
+            $dataProductProcess,
+            $dataProductProcess['idProduct'],
+            $dataProductProcess['idProcess'],
+            $dataProductProcess['idMachine'],
+            $id_company
+        );
+    }
+
+    public function updateProductsProcess($dataProductProcess)
+    {
+        $this->generalUpdateProductsProcess(
+            $dataProductProcess,
+            $dataProductProcess['idProductProcess'],
+            $dataProductProcess['idProduct'],
+            $dataProductProcess['idProcess'],
+            $dataProductProcess['idMachine']
+        );
+    }
+
+    // Insertar o Actualizar producto*proceso importado
+    public function insertOrUpdateProductProcess($dataProductProcess, $id_company)
+    {
+        $dataFindProductProcess = $this->findAExistingProductProcess($dataProductProcess);
+
+        if (empty($dataFindProductProcess['id_product_process'])) {
+            // Insertar
+            $this->generalInsertProductsProcess(
+                $dataProductProcess,
+                $dataFindProductProcess['id_machine'],
+                $dataFindProductProcess['id_product'],
+                $id_company,
+                $dataFindProductProcess['id_process']
+            );
+        } else {
+            // Actualizar
+            $this->generalUpdateProductsProcess(
+                $dataProductProcess,
+                $dataFindProductProcess['id_product_process'],
+                $dataFindProductProcess['id_machine'],
+                $dataFindProductProcess['id_product'],
+                $dataFindProductProcess['id_process']
+            );
         }
     }
 

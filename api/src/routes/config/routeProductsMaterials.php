@@ -21,25 +21,70 @@ $app->get('/productsMaterials/{idProduct}', function (Request $request, Response
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->post('/importProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao) {
+    $dataProductMaterial = $request->getParsedBody();
+
+    $insert = 0;
+    $update = 0;
+    for ($i = 0; $i < sizeof($dataProductMaterial['importProductsMaterials']); $i++) {
+        $dataFindProductsMaterials = $productsMaterialsDao->findAExistingProductMaterial($dataProductMaterial['importProductsMaterials'][$i]);
+        if (empty($dataFindProductsMaterials['id_product_material'])) {
+            $insert = $insert + 1;
+        } else
+            $update = $update + 1;
+    }
+    $dataImportProductsMaterials = array($insert, $update);
+
+    $response->getBody()->write(json_encode($dataImportProductsMaterials, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->post('/addProductsMaterials', function (Request $request, Response $response, $args) use ($productsMaterialsDao, $costMaterialsDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProductMaterial = $request->getParsedBody();
 
-    if (empty($dataProductMaterial['material']) || empty($dataProductMaterial['idProduct'] || empty($dataProductMaterial['quantity'])))
-        $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
-    else {
-        $productMaterials = $productsMaterialsDao->insertProductsMaterialsByCompany($dataProductMaterial, $id_company);
-        //Metodo calcular precio total materias
-        $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial, $id_company);
+    if (empty($dataProductMaterial['importProductsMaterials'])) {
+        if (empty($dataProductMaterial['material']) || empty($dataProductMaterial['idProduct']) || empty($dataProductMaterial['quantity']))
+            $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+        else {
+            $productMaterials = $productsMaterialsDao->insertProductsMaterialsByCompany($dataProductMaterial, $id_company);
+            //Metodo calcular precio total materias
+            $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial['idProduct'], $id_company);
 
-        // Calcular Precio del producto
-        $priceProduct = $priceProductDao->calcPrice($dataProductMaterial['idProduct']);
+            // Calcular Precio del producto
+            $priceProduct = $priceProductDao->calcPrice($dataProductMaterial['idProduct']);
 
-        if ($productMaterials == null && $costMaterials == null && $priceProduct == null)
-            $resp = array('success' => true, 'message' => 'Materia prima asignada correctamente');
+            if ($productMaterials == null && $costMaterials == null && $priceProduct == null)
+                $resp = array('success' => true, 'message' => 'Materia prima asignada correctamente');
+            else
+                $resp = array('error' => true, 'message' => 'Ocurrio un error mientras asignaba la información. Intente nuevamente');
+        }
+    } else {
+        for ($i = 0; $i < sizeof($dataProductMaterial['importProductsMaterials']); $i++) {
+            if (
+                empty($dataProductMaterial['importProductsMaterials'][$i]['refRawMaterial']) || empty($dataProductMaterial['importProductsMaterials'][$i]['referenceProduct']) ||
+                empty($dataProductMaterial['importProductsMaterials'][$i]['quantity'])
+            )
+                $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+            else {
+                // Insertar o Actualizar 
+                $productMaterials = $productsMaterialsDao->insertOrUpdateProductsMaterials($dataProductMaterial['importProductsMaterials'][$i], $id_company);
+
+                // Obtener id de producto y materia prima
+                $dataFindProductsMaterials = $productsMaterialsDao->findAExistingProductMaterial($dataProductMaterial['importProductsMaterials'][$i]);
+
+                //Metodo calcular precio total materias
+                $costMaterials = $costMaterialsDao->calcCostMaterial($dataFindProductsMaterials['id_product'], $id_company);
+
+                // Calcular Precio del producto
+                $priceProduct = $priceProductDao->calcPrice($dataFindProductsMaterials['id_product']);
+            }
+        }
+        if ($productMaterials == null /*&& $costMaterials == null && $priceProduct == null*/)
+            $resp = array('success' => true, 'message' => 'Materia prima importada correctamente');
         else
-            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras asignaba la información. Intente nuevamente');
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importada la información. Intente nuevamente');
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
@@ -78,7 +123,7 @@ $app->post('/deleteProductMaterial', function (Request $request, Response $respo
     $product = $productsMaterialsDao->deleteProductMaterial($dataProductMaterial);
 
     //Metodo calcular precio total materias
-    $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial, $id_company);
+    $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial['idProduct'], $id_company);
 
     // Calcular Precio del producto
     $priceProduct = $priceProductDao->calcPrice($dataProductMaterial['idProduct']);

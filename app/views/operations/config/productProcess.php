@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnCreateProcess">Nuevo Proceso</button>
-                    <button class="btn btn-info ml-3" id="btnImportProductProcess">Importar Procesos</button>
+                    <button class="btn btn-info ml-3" id="btnNewImportProductProcess">Importar Procesos</button>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportProductsProcess">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateProduct" enctype="multipart/form-data">
+            <form id="formImportProductProcess" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -118,6 +118,8 @@
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/payroll/configProcessPayroll.js"></script>
 <script src="../../app/js/machines/configMachines.js"></script>
-
 <script src="../../app/js/productProcess/tblConfigProcess.js"></script>
+<script src="../../app/js/productProcess/importProductProcess.js"></script>
 <script src="../../app/js/productProcess/productProcess.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>

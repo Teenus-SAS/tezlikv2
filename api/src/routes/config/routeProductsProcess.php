@@ -23,33 +23,62 @@ $app->get('/productsProcess/{idProduct}', function (Request $request, Response $
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+// Consultar productos procesos importados
+$app->post('/importProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao) {
+    $dataProductProcess = $request->getParsedBody();
+
+    $insert = 0;
+    $update = 0;
+    for ($i = 0; $i < sizeof($dataProductProcess['importProductsProcess']); $i++) {
+        $dataFindProductProcess = $productsProcessDao->findAExistingProductProcess($dataProductProcess['importProductsProcess'][$i]);
+
+        if (empty($dataFindProductProcess['id_product_process'])) {
+            $insert = $insert + 1;
+        } else
+            $update = $update + 1;
+    }
+    $dataImportProductProcess = array($insert, $update);
+
+    $response->getBody()->write(json_encode($dataImportProductProcess, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->post('/addProductsProcess', function (Request $request, Response $response, $args) use ($productsProcessDao, $costWorkforceDao, $indirectCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProductProcess = $request->getParsedBody();
 
-    if (empty($dataProductProcess['idProduct'] || empty($dataProductProcess['idProcess']) || empty($dataProductProcess['idMachine']) || empty($dataProductProcess['enlistmentTime']) || empty($dataProductProcess['operationTime'])))
-        $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
-    else {
-        $productProcess = $productsProcessDao->insertProductsProcessByCompany($dataProductProcess, $id_company);
+    if (empty($dataProductProcess['importProductsProcess'])) {
 
-        /* Calcular costo nomina */
-        $costPayroll = $costWorkforceDao->calcCostPayroll($dataProductProcess, $id_company);
+        if (empty($dataProductProcess['idProduct']) || empty($dataProductProcess['idProcess']) || empty($dataProductProcess['idMachine']) || empty($dataProductProcess['enlistmentTime']) || empty($dataProductProcess['operationTime']))
+            $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+        else {
+            $productProcess = $productsProcessDao->insertProductsProcessByCompany($dataProductProcess, $id_company);
 
-        /* Calcular costo indirecto */
-        $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
+            /* Calcular costo nomina */
+            $costPayroll = $costWorkforceDao->calcCostPayroll($dataProductProcess, $id_company);
 
-        // Calcular Precio del producto
-        $priceProduct = $priceProductDao->calcPrice($dataProductProcess['idProduct']);
+            /* Calcular costo indirecto */
+            $indirectCost = $indirectCostDao->calcCostIndirectCost($dataProductProcess, $id_company);
 
+            // Calcular Precio del producto
+            $priceProduct = $priceProductDao->calcPrice($dataProductProcess['idProduct']);
 
-        if (
-            $productProcess == null && $costPayroll == null &&
-            $indirectCost == null && $priceProduct == null
-        )
-            $resp = array('success' => true, 'message' => 'Proceso asignado correctamente');
-        else
-            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras asignaba la información. Intente nuevamente');
+            if (
+                $productProcess == null && $costPayroll == null &&
+                $indirectCost == null && $priceProduct == null
+            )
+                $resp = array('success' => true, 'message' => 'Proceso asignado correctamente');
+            else
+                $resp = array('error' => true, 'message' => 'Ocurrio un error mientras asignaba la información. Intente nuevamente');
+        }
+    } else {
+        for ($i = 0; $i < sizeof($dataProductProcess['importProductsProcess']); $i++) {
+            if (empty($dataProductProcess['referenceProduct']) || empty($dataProductProcess['process']) || empty($dataProductProcess['referenceMachine']) || empty($dataProductProcess['enlistmentTime']) || empty($dataProductProcess['operationTime']))
+                $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
+            else {
+            }
+        }
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');

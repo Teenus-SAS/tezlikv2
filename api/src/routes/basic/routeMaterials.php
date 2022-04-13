@@ -34,13 +34,16 @@ $app->post('/importMaterials', function (Request $request, Response $response, $
         } else
             $update = $update + 1;
     }
+    $dataImportMaterial = array($insert, $update);
+
+    $response->getBody()->write(json_encode($dataImportMaterial, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
 });
 
 $app->post('/addMaterials', function (Request $request, Response $response, $args) use ($materialsDao) {
     session_start();
     $dataMaterial = $request->getParsedBody();
     $id_company = $_SESSION['id_company'];
-
 
     if (empty($dataMaterial['importMaterials'])) {
         if (empty($dataMaterial['refRawMaterial']) || empty($dataMaterial['nameRawMaterial']) || empty($dataMaterial['unityRawMaterial']) || empty($dataMaterial['costRawMaterial']))

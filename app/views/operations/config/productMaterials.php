@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnCreateProduct">Adicionar Nueva Materia Prima</button>
-                    <button class="btn btn-info ml-3" id="btnImportMaterialsProducts">Importar Materia Prima</button>
+                    <button class="btn btn-info ml-3" id="btnNewImportProductsMaterials">Importar Materia Prima</button>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportProductsMaterials">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateProduct" enctype="multipart/form-data">
+            <form id="formImportProductMaterial" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -114,3 +114,6 @@
 <script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
 <script src="../../app/js/productMaterials/tblConfigMaterials.js"></script>
 <script src="../../app/js/productMaterials/productMaterials.js"></script>
+<script src="../../app/js/productMaterials/importProductMaterials.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>

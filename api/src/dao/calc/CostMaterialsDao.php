@@ -51,9 +51,9 @@ class CostMaterialsDao
     }
 
     // General
-    public function calcCostMaterial($dataProductMaterial, $id_company)
+    public function calcCostMaterial($idProduct, $id_company)
     {
-        $this->findTotalCostAndModify($dataProductMaterial['idProduct'], $id_company);
+        $this->findTotalCostAndModify($idProduct, $id_company);
     }
 
     /* Al modificar materia prima */

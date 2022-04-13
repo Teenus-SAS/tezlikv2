@@ -1,23 +1,23 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportMaterials').hide();
+  $('.cardImportProductsMaterials').hide();
 
-  $('#btnNewImportMaterials').click(function (e) {
+  $('#btnNewImportProductsMaterials').click(function (e) {
     e.preventDefault();
-    $('.cardRawMaterials').hide(800);
-    $('.cardImportMaterials').toggle(800);
+    $('.cardAddMaterials').hide(800);
+    $('.cardImportProductsMaterials').toggle(800);
   });
 
-  $('#fileMaterials').change(function (e) {
+  $('#fileProductsMaterials').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportMaterials').click(function (e) {
+  $('#btnImportProductsMaterials').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileMaterials').val();
+    file = $('#fileProductsMaterials').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -27,7 +27,7 @@ $(document).ready(function () {
     importFile(selectedFile)
       .then((data) => {
         // console.log(data);
-        checkProduct(data);
+        checkProductMaterial(data);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -35,12 +35,11 @@ $(document).ready(function () {
   });
 
   /* Mensaje de advertencia */
-  checkProduct = (data) => {
+  checkProductMaterial = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/importMaterials',
-      //data: data,
-      data: { importMaterials: data },
+      url: '../../api/importProductsMaterials',
+      data: { importProductsMaterials: data },
       success: function (r) {
         bootbox.confirm({
           title: '¿Desea continuar con la importación?',
@@ -57,7 +56,7 @@ $(document).ready(function () {
           },
           callback: function (result) {
             if (result == true) {
-              saveMaterialTable(data);
+              saveProductMaterialTable(data);
             }
           },
         });
@@ -65,16 +64,16 @@ $(document).ready(function () {
     });
   };
 
-  saveMaterialTable = (data) => {
+  saveProductMaterialTable = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../api/addMaterials',
-      data: { importMaterials: data },
+      url: '../../api/addProductsMaterials',
+      data: { importProductsMaterials: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportMaterials').hide(800);
-          $('#formImportMaterials')[0].reset();
+          $('.cardImportProductsMaterials').hide(800);
+          $('#formImportProductMaterial')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -83,8 +82,8 @@ $(document).ready(function () {
 
         /* Actualizar tabla */
         function updateTable() {
-          $('#tblRawMaterials').DataTable().clear();
-          $('#tblRawMaterials').DataTable().ajax.reload();
+          $('#tblConfigMaterials').DataTable().clear();
+          $('#tblConfigMaterials').DataTable().ajax.reload();
         }
       },
     });

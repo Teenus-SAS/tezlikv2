@@ -1,23 +1,24 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportMaterials').hide();
+  $('.cardImportProductsProcess').hide();
 
-  $('#btnNewImportMaterials').click(function (e) {
+  $('#btnNewImportProductProcess').click(function (e) {
+    debugger;
     e.preventDefault();
-    $('.cardRawMaterials').hide(800);
-    $('.cardImportMaterials').toggle(800);
+    $('.cardAddProcess').hide(800);
+    $('.cardImportProductsProcess').toggle(800);
   });
 
-  $('#fileMaterials').change(function (e) {
+  $('#fileProductsProcess').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportMaterials').click(function (e) {
+  $('#btnImportProductProcess').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileMaterials').val();
+    file = $('#fileProductsProcess').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -27,7 +28,7 @@ $(document).ready(function () {
     importFile(selectedFile)
       .then((data) => {
         // console.log(data);
-        checkProduct(data);
+        checkProductProcess(data);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -35,12 +36,11 @@ $(document).ready(function () {
   });
 
   /* Mensaje de advertencia */
-  checkProduct = (data) => {
+  checkProductProcess = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/importMaterials',
-      //data: data,
-      data: { importMaterials: data },
+      url: '../../api/importProductsProcess',
+      data: { importProductsProcess: data },
       success: function (r) {
         bootbox.confirm({
           title: '¿Desea continuar con la importación?',
@@ -57,7 +57,7 @@ $(document).ready(function () {
           },
           callback: function (result) {
             if (result == true) {
-              saveMaterialTable(data);
+              saveProductProcessTable(data);
             }
           },
         });
@@ -65,16 +65,16 @@ $(document).ready(function () {
     });
   };
 
-  saveMaterialTable = (data) => {
+  saveProductProcessTable = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../api/addMaterials',
-      data: { importMaterials: data },
+      url: '../../api/addProductsProcess',
+      data: { importProductsProcess: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportMaterials').hide(800);
-          $('#formImportMaterials')[0].reset();
+          $('.cardImportProductsProcess').hide(800);
+          $('#formImportProductProcess')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -83,8 +83,8 @@ $(document).ready(function () {
 
         /* Actualizar tabla */
         function updateTable() {
-          $('#tblRawMaterials').DataTable().clear();
-          $('#tblRawMaterials').DataTable().ajax.reload();
+          $('#tblConfigProcess').DataTable().clear();
+          $('#tblConfigProcess').DataTable().ajax.reload();
         }
       },
     });
