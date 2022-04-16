@@ -86,7 +86,7 @@ class MaterialsDao
         'id_material' => $idMaterial,
         'reference' => $dataMaterial['refRawMaterial'],
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
-        'unit' => $dataMaterial['unityRawMaterial'],
+        'unit' => strtoupper($dataMaterial['unityRawMaterial']),
         'cost' => $costRawMaterial
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

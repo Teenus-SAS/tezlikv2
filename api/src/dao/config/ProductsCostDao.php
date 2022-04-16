@@ -19,7 +19,7 @@ class ProductsCostDao
     /* Falta la funcion de consultar */
 
     /* Insertar products_costs */
-    public function generalInsertProductsCost($dataProduct, $id_company)
+    public function insertProductsCostByCompany($dataProduct, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -30,32 +30,32 @@ class ProductsCostDao
 
         /* Insertar datos */
         $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability, commission_sale) 
-                                        VALUES (:id_product, :id_company, :profitability, :commision_sale)");
+                                        VALUES (:id_product, :id_company, :profitability, :commission_sale)");
         $stmt->execute([
             'id_product' => $product['idProduct'],
             'id_company' => $id_company,
             'profitability' => $dataProduct['profitability'],
-            'commision_sale' => $dataProduct['commisionSale']
+            'commission_sale' => $dataProduct['commissionSale']
 
         ]);
     }
     /* Actualizar products_costs */
-    public function generalUpdateProductsCost($dataProduct, $idProduct)
+    public function updateProductsCostByCompany($dataProduct)
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("UPDATE products_costs SET profitability = :profitability, commission_sale = :commision_sale
+        $stmt = $connection->prepare("UPDATE products_costs SET profitability = :profitability, commission_sale = :commission_sale
                                       WHERE id_product = :id_product");
         $stmt->execute([
-            'id_product' => $idProduct,
+            'id_product' => $dataProduct['idProduct'],
             'profitability' => $dataProduct['profitability'],
-            'commision_sale' => $dataProduct['commisionSale']
+            'commission_sale' => $dataProduct['commissionSale']
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
 
-    public function insertProductsCostByCompany($dataProduct, $id_company)
+    /* public function insertProductsCostByCompany($dataProduct, $id_company)
     {
         $this->generalInsertProductsCost($dataProduct, $id_company);
     }
@@ -63,7 +63,7 @@ class ProductsCostDao
     public function updateProductsCost($dataProduct)
     {
         $this->generalUpdateProductsCost($dataProduct, $dataProduct['idProduct']);
-    }
+    } */
 
     public function deleteProductsCost($dataProduct)
     {

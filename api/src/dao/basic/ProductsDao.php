@@ -32,23 +32,25 @@ class ProductsDao
     return $products;
   }
 
-  /* Consultar si existe producto en BD */
-  public function findAExistingProduct($referenceProduct)
+  /* Consultar si existe producto en BD por compañia */
+
+  public function findProduct($dataProduct, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
 
-    $stmt = $connection->prepare("SELECT id_product FROM `products` WHERE reference = :reference");
-    $stmt->execute(['reference' => $referenceProduct]);
+    $stmt = $connection->prepare("SELECT id_product FROM products
+                                  WHERE reference = :reference AND product = :product AND id_company = :id_company");
+    $stmt->execute([
+      'reference' => $dataProduct['referenceProduct'],
+      'product' => $dataProduct['product'],
+      'id_company' => $id_company
+    ]);
     $findProduct = $stmt->fetch($connection::FETCH_ASSOC);
-
-    if ($findProduct == false) {
-      return 1;
-    } else
-      return $findProduct;
+    return $findProduct;
   }
 
   /* Insertar producto */
-  public function generalInsertProduct($dataProduct, $id_company)
+  public function insertProductByCompany($dataProduct, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -72,7 +74,7 @@ class ProductsDao
       }
     } else {
       $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, img) 
-        VALUES(:id_company, :reference, :product, :img)");
+                                    VALUES(:id_company, :reference, :product, :img)");
       $stmt->execute([
         'id_company' => $id_company,
         'reference' => $dataProduct['referenceProduct'],
@@ -84,7 +86,7 @@ class ProductsDao
   }
 
   /* Actualizar producto */
-  public function generalUpdateProduct($dataProduct, $idProduct)
+  public function updateProductByCompany($dataProduct, $idProduct)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -94,7 +96,7 @@ class ProductsDao
                                     WHERE id_product = :id_product");
         $stmt->execute([
           'id_product' => $idProduct,
-          'reference' => $dataProduct['referenceProduct'],
+          'reference' => $dataProduct['reference'],
           'product' => ucfirst(strtolower($dataProduct['product']))
         ]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -116,7 +118,7 @@ class ProductsDao
     }
   }
 
-  public function insertProductByCompany($dataProduct, $id_company)
+  /* public function insertProductByCompany($dataProduct, $id_company)
   {
     $this->generalInsertProduct($dataProduct, $id_company);
   }
@@ -124,27 +126,24 @@ class ProductsDao
   public function updateProduct($dataProduct)
   {
     $this->generalUpdateProduct($dataProduct, $dataProduct['idProduct']);
-  }
+  } */
 
   /* Insertar o Actualizar producto importado */
-  public function insertOrUpdateImportProduct($dataProduct, $id_company)
+  /* public function insertOrUpdateImportProduct($dataProduct, $id_company)
   {
     $productCostDao = new ProductsCostDao();
 
-    $findProduct = $this->findAExistingProduct($dataProduct['referenceProduct']);
+    $findProduct = $this->findProduct($dataProduct['referenceProduct'], $id_company);
 
     if ($findProduct == 1) {
-      // Insertar producto
-      $this->generalInsertProduct($dataProduct, $id_company);
-      // Insertar product_cost
-      $productCostDao->generalInsertProductsCost($dataProduct, $id_company);
+            $this->generalInsertProduct($dataProduct, $id_company);
+            $productCostDao->generalInsertProductsCost($dataProduct, $id_company);
     } else {
-      // Actualizar
-      $this->generalUpdateProduct($dataProduct, $findProduct['id_product']);
-      // Actualizar
-      $productCostDao->generalUpdateProductsCost($dataProduct, $findProduct['id_product']);
+            $this->generalUpdateProduct($dataProduct, $findProduct['id_product']);
+            $productCostDao->generalUpdateProductsCost($dataProduct, $findProduct['id_product']);
     }
-  }
+  } */
+
   public function deleteProduct($dataProduct)
   {
     $connection = Connection::getInstance()->getConnection();
