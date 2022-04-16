@@ -26,8 +26,17 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        // console.log(data);
-        checkProductMaterial(data);
+        let productMaterialsToImport = data.map((item) => {
+          return {
+            referenceProduct: item.referencia_producto,
+            product: item.producto,
+            refRawMaterial: item.referencia_material,
+            nameRawMaterial: item.material,
+            quantity: item.cantidad,
+            cost: item.costo,
+          };
+        });
+        checkProductMaterial(productMaterialsToImport);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -38,12 +47,17 @@ $(document).ready(function () {
   checkProductMaterial = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/importProductsMaterials',
+      url: '../../api/productsMaterialsDataValidation',
       data: { importProductsMaterials: data },
-      success: function (r) {
+      success: function (resp) {
+        if (resp.error == true) {
+          toastr.error(resp.message);
+          return false;
+        }
+
         bootbox.confirm({
           title: '¿Desea continuar con la importación?',
-          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${r[0]} <br>Datos a actualizar: ${r[1]}`,
+          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${resp.insert} <br>Datos a actualizar: ${resp.update}`,
           buttons: {
             confirm: {
               label: 'Si',
@@ -57,7 +71,7 @@ $(document).ready(function () {
           callback: function (result) {
             if (result == true) {
               saveProductMaterialTable(data);
-            }
+            } else $('#fileProductsMaterials').val('');
           },
         });
       },

@@ -55,16 +55,6 @@ class ProductsCostDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
 
-    /* public function insertProductsCostByCompany($dataProduct, $id_company)
-    {
-        $this->generalInsertProductsCost($dataProduct, $id_company);
-    }
-
-    public function updateProductsCost($dataProduct)
-    {
-        $this->generalUpdateProductsCost($dataProduct, $dataProduct['idProduct']);
-    } */
-
     public function deleteProductsCost($dataProduct)
     {
         $connection = Connection::getInstance()->getConnection();

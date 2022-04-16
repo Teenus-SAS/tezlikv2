@@ -30,46 +30,31 @@ class ProductsMaterialsDao
     }
 
     // Consultar si existe el product_material en la BD
-    public function findAExistingProductMaterial($dataProductMaterial)
+    public function findProductMaterial($dataProductMaterial)
     {
-        // Obtener id del producto
-        $product = new ProductsDao();
-        $findProduct = $product->findAExistingProduct($dataProductMaterial['referenceProduct']);
-
-        // Obtener id de la materia prima
-        $material = new MaterialsDao();
-        $findMaterial = $material->findAExistingRawMaterial($dataProductMaterial['refRawMaterial']);
-
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT id_product_material FROM products_materials
                                       WHERE id_product = :id_product AND id_material = :id_material");
         $stmt->execute([
-            'id_product' => $findProduct['id_product'],
-            'id_material' => $findMaterial['id_material']
+            'id_product' => $dataProductMaterial['idProduct'],
+            'id_material' => $dataProductMaterial['idMaterial']
         ]);
         $findProductMaterial = $stmt->fetch($connection::FETCH_ASSOC);
-
-        if ($findProductMaterial == false) {
-            $dataFindProductMaterial = array_merge($findProduct, $findMaterial);
-            return $dataFindProductMaterial;
-        } else {
-            $dataFindProductMaterial = array_merge($findProductMaterial, $findProduct, $findMaterial);
-            return $dataFindProductMaterial;
-        }
+        return $findProductMaterial;
     }
 
-    // Insertar productos materia prima general
-    public function generalInsertProductsMaterials($dataProductMaterial, $idMaterial, $idProduct, $id_company)
+    // Insertar productos materia prima
+    public function insertProductsMaterialsByCompany($dataProductMaterial, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
         try {
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
                                     VALUES (:id_material, :id_company, :id_product, :quantity)");
             $stmt->execute([
-                'id_material' => $idMaterial,
+                'id_material' => $dataProductMaterial['idMaterial'],
                 'id_company' => $id_company,
-                'id_product' => $idProduct,
+                'id_product' => $dataProductMaterial['idProduct'],
                 'quantity' => $dataProductMaterial['quantity']
             ]);
 
@@ -82,7 +67,7 @@ class ProductsMaterialsDao
     }
 
     // Actualizar productos materia prima general
-    public function generalUpdateProductsMaterials($dataProductMaterial, $idProductMaterial, $idMaterial, $idProduct)
+    public function updateProductsMaterials($dataProductMaterial)
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -90,9 +75,9 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("UPDATE products_materials SET id_material = :id_material, id_product = :id_product, quantity = :quantity
                                     WHERE id_product_material = :id_product_material");
             $stmt->execute([
-                'id_product_material' => $idProductMaterial,
-                'id_material' => $idMaterial,
-                'id_product' => $idProduct,
+                'id_product_material' => $dataProductMaterial['idProductMaterial'],
+                'id_material' => $dataProductMaterial['idMaterial'],
+                'id_product' => $dataProductMaterial['idProduct'],
                 'quantity' => $dataProductMaterial['quantity']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -102,29 +87,6 @@ class ProductsMaterialsDao
             $error = array('info' => true, 'message' => $message);
             return $error;
         }
-    }
-
-    public function insertProductsMaterialsByCompany($dataProductMaterial, $id_company)
-    {
-        $this->generalInsertProductsMaterials($dataProductMaterial, $dataProductMaterial['material'], $dataProductMaterial['idProduct'], $id_company);
-    }
-
-    public function updateProductsMaterials($dataProductMaterial)
-    {
-        $this->generalUpdateProductsMaterials($dataProductMaterial, $dataProductMaterial['idProductMaterial'], $dataProductMaterial['material'], $dataProductMaterial['idProduct']);
-    }
-
-    // Insertar o Actualizar productos materias prima importados
-    public function insertOrUpdateProductsMaterials($dataProductMaterial, $id_company)
-    {
-        $dataFindProductMaterial = $this->findAExistingProductMaterial($dataProductMaterial);
-
-        if (empty($dataFindProductMaterial['id_product_material'])) {
-            // Insertar
-            $this->generalInsertProductsMaterials($dataProductMaterial, $dataFindProductMaterial['id_material'], $dataFindProductMaterial['id_product'], $id_company);
-        } else
-            // Actualizar
-            $this->generalUpdateProductsMaterials($dataProductMaterial, $dataFindProductMaterial['id_product_material'], $dataFindProductMaterial['id_material'], $dataFindProductMaterial['id_product']);
     }
 
     public function deleteProductMaterial($dataProductMaterial)

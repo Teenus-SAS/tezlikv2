@@ -101,8 +101,6 @@ class IndirectCostDao
             'id_product' => $idProduct,
             'id_company' => $id_company
         ]);
-
-        // $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
 
     // General

@@ -1,122 +1,114 @@
-$(document).ready(function() {
-    let selectedFile;
+$(document).ready(function () {
+  let selectedFile;
 
-    $('.cardImportProducts').hide();
+  $('.cardImportProducts').hide();
 
-    $('#btnNewImportProducts').click(function(e) {
-        e.preventDefault();
-        $('.cardCreateProduct').hide(800);
-        $('.cardImportProducts').toggle(800);
-    });
+  $('#btnNewImportProducts').click(function (e) {
+    e.preventDefault();
+    $('.cardCreateProduct').hide(800);
+    $('.cardImportProducts').toggle(800);
+  });
 
-    $('#fileProducts').change(function(e) {
-        e.preventDefault();
-        selectedFile = e.target.files[0];
-    });
+  $('#fileProducts').change(function (e) {
+    e.preventDefault();
+    selectedFile = e.target.files[0];
+  });
 
-    $('#btnImportProducts').click(function(e) {
-        e.preventDefault();
+  $('#btnImportProducts').click(function (e) {
+    e.preventDefault();
 
-        file = $('#fileProducts').val();
+    file = $('#fileProducts').val();
 
-        if (!file) {
-            toastr.error('Seleccione un archivo');
-            return false;
+    if (!file) {
+      toastr.error('Seleccione un archivo');
+      return false;
+    }
+
+    importFile(selectedFile)
+      .then((data) => {
+        let productsToImport = data.map((item) => {
+          return {
+            referenceProduct: item.referencia,
+            product: item.producto,
+            profitability: item.rentabilidad,
+            commissionSale: item.comision_ventas,
+          };
+        });
+
+        checkProduct(productsToImport);
+      })
+      .catch(() => {
+        console.log('Ocurrio un error. Intente Nuevamente');
+      });
+  });
+
+  /* Mensaje de advertencia */
+  checkProduct = (data) => {
+    $.ajax({
+      type: 'POST',
+      url: '/api/productsDataValidation',
+      data: { importProducts: data },
+      success: function (resp) {
+        if (resp.error == true) {
+          toastr.error(resp.message);
+          return false;
         }
-
-        importFile(selectedFile)
-            .then((data) => {
-
-                let productsToImport = data.map(item => {
-                    return {
-                        referenceProduct: item.referencia,
-                        product: item.producto,
-                        profitability: item.rentabilidad,
-                        commissionSale: item.comision_ventas
-                    };
-                });
-
-                checkProduct(productsToImport);
-            })
-            .catch(() => {
-                console.log('Ocurrio un error. Intente Nuevamente');
-            });
+        bootbox.confirm({
+          title: '¿Desea continuar con la importación?',
+          message: `Se encontraron los siguientes registros:<br><br>Datos a insertar: ${resp.insert} <br>Datos a actualizar: ${resp.update}`,
+          buttons: {
+            confirm: {
+              label: 'Si',
+              className: 'btn-success',
+            },
+            cancel: {
+              label: 'No',
+              className: 'btn-danger',
+            },
+          },
+          callback: function (result) {
+            if (result == true) {
+              saveProductTable(data);
+            } else $('#fileProducts').val('');
+          },
+        });
+      },
     });
+  };
 
-    /* Mensaje de advertencia */
-    checkProduct = (data) => {
-        $.ajax({
-            type: 'POST',
-            url: '/api/productsDataValidation',
-            //data: data,
-            data: { importProducts: data },
-            success: function(resp) {
+  /* Guardar Importacion */
+  saveProductTable = (data) => {
+    $.ajax({
+      type: 'POST',
+      url: '/api/addProducts',
+      //data: data,
+      data: { importProducts: data },
+      success: function (r) {
+        /* Mensaje de exito */
+        if (r.success == true) {
+          $('.cardImportProducts').hide(800);
+          $('#formImportProduct')[0].reset();
+          updateTable();
+          toastr.success(r.message);
+          return false;
+        } else if (r.error == true) toastr.error(r.message);
+        else if (r.info == true) toastr.info(r.message);
 
-                if (resp.error == true) {
-                    toastr.error(resp.message);
-                    return false
-                }
+        /* Actualizar tabla */
+        function updateTable() {
+          $('#tblProducts').DataTable().clear();
+          $('#tblProducts').DataTable().ajax.reload();
+        }
+      },
+    });
+  };
 
-                bootbox.confirm({
-                    title: '¿Desea continuar con la importación?',
-                    message: `Se encontraron los siguientes registros:<br><br>Datos a insertar: ${resp[0]} <br>Datos a actualizar: ${resp[1]}`,
-                    buttons: {
-                        confirm: {
-                            label: 'Si',
-                            className: 'btn-success',
-                        },
-                        cancel: {
-                            label: 'No',
-                            className: 'btn-danger',
-                        },
-                    },
-                    callback: function(result) {
-                        if (result == true) {
-                            saveProductTable(data);
-                        }
-                    },
-                });
-            },
-        });
-    };
+  /* Mensaje de exito */
 
-    /* Guardar Importacion */
-    saveProductTable = (data) => {
-        $.ajax({
-            type: 'POST',
-            url: '/api/addProducts',
-            //data: data,
-            data: { importProducts: data },
-            success: function(r) {
-                /* Mensaje de exito */
-                if (r.success == true) {
-                    $('.cardImportProducts').hide(800);
-                    $('#formImportProduct')[0].reset();
-                    updateTable();
-                    toastr.success(r.message);
-                    return false;
-                } else if (r.error == true) toastr.error(r.message);
-                else if (r.info == true) toastr.info(r.message);
-
-                /* Actualizar tabla */
-                function updateTable() {
-                    $('#tblProducts').DataTable().clear();
-                    $('#tblProducts').DataTable().ajax.reload();
-                }
-            },
-        });
-    };
-
-    /* Mensaje de exito */
-
-    message = (data) => {
-        if (data.success == true) {
-            toastr.success(data.message);
-        } else if (data.error == true)
-            toastr.error(data.message);
-        else if (data.info == true)
-            toastr.info(data.message);
-    };
-
-
+  message = (data) => {
+    if (data.success == true) {
+      toastr.success(data.message);
+    } else if (data.error == true) toastr.error(data.message);
+    else if (data.info == true) toastr.info(data.message);
+  };
 });

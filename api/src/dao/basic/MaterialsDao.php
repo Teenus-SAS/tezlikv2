@@ -30,22 +30,23 @@ class MaterialsDao
   }
 
   /* Consultar si existe materia prima en la BD */
-  public function findAExistingRawMaterial($referenceMaterial)
+  public function findMaterial($dataMaterial, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
 
-    $stmt = $connection->prepare("SELECT id_material FROM materials WHERE reference = :reference");
-    $stmt->execute(['reference' => $referenceMaterial]);
+    $stmt = $connection->prepare("SELECT id_material FROM materials 
+                                  WHERE reference = :reference AND material = :material AND id_company = :id_company");
+    $stmt->execute([
+      'reference' => $dataMaterial['refRawMaterial'],
+      'material' => $dataMaterial['nameRawMaterial'],
+      'id_company' => $id_company
+    ]);
     $findMaterial = $stmt->fetch($connection::FETCH_ASSOC);
-
-    if ($findMaterial == false) {
-      return 1;
-    } else
-      return $findMaterial;
+    return $findMaterial;
   }
 
-  /* Insert General */
-  public function generalInsertRawMaterial($dataMaterial, $id_company)
+  /* Insertar materia prima */
+  public function insertMaterialsByCompany($dataMaterial, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
     $costRawMaterial = str_replace('.', '', $dataMaterial['costRawMaterial']);
@@ -73,8 +74,8 @@ class MaterialsDao
     }
   }
 
-  /* Update General */
-  public function generalUpdateRawMaterial($dataMaterial, $idMaterial)
+  /* Actualizar materia prima  */
+  public function updateMaterialsByCompany($dataMaterial)
   {
     $connection = Connection::getInstance()->getConnection();
     $costRawMaterial = str_replace('.', '', $dataMaterial['costRawMaterial']);
@@ -83,7 +84,7 @@ class MaterialsDao
       $stmt = $connection->prepare("UPDATE materials SET reference = :reference, material = :material, unit = :unit, cost = :cost 
                                     WHERE id_material = :id_material");
       $stmt->execute([
-        'id_material' => $idMaterial,
+        'id_material' => $dataMaterial['idMaterial'],
         'reference' => $dataMaterial['refRawMaterial'],
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
         'unit' => strtoupper($dataMaterial['unityRawMaterial']),
@@ -95,29 +96,6 @@ class MaterialsDao
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
-  }
-
-  public function insertMaterialsByCompany($dataMaterial, $id_company)
-  {
-    $this->generalInsertRawMaterial($dataMaterial, $id_company);
-  }
-
-  public function updateMaterialsByCompany($dataMaterial)
-  {
-    $this->generalUpdateRawMaterial($dataMaterial, $dataMaterial['idMaterial']);
-  }
-
-  /* Insertar o Actualizar materia prima importada */
-  public function insertOrUpdateRawMaterial($dataMaterial, $id_company)
-  {
-    $findMaterial = $this->findAExistingRawMaterial($dataMaterial['refRawMaterial']);
-
-    if ($findMaterial == 1) {
-      // insertar
-      $this->generalInsertRawMaterial($dataMaterial, $id_company);
-    } else
-      // actualizar
-      $this->generalUpdateRawMaterial($dataMaterial, $findMaterial['id_material']);
   }
 
   public function deleteMaterial($dataMaterial)

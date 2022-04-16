@@ -47,7 +47,8 @@ $app->post('/productsDataValidation', function (Request $request, Response $resp
                 $findProduct = $productsDao->findProduct($products[$i], $id_company);
                 if (!$findProduct) $insert = $insert + 1;
                 else $update = $update + 1;
-                $dataImportProduct = array($insert, $update);
+                $dataImportProduct['insert'] = $insert;
+                $dataImportProduct['update'] = $update;
             }
         }
     } else
@@ -82,12 +83,12 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
 
             $product = $productsDao->findProduct($products[$i], $id_company);
 
-            if (!$product){
+            if (!$product) {
                 $resolution = $productsDao->insertProductByCompany($products[$i], $id_company);
                 $resolution = $productsCostDao->insertProductsCostByCompany($products[$i], $id_company);
-            }
-            else {
+            } else {
                 $products[$i]['idProduct'] = $product['id_product'];
+                $resolution = $productsDao->updateProductByCompany($products[$i]);
                 $resolution = $productsCostDao->updateProductsCostByCompany($products[$i]);
             }
         }

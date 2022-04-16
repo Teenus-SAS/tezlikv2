@@ -4,7 +4,6 @@ $(document).ready(function () {
   $('.cardImportProductsProcess').hide();
 
   $('#btnNewImportProductProcess').click(function (e) {
-    debugger;
     e.preventDefault();
     $('.cardAddProcess').hide(800);
     $('.cardImportProductsProcess').toggle(800);
@@ -15,7 +14,7 @@ $(document).ready(function () {
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportProductProcess').click(function (e) {
+  $('#btnImportProductsProcess').click(function (e) {
     e.preventDefault();
 
     file = $('#fileProductsProcess').val();
@@ -27,8 +26,17 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        // console.log(data);
-        checkProductProcess(data);
+        let productProcessToImport = data.map((item) => {
+          return {
+            referenceProduct: item.referencia_producto,
+            product: item.producto,
+            process: item.proceso,
+            machine: item.maquina,
+            enlistmentTime: item.tiempo_enlistamiento,
+            operationTime: item.tiempo_operacion,
+          };
+        });
+        checkProductProcess(productProcessToImport);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -39,12 +47,17 @@ $(document).ready(function () {
   checkProductProcess = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/importProductsProcess',
+      url: '../../api/productsProcessDataValidation',
       data: { importProductsProcess: data },
-      success: function (r) {
+      success: function (resp) {
+        if (resp.error == true) {
+          toastr.error(resp.message);
+          return false;
+        }
+
         bootbox.confirm({
           title: '¿Desea continuar con la importación?',
-          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${r[0]} <br>Datos a actualizar: ${r[1]}`,
+          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${resp.insert} <br>Datos a actualizar: ${resp.update}`,
           buttons: {
             confirm: {
               label: 'Si',
@@ -58,7 +71,7 @@ $(document).ready(function () {
           callback: function (result) {
             if (result == true) {
               saveProductProcessTable(data);
-            }
+            } else $('#fileProductsProcess').val('');
           },
         });
       },

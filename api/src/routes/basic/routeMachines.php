@@ -24,20 +24,37 @@ $app->get('/machines', function (Request $request, Response $response, $args) us
 });
 
 /* Consultar Maquinas importadas */
-$app->post('/importMachines', function (Request $request, Response $response, $args) use ($machinesDao) {
+$app->post('/machinesDataValidation', function (Request $request, Response $response, $args) use ($machinesDao) {
     $dataMachine = $request->getParsedBody();
 
-    $insert = 0;
-    $update = 0;
-    for ($i = 0; $i < sizeof($dataMachine['importMachines']); $i++) {
-        $findMachine = $machinesDao->findAExistingMachine($dataMachine['importMachines'][$i]['machine']);
+    if (isset($dataMachine)) {
+        session_start();
+        $id_company = $_SESSION['id_company'];
 
-        if ($findMachine == 1) {
-            $insert = $insert + 1;
-        } else
-            $update = $update + 1;
-    }
-    $dataImportMachine = array($insert, $update);
+        $insert = 0;
+        $update = 0;
+
+        $machines = $dataMachine['importMachines'];
+
+        for ($i = 0; $i < sizeof($machines); $i++) {
+
+            $machine = $machines[$i]['machine'];
+            $cost = $machines[$i]['cost'];
+            $yearsDepreciacion = $machines[$i]['depreciationYears'];
+            $residualValue = $machines[$i]['residualValue'];
+
+            if (empty($machine) || empty($cost) || empty($yearsDepreciacion) || empty($residualValue))
+                $dataImportMachine = array('error' => true, 'message' => 'Ingrese todos los datos');
+            else {
+                $findMachine = $machinesDao->findMachine($machines[$i], $id_company);
+                if (!$findMachine) $insert = $insert + 1;
+                else $update = $update + 1;
+                $dataImportMachine['insert'] = $insert;
+                $dataImportMachine['update'] = $update;
+            }
+        }
+    } else
+        $dataImportMachine = array('error' => true, 'message' => 'El archivo se encuentra vacio. Intente nuevamente');
 
     $response->getBody()->write(json_encode($dataImportMachine, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
@@ -48,41 +65,35 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
     $id_company = $_SESSION['id_company'];
     $dataMachine = $request->getParsedBody();
 
-    if (empty($dataMachine['importMachines'])) {
-        if (
-            empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['depreciationYears']) ||
-            empty($dataMachine['residualValue'])
-        )
-            $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
-        else {
+    $dataMachines = sizeof($dataMachine);
 
-            $machines = $machinesDao->insertMachinesByCompany($dataMachine, $id_company);
+    if ($dataMachines > 1) {
+        $machines = $machinesDao->insertMachinesByCompany($dataMachine, $id_company);
 
-            // Calcular depreciacion por minuto
-            $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($dataMachine['machine']);
+        // Calcular depreciacion por minuto
+        $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($dataMachine['machine']);
 
-            if ($machines == null && $minuteDepreciation == null)
-                $resp = array('success' => true, 'message' => 'Maquina creada correctamente');
-            else
-                $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
-        }
-    } else {
-        for ($i = 0; $i < sizeof($dataMachine['importMachines']); $i++) {
-
-            if (
-                empty($dataMachine['importMachines'][$i]['machine']) || empty($dataMachine['importMachines'][$i]['cost']) ||
-                empty($dataMachine['importMachines'][$i]['depreciationYears']) || empty($dataMachine['importMachines'][$i]['residualValue'])
-            )
-                $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
-            else {
-                // Insertar o Actualizar Maquina importada
-                $machines = $machinesDao->insertOrUpdateMachine($dataMachine['importMachines'][$i], $id_company);
-
-                // Calcular depreciacion por minuto
-                $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($dataMachine['importMachines'][$i]['machine']);
-            }
-        }
         if ($machines == null && $minuteDepreciation == null)
+            $resp = array('success' => true, 'message' => 'Maquina creada correctamente');
+        else
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
+    } else {
+        $machines = $dataMachine['importMachines'];
+
+        for ($i = 0; $i < sizeof($machines); $i++) {
+
+            $machine = $machinesDao->findMachine($machines[$i], $id_company);
+
+            if (!$machine)
+                $resolution = $machinesDao->insertMachinesByCompany($machines[$i], $id_company);
+            else {
+                $machines[$i]['idMachine'] = $machine['id_machine'];
+                $resolution = $machinesDao->updateMachine($machines[$i]);
+            }
+            // Calcular depreciacion por minuto
+            $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($machines[$i]['machine']);
+        }
+        if ($resolution == null && $minuteDepreciation == null)
             $resp = array('success' => true, 'message' => 'Maquina Importada correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importaba la información. Intente nuevamente');

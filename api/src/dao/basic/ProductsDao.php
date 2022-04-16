@@ -86,7 +86,7 @@ class ProductsDao
   }
 
   /* Actualizar producto */
-  public function updateProductByCompany($dataProduct, $idProduct)
+  public function updateProductByCompany($dataProduct)
   {
     $connection = Connection::getInstance()->getConnection();
 
@@ -95,7 +95,7 @@ class ProductsDao
         $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product 
                                     WHERE id_product = :id_product");
         $stmt->execute([
-          'id_product' => $idProduct,
+          'id_product' => $dataProduct['idProduct'],
           'reference' => $dataProduct['reference'],
           'product' => ucfirst(strtolower($dataProduct['product']))
         ]);
@@ -109,7 +109,7 @@ class ProductsDao
       $stmt = $connection->prepare("UPDATE products SET ref = :reference, product = :product, img = :img 
                                     WHERE id_product = :id_product");
       $stmt->execute([
-        'id_product' => $idProduct,
+        'id_product' => $dataProduct['idProduct'],
         'reference' => $dataProduct['referenceProduct'],
         'product' => ucfirst(strtolower($dataProduct['product'])),
         'img' => $dataProduct['img']
@@ -117,32 +117,6 @@ class ProductsDao
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }
-
-  /* public function insertProductByCompany($dataProduct, $id_company)
-  {
-    $this->generalInsertProduct($dataProduct, $id_company);
-  }
-
-  public function updateProduct($dataProduct)
-  {
-    $this->generalUpdateProduct($dataProduct, $dataProduct['idProduct']);
-  } */
-
-  /* Insertar o Actualizar producto importado */
-  /* public function insertOrUpdateImportProduct($dataProduct, $id_company)
-  {
-    $productCostDao = new ProductsCostDao();
-
-    $findProduct = $this->findProduct($dataProduct['referenceProduct'], $id_company);
-
-    if ($findProduct == 1) {
-            $this->generalInsertProduct($dataProduct, $id_company);
-            $productCostDao->generalInsertProductsCost($dataProduct, $id_company);
-    } else {
-            $this->generalUpdateProduct($dataProduct, $findProduct['id_product']);
-            $productCostDao->generalUpdateProductsCost($dataProduct, $findProduct['id_product']);
-    }
-  } */
 
   public function deleteProduct($dataProduct)
   {

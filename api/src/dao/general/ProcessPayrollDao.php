@@ -30,4 +30,20 @@ class ProcessPayrollDao
         $this->logger->notice("processPayroll", array('processPayroll' => $processPayroll));
         return $processPayroll;
     }
+
+    public function findProcessByPayroll($dataPayroll, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        // Obtener id_proceso
+        $stmt = $connection->prepare("SELECT DISTINCT pay.id_process FROM payroll pay 
+                                      INNER JOIN process p ON p.id_process = pay.id_process 
+                                      WHERE p.process = :process AND pay.id_company = :id_company;");
+        $stmt->execute([
+            'process' => $dataPayroll['process'],
+            'id_company' => $id_company
+        ]);
+        $findProcess = $stmt->fetch($connection::FETCH_ASSOC);
+        return $findProcess;
+    }
 }
