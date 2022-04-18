@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewMaterial" name="btnNewMaterial">Nueva Materia Prima</button>
-                    <button class="btn btn-info ml-3" id="btnNewImportMaterials" name="btnNewImportMaterials">Importar Materias Primas</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewMaterials" name="btnNewImportMaterials">Importar Materias Primas</button>
                 </div>
             </div>
         </div>

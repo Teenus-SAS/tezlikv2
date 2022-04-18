@@ -33,6 +33,8 @@ class FactoryLoadDao
     return $factoryloads;
   }
 
+  // Consultar si existe carga fabril en BD
+
   public function insertFactoryLoadByCompany($dataFactoryLoad, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
@@ -40,14 +42,14 @@ class FactoryLoadDao
     $costFactory = str_replace('.', '', $dataFactoryLoad['costFactory']);
 
     try {
-      $stmt = $connection->prepare("INSERT INTO manufacturing_load (id_machine, id_company, input, cost, cost_minute)
-                                    VALUES (:id_machine, :id_company, :input, :cost, :cost_minute)");
+      $stmt = $connection->prepare("INSERT INTO manufacturing_load (id_machine, id_company, input, cost)
+                                    VALUES (:id_machine, :id_company, :input, :cost)");
       $stmt->execute([
         'id_machine' => $dataFactoryLoad['idMachine'],
         'id_company' => $id_company,
         'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
         'cost' => $costFactory,
-        'cost_minute' => $dataFactoryLoad['costMinute']
+        //'cost_minute' => $dataFactoryLoad['costMinute']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -64,14 +66,13 @@ class FactoryLoadDao
     $costFactory = str_replace('.', '', $dataFactoryLoad['costFactory']);
 
     try {
-      $stmt = $connection->prepare("UPDATE manufacturing_load SET id_machine = :id_machine, input = :input, cost = :cost, cost_minute = :cost_minute
+      $stmt = $connection->prepare("UPDATE manufacturing_load SET id_machine = :id_machine, input = :input, cost = :cost
                                     WHERE id_manufacturing_load = :id_manufacturing_load");
       $stmt->execute([
         'id_manufacturing_load' => $dataFactoryLoad['idManufacturingLoad'],
         'id_machine' => $dataFactoryLoad['idMachine'],
         'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
-        'cost' => $costFactory,
-        'cost_minute' => $dataFactoryLoad['costMinute']
+        'cost' => $costFactory
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {

@@ -20,7 +20,7 @@ $(document).ready(function () {
     $('#costMinute').val('');
   });
 
-  /* Calcular Valor por minuto  */
+  /* Calcular Valor por minuto 
 
   $(document).on('click keyup', '#costFactory', function (e) {
     costFactory = this.value;
@@ -56,7 +56,7 @@ $(document).ready(function () {
     value = costFactory / daysMachine / hoursMachine / 60;
     isNaN(value) ? (value = 0) : value;
     $('#costMinute').val(value.toFixed(2));
-  });
+  }); */
 
   /* Adicionar nueva carga fabril */
 

@@ -42,10 +42,17 @@ $app->post('/machinesDataValidation', function (Request $request, Response $resp
             $cost = $machines[$i]['cost'];
             $yearsDepreciacion = $machines[$i]['depreciationYears'];
             $residualValue = $machines[$i]['residualValue'];
+            $hoursMachine = $machines[$i]['hoursMachine'];
+            $daysMachine = $machines[$i]['daysMachine'];
 
-            if (empty($machine) || empty($cost) || empty($yearsDepreciacion) || empty($residualValue))
+            if (
+                empty($machine) || empty($cost) || empty($yearsDepreciacion) || empty($residualValue) ||
+                $hoursMachine <= 0 || $daysMachine <= 0
+            ) {
                 $dataImportMachine = array('error' => true, 'message' => 'Ingrese todos los datos');
-            else {
+                // $dataImportMachine = array('error' => true, 'message' => 'Verifique que los campos dias y horas maquina sean mayor a cero');
+                break;
+            } else {
                 $findMachine = $machinesDao->findMachine($machines[$i], $id_company);
                 if (!$findMachine) $insert = $insert + 1;
                 else $update = $update + 1;
@@ -109,7 +116,8 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
     $dataMachine = $request->getParsedBody();
 
     if (
-        empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['depreciationYears'])
+        empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['depreciationYears']) ||
+        $dataMachine['hoursMachine'] > 0 || $dataMachine['daysMachine'] > 0
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {

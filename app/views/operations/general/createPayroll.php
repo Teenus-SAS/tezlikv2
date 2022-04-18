@@ -14,7 +14,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewPayroll">Nueva Nómina</button>
-                    <button class="btn btn-info ml-3" id="btnNewPayroll">Importar Nómina</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewPayroll">Importar Nómina</button>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportPayroll">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreatePayroll" enctype="multipart/form-data">
+            <form id="formImportPayroll" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -76,8 +76,11 @@
     </div>
 </div>
 
-<script src="../../app/js/process/configProcess.js"></script>
 
 <script src="../../app/js/global/number.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
+<script src="../../app/js/process/configProcess.js"></script>
 <script src="../../app/js/payroll/tblPayroll.js"></script>
 <script src="../../app/js/payroll/payroll.js"></script>
+<script src="../../app/js/payroll/importPayroll.js"></script>

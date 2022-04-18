@@ -1,23 +1,23 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportProductsProcess').hide();
+  $('.cardImportExpensesAssignation').hide();
 
-  $('#btnImportNewProductProcess').click(function (e) {
+  $('#btnImportNewExpenses').click(function (e) {
     e.preventDefault();
-    $('.cardAddProcess').hide(800);
-    $('.cardImportProductsProcess').toggle(800);
+    $('.cardCreateExpenses').hide();
+    $('.cardImportExpensesAssignation').toggle(800);
   });
 
-  $('#fileProductsProcess').change(function (e) {
+  $('#fileExpensesAssignation').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportProductsProcess').click(function (e) {
+  $('#btnImportExpensesAssignation').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileProductsProcess').val();
+    file = $('#fileExpensesAssignation').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -26,17 +26,22 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        let productProcessToImport = data.map((item) => {
+        let payrollToImport = data.map((item) => {
           return {
-            referenceProduct: item.referencia_producto,
-            product: item.producto,
+            employee: item.nombres_y_apellidos,
             process: item.proceso,
-            machine: item.maquina,
-            enlistmentTime: item.tiempo_enlistamiento,
-            operationTime: item.tiempo_operacion,
+            basicSalary: item.salario_basico,
+            transport: item.transporte,
+            endowment: item.dotaciones,
+            extraTime: item.horas_extras,
+            bonification: item.otros_ingresos,
+            workingHoursDay: item.horas_trabajo_x_dia,
+            workingDaysMonth: item.dias_trabajo_x_mes,
+            typeFactor: item.tipo_nomina,
+            factor: item.factor,
           };
         });
-        checkProductProcess(productProcessToImport);
+        checkPayroll(payrollToImport);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -44,14 +49,15 @@ $(document).ready(function () {
   });
 
   /* Mensaje de advertencia */
-  checkProductProcess = (data) => {
+  checkPayroll = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/productsProcessDataValidation',
-      data: { importProductsProcess: data },
+      url: '../../api/payrollDataValidation',
+      data: { importPayroll: data },
       success: function (resp) {
         if (resp.error == true) {
           toastr.error(resp.message);
+          $('#fileExpensesAssignation').val('');
           return false;
         }
 
@@ -70,24 +76,24 @@ $(document).ready(function () {
           },
           callback: function (result) {
             if (result == true) {
-              saveProductProcessTable(data);
-            } else $('#fileProductsProcess').val('');
+              savePayroll(data);
+            } else $('#fileExpensesAssignation').val('');
           },
         });
       },
     });
   };
 
-  saveProductProcessTable = (data) => {
+  savePayroll = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/addProductsProcess',
-      data: { importProductsProcess: data },
+      url: '../../api/addPayroll',
+      data: { importPayroll: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportProductsProcess').hide(800);
-          $('#formImportProductProcess')[0].reset();
+          $('.cardImportExpensesAssignation').hide(800);
+          $('#formImportExpesesAssignation')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -96,8 +102,8 @@ $(document).ready(function () {
 
         /* Actualizar tabla */
         function updateTable() {
-          $('#tblConfigProcess').DataTable().clear();
-          $('#tblConfigProcess').DataTable().ajax.reload();
+          $('#tblExpenses').DataTable().clear();
+          $('#tblExpenses').DataTable().ajax.reload();
         }
       },
     });

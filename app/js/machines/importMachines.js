@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   $('.cardImportMachines').hide();
 
-  $('#btnNewImportMachines').click(function (e) {
+  $('#btnImportNewMachines').click(function (e) {
     e.preventDefault();
     $('.cardCreateMachines').hide(800);
     $('.cardImportMachines').toggle(800);

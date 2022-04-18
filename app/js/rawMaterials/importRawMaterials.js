@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   $('.cardImportMaterials').hide();
 
-  $('#btnNewImportMaterials').click(function (e) {
+  $('#btnImportNewMaterials').click(function (e) {
     e.preventDefault();
     $('.cardRawMaterials').hide(800);
     $('.cardImportMaterials').toggle(800);

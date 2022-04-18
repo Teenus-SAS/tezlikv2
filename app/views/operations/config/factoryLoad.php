@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewFactoryLoad">Nueva Carga Fabril Máquina</button>
-                    <button class="btn btn-info ml-3" id="btnNewFactoryLoad">Importar Carga Fabril Máquinas</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewFactoryLoad">Importar Carga Fabril Máquinas</button>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                                 <select class="form-control" name="idMachine" id="idMachine"></select>
                                 <input class="form-control" name="descriptionFactoryLoad" id="descriptionFactoryLoad" />
                                 <input class="form-control text-center number" type="text" name="costFactory" id="costFactory" />
-                                <input class="form-control text-center number" type="text" name="costMinute" id="costMinute" />
+                                <!-- <input class="form-control text-center number" type="text" name="costMinute" id="costMinute" /> -->
                                 <button class="btn btn-primary" id="btnCreateFactoryLoad">Crear</button>
                             </div>
                         </form>
@@ -49,7 +49,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportFactoryLoad">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateProduct" enctype="multipart/form-data">
+            <form id="formImportFactoryLoad" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -94,6 +94,9 @@
 </div>
 
 <script src="../../app/js/global/number.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/machines/configMachines.js"></script>
 <script src="../../app/js/factoryLoad/factoryLoad.js"></script>
+<script src="../../app/js/factoryLoad/importFactoryLoad.js"></script>
 <script src="../../app/js/factoryLoad/tblFactoryLoad.js"></script>

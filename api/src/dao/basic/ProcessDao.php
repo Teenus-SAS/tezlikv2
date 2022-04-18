@@ -29,6 +29,20 @@ class ProcessDao
     return $process;
   }
 
+  public function findProcess($dataProcess, $id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT id_process FROM process
+                                  WHERE process = :process AND id_company = :id_company");
+    $stmt->execute([
+      'process' => $dataProcess['process'],
+      'id_company' => $id_company
+    ]);
+    $findProcess = $stmt->fetch($connection::FETCH_ASSOC);
+    return $findProcess;
+  }
+
   public function insertProcessByCompany($dataProcess, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();

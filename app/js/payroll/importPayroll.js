@@ -1,23 +1,23 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportProducts').hide();
+  $('.cardImportPayroll').hide();
 
-  $('#btnImportNewProducts').click(function (e) {
+  $('#btnImportNewPayroll').click(function (e) {
     e.preventDefault();
-    $('.cardCreateProduct').hide(800);
-    $('.cardImportProducts').toggle(800);
+    $('#createPayroll').modal('hide');
+    $('.cardImportPayroll').toggle(800);
   });
 
-  $('#fileProducts').change(function (e) {
+  $('#filePayroll').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportProducts').click(function (e) {
+  $('#btnImportPayroll').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileProducts').val();
+    file = $('#filePayroll').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -26,16 +26,22 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        let productsToImport = data.map((item) => {
+        let payrollToImport = data.map((item) => {
           return {
-            referenceProduct: item.referencia,
-            product: item.producto,
-            profitability: item.rentabilidad,
-            commissionSale: item.comision_ventas,
+            employee: item.nombres_y_apellidos,
+            process: item.proceso,
+            basicSalary: item.salario_basico,
+            transport: item.transporte,
+            endowment: item.dotaciones,
+            extraTime: item.horas_extras,
+            bonification: item.otros_ingresos,
+            workingHoursDay: item.horas_trabajo_x_dia,
+            workingDaysMonth: item.dias_trabajo_x_mes,
+            typeFactor: item.tipo_nomina,
+            factor: item.factor,
           };
         });
-
-        checkProduct(productsToImport);
+        checkPayroll(payrollToImport);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -43,19 +49,21 @@ $(document).ready(function () {
   });
 
   /* Mensaje de advertencia */
-  checkProduct = (data) => {
+  checkPayroll = (data) => {
     $.ajax({
       type: 'POST',
-      url: '/api/productsDataValidation',
-      data: { importProducts: data },
+      url: '../../api/payrollDataValidation',
+      data: { importPayroll: data },
       success: function (resp) {
         if (resp.error == true) {
           toastr.error(resp.message);
+          $('#filePayroll').val('');
           return false;
         }
+
         bootbox.confirm({
           title: '¿Desea continuar con la importación?',
-          message: `Se encontraron los siguientes registros:<br><br>Datos a insertar: ${resp.insert} <br>Datos a actualizar: ${resp.update}`,
+          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${resp.insert} <br>Datos a actualizar: ${resp.update}`,
           buttons: {
             confirm: {
               label: 'Si',
@@ -68,26 +76,24 @@ $(document).ready(function () {
           },
           callback: function (result) {
             if (result == true) {
-              saveProductTable(data);
-            } else $('#fileProducts').val('');
+              savePayroll(data);
+            } else $('#filePayroll').val('');
           },
         });
       },
     });
   };
 
-  /* Guardar Importacion */
-  saveProductTable = (data) => {
+  savePayroll = (data) => {
     $.ajax({
       type: 'POST',
-      url: '/api/addProducts',
-      //data: data,
-      data: { importProducts: data },
+      url: '../../api/addPayroll',
+      data: { importPayroll: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportProducts').hide(800);
-          $('#formImportProduct')[0].reset();
+          $('.cardImportPayroll').hide(800);
+          $('#formImportPayroll')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -96,19 +102,10 @@ $(document).ready(function () {
 
         /* Actualizar tabla */
         function updateTable() {
-          $('#tblProducts').DataTable().clear();
-          $('#tblProducts').DataTable().ajax.reload();
+          $('#tblPayroll').DataTable().clear();
+          $('#tblPayroll').DataTable().ajax.reload();
         }
       },
     });
-  };
-
-  /* Mensaje de exito */
-
-  message = (data) => {
-    if (data.success == true) {
-      toastr.success(data.message);
-    } else if (data.error == true) toastr.error(data.message);
-    else if (data.info == true) toastr.info(data.message);
   };
 });

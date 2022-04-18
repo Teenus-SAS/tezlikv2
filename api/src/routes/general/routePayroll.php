@@ -1,10 +1,12 @@
 <?php
 
 use tezlikv2\dao\PayrollDao;
+use tezlikv2\dao\ProcessDao;
 use tezlikv2\dao\CostWorkforceDao;
 use tezlikv2\dao\PriceProductDao;
 
 $payrollDao = new PayrollDao();
+$processDao = new ProcessDao();
 $costWorkforceDao = new CostWorkforceDao();
 $priceProductDao = new PriceProductDao();
 
@@ -21,26 +23,88 @@ $app->get('/payroll', function (Request $request, Response $response, $args) use
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addPayroll', function (Request $request, Response $response) use ($payrollDao) {
+$app->post('/payrollDataValidation', function (Request $request, Response $response, $args) use ($payrollDao, $processDao) {
+    $dataPayroll = $request->getParsedBody();
+
+    if (isset($dataPayroll)) {
+        session_start();
+        $id_company = $_SESSION['id_company'];
+
+        $insert = 0;
+        $update = 0;
+
+        $payroll = $dataPayroll['importPayroll'];
+
+        for ($i = 0; $i < sizeof($payroll); $i++) {
+            // Obtener id proceso
+            $findProcess = $processDao->findProcess($payroll[$i], $id_company);
+            if (!$findProcess) {
+                $i = $i + 1;
+                $dataImportPayroll = array('error' => true, 'message' => "Proceso no existe en la base de datos<br>Fila {$i}");
+                break;
+            } else $payroll[$i]['idProcess'] = $findProcess['id_process'];
+
+            $employee = $payroll[$i]['employee'];
+            $basicSalary = $payroll[$i]['basicSalary'];
+            $workingDaysMonth = $payroll[$i]['workingDaysMonth'];
+            $workingHoursDay = $payroll[$i]['workingHoursDay'];
+            $typeFactor = $payroll[$i]['typeFactor'];
+            if (
+                empty($employee) || empty($basicSalary) || empty($workingDaysMonth) ||
+                empty($workingHoursDay) || empty($typeFactor)
+            ) {
+                $i = $i + 1;
+                $dataImportPayroll = array('error' => true, 'message' => "Campos vacios en fila: {$i}");
+                break;
+            } else {
+                $findPayroll = $payrollDao->findPayroll($payroll[$i], $id_company);
+                if (!$findPayroll) $insert = $insert + 1;
+                else $update = $update + 1;
+                $dataImportPayroll['insert'] = $insert;
+                $dataImportPayroll['update'] = $update;
+            }
+        }
+    } else
+        $dataImportPayroll = array('error' => true, 'message' => 'El archivo se encuentra vacio. Intente nuevamente');
+
+    $response->getBody()->write(json_encode($dataImportPayroll, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->post('/addPayroll', function (Request $request, Response $response) use ($payrollDao, $processDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataPayroll = $request->getParsedBody();
 
-    if (
-        // || empty($dataPayroll['minuteValue']) empty($dataPayroll['endowment']) || 
-        empty($dataPayroll['employee']) || empty($dataPayroll['basicSalary']) || empty($dataPayroll['idProcess']) ||
-        empty($dataPayroll['workingDaysMonth']) || empty($dataPayroll['workingHoursDay']) ||
-        empty($dataPayroll['typeFactor'])
-    )
+    $dataPayrolls = sizeof($dataPayroll);
 
-        $resp = array('error' => true, 'message' => 'Ingrese todos los datos');
-    else {
+    if ($dataPayrolls > 1) {
         $payroll = $payrollDao->insertPayrollByCompany($dataPayroll, $id_company);
 
         if ($payroll == null)
             $resp = array('success' => true, 'message' => 'Nomina creada correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
+    } else {
+        $payroll = $dataPayroll['importPayroll'];
+
+        for ($i = 0; $i < sizeof($payroll); $i++) {
+            // Obtener idProceso
+            $findProcess = $processDao->findProcess($payroll[$i], $id_company);
+            $payroll[$i]['idProcess'] = $findProcess['id_process'];
+
+            $findPayroll = $payrollDao->findPayroll($payroll[$i], $id_company);
+            if (!$findPayroll)
+                $resolution = $payrollDao->insertPayrollByCompany($payroll[$i], $id_company);
+            else {
+                $payroll[$i]['idPayroll'] = $findPayroll['id_payroll'];
+                $resolution = $payrollDao->updatePayroll($payroll[$i]);
+            }
+        }
+        if ($resolution == null)
+            $resp = array('success' => true, 'message' => 'Nomina importada correctamente');
+        else
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));

@@ -112,8 +112,10 @@ $(document).ready(function () {
 
     $('#workingHoursDay').val(data.hours_day);
     $('#workingDaysMonth').val(data.working_days_month);
-
-    $(`#typeFactor option[value=${data.type_contract}]`).prop('selected', true);
+    $(`#typeFactor option:contains(${data.type_contract})`).prop(
+      'selected',
+      true
+    );
     $('#factor').val(data.factor_benefit);
 
     $('html, body').animate(
