@@ -1,3 +1,4 @@
+<?php @session_start() ?>
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
