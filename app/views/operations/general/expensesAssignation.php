@@ -45,7 +45,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportExpensesAssignation">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateExpesesAssignation" enctype="multipart/form-data">
+            <form id="formImportExpesesAssignation" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -90,6 +90,9 @@
 </div>
 
 <script src="../../app/js/global/number.js"></script>
+<script src="../../../js/import/import.js"></script>
+<script src="../../../js/import/file.js"></script>
 <script src="../../app/js/expenses/expense.js"></script>
+<script src="../../app/js/expenses/importExpense.js"></script>
 <script src="../../app/js/expenses/tblExpenses.js"></script>
 <script src="../../app/js/puc/configPuc.js"></script>

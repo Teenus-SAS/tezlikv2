@@ -1,23 +1,23 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportProducts').hide();
+  $('.cardImportExternalServices').hide();
 
-  $('#btnImportNewProducts').click(function (e) {
+  $('#btnImportNewExternalServices').click(function (e) {
     e.preventDefault();
-    $('.cardCreateProduct').hide(800);
-    $('.cardImportProducts').toggle(800);
+    $('.cardAddService').hide(800);
+    $('.cardImportExternalServices').toggle(800);
   });
 
-  $('#fileProducts').change(function (e) {
+  $('#fileExternalServices').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportProducts').click(function (e) {
+  $('#btnImportExternalServices').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileProducts').val();
+    file = $('#fileExternalServices').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -26,16 +26,15 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        let productsToImport = data.map((item) => {
+        let externalServiceToImport = data.map((item) => {
           return {
-            referenceProduct: item.referencia,
+            referenceProduct: item.referencia_producto,
             product: item.producto,
-            profitability: item.rentabilidad,
-            commissionSale: item.comision_ventas,
+            service: item.servicio,
+            costService: item.costo,
           };
         });
-
-        checkProduct(productsToImport);
+        checkExternalService(externalServiceToImport);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -43,19 +42,21 @@ $(document).ready(function () {
   });
 
   /* Mensaje de advertencia */
-  checkProduct = (data) => {
+  checkExternalService = (data) => {
     $.ajax({
       type: 'POST',
-      url: '/api/productsDataValidation',
-      data: { importProducts: data },
+      url: '../../api/externalServiceDataValidation',
+      data: { importExternalService: data },
       success: function (resp) {
         if (resp.error == true) {
           toastr.error(resp.message);
+          $('#fileExternalServices').val('');
           return false;
         }
+
         bootbox.confirm({
           title: '¿Desea continuar con la importación?',
-          message: `Se encontraron los siguientes registros:<br><br>Datos a insertar: ${resp.insert} <br>Datos a actualizar: ${resp.update}`,
+          message: `Se han encontrado los siguientes registros:<br><br>Datos a insertar: ${resp.insert} <br>Datos a actualizar: ${resp.update}`,
           buttons: {
             confirm: {
               label: 'Si',
@@ -68,26 +69,24 @@ $(document).ready(function () {
           },
           callback: function (result) {
             if (result == true) {
-              saveProductTable(data);
-            } else $('#fileProducts').val('');
+              saveExternalServiceTable(data);
+            } else $('#fileExternalServices').val('');
           },
         });
       },
     });
   };
 
-  /* Guardar Importacion */
-  saveProductTable = (data) => {
+  saveExternalServiceTable = (data) => {
     $.ajax({
       type: 'POST',
-      url: '/api/addProducts',
-      //data: data,
-      data: { importProducts: data },
+      url: '../../api/addExternalService',
+      data: { importExternalService: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportProducts').hide(800);
-          $('#formImportProduct')[0].reset();
+          $('.cardImportExternalServices').hide(800);
+          $('#formImportExternalServices')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -96,19 +95,10 @@ $(document).ready(function () {
 
         /* Actualizar tabla */
         function updateTable() {
-          $('#tblProducts').DataTable().clear();
-          $('#tblProducts').DataTable().ajax.reload();
+          $('#tblExternalServices').DataTable().clear();
+          $('#tblExternalServices').DataTable().ajax.reload();
         }
       },
     });
-  };
-
-  /* Mensaje de exito */
-
-  message = (data) => {
-    if (data.success == true) {
-      toastr.success(data.message);
-    } else if (data.error == true) toastr.error(data.message);
-    else if (data.info == true) toastr.info(data.message);
   };
 });

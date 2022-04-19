@@ -31,6 +31,22 @@ class ExternalServicesDao
         return $externalservices;
     }
 
+    // Consultar si existe el servicio en BD
+    public function findExternalService($dataExternalService, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        $stmt = $connection->prepare("SELECT id_service FROM services
+                                      WHERE id_product = :id_product AND name_service = :name_service AND id_company = :id_company");
+        $stmt->execute([
+            'id_product' => $dataExternalService['idProduct'],
+            'name_service' => $dataExternalService['service'],
+            'id_company' => $id_company
+        ]);
+        $findExternalService = $stmt->fetch($connection::FETCH_ASSOC);
+        return $findExternalService;
+    }
+
     public function insertExternalServicesByCompany($dataExternalService, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();

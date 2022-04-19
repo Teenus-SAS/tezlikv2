@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewService">Nuevo Servicio</button>
-                    <button class="btn btn-info ml-3" id="btnNewService">Importar Servicios Externos</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewExternalServices">Importar Servicios Externos</button>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
 <div class="page-content-wrapper mt--45 mb-5 cardImportExternalServices">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateExternalServices" enctype="multipart/form-data">
+            <form id="formImportExternalServices" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -112,6 +112,9 @@
     </div> -->
 
 <script src="../../app/js/global/number.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/services/externalServices.js"></script>
+<script src="../../app/js/services/importExternalServices.js"></script>
 <script src="../../app/js/services/tblExternalServices.js"></script>

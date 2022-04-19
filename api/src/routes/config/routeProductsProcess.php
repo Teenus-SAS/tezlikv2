@@ -47,7 +47,7 @@ $app->post('/productsProcessDataValidation', function (Request $request, Respons
             $findProduct = $productsDao->findProduct($productProcess[$i], $id_company);
             if (!$findProduct) {
                 $i = $i + 1;
-                $dataImportProductProcess = array('error' => true, 'message' => 'Producto no existe en la base de datos<br>Fila: {$i}');
+                $dataImportProductProcess = array('error' => true, 'message' => "Producto no existe en la base de datos<br>Fila: {$i}");
                 break;
             } else $productProcess[$i]['idProduct'] = $findProduct['id_product'];
 

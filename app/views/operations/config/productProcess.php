@@ -12,7 +12,7 @@
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnCreateProcess">Nuevo Proceso</button>
-                    <button class="btn btn-info ml-3" id="btnNewImportProductProcess">Importar Procesos</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewProductProcess">Importar Procesos</button>
                 </div>
             </div>
         </div>

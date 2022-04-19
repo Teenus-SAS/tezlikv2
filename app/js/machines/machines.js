@@ -28,7 +28,7 @@ $(document).ready(function () {
 
       data = hoursMachine * daysMachine;
 
-      if (Machine == '' || Machine == null || data == null) {
+      if (Machine == '' || Machine == null || data == null || data <= 0) {
         toastr.error('Ingrese todos los campos');
         return false;
       }

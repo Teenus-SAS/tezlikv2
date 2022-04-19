@@ -32,10 +32,29 @@ class PayrollDao
     return $payroll;
   }
 
+  // Consultar si existe la nomina en BD
+  public function findPayroll($dataPayroll, $id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT id_payroll FROM payroll
+                                  WHERE employee = :employee AND id_process = :id_process AND id_company = :id_company");
+    $stmt->execute([
+      'employee' => $dataPayroll['employee'],
+      'id_process' => $dataPayroll['idProcess'],
+      'id_company' => $id_company
+    ]);
+    $findPayroll = $stmt->fetch($connection::FETCH_ASSOC);
+    return $findPayroll;
+  }
+
   public function insertPayrollByCompany($dataPayroll, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
     $salaryBasic = str_replace('.', '', $dataPayroll['basicSalary']);
+
+    if ($dataPayroll['typeFactor'] == 'Nomina' || $dataPayroll['typeFactor'] == 1) $dataPayroll['factor'] = 38;
+    if ($dataPayroll['typeFactor'] == 'Servicios' || $dataPayroll['typeFactor'] == 2) $dataPayroll['factor'] = 0;
 
     $payrollCalculate = $this->calculateValueMinute($salaryBasic, $dataPayroll);
 
@@ -51,7 +70,7 @@ class PayrollDao
         'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
         'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
         'factor_benefit' => $dataPayroll['factor'],               'type_contract' => $dataPayroll['typeFactor'],
-        'salary_net' => $payrollCalculate['salaryNet'],           'minute_value' => $payrollCalculate['minuteValue'],
+        'salary_net' => $payrollCalculate['salaryNet'],           'minute_value' => $payrollCalculate['minuteValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -67,6 +86,10 @@ class PayrollDao
   {
     $connection = Connection::getInstance()->getConnection();
     $salaryBasic = str_replace('.', '', $dataPayroll['basicSalary']);
+
+    if ($dataPayroll['typeFactor'] == 'Nomina' || $dataPayroll['typeFactor'] == 1) $dataPayroll['factor'] = 38;
+    if ($dataPayroll['typeFactor'] == 'Servicios' || $dataPayroll['typeFactor'] == 2) $dataPayroll['factor'] = 0;
+
     $payrollCalculate = $this->calculateValueMinute($salaryBasic, $dataPayroll);
 
     try {
