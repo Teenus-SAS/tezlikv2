@@ -90,8 +90,8 @@
 </div>
 
 <script src="../../app/js/global/number.js"></script>
-<script src="../../../js/import/import.js"></script>
-<script src="../../../js/import/file.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/expenses/expense.js"></script>
 <script src="../../app/js/expenses/importExpense.js"></script>
 <script src="../../app/js/expenses/tblExpenses.js"></script>
