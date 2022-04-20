@@ -1,23 +1,23 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportExpensesAssignation').hide();
+  $('.cardImportProcess').hide();
 
-  $('#btnImportNewExpenses').click(function (e) {
+  $('#btnImportNewProcess').click(function (e) {
     e.preventDefault();
-    $('.cardCreateExpenses').hide();
-    $('.cardImportExpensesAssignation').toggle(800);
+    $('.cardAddProcess').hide(800);
+    $('.cardImportProcess').toggle(800);
   });
 
-  $('#fileExpensesAssignation').change(function (e) {
+  $('#fileProcess').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportExpensesAssignation').click(function (e) {
+  $('#btnImportProcess').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileExpensesAssignation').val();
+    file = $('#fileProcess').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -26,14 +26,12 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        let expenseToImport = data.map((item) => {
+        let ProcessToImport = data.map((item) => {
           return {
-            numberCount: item.numero_cuenta,
-            count: item.cuenta,
-            expenseValue: item.valor,
+            process: item.proceso,
           };
         });
-        checkExpense(expenseToImport);
+        checkProcess(ProcessToImport);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -41,15 +39,14 @@ $(document).ready(function () {
   });
 
   /* Mensaje de advertencia */
-  checkExpense = (data) => {
+  checkProcess = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/expenseDataValidation',
-      data: { importExpense: data },
+      url: '../../api/processDataValidation',
+      data: { importProcess: data },
       success: function (resp) {
         if (resp.error == true) {
           toastr.error(resp.message);
-          $('#fileExpensesAssignation').val('');
           return false;
         }
 
@@ -68,24 +65,24 @@ $(document).ready(function () {
           },
           callback: function (result) {
             if (result == true) {
-              saveExpense(data);
-            } else $('#fileExpensesAssignation').val('');
+              saveProcessTable(data);
+            } else $('#fileProcess').val('');
           },
         });
       },
     });
   };
 
-  saveExpense = (data) => {
+  saveProcessTable = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/addExpenses',
-      data: { importExpense: data },
+      url: '../../api/addProcess',
+      data: { importProcess: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportExpensesAssignation').hide(800);
-          $('#formImportExpesesAssignation')[0].reset();
+          $('.cardImportProcess').hide(800);
+          $('#formImportProcess')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -94,8 +91,8 @@ $(document).ready(function () {
 
         /* Actualizar tabla */
         function updateTable() {
-          $('#tblExpenses').DataTable().clear();
-          $('#tblExpenses').DataTable().ajax.reload();
+          $('#tblProcess').DataTable().clear();
+          $('#tblProcess').DataTable().ajax.reload();
         }
       },
     });

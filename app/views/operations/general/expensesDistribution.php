@@ -20,7 +20,7 @@ $product = $userinactivetimeDao->findSession();
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnExpensesDistribution">Distribuir Gastos</button>
-                    <button class="btn btn-info ml-3" id="btnImportExpensesDistribution">Importar Distribuir Gastos</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewExpensesDistribution">Importar Distribuir Gastos</button>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@ $product = $userinactivetimeDao->findSession();
 <div class="page-content-wrapper mt--45 mb-5 cardImportDistributionExpenses">
     <div class="container-fluid">
         <div class="row">
-            <form id="formCreateDistributionExpenses" enctype="multipart/form-data">
+            <form id="formImportDistributionExpenses" enctype="multipart/form-data">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3 pb-0">
@@ -118,8 +118,11 @@ $product = $userinactivetimeDao->findSession();
 </div>
 
 <script src="../../app/js/global/number.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/products/configProducts.js"></script>
 
 <script src="../../app/js/expenses/tblExpensesDistribution.js"></script>
 <script src="../../app/js/expenses/expensesDistribution.js"></script>
+<script src="../../app/js/expenses/importExpensesDistribution.js"></script>
 <script src="../../app/js/expenses/configExpensesDistribution.js"></script>

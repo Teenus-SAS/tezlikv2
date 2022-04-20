@@ -1,23 +1,23 @@
 $(document).ready(function () {
   let selectedFile;
 
-  $('.cardImportExpensesAssignation').hide();
+  $('.cardImportDistributionExpenses').hide();
 
-  $('#btnImportNewExpenses').click(function (e) {
+  $('#btnImportNewExpensesDistribution').click(function (e) {
     e.preventDefault();
-    $('.cardCreateExpenses').hide();
-    $('.cardImportExpensesAssignation').toggle(800);
+    $('.cardExpensesDistribution').hide();
+    $('.cardImportDistributionExpenses').toggle(800);
   });
 
-  $('#fileExpensesAssignation').change(function (e) {
+  $('#fileDistributionExpenses').change(function (e) {
     e.preventDefault();
     selectedFile = e.target.files[0];
   });
 
-  $('#btnImportExpensesAssignation').click(function (e) {
+  $('#btnImportDistributionExpenses').click(function (e) {
     e.preventDefault();
 
-    file = $('#fileExpensesAssignation').val();
+    file = $('#fileDistributionExpenses').val();
 
     if (!file) {
       toastr.error('Seleccione un archivo');
@@ -26,14 +26,15 @@ $(document).ready(function () {
 
     importFile(selectedFile)
       .then((data) => {
-        let expenseToImport = data.map((item) => {
+        let expenseDistributionToImport = data.map((item) => {
           return {
-            numberCount: item.numero_cuenta,
-            count: item.cuenta,
-            expenseValue: item.valor,
+            referenceProduct: item.referencia_producto,
+            product: item.producto,
+            unitsSold: item.unidades_vendidas,
+            turnover: item.volumen_ventas,
           };
         });
-        checkExpense(expenseToImport);
+        checkExpenseDistribution(expenseDistributionToImport);
       })
       .catch(() => {
         console.log('Ocurrio un error. Intente Nuevamente');
@@ -41,15 +42,15 @@ $(document).ready(function () {
   });
 
   /* Mensaje de advertencia */
-  checkExpense = (data) => {
+  checkExpenseDistribution = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/expenseDataValidation',
-      data: { importExpense: data },
+      url: '../../api/expenseDistributionDataValidation',
+      data: { importExpenseDistribution: data },
       success: function (resp) {
         if (resp.error == true) {
           toastr.error(resp.message);
-          $('#fileExpensesAssignation').val('');
+          $('#fileDistributionExpenses').val('');
           return false;
         }
 
@@ -68,24 +69,24 @@ $(document).ready(function () {
           },
           callback: function (result) {
             if (result == true) {
-              saveExpense(data);
-            } else $('#fileExpensesAssignation').val('');
+              saveExpenseDistribution(data);
+            } else $('#fileDistributionExpenses').val('');
           },
         });
       },
     });
   };
 
-  saveExpense = (data) => {
+  saveExpenseDistribution = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/addExpenses',
-      data: { importExpense: data },
+      url: '../../api/addExpensesDistribution',
+      data: { importExpenseDistribution: data },
       success: function (r) {
         /* Mensaje de exito */
         if (r.success == true) {
-          $('.cardImportExpensesAssignation').hide(800);
-          $('#formImportExpesesAssignation')[0].reset();
+          $('.cardImportDistributionExpenses').hide(800);
+          $('#formImportDistributionExpenses')[0].reset();
           updateTable();
           toastr.success(r.message);
           return false;
@@ -94,8 +95,8 @@ $(document).ready(function () {
 
         /* Actualizar tabla */
         function updateTable() {
-          $('#tblExpenses').DataTable().clear();
-          $('#tblExpenses').DataTable().ajax.reload();
+          $('#tblExpensesDistribution').DataTable().clear();
+          $('#tblExpensesDistribution').DataTable().ajax.reload();
         }
       },
     });

@@ -71,7 +71,7 @@ $app->post('/payrollDataValidation', function (Request $request, Response $respo
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/addPayroll', function (Request $request, Response $response) use ($payrollDao, $processDao) {
+$app->post('/addPayroll', function (Request $request, Response $response) use ($payrollDao, $processDao, $costWorkforceDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataPayroll = $request->getParsedBody();
@@ -99,6 +99,10 @@ $app->post('/addPayroll', function (Request $request, Response $response) use ($
             else {
                 $payroll[$i]['idPayroll'] = $findPayroll['id_payroll'];
                 $resolution = $payrollDao->updatePayroll($payroll[$i]);
+                // Calcular costo nomina
+                //$costWorkforce = $costWorkforceDao->calcCostPayrollByPayroll($payroll[$i], $id_company);
+                // Calcular precio products_costs
+                //$priceProduct = $priceProductDao->calcPriceByPayroll($payroll[$i]['idProcess'], $id_company);
             }
         }
         if ($resolution == null)

@@ -20,6 +20,7 @@ $product = $userinactivetimeDao->findSession();
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
                     <button class="btn btn-warning" id="btnNewProcess" name="btnNewProcess">Nuevo Proceso</button>
+                    <button class="btn btn-info ml-3" id="btnImportNewProcess">Importar Procesos</button>
                 </div>
             </div>
         </div>
@@ -50,6 +51,33 @@ $product = $userinactivetimeDao->findSession();
     </div>
 </div>
 
+<div class="page-content-wrapper mt--45 mb-5 cardImportProcess">
+    <div class="container-fluid">
+        <div class="row">
+            <form id="formImportProcess" enctype="multipart/form-data">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body pt-3 pb-0">
+                            <div class="gridx4ip">
+                                <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
+                                    <input class="form-control" type="file" id="fileProcess" accept=".xls,.xlsx">
+                                    <label for="formFile" class="form-label"> Importar Process</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-success" id="btnImportProcess">Importar</button>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
+                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsProcess">Descarga Formato</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- page content -->
 <div class="page-content-wrapper mt--45">
     <div class="container-fluid">
@@ -73,5 +101,8 @@ $product = $userinactivetimeDao->findSession();
     </div>
 </div>
 
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/process/tblProcess.js"></script>
 <script src="../../app/js/process/process.js"></script>
+<script src="../../app/js/process/importProcess.js"></script>

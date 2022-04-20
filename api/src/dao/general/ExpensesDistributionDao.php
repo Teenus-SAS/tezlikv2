@@ -21,7 +21,7 @@ class ExpensesDistributionDao
         session_start();
         $id_company = $_SESSION['id_company'];
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT me.id_expenses_distribution, p.reference, p.product, me.units_sold, me.turnover, me.assignable_expense 
+        $stmt = $connection->prepare("SELECT me.id_expenses_distribution, p.id_product, p.reference, p.product, me.units_sold, me.turnover, me.assignable_expense 
                                   FROM expenses_distribution me
                                   INNER JOIN products p ON p.id_product = me.id_product
                                   WHERE me.id_company = :id_company;");
@@ -32,6 +32,21 @@ class ExpensesDistributionDao
         $expenses = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("expenses", array('expenses' => $expenses));
         return $expenses;
+    }
+
+    // Consultar si existe distribucion de gasto en BD
+    public function findExpenseDistribution($dataExpensesDistribution, $id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        $stmt = $connection->prepare("SELECT id_expenses_distribution FROM expenses_distribution 
+                                      WHERE id_product = :id_product AND id_company = :id_company");
+        $stmt->execute([
+            'id_product' => $dataExpensesDistribution['selectNameProduct'],
+            'id_company' => $id_company
+        ]);
+        $findExpenseDistribution = $stmt->fetch($connection::FETCH_ASSOC);
+        return $findExpenseDistribution;
     }
 
     public function insertExpensesDistributionByCompany($dataExpensesDistribution, $id_company)
@@ -86,17 +101,17 @@ class ExpensesDistributionDao
         }
     }
 
-    public function deleteExpensesDistribution($id_expenses_distribution)
+    public function deleteExpensesDistribution($dataExpensesDistribution)
     {
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT * FROM expenses_distribution WHERE id_expenses_distribution = :id_expenses_distribution");
-        $stmt->execute(['id_expenses_distribution' => $id_expenses_distribution]);
+        $stmt->execute(['id_expenses_distribution' => $dataExpensesDistribution['idExpensesDistribution']]);
         $row = $stmt->rowCount();
 
         if ($row > 0) {
             $stmt = $connection->prepare("DELETE FROM expenses_distribution WHERE id_expenses_distribution = :id_expenses_distribution");
-            $stmt->execute(['id_expenses_distribution' => $id_expenses_distribution]);
+            $stmt->execute(['id_expenses_distribution' => $dataExpensesDistribution['idExpensesDistribution']]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
     }

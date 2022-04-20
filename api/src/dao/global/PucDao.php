@@ -29,6 +29,20 @@ class PucDao
     return $puc;
   }
 
+  // Consultar si existe la cuenta en BD
+  public function findPuc($dataPuc)
+  {
+    $connection = Connection::getInstance()->getConnection();
+
+    $stmt = $connection->prepare("SELECT id_puc FROM puc WHERE number_count = :number_count AND count = :count");
+    $stmt->execute([
+      'number_count' => $dataPuc['numberCount'],
+      'count' => $dataPuc['count']
+    ]);
+    $findPuc = $stmt->fetch($connection::FETCH_ASSOC);
+    return $findPuc;
+  }
+
   public function insertPuc($dataPuc)
   {
     $connection = Connection::getInstance()->getConnection();
