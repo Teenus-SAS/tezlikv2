@@ -210,9 +210,9 @@
                 <div aria-labelledby="page-header-notification-dropdown" class="dropdown-menu-lg dropdown-menu-right p-0 dropdown-menu">
                     <div class="notify-title p-3">
                         <h5 class="font-size-14 font-weight-600 mb-0">
-                            <span>Notification</span>
+                            <span>Notificationes</span>
                             <a class="text-primary" href="javascript: void(0);">
-                                <small>Clear All</small>
+                                <small>Limpiar Todo</small>
                             </a>
                         </h5>
                     </div>
@@ -296,12 +296,6 @@
                     </a>
                     <a href="javascript: void(0);" onclick="loadContent('page-content','views/perfil/configuracion.php')" class="dropdown-item">
                         <i class="bx bx-wrench mr-1"></i> Configuración
-                    </a>
-                    <a href="javascript: void(0);" class="dropdown-item">
-                        <i class="bx bx-wallet mr-1"></i> My Wallet
-                    </a>
-                    <a href="javascript: void(0);" class="dropdown-item">
-                        <i class="bx bx-lock mr-1"></i> Lock screen
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="javascript: void(0);" class="text-danger dropdown-item logout">
