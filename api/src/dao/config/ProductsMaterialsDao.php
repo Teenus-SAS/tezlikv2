@@ -19,7 +19,7 @@ class ProductsMaterialsDao
     public function productsmaterials($idProduct, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT  pm.id_product_material, m.id_material, m.reference, m.material, m.unit, pm.quantity, m.cost FROM products p 
+        $stmt = $connection->prepare("SELECT pm.id_product_material, m.id_material, m.reference, m.material, m.unit, pm.quantity, m.cost FROM products p 
                                     INNER JOIN products_materials pm ON pm.id_product = p.id_product 
                                     INNER JOIN materials m ON m.id_material = pm.id_material 
                                   WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
