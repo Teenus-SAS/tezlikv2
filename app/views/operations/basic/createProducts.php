@@ -4,7 +4,7 @@ use tezlikv2\dao\UserInactiveTimeDao;
 
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/api/src/dao/login/UserInactiveTimeDao.php");
 $userinactivetimeDao = new UserInactiveTimeDao();
-$product = $userinactivetimeDao->findSession();
+$userinactivetimeDao->findSession();
 ?>
 
 <div class="page-title-box">

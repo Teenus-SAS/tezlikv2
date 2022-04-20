@@ -10,7 +10,7 @@ class UserInactiveTimeDao
     @session_start();
     if (empty($_SESSION['active']) || time() - $_SESSION['time'] > 600) {
       session_destroy();
-      //header('location: ../../../');
+      header('location: ../../../../../index.php');
     } else
       @session_start();
   }

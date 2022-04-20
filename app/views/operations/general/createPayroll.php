@@ -2,11 +2,12 @@
 
 use tezlikv2\dao\UserInactiveTimeDao;
 
-require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/api/src/dao/login/UserInactiveTimeDao.php");
-include_once __DIR__ . '/../../../modals/createPayroll.php';
+require_once dirname(dirname(dirname(dirname(__DIR__)))) . "/api/src/dao/login/UserInactiveTimeDao.php";
 $userinactivetimeDao = new UserInactiveTimeDao();
-$product = $userinactivetimeDao->findSession();
+$userinactivetimeDao->findSession();
 ?>
+
+<?php require_once dirname(dirname(dirname(__DIR__))) . '/modals/createPayroll.php';?>
 
 <div class="page-title-box">
     <div class="container-fluid">
