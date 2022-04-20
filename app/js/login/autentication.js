@@ -63,7 +63,7 @@ $(document).ready(function() {
     const login = (data) => {
         $.ajax({
             type: "POST",
-            url: "../../../api/userAutentication",
+            url: "/api/userAutentication",
             data: data,
             success: function(data, textStatus, xhr) {
 

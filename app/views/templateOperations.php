@@ -1,9 +1,10 @@
 <?php
-if (empty($_SESSION['active']))
-	header('location: ../../../');
-else if (time() - $_SESSION['time'] > 600)
-	header('location: ../../../');
 
+use tezlikv2\dao\UserInactiveTimeDao;
+
+require_once(dirname(dirname(__DIR__)) . "/api/src/dao/login/UserInactiveTimeDao.php");
+$userinactivetimeDao = new UserInactiveTimeDao();
+$product = $userinactivetimeDao->findSession();
 ?>
 
 <!DOCTYPE html>

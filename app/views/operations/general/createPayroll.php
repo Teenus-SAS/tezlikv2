@@ -1,4 +1,12 @@
-<?php include_once __DIR__ . '/../../../modals/createPayroll.php'  ?>
+<?php
+
+use tezlikv2\dao\UserInactiveTimeDao;
+
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/api/src/dao/login/UserInactiveTimeDao.php");
+include_once __DIR__ . '/../../../modals/createPayroll.php';
+$userinactivetimeDao = new UserInactiveTimeDao();
+$product = $userinactivetimeDao->findSession();
+?>
 
 <div class="page-title-box">
     <div class="container-fluid">
