@@ -33,4 +33,6 @@ class AutenticationUserDao
     $this->logger->notice("usuarios Obtenidos", array('usuarios' => $user));
     return $user;
   }
+
+  /* Falta Metodo para actualizar estado de sesion de Usuario */
 }

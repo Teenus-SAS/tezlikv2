@@ -78,6 +78,8 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION['id_company'] = $user['id_company'];
     $_SESSION["time"] = time();
 
+    /* Falta Modificar el estado de la sesion del usuario en BD */
+
     $resp = array('success' => true, 'message' => 'access granted');
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
