@@ -37,7 +37,11 @@ $(document).ready(function() {
             {
                 title: 'Img',
                 data: 'img',
-                className: 'classCenter',
+                className: 'uniqueClassName',
+                render: (data, type, row) => {
+                    'use strict';
+                    return `<img src="${data}" alt="" style="width:50%;border-radius:100px">`;
+                },
             },
             {
                 title: 'Acciones',

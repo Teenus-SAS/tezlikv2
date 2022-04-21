@@ -62,16 +62,17 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProduct = $request->getParsedBody();
-    $imgProduct = $request->getUploadedFiles();
 
     /* Inserta datos */
     $dataProducts = sizeof($dataProduct);
 
     if ($dataProducts > 1) {
         $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
+        $lastProductId = $productsDao->lastInsertedProductId($id_company);
+        $imgProducts = $productsDao->imageProduct($lastProductId['id_product'], $id_company);
         $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
 
-        if ($products == null && $productsCost == null)
+        if ($products == null && $imgProducts == null && $productsCost == null)
             $resp = array('success' => true, 'message' => 'Producto creado correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrió un error mientras ingresaba la información. Intente nuevamente');
@@ -94,7 +95,7 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
         if ($resolution == null)
             $resp = array('success' => true, 'message' => 'Productos importados correctamente');
         else
-            $resp = array('error' => true, 'message' => 'Ocurrió un error mientras importaba la información. Intente nuevamente');
+            $resp = array('error' => true, 'message' => 'Ocurrió un error mientras importaba los datos. Intente nuevamente');
     }
 
 
@@ -106,9 +107,9 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
 $app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
-    
+
     $dataProduct = $request->getParsedBody();
-    $imgProduct = $request->getUploadedFiles();
+    //$imgProduct = $request->getUploadedFiles();
 
     if (
         empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) ||
@@ -118,7 +119,10 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
     else {
         // Actualizar Datos, Imagen y Calcular Precio del producto
         $products = $productsDao->updateProductByCompany($dataProduct, $id_company);
-        $products = $productsDao->imageProduct($dataProduct['idProduct'], $id_company);
+
+        if (sizeof($_FILES) > 0)
+            $products = $productsDao->imageProduct($dataProduct['idProduct'], $id_company);
+
         $products = $productsCostDao->updateProductsCostByCompany($dataProduct);
         $products = $priceProductDao->calcPrice($dataProduct['idProduct']);
 

@@ -90,33 +90,32 @@ class ProductsDao
   {
     $connection = Connection::getInstance()->getConnection();
 
-    if (empty($dataProduct['img'])) {
-      try {
-        $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product 
-                                    WHERE id_product = :id_product");
-        $stmt->execute([
-          'id_product' => $dataProduct['idProduct'],
-          'reference' => $dataProduct['referenceProduct'],
-          'product' => ucfirst(strtolower($dataProduct['product']))
-        ]);
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      } catch (\Exception $e) {
-        $message = $e->getMessage();
-        $error = array('info' => true, 'message' => $message);
-        return $error;
-      }
-    } else {
-      $stmt = $connection->prepare("UPDATE products SET ref = :reference, product = :product, img = :img 
+    try {
+      $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product 
                                     WHERE id_product = :id_product");
       $stmt->execute([
         'id_product' => $dataProduct['idProduct'],
         'reference' => $dataProduct['referenceProduct'],
-        'product' => ucfirst(strtolower($dataProduct['product'])),
-        'img' => $dataProduct['img']
+        'product' => ucfirst(strtolower($dataProduct['product']))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+      $error = array('info' => true, 'message' => $message);
+      return $error;
     }
   }
+
+  public function lastInsertedProductId($id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+    $sql = "SELECT MAX(id_product) AS id_product FROM products WHERE id_company = :id_company";
+    $query = $connection->prepare($sql);
+    $query->execute(['id_company' => $id_company]);
+    $id_product = $query->fetch($connection::FETCH_ASSOC);
+    return $id_product;
+  }
+
 
   public function imageProduct($id_product, $id_company)
   {

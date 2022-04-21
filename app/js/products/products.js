@@ -19,6 +19,7 @@ $(document).ready(function() {
         $('#product').val('');
         $('#profitability').val('');
         $('#commisionSale').val('');
+        $('#formFile').val('');
     });
 
     /* Crear producto */
@@ -33,18 +34,32 @@ $(document).ready(function() {
             prof = $('#profitability').val();
             comission = $('#commisionSale').val();
 
-            if (ref == '' || ref == 0 || prod == '' || prod == 0 || prof == '' || prof == 0 ||
-                comission == '' ||
-                comission == 0
-            ) {
+            if (ref == '' || ref == 0 || prod == '' || prod == 0 || prof == '' || prof == 0 || comission == '' || comission == 0) {
                 toastr.error('Ingrese todos los campos');
                 return false;
             }
 
-            product = $('#formCreateProduct').serialize();
+            let imageProd = $('#formFile')[0].files[0];
 
-            $.post('/api/addProducts', product, function(data, textStatus, jqXHR) {
-                message(data);
+            dataProduct = new FormData(formCreateProduct);
+            dataProduct.append('img', imageProd);
+
+            $.ajax({
+                type: "POST",
+                url: "/api/addProducts",
+                data: dataProduct,
+                contentType: false,
+                cache: false,
+                processData: false,
+
+                success: function(resp) {
+                    $('.cardCreateProduct').hide(800);
+                    $('.cardImportProducts').hide(800);
+                    $('#formFile').val('');
+                    message(resp);
+                    updateTable();
+
+                }
             });
         } else {
             updateProduct();
@@ -91,6 +106,7 @@ $(document).ready(function() {
                 $('.cardCreateProduct').hide(800);
                 $('.cardImportProducts').hide(800);
                 updateTable();
+                $('#formFile').val('');
                 message(resp);
 
             }
