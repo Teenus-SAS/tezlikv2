@@ -33,12 +33,14 @@ $userinactivetimeDao->findSession();
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="gridx2">
-                            <label for="">Referencia</label>
-                            <label for="">Producto</label>
+                    <div class="card-body gridx2">
+                        <div class="form-group floating-label enable-floating-label show-label">
                             <select class="form-control" name="refProduct" id="refProduct"></select>
+                            <label for="">Referencia</label>
+                        </div>
+                        <div class="form-group floating-label enable-floating-label show-label">
                             <select class="form-control" name="selectNameProduct" id="selectNameProduct"></select>
+                            <label for="">Producto</label>
                         </div>
                     </div>
                 </div>
@@ -76,12 +78,27 @@ $userinactivetimeDao->findSession();
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Análisis Materias Primas</h5>
+                        <h5 class="card-title">Análisis Materia Prima</h5>
                     </div>
                     <div class="card-body">
-                        <div>
-                            <label>Unidades a Fabricar</label>
-                            <input class="form-control" id="unitsmanufacturated" />
+                        <div class="gridx2">
+                            <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                <input class="form-control" id="unitsmanufacturated" style="width: 200px;" />
+                                <label>Unidades a Fabricar</label>
+                            </div>
+                            <div class="gridx2">
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input class="form-control" id="monthlySavings" style="width: 200px;" readonly />
+                                    <label>Ahorro Mensual</label>
+                                </div>
+                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
+                                    <input class="form-control" id="annualSavings" style="width: 200px;" readonly />
+                                    <label>Ahorro Anual</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-success mt-3" role="alert">
+                            Cantidad de Materias primas que consumen el 80% del valor del costo
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="tblAnalysisMaterials">
