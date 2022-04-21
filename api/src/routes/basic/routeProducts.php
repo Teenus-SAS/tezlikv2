@@ -62,10 +62,9 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     session_start();
     $id_company = $_SESSION['id_company'];
     $dataProduct = $request->getParsedBody();
+    $imgProduct = $request->getUploadedFiles();
 
-    //$files = $request->getUploadedFiles();
-    /* Falta la programacion para la carga de la imagen */
-
+    /* Inserta datos */
     $dataProducts = sizeof($dataProduct);
 
     if ($dataProducts > 1) {
@@ -98,6 +97,8 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
             $resp = array('error' => true, 'message' => 'Ocurrió un error mientras importaba la información. Intente nuevamente');
     }
 
+
+
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
@@ -105,24 +106,23 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
 $app->post('/updateProducts', function (Request $request, Response $response, $args) use ($productsDao, $productsCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
+    
     $dataProduct = $request->getParsedBody();
-    //$files = $request->getUploadedFiles();
-    /* Falta la programacion para la carga de la imagen */
+    $imgProduct = $request->getUploadedFiles();
 
     if (
         empty($dataProduct['referenceProduct']) || empty($dataProduct['product']) ||
-        empty($dataProduct['profitability']) || empty($dataProduct['commisionSale'])
+        empty($dataProduct['profitability']) || empty($dataProduct['commissionSale'])
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
+        // Actualizar Datos, Imagen y Calcular Precio del producto
         $products = $productsDao->updateProductByCompany($dataProduct, $id_company);
+        $products = $productsDao->imageProduct($dataProduct['idProduct'], $id_company);
+        $products = $productsCostDao->updateProductsCostByCompany($dataProduct);
+        $products = $priceProductDao->calcPrice($dataProduct['idProduct']);
 
-        // Actualizar rentabilidad y comision en product_cost
-        $productsCost = $productsCostDao->updateProductsCostByCompany($dataProduct);
-        // Calcular Precio del producto
-        $priceProduct = $priceProductDao->calcPrice($dataProduct['idProduct']);
-
-        if ($products == null && $productsCost == null && $priceProduct == null)
+        if ($products == null)
             $resp = array('success' => true, 'message' => 'Producto actualizado correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');

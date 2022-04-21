@@ -37,7 +37,7 @@ $userinactivetimeDao->findSession();
                         <div class="card-body">
                             <div class="gridx4">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control" name="idProduct" id="idProduct" hidden>
+                                    <!-- <input type="text" class="form-control" name="idProduct" id="idProduct" hidden> -->
                                     <input type="text" class="form-control" name="referenceProduct" id="referenceProduct">
                                     <label for="">Referencia</label>
                                 </div>
@@ -61,7 +61,7 @@ $userinactivetimeDao->findSession();
                                     <label for="">Rentabilidad(%)</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control text-center" name="commisionSale" id="commisionSale">
+                                    <input type="text" class="form-control text-center" name="commissionSale" id="commisionSale">
                                     <label for="">Comisión de Ventas(%)</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
@@ -139,4 +139,4 @@ $userinactivetimeDao->findSession();
 <script src="../../app/js/import/import.js"></script>
 <script src="../../app/js/products/importProducts.js"></script>
 <script src="../../app/js/import/file.js"></script>
-<script src="../../app/js/global/validateExt.js"></script>
+<script src="../../app/js/global/validateImgExt.js"></script>

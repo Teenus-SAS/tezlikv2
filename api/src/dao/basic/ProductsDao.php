@@ -96,7 +96,7 @@ class ProductsDao
                                     WHERE id_product = :id_product");
         $stmt->execute([
           'id_product' => $dataProduct['idProduct'],
-          'reference' => $dataProduct['reference'],
+          'reference' => $dataProduct['referenceProduct'],
           'product' => ucfirst(strtolower($dataProduct['product']))
         ]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -115,6 +115,35 @@ class ProductsDao
         'img' => $dataProduct['img']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    }
+  }
+
+  public function imageProduct($id_product, $id_company)
+  {
+    $connection = Connection::getInstance()->getConnection();
+    $targetDir = '/app/assets/images/products/' . $id_company;
+    $allowTypes = array('jpg', 'jpeg', 'png');
+
+    $image_name = $_FILES['img']['name'];
+    $tmp_name   = $_FILES['img']['tmp_name'];
+    $size       = $_FILES['img']['size'];
+    $type       = $_FILES['img']['type'];
+    $error      = $_FILES['img']['error'];
+
+    if (!file_exists($targetDir)) {
+      mkdir($targetDir, 0777, true);
+    }
+
+    $targetFilePath = $targetDir . '/' . $image_name;
+
+
+    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+    if (in_array($fileType, $allowTypes)) {
+      $sql = "UPDATE products SET img = :img WHERE id_product = :id_product AND id_company = :id_company";
+      $query = $connection->prepare($sql);
+      $query->execute(['img' => $targetFilePath, 'id_product' => $id_product, 'id_company' => $id_company]);
+      move_uploaded_file($tmp_name, $targetFilePath);
     }
   }
 

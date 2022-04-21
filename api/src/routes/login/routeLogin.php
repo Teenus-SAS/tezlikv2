@@ -66,6 +66,9 @@ $app->post('/userAutentication', function (Request $request, Response $response,
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
 
+    /* Doble autenticacion */
+    
+
     /* Nueva session */
 
     session_start();
