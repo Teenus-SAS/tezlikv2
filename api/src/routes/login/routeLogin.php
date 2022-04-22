@@ -2,18 +2,18 @@
 
 use tezlikv2\dao\AutenticationUserDao;
 use tezlikv2\dao\LicenseCompanyDao;
-//use tezlikv2\services\sendEmail;
+use tezlikv2\dao\UserInactiveTimeDao;
 
 $licenseDao = new LicenseCompanyDao();
 $autenticationDao = new AutenticationUserDao();
-//$sendEmail = new sendEmail();
+$loginDao = new UserInactiveTimeDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Autenticación */
 
-$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao) {
+$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $loginDao) {
     $parsedBody = $request->getParsedBody();
 
     $user = $parsedBody["validation-email"];
@@ -38,7 +38,6 @@ $app->post('/userAutentication', function (Request $request, Response $response,
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
 
-
     /* valide licenciamiento empresa */
 
     $license = $licenseDao->findLicense($user['id_company']);
@@ -61,16 +60,15 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     /* Valida la session del usuario */
 
     if ($user['session_active'] != 0) {
-        $resp = array('error' => true, 'message' => 'Usuario con sesión abierta, cierre esa sesion para abrir una nueva');
+        $resp = array('error' => true, 'message' => 'Usuario logeado, cierre la sesión para abrir una nueva');
         $response->getBody()->write(json_encode($resp));
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
 
     /* Doble autenticacion */
-    
+
 
     /* Nueva session */
-
     session_start();
     $_SESSION['active'] = true;
     $_SESSION['idUser'] = $user['id_user'];
@@ -81,7 +79,8 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION['id_company'] = $user['id_company'];
     $_SESSION["time"] = time();
 
-    /* Falta Modificar el estado de la sesion del usuario en BD */
+    /* Modificar el estado de la sesion del usuario en BD */
+    $loginDao->changeStatusUserLogin();
 
     $resp = array('success' => true, 'message' => 'access granted');
     $response->getBody()->write(json_encode($resp));
@@ -90,8 +89,9 @@ $app->post('/userAutentication', function (Request $request, Response $response,
 
 /* Logout */
 
-$app->get('/logout', function (Request $request, Response $response, $args) use ($autenticationDao) {
+$app->get('/logout', function (Request $request, Response $response, $args) use ($loginDao) {
     session_start();
+    $loginDao->changeStatusUserLogin();
     session_destroy();
     $response->getBody()->write(json_encode("1", JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
