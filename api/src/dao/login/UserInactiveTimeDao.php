@@ -11,9 +11,9 @@ class UserInactiveTimeDao
 
   public function findSession()
   {
-    //@session_start();
-    if (empty($_SESSION['active']) || time() - $_SESSION['time'] > 6) {
-      $this->changeStatusUserLogin();
+    @session_start();
+    if (empty($_SESSION['active']) || time() - $_SESSION['time'] > 600) {
+      //$this->changeStatusUserLogin();
 
       session_destroy();
       echo "<script> window.location='http://tezlikv2/'; </script>";

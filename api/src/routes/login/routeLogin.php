@@ -80,7 +80,7 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION["time"] = time();
 
     /* Modificar el estado de la sesion del usuario en BD */
-    $loginDao->changeStatusUserLogin();
+    //$loginDao->changeStatusUserLogin();
 
     $resp = array('success' => true, 'message' => 'access granted');
     $response->getBody()->write(json_encode($resp));

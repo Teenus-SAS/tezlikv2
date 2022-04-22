@@ -62,6 +62,7 @@ $userinactivetimeDao->findSession();
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped" id="tblMaterials">
+                                <tbody></tbody>
                                 <tfoot>
                                     <tr>
                                         <th></th>
@@ -83,7 +84,7 @@ $userinactivetimeDao->findSession();
                     <div class="card-body">
                         <div class="gridx2">
                             <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                <input class="form-control" id="unitsmanufacturated" style="width: 200px;" />
+                                <input class="form-control text-center" id="unitsmanufacturated" style="width: 200px;" />
                                 <label>Unidades a Fabricar</label>
                             </div>
                             <div class="gridx2">
@@ -119,28 +120,6 @@ $userinactivetimeDao->findSession();
                                     <th class="text-center" colspan="9">Ningún dato disponible en esta tabla =(</th>
                                 </tr>
                                 <tbody class="colMaterials">
-                                    <tr class="col1" id="col1">
-                                        <th scope="row">1</th>
-                                        <th id="reference1"></th>
-                                        <th id="rawMaterial1"></th>
-                                        <th id="actualPrice1"></th>
-                                        <th><input class="form-control number" type="text" id="negotiatePrice1"></th>
-                                        <th id="precentage1"></th>
-                                        <th id="unityCost1"></th>
-                                        <th id="monthCost1"></th>
-                                        <th id="projectedCost1"></th>
-                                    </tr>
-                                    <tr class="col2" id="col2">
-                                        <th scope="row">2</th>
-                                        <th id="reference2"></th>
-                                        <th id="rawMaterial2"></th>
-                                        <th id="actualPrice2"></th>
-                                        <th id="negotiatePrice2"></th>
-                                        <th id="precentage2"></th>
-                                        <th id="unityCost2"></th>
-                                        <th id="monthCost2"></th>
-                                        <th id="projectedCost2"></th>
-                                    </tr>
                                 </tbody>
                                 <tfoot></tfoot>
                             </table>
@@ -155,5 +134,6 @@ $userinactivetimeDao->findSession();
 
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
-<script src="../../app/js/analysis/materials/materials.js"></script>
 <script src="../../app/js/analysis/materials/tblmaterials.js"></script>
+<script src="../../app/js/analysis/materials/tblAnalysisMaterials.js"></script>
+<script src="../../app/js/analysis/materials/materials.js"></script>
