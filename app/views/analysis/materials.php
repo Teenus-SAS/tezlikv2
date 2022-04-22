@@ -102,16 +102,47 @@ $userinactivetimeDao->findSession();
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="tblAnalysisMaterials">
-                                <tr>
-                                    <td>Referencia</td>
-                                    <td>Materia Prima</td>
-                                    <td>Precio Actual</td>
-                                    <td>Precio a Negociar</td>
-                                    <td>Porcentaje</td>
-                                    <td>Costo Unidad</td>
-                                    <td>Costo Mensual</td>
-                                    <td>Costo Proyectado</td>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Referencia</th>
+                                        <th scope="col">Materia Prima</th>
+                                        <th scope="col">Precio Actual</th>
+                                        <th scope="col">Precio a Negociar</th>
+                                        <th scope="col">Porcentaje</th>
+                                        <th scope="col">Costo Unidad</th>
+                                        <th scope="col">Costo Mensual</th>
+                                        <th scope="col">Costo Proyectado</th>
+                                    </tr>
+                                </thead>
+                                <tr class="empty">
+                                    <th class="text-center" colspan="9">Ningún dato disponible en esta tabla =(</th>
                                 </tr>
+                                <tbody class="colMaterials">
+                                    <tr class="col1" id="col1">
+                                        <th scope="row">1</th>
+                                        <th id="reference1"></th>
+                                        <th id="rawMaterial1"></th>
+                                        <th id="actualPrice1"></th>
+                                        <th><input class="form-control number" type="text" id="negotiatePrice1"></th>
+                                        <th id="precentage1"></th>
+                                        <th id="unityCost1"></th>
+                                        <th id="monthCost1"></th>
+                                        <th id="projectedCost1"></th>
+                                    </tr>
+                                    <tr class="col2" id="col2">
+                                        <th scope="row">2</th>
+                                        <th id="reference2"></th>
+                                        <th id="rawMaterial2"></th>
+                                        <th id="actualPrice2"></th>
+                                        <th id="negotiatePrice2"></th>
+                                        <th id="precentage2"></th>
+                                        <th id="unityCost2"></th>
+                                        <th id="monthCost2"></th>
+                                        <th id="projectedCost2"></th>
+                                    </tr>
+                                </tbody>
+                                <tfoot></tfoot>
                             </table>
                         </div>
                     </div>
@@ -124,5 +155,5 @@ $userinactivetimeDao->findSession();
 
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
-<!-- <script src="../../app/js/analysis/materials/materials.js"></script> -->
+<script src="../../app/js/analysis/materials/materials.js"></script>
 <script src="../../app/js/analysis/materials/tblmaterials.js"></script>

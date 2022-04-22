@@ -3,13 +3,18 @@ $(document).ready(function () {
   $('#refProduct').change(function (e) {
     e.preventDefault();
     id = this.value;
+
     $(`#selectNameProduct option[value=${id}]`).prop('selected', true);
     loadtableMaterials(id);
+
+    /*$('#btnComposition').prop('disabled', true);
+    $('.cardTableRawMaterials').toggle(800);*/
   });
 
   $('#selectNameProduct').change(function (e) {
     e.preventDefault();
     id = this.value;
+
     $(`#refProduct option[value=${id}]`).prop('selected', true);
     loadtableMaterials(id);
   });
@@ -76,16 +81,6 @@ $(document).ready(function () {
       },
     });
   };
-
-  // Mostrar tabla analisis de materia prima
-  $('#btnRawMaterialsAnalysis').click(function (e) {
-    e.preventDefault();
-    $('.cardTableRawMaterials').hide();
-    $('.cardRawMaterialsAnalysis').toggle(800);
-
-    id = $('#selectNameProduct').val();
-    loadTableRawMaterialsAnalisys(id);
-  });
 
   /* Cargue tabla de Proyectos
   const loadTableRawMaterialsAnalisys = (idProduct) => {
@@ -166,10 +161,4 @@ $(document).ready(function () {
     });
 };
 */
-
-  $('#btnComposition').click(function (e) {
-    e.preventDefault();
-    $('.cardRawMaterialsAnalysis').hide();
-    $('.cardTableRawMaterials').toggle(800);
-  });
 });
