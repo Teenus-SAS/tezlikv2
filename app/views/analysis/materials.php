@@ -69,6 +69,7 @@ $userinactivetimeDao->findSession();
                                         <th></th>
                                         <th>Total:</th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -116,9 +117,6 @@ $userinactivetimeDao->findSession();
                                         <th scope="col">Costo Proyectado</th>
                                     </tr>
                                 </thead>
-                                <tr class="empty">
-                                    <th class="text-center" colspan="9">Ningún dato disponible en esta tabla =(</th>
-                                </tr>
                                 <tbody class="colMaterials">
                                 </tbody>
                                 <tfoot></tfoot>
@@ -132,6 +130,7 @@ $userinactivetimeDao->findSession();
 </div>
 
 
+<script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
 <script src="../../app/js/analysis/materials/tblmaterials.js"></script>
