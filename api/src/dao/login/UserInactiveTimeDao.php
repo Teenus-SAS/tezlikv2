@@ -26,7 +26,7 @@ class UserInactiveTimeDao
 
   public function changeStatusUserLogin()
   {
-    @session_start();
+    /* @session_start();
     $id_user = $_SESSION['idUser'];
     
     $connection = Connection::getInstance()->getConnection();
@@ -38,6 +38,6 @@ class UserInactiveTimeDao
     ($session == 1 ? $session = 0 : $session == 0) ? $session = 1 : $session;
 
     $stmt = $connection->prepare("UPDATE users SET session_active = :session_active WHERE id_user = :id_user");
-    $stmt->execute(['session_active' => $session, 'id_user' => $id_user]);
+    $stmt->execute(['session_active' => $session, 'id_user' => $id_user]); */
   }
 }
