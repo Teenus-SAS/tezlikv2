@@ -20,8 +20,8 @@ $userinactivetimeDao->findSession();
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-warning" id="btnCreateMachine">Composición</button>
-                    <button class="btn btn-info ml-3" id="btnCreateMachine">Análisis de Materias Primas</button>
+                    <button class="btn btn-warning" id="btnComposition">Composición</button>
+                    <button class="btn btn-info ml-3" id="btnRawMaterialsAnalysis">Análisis de Materias Primas</button>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@ $userinactivetimeDao->findSession();
     <div class="container-fluid">
         <!-- Row 5 -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 cardTableRawMaterials">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Materias Primas</h5>
@@ -75,7 +75,7 @@ $userinactivetimeDao->findSession();
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 cardRawMaterialsAnalysis">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Análisis Materia Prima</h5>
@@ -102,7 +102,47 @@ $userinactivetimeDao->findSession();
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="tblAnalysisMaterials">
-
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Referencia</th>
+                                        <th scope="col">Materia Prima</th>
+                                        <th scope="col">Precio Actual</th>
+                                        <th scope="col">Precio a Negociar</th>
+                                        <th scope="col">Porcentaje</th>
+                                        <th scope="col">Costo Unidad</th>
+                                        <th scope="col">Costo Mensual</th>
+                                        <th scope="col">Costo Proyectado</th>
+                                    </tr>
+                                </thead>
+                                <tr class="empty">
+                                    <th class="text-center" colspan="9">Ningún dato disponible en esta tabla =(</th>
+                                </tr>
+                                <tbody class="colMaterials">
+                                    <tr class="col1" id="col1">
+                                        <th scope="row">1</th>
+                                        <th id="reference1"></th>
+                                        <th id="rawMaterial1"></th>
+                                        <th id="actualPrice1"></th>
+                                        <th><input class="form-control number" type="text" id="negotiatePrice1"></th>
+                                        <th id="precentage1"></th>
+                                        <th id="unityCost1"></th>
+                                        <th id="monthCost1"></th>
+                                        <th id="projectedCost1"></th>
+                                    </tr>
+                                    <tr class="col2" id="col2">
+                                        <th scope="row">2</th>
+                                        <th id="reference2"></th>
+                                        <th id="rawMaterial2"></th>
+                                        <th id="actualPrice2"></th>
+                                        <th id="negotiatePrice2"></th>
+                                        <th id="precentage2"></th>
+                                        <th id="unityCost2"></th>
+                                        <th id="monthCost2"></th>
+                                        <th id="projectedCost2"></th>
+                                    </tr>
+                                </tbody>
+                                <tfoot></tfoot>
                             </table>
                         </div>
                     </div>
@@ -115,7 +155,5 @@ $userinactivetimeDao->findSession();
 
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
+<script src="../../app/js/analysis/materials/materials.js"></script>
 <script src="../../app/js/analysis/materials/tblmaterials.js"></script>
-<!-- <script src="../../app/js/machines/tblMachines.js"></script>
-<script src="../../app/js/machines/machines.js"></script>
-<script src="../../app/js/products/configProducts.js"></script> -->
