@@ -20,8 +20,8 @@ $userinactivetimeDao->findSession();
             </div>
             <div class="col-sm-7 col-xl-6">
                 <div class="form-inline justify-content-sm-end">
-                    <button class="btn btn-warning" id="btnCreateMachine">Composición</button>
-                    <button class="btn btn-info ml-3" id="btnCreateMachine">Análisis de Materias Primas</button>
+                    <button class="btn btn-warning" id="btnComposition">Composición</button>
+                    <button class="btn btn-info ml-3" id="btnRawMaterialsAnalysis">Análisis de Materias Primas</button>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@ $userinactivetimeDao->findSession();
     <div class="container-fluid">
         <!-- Row 5 -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 cardTableRawMaterials">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Materias Primas</h5>
@@ -75,7 +75,7 @@ $userinactivetimeDao->findSession();
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 cardRawMaterialsAnalysis">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Análisis Materia Prima</h5>
@@ -102,7 +102,16 @@ $userinactivetimeDao->findSession();
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="tblAnalysisMaterials">
-
+                                <tr>
+                                    <td>Referencia</td>
+                                    <td>Materia Prima</td>
+                                    <td>Precio Actual</td>
+                                    <td>Precio a Negociar</td>
+                                    <td>Porcentaje</td>
+                                    <td>Costo Unidad</td>
+                                    <td>Costo Mensual</td>
+                                    <td>Costo Proyectado</td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -115,7 +124,5 @@ $userinactivetimeDao->findSession();
 
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
+<!-- <script src="../../app/js/analysis/materials/materials.js"></script> -->
 <script src="../../app/js/analysis/materials/tblmaterials.js"></script>
-<!-- <script src="../../app/js/machines/tblMachines.js"></script>
-<script src="../../app/js/machines/machines.js"></script>
-<script src="../../app/js/products/configProducts.js"></script> -->

@@ -16,7 +16,21 @@ class SupportDao
         $this->logger->pushHandler(new RotatingFileHandler(Constants::LOGS_PATH . 'querys.log', 20, Logger::DEBUG));
     }
 
-    public function sendEmailSupport()
+    public function sendEmailSupport($dataSupport, $email)
     {
+        $to = 'soporte@teenus.com.co';
+        // the message
+        $msg = $dataSupport['message'];
+
+        // use wordwrap() if lines are longer than 70 characters
+        $msg = wordwrap($msg, 70);
+
+        //headers
+        $headers = $dataSupport['header'];
+        $headers .= "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: SoporteCRM <$email>" . "\r\n";
+        // send email
+        mail($to, "Soporte", $msg, $headers);
     }
 }
