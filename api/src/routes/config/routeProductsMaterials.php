@@ -52,7 +52,7 @@ $app->post('/productsMaterialsDataValidation', function (Request $request, Respo
                 $i = $i + 1;
                 $dataImportProductsMaterials = array('error' => true, 'message' => "Materia prima no existe en la base de datos<br>Fila: {$i}");
                 break;
-            } else $productMaterials[$i]['idMaterial'] = $findMaterial['id_material'];
+            } else $productMaterials[$i]['material'] = $findMaterial['id_material'];
 
             $quantity = $productMaterials[$i]['quantity'];
             if (empty($quantity)) {
@@ -103,7 +103,7 @@ $app->post('/addProductsMaterials', function (Request $request, Response $respon
 
             // Obtener id materia prima
             $findMaterial = $materialsDao->findMaterial($productMaterials[$i], $id_company);
-            $productMaterials[$i]['idMaterial'] = $findMaterial['id_material'];
+            $productMaterials[$i]['material'] = $findMaterial['id_material'];
 
             $findProductsMaterials = $productsMaterialsDao->findProductMaterial($productMaterials[$i]);
 
@@ -139,7 +139,7 @@ $app->post('/updateProductsMaterials', function (Request $request, Response $res
         $productMaterials = $productsMaterialsDao->updateProductsMaterials($dataProductMaterial);
 
         //Metodo calcular precio total materias
-        $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial, $id_company);
+        $costMaterials = $costMaterialsDao->calcCostMaterial($dataProductMaterial['idProduct'], $id_company);
 
         // Calcular Precio del producto
         $priceProduct = $priceProductDao->calcPrice($dataProductMaterial['idProduct']);

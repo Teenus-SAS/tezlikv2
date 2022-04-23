@@ -102,9 +102,9 @@ $userinactivetimeDao->findSession();
 </div>
 
 <script src="../../app/js/global/number.js"></script>
-<script src="../../app/js/import/import.js"></script>
-<script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/machines/configMachines.js"></script>
-<script src="../../app/js/factoryLoad/factoryLoad.js"></script>
-<script src="../../app/js/factoryLoad/importFactoryLoad.js"></script>
 <script src="../../app/js/factoryLoad/tblFactoryLoad.js"></script>
+<script src="../../app/js/factoryLoad/factoryLoad.js"></script>
+<script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/factoryLoad/importFactoryLoad.js"></script>
+<script src="../../app/js/import/file.js"></script>

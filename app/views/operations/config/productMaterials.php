@@ -118,10 +118,10 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
-<script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
 <script src="../../app/js/productMaterials/tblConfigMaterials.js"></script>
+<script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/productMaterials/productMaterials.js"></script>
-<script src="../../app/js/productMaterials/importProductMaterials.js"></script>
+<script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
 <script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/productMaterials/importProductMaterials.js"></script>
 <script src="../../app/js/import/file.js"></script>

@@ -96,7 +96,6 @@ $(document).ready(function () {
   $(document).on('click', '.updateProcess', function (e) {
     $('.cardAddProcess').show(800);
     $('#btnAddProcess').html('Actualizar');
-
     let row = $(this).parent().parent()[0];
     let data = tblConfigProcess.fnGetData(row);
     //let rowsRegistered = tblConfigProcess.fnGetData();
@@ -111,7 +110,7 @@ $(document).ready(function () {
 
     $('#enlistmentTime').val(data.enlistment_time);
     $('#operationTime').val(data.operation_time);
-    $('#totalTime').val(data.total_time);
+    //$('#totalTime').val(data.total_time);
 
     $('#enlistmentTime').click();
 

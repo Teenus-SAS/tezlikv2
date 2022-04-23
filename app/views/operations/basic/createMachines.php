@@ -133,10 +133,10 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
+<script src="../../app/js/global/number.js"></script>
 <script src="../../app/js/machines/tblMachines.js"></script>
 <script src="../../app/js/machines/machines.js"></script>
-<script src="../../app/js/global/number.js"></script>
-<script src="../../app/js/machines/importMachines.js"></script>
 <script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/machines/importMachines.js"></script>
 <script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/global/validateExt.js"></script>

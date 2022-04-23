@@ -90,11 +90,11 @@ $userinactivetimeDao->findSession();
                             </div>
                             <div class="gridx2">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input class="form-control" id="monthlySavings" style="width: 200px;" readonly />
+                                    <input class="form-control text-center" id="monthlySavings" style="width: 200px;" readonly />
                                     <label>Ahorro Mensual</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input class="form-control" id="annualSavings" style="width: 200px;" readonly />
+                                    <input class="form-control text-center" id="annualSavings" style="width: 200px;" readonly />
                                     <label>Ahorro Anual</label>
                                 </div>
                             </div>
@@ -103,17 +103,18 @@ $userinactivetimeDao->findSession();
                             Cantidad de Materias primas que consumen el 80% del valor del costo
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblAnalysisMaterials">
+                            <table class="table table-striped text-center" id="tblAnalysisMaterials">
                                 <thead>
                                     <tr>
                                         <th scope="col">No.</th>
-                                        <th scope="col">Referencia</th>
+                                        <!-- <th scope="col">Referencia</th> -->
                                         <th scope="col">Materia Prima</th>
+                                        <th scope="col">Cantidad</th>
                                         <th scope="col">Precio Actual</th>
                                         <th scope="col">Precio a Negociar</th>
                                         <th scope="col">Porcentaje</th>
                                         <th scope="col">Costo Unidad</th>
-                                        <th scope="col">Costo Mensual</th>
+                                        <th scope="col">Costo Total</th>
                                         <th scope="col">Costo Proyectado</th>
                                     </tr>
                                 </thead>
