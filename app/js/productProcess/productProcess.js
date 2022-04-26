@@ -100,8 +100,8 @@ $(document).ready(function () {
 
     sessionStorage.setItem('id_product_process', data.id_product_process);
 
-    $(`#idProcess option[value=${data.id_process}]`).attr('selected', true);
-    $(`#idMachine option[value=${data.id_machine}]`).attr('selected', true);
+    $(`#idProcess option[value=${data.id_process}]`).prop('selected', true);
+    $(`#idMachine option[value=${data.id_machine}]`).prop('selected', true);
 
     $('#enlistmentTime').val(data.enlistment_time);
     $('#operationTime').val(data.operation_time);

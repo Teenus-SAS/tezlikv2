@@ -17,7 +17,7 @@ $app->get('/rawMaterials/{idProduct}', function (Request $request, Response $res
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/analysisRawMaterials/{idProduct}', function (Request $request, Response $response, $args) use ($reviewRawMaterialsDao) {
+/*$app->get('/analysisRawMaterials/{idProduct}', function (Request $request, Response $response, $args) use ($reviewRawMaterialsDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
 
@@ -25,4 +25,4 @@ $app->get('/analysisRawMaterials/{idProduct}', function (Request $request, Respo
 
     $response->getBody()->write(json_encode($reviewRawMaterials, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
-});
+});*/

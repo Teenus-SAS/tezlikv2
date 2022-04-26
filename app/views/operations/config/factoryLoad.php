@@ -34,11 +34,11 @@ $userinactivetimeDao->findSession();
                 <div class="card">
                     <div class="card-body">
                         <form id="formNewFactoryLoad">
-                            <div class="gridx5fl">
+                            <div class="gridx4cm">
                                 <label for="">Máquina</label>
                                 <label for="">Descripción Carga fabril</label>
                                 <label for="">Costo</label>
-                                <label for="">Valor Minuto</label>
+                                <!-- <label for="">Valor Minuto</label> -->
                                 <label for=""></label>
                                 <select class="form-control" name="idMachine" id="idMachine"></select>
                                 <input class="form-control" name="descriptionFactoryLoad" id="descriptionFactoryLoad" />

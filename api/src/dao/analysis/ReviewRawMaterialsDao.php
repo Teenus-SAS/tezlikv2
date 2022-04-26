@@ -30,11 +30,12 @@ class ReviewRawMaterialsDao
 
         $totalCost = $dataTotalCost['totalCost'];
         $stmt = $connection->prepare("SELECT 
-                                        pm.id_product_material, m.id_material, m.reference, m.material, (pm.quantity*m.cost) AS unityCost,((pm.quantity*m.cost)/{$totalCost})*100 AS participation 
+                                        pm.id_product_material, m.id_material, m.reference, m.material, pm.quantity, m.cost, 
+                                        (pm.quantity*m.cost) AS unityCost,((pm.quantity*m.cost)/{$totalCost})*100 AS participation 
                                       FROM products p
                                       INNER JOIN products_materials pm ON pm.id_product = p.id_product
                                       INNER JOIN materials m ON m.id_material = pm.id_material 
-                                      WHERE pm.id_product = :id_product AND pm.id_company = :id_company ORDER BY `participation` ASC");
+                                      WHERE pm.id_product = :id_product AND pm.id_company = :id_company ORDER BY `participation` DESC");
         $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
         $productsRawmaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
 
@@ -42,7 +43,7 @@ class ReviewRawMaterialsDao
         return $productsRawmaterials;
     }
 
-    public function productsRawMaterialsAnalysis($idProduct, $id_company)
+    /*public function productsRawMaterialsAnalysis($idProduct, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -67,5 +68,5 @@ class ReviewRawMaterialsDao
 
         $this->logger->notice("products", array('products' => $analysisRawMaterials));
         return $analysisRawMaterials;
-    }
+    }*/
 }

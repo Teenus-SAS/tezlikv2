@@ -85,7 +85,7 @@ $userinactivetimeDao->findSession();
                     <div class="card-body">
                         <div class="gridx2">
                             <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                <input class="form-control text-center" id="unitsmanufacturated" style="width: 200px;" />
+                                <input class="form-control text-center number" type="text" id="unitsmanufacturated" style="width: 200px;" />
                                 <label>Unidades a Fabricar</label>
                             </div>
                             <div class="gridx2">

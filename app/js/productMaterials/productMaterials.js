@@ -92,8 +92,8 @@ $(document).ready(function () {
 
     sessionStorage.setItem('id_product_material', data.id_product_material);
 
-    $(`#material option[value=${data.id_material}]`).attr('selected', true);
-    $('#quantity').val(data.quantity);
+    $(`#material option[value=${data.id_material}]`).prop('selected', true);
+    $('#quantity').val(data.quantity.toLocaleString());
     $('#unity').val(data.unit);
 
     $('html, body').animate(

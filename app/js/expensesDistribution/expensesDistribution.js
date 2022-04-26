@@ -74,9 +74,9 @@ $(document).ready(function () {
       true
     );
     $(`#refProduct option:contains(${data.reference})`).prop('selected', true);
-    $('#undVendidas').val(data.units_sold);
-    $('#volVendidas').val(data.turnover);
-    $('#expensesToDistribution').val(data.assignable_expense);
+    $('#undVendidas').val(data.units_sold.toLocaleString());
+    $('#volVendidas').val(data.turnover.toLocaleString());
+    $('#expensesToDistribution').val(data.assignable_expense.toLocaleString());
 
     $('html, body').animate(
       {
