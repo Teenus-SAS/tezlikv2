@@ -2,18 +2,18 @@
 
 use tezlikv2\dao\AutenticationUserDao;
 use tezlikv2\dao\LicenseCompanyDao;
-use tezlikv2\dao\UserInactiveTimeDao;
+use tezlikv2\dao\StatusActiveUserDao;
 
 $licenseDao = new LicenseCompanyDao();
 $autenticationDao = new AutenticationUserDao();
-$loginDao = new UserInactiveTimeDao();
+$statusActiveUserDao = new StatusActiveUserDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Autenticación */
 
-$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $loginDao) {
+$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $statusActiveUserDao) {
     $parsedBody = $request->getParsedBody();
 
     $user = $parsedBody["validation-email"];
@@ -80,7 +80,7 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION["time"] = time();
 
     /* Modificar el estado de la sesion del usuario en BD */
-    //$loginDao->changeStatusUserLogin();
+    //$statusActiveUserDao->changeStatusUserLogin();
 
     $resp = array('success' => true, 'message' => 'access granted');
     $response->getBody()->write(json_encode($resp));
@@ -89,9 +89,9 @@ $app->post('/userAutentication', function (Request $request, Response $response,
 
 /* Logout */
 
-$app->get('/logout', function (Request $request, Response $response, $args) use ($loginDao) {
+$app->get('/logout', function (Request $request, Response $response, $args) use ($statusActiveUserDao) {
     session_start();
-    $loginDao->changeStatusUserLogin();
+    $statusActiveUserDao->changeStatusUserLogin();
     session_destroy();
     $response->getBody()->write(json_encode("1", JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');

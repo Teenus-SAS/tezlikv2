@@ -202,7 +202,7 @@ $userinactivetimeDao->findSession();
 								</div>
 							</div>
 							<!-- Begin total revenue chart -->
-							<div class="col-md-4 col-lg-7">
+							<div class="col-md-4 col-lg-7" style="height: fit-content;">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Tiempos de Proceso por Producto</h5>
