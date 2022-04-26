@@ -5,7 +5,7 @@ $(document).ready(function () {
 
   $('#btnImportNewProcess').click(function (e) {
     e.preventDefault();
-    $('.cardAddProcess').hide(800);
+    $('.cardCreateProcess').hide(800);
     $('.cardImportProcess').toggle(800);
   });
 

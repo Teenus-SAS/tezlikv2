@@ -8,6 +8,7 @@ $(document).ready(function () {
   $('#btnNewProcess').click(function (e) {
     e.preventDefault();
 
+    $('.cardImportProcess').hide(800);
     $('.cardCreateProcess').toggle(800);
     $('#btnCreateProcess').html('Crear');
 
@@ -48,6 +49,7 @@ $(document).ready(function () {
   /* Actualizar procesos */
 
   $(document).on('click', '.updateProcess', function (e) {
+    $('.cardImportProcess').hide(800);
     $('.cardCreateProcess').show(800);
     $('#btnCreateProcess').html('Actualizar');
 

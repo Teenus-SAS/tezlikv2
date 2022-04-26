@@ -102,8 +102,8 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
-<script src="../../app/js/import/import.js"></script>
-<script src="../../app/js/import/file.js"></script>
 <script src="../../app/js/process/tblProcess.js"></script>
 <script src="../../app/js/process/process.js"></script>
+<script src="../../app/js/import/import.js"></script>
 <script src="../../app/js/process/importProcess.js"></script>
+<script src="../../app/js/import/file.js"></script>

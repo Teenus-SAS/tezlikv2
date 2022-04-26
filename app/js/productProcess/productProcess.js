@@ -9,11 +9,11 @@ $(document).ready(function () {
   $('#btnCreateProcess').click(function (e) {
     e.preventDefault();
 
+    $('.cardImportProductsProcess').hide(800);
     $('.cardAddProcess').toggle(800);
     $('#btnAddProcess').html('Asignar');
 
     sessionStorage.removeItem('id_product_process');
-    //sessionStorage.removeItem('rowsRegistered');
 
     $('#idProcess option:contains(Seleccionar)').prop('selected', true);
     $('#idMachine option:contains(Seleccionar)').prop('selected', true);
@@ -74,8 +74,6 @@ $(document).ready(function () {
         return false;
       }
 
-      //let rowsRegistered = tblConfigProcess.rows().count();rowsRegistered
-
       productProcess = $('#formAddProcess').serialize();
 
       productProcess = productProcess + '&idProduct=' + idProduct;
@@ -94,24 +92,19 @@ $(document).ready(function () {
   /* Actualizar productos Procesos */
 
   $(document).on('click', '.updateProcess', function (e) {
+    $('.cardImportProductsProcess').hide(800);
     $('.cardAddProcess').show(800);
     $('#btnAddProcess').html('Actualizar');
-
     let row = $(this).parent().parent()[0];
     let data = tblConfigProcess.fnGetData(row);
-    //let rowsRegistered = tblConfigProcess.fnGetData();
 
     sessionStorage.setItem('id_product_process', data.id_product_process);
-
-    /*rowsRegistered = JSON.stringify(rowsRegistered);
-    sessionStorage.setItem('rowsRegistered', rowsRegistered);*/
 
     $(`#idProcess option[value=${data.id_process}]`).attr('selected', true);
     $(`#idMachine option[value=${data.id_machine}]`).attr('selected', true);
 
     $('#enlistmentTime').val(data.enlistment_time);
     $('#operationTime').val(data.operation_time);
-    $('#totalTime').val(data.total_time);
 
     $('#enlistmentTime').click();
 
@@ -127,9 +120,7 @@ $(document).ready(function () {
     let data = $('#formAddProcess').serialize();
     idProduct = $('#selectNameProduct').val();
     idProductProcess = sessionStorage.getItem('id_product_process');
-    //rowsRegistered = sessionStorage.getItem('rowsRegistered');
 
-    //rowsRegistered = JSON.stringify(rowsRegistered)+'&dataTable=' +rowsRegistered;
     data =
       data +
       '&idProductProcess=' +

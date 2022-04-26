@@ -10,6 +10,7 @@ $(document).ready(function () {
   $('#btnNewService').click(function (e) {
     e.preventDefault();
 
+    $('.cardImportExternalServices').hide(800);
     $('.cardAddService').toggle(800);
     $('#btnAddService').html('Adicionar');
 
@@ -64,6 +65,7 @@ $(document).ready(function () {
   /* Actualizar servicio */
 
   $(document).on('click', '.updateExternalService', function (e) {
+    $('.cardImportExternalServices').hide(800);
     $('.cardAddService').show(800);
     $('#btnAddService').html('Actualizar');
 

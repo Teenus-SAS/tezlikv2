@@ -4,6 +4,7 @@ $(document).ready(function () {
   $('#btnNewExpense').click(function (e) {
     e.preventDefault();
 
+    $('.cardImportExpensesAssignation').hide(800);
     $('.cardCreateExpenses').toggle(800);
     $('#btnCreateExpense').html('Crear');
 
@@ -44,19 +45,19 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '.updateExpenses', function (e) {
+    $('.cardImportExpensesAssignation').hide(800);
     $('.cardCreateExpenses').show(800);
     $('#btnCreateExpense').html('Actualizar');
 
     let row = $(this).parent().parent()[0];
     let data = tblExpenses.fnGetData(row);
 
-    let idExpense = this.id;
-    idExpense = sessionStorage.setItem('id_expense', idExpense);
-
+    sessionStorage.setItem('id_expense', data.id_expense);
     $(`#idPuc option:contains(${data.number_count} - ${data.count})`).attr(
       'selected',
       true
     );
+
     $('#expenseValue').val(data.expense_value);
 
     $('html, body').animate(

@@ -5,7 +5,7 @@ $(document).ready(function () {
 
   $('#btnImportNewExpenses').click(function (e) {
     e.preventDefault();
-    $('.cardCreateExpenses').hide();
+    $('.cardCreateExpenses').hide(800);
     $('.cardImportExpensesAssignation').toggle(800);
   });
 

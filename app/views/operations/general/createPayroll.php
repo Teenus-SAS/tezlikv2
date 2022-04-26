@@ -7,7 +7,7 @@ $userinactivetimeDao = new UserInactiveTimeDao();
 $userinactivetimeDao->findSession();
 ?>
 
-<?php require_once dirname(dirname(dirname(__DIR__))) . '/modals/createPayroll.php';?>
+<?php require_once dirname(dirname(dirname(__DIR__))) . '/modals/createPayroll.php'; ?>
 
 <div class="page-title-box">
     <div class="container-fluid">
@@ -87,9 +87,9 @@ $userinactivetimeDao->findSession();
 
 
 <script src="../../app/js/global/number.js"></script>
-<script src="../../app/js/import/import.js"></script>
-<script src="../../app/js/import/file.js"></script>
-<script src="../../app/js/process/configProcess.js"></script>
 <script src="../../app/js/payroll/tblPayroll.js"></script>
+<script src="../../app/js/process/configProcess.js"></script>
 <script src="../../app/js/payroll/payroll.js"></script>
+<script src="../../app/js/import/import.js"></script>
 <script src="../../app/js/payroll/importPayroll.js"></script>
+<script src="../../app/js/import/file.js"></script>

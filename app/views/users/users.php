@@ -151,7 +151,7 @@ $userinactivetimeDao->findSession();
 
                                 <div class="checkbox checkbox-success checkbox-circle mb-1">
                                 </div>
-                                
+
                                 <div class="checkbox checkbox-success checkbox-circle mb-1">
                                 </div>
 
@@ -193,5 +193,5 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
-<script src="../../../app/js/users/users.js"></script>
 <script src="../../../app/js/users/tblUsers.js"></script>
+<script src="../../../app/js/users/users.js"></script>

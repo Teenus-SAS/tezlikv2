@@ -8,6 +8,7 @@ $(document).ready(function () {
   $('#btnExpensesDistribution').click(function (e) {
     e.preventDefault();
 
+    $('.cardImportDistributionExpenses').hide(800);
     $('.cardExpensesDistribution').toggle(800);
     $('#btnAssignExpenses').html('Asignar');
 
@@ -56,7 +57,8 @@ $(document).ready(function () {
   /* Actualizar gasto */
 
   $(document).on('click', '.updateExpenseDistribution', function (e) {
-    $('.cardExpensesDistribution').show(500);
+    $('.cardImportDistributionExpenses').hide(800);
+    $('.cardExpensesDistribution').show(800);
     $('#btnAssignExpenses').html('Actualizar');
 
     let row = $(this).parent().parent()[0];

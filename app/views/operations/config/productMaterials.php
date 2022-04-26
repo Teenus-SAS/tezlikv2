@@ -107,7 +107,7 @@ $userinactivetimeDao->findSession();
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigMaterials" name="tblConfigMaterials">
+                            <table class="table table-striped text-center" id="tblConfigMaterials" name="tblConfigMaterials">
 
                             </table>
                         </div>
@@ -118,10 +118,10 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
-<script src="../../app/js/products/configProducts.js"></script>
-<script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
 <script src="../../app/js/productMaterials/tblConfigMaterials.js"></script>
+<script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/productMaterials/productMaterials.js"></script>
-<script src="../../app/js/productMaterials/importProductMaterials.js"></script>
+<script src="../../app/js/rawMaterials/configRawMaterials.js"></script>
 <script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/productMaterials/importProductMaterials.js"></script>
 <script src="../../app/js/import/file.js"></script>

@@ -55,7 +55,7 @@ class ReviewRawMaterialsDao
         $dataTotalCost = $stmt->fetch($connection::FETCH_ASSOC);
 
         $totalCost = $dataTotalCost['totalCost'];
-        $stmt = $connection->prepare("SELECT m.reference, m.material, m.cost, (pm.quantity*m.cost) AS unityCost,
+        $stmt = $connection->prepare("SELECT m.reference, m.material, pm.quantity, m.cost, (pm.quantity*m.cost) AS unityCost,
                                              ((pm.quantity*m.cost)/{$totalCost})*100 AS participation
                                       FROM products p
                                       INNER JOIN products_materials pm ON pm.id_product = p.id_product

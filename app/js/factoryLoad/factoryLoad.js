@@ -9,6 +9,7 @@ $(document).ready(function () {
   $('#btnNewFactoryLoad').click(function (e) {
     e.preventDefault();
 
+    $('.cardImportFactoryLoad').hide(800);
     $('.cardFactoryLoad').toggle(800);
     $('#btnCreateFactoryLoad').html('Asignar');
 
@@ -19,44 +20,6 @@ $(document).ready(function () {
     $('#costFactory').val('');
     $('#costMinute').val('');
   });
-
-  /* Calcular Valor por minuto 
-
-  $(document).on('click keyup', '#costFactory', function (e) {
-    costFactory = this.value;
-    costFactory = costFactory.replace('.', '');
-    costFactory = parseFloat(costFactory);
-
-    machinesData = sessionStorage.getItem('machinesData');
-    machinesData = JSON.parse(machinesData);
-
-    idMachine = $('#idMachine').val();
-    description = $('#descriptionFactoryLoad').val();
-
-    if (idMachine == null || idMachine == '') {
-      toastr.error('Seleccione la máquina');
-      return false;
-    }
-
-    if (description == null || description == '') {
-      toastr.error(
-        'Ingrese la descripcion para la carga fabril de la maquina seleccionada'
-      );
-      return false;
-    }
-
-    for (let i = 0; i < machinesData.length; i++) {
-      if (idMachine == machinesData[i]['id_machine']) {
-        daysMachine = machinesData[i]['days_machine'];
-        hoursMachine = machinesData[i]['hours_machine'];
-        break;
-      }
-    }
-
-    value = costFactory / daysMachine / hoursMachine / 60;
-    isNaN(value) ? (value = 0) : value;
-    $('#costMinute').val(value.toFixed(2));
-  }); */
 
   /* Adicionar nueva carga fabril */
 
@@ -91,6 +54,8 @@ $(document).ready(function () {
   /* Actualizar carga fabril */
 
   $(document).on('click', '.updateFactoryLoad', function (e) {
+    $('.cardImportFactoryLoad').hide(800);
+    // $('#idMachine option:contains(Seleccionar)').prop('selected', true);
     $('.cardFactoryLoad').show(800);
     $('#btnCreateFactoryLoad').html('Actualizar');
 

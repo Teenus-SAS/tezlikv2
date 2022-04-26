@@ -112,7 +112,7 @@ $userinactivetimeDao->findSession();
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="tblConfigProcess" name="tblConfigProcess">
+                            <table class="table table-striped text-center" id="tblConfigProcess" name="tblConfigProcess">
 
                             </table>
                         </div>
@@ -123,11 +123,11 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
+<script src="../../app/js/productProcess/tblConfigProcess.js"></script>
 <script src="../../app/js/products/configProducts.js"></script>
 <script src="../../app/js/payroll/configProcessPayroll.js"></script>
 <script src="../../app/js/machines/configMachines.js"></script>
-<script src="../../app/js/productProcess/tblConfigProcess.js"></script>
-<script src="../../app/js/productProcess/importProductProcess.js"></script>
 <script src="../../app/js/productProcess/productProcess.js"></script>
 <script src="../../app/js/import/import.js"></script>
+<script src="../../app/js/productProcess/importProductProcess.js"></script>
 <script src="../../app/js/import/file.js"></script>

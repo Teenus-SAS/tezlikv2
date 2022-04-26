@@ -38,7 +38,7 @@ class ProductsMaterialsDao
                                       WHERE id_product = :id_product AND id_material = :id_material");
         $stmt->execute([
             'id_product' => $dataProductMaterial['idProduct'],
-            'id_material' => $dataProductMaterial['idMaterial']
+            'id_material' => $dataProductMaterial['material']
         ]);
         $findProductMaterial = $stmt->fetch($connection::FETCH_ASSOC);
         return $findProductMaterial;
@@ -52,7 +52,7 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
                                     VALUES (:id_material, :id_company, :id_product, :quantity)");
             $stmt->execute([
-                'id_material' => $dataProductMaterial['idMaterial'],
+                'id_material' => $dataProductMaterial['material'],
                 'id_company' => $id_company,
                 'id_product' => $dataProductMaterial['idProduct'],
                 'quantity' => $dataProductMaterial['quantity']
@@ -76,7 +76,7 @@ class ProductsMaterialsDao
                                     WHERE id_product_material = :id_product_material");
             $stmt->execute([
                 'id_product_material' => $dataProductMaterial['idProductMaterial'],
-                'id_material' => $dataProductMaterial['idMaterial'],
+                'id_material' => $dataProductMaterial['material'],
                 'id_product' => $dataProductMaterial['idProduct'],
                 'quantity' => $dataProductMaterial['quantity']
             ]);
