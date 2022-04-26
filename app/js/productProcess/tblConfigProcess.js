@@ -44,16 +44,17 @@ $(document).ready(function () {
         {
           title: 'Máquina',
           data: 'machine',
+          //class: 'classRight',
         },
         {
           title: 'Tiempo Alistamiento (min)',
           data: 'enlistment_time',
-          className: 'uniqueClassName',
+          //className: 'classRight',
         },
         {
           title: 'Tiempo Operación  (min)',
           data: 'operation_time',
-          className: 'uniqueClassName',
+          //className: 'classRight',
         },
         {
           title: 'Acciones',

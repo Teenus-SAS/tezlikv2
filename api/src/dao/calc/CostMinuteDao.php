@@ -20,6 +20,8 @@ class CostMinuteDao
     {
         $connection = Connection::getInstance()->getConnection();
 
+        $costFactory = str_replace('.', '', $dataFactoryLoad['costFactory']);
+
         $stmt = $connection->prepare("SELECT (ml.cost / m.days_machine / m.hours_machine /60) AS costMinute FROM machines m 
                                       INNER JOIN manufacturing_load ml ON ml.id_machine = m.id_machine
                                       WHERE m.id_machine = :id_machine AND ml.input = :input AND 
@@ -27,7 +29,7 @@ class CostMinuteDao
         $stmt->execute([
             'id_machine' => $dataFactoryLoad['idMachine'],
             'input' => $dataFactoryLoad['descriptionFactoryLoad'],
-            'cost' => $dataFactoryLoad['costFactory'],
+            'cost' => $costFactory,
             'id_company' => $id_company
         ]);
         $dataCostMinute = $stmt->fetch($connection::FETCH_ASSOC);
@@ -40,7 +42,7 @@ class CostMinuteDao
             'cost_minute' => $dataCostMinute['costMinute'],
             'id_machine' => $dataFactoryLoad['idMachine'],
             'input' => $dataFactoryLoad['descriptionFactoryLoad'],
-            'cost' => $dataFactoryLoad['costFactory'],
+            'cost' => $costFactory,
             'id_company' => $id_company
         ]);
     }

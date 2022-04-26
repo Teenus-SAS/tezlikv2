@@ -117,7 +117,7 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
 
     if (
         empty($dataMachine['machine']) || empty($dataMachine['cost']) || empty($dataMachine['depreciationYears']) ||
-        $dataMachine['hoursMachine'] > 0 || $dataMachine['daysMachine'] > 0
+        $dataMachine['hoursMachine'] <= 0 || $dataMachine['daysMachine'] <= 0
     )
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {

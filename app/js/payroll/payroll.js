@@ -13,6 +13,8 @@ $(document).ready(function () {
 
   $('#btnNewPayroll').click(function (e) {
     e.preventDefault();
+
+    $('.cardImportPayroll').hide(800);
     $('#createPayroll').modal('show');
     $('#btnCreatePayroll').html('Crear');
 
@@ -28,14 +30,11 @@ $(document).ready(function () {
 
     if (this.value == 0) {
       ('Seleccione una opción');
-    }
-    if (this.value == 1) {
+    } else if (this.value == 1) {
       value = 38;
-    }
-    if (this.value == 2) {
+    } else if (this.value == 2) {
       value = 0;
-    }
-    if (this.value == 3) {
+    } else if (this.value == 3) {
       $('#factor').prop('disabled', false);
       value = $('#factor').val();
     }
@@ -92,6 +91,7 @@ $(document).ready(function () {
   /* Actualizar nomina */
 
   $(document).on('click', '.updatePayroll', function (e) {
+    $('.cardImportPayroll').hide(800);
     $('#createPayroll').modal('show');
     $('#btnCreatePayroll').html('Actualizar');
 

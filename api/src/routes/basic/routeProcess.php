@@ -55,9 +55,9 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
     $dataProcess = $request->getParsedBody();
     $id_company = $_SESSION['id_company'];
 
-    $countProcess = sizeof($dataProcess);
+    //$countProcess = sizeof($dataProcess);
 
-    if ($countProcess > 1) {
+    if (empty($dataProcess['importProcess'])) {
         $process = $processDao->insertProcessByCompany($dataProcess, $id_company);
 
         if ($process == null)
@@ -77,9 +77,9 @@ $app->post('/addProcess', function (Request $request, Response $response, $args)
             }
         }
         if ($resolution == null)
-            $resp = array('success' => true, 'message' => 'Proceso creado correctamente');
+            $resp = array('success' => true, 'message' => 'Proceso importado correctamente');
         else
-            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras ingresaba la información. Intente nuevamente');
+            $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importaba la información. Intente nuevamente');
     }
 
     $response->getBody()->write(json_encode($resp));

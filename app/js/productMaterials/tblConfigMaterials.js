@@ -45,7 +45,7 @@ $(document).ready(function () {
         {
           title: 'Materia Prima',
           data: 'material',
-          className: 'uniqueClassName',
+          className: 'classCenter',
         },
         {
           title: 'Unidad',
@@ -61,7 +61,7 @@ $(document).ready(function () {
         {
           title: 'Precio Unitario',
           data: 'cost',
-          className: 'classRight',
+          className: 'classCenter',
           render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
         },
         {

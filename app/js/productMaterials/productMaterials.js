@@ -10,6 +10,7 @@ $(document).ready(function () {
   $('#btnCreateProduct').click(function (e) {
     e.preventDefault();
 
+    $('.cardImportProductsMaterials').hide(800);
     $('.cardAddMaterials').toggle(800);
     $('#btnAddMaterials').html('Asignar');
 
@@ -82,6 +83,7 @@ $(document).ready(function () {
   /* Actualizar productos materials */
 
   $(document).on('click', '.updateMaterials', function (e) {
+    $('.cardImportProductsMaterials').hide(800);
     $('.cardAddMaterials').show(800);
     $('#btnAddMaterials').html('Actualizar');
 

@@ -7,6 +7,7 @@ $(document).ready(function () {
 
   $('#btnNewMaterial').click(function (e) {
     e.preventDefault();
+    $('.cardImportMaterials').hide(800);
     $('.cardRawMaterials').toggle(800);
     $('#btnCreateMaterial').html('Crear');
 
@@ -61,6 +62,7 @@ $(document).ready(function () {
   /* Actualizar productos */
 
   $(document).on('click', '.updateRawMaterials', function (e) {
+    $('.cardImportMaterials').hide(800);
     $('.cardRawMaterials').show(800);
     $('#btnCreateMaterial').html('Actualizar');
 

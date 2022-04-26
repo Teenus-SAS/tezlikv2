@@ -95,9 +95,6 @@ class ExpensesDao
 
   public function deleteExpenses($id_expense)
   {
-    session_start();
-    $id_company = $_SESSION['id_company'];
-
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT * FROM expenses WHERE id_expense = :id_expense");
