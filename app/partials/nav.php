@@ -112,14 +112,14 @@
                                 </div>
                             </div>
                             <div class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-item dropdown-toggle" aria-expanded="false">
+                                <a href="javascript:void(0);" onclick="loadContent('page-content','../app/views/tutorials/tutorials.php')" class="dropdown-item dropdown-toggle" aria-expanded="false">
                                     <i class="bx bx-table mr-1"></i>
                                     <span> Tutoriales </span>
                                     <i class="bx bx-chevron-right"></i>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-tables">
+                                <!-- <div class="dropdown-menu" aria-labelledby="topnav-tables">
                                     <a class="dropdown-item" href="table-basic.html"> Basic Table </a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="dropdown">
                                 <a href="javascript:void(0);" onclick="loadContent('page-content','../app/views/support/emailSupport.php')" class="dropdown-item dropdown-toggle" aria-expanded="false">
