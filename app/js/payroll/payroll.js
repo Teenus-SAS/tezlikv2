@@ -104,11 +104,11 @@ $(document).ready(function () {
     $('#employee').val(data.employee);
     $(`#idProcess option:contains(${data.process})`).prop('selected', true);
 
-    $('#basicSalary').val(data.salary);
-    $('#transport').val(data.transport);
-    $('#endowment').val(data.endowment);
-    $('#extraTime').val(data.extra_time);
-    $('#bonification').val(data.bonification);
+    $('#basicSalary').val(data.salary.toLocaleString());
+    $('#transport').val(data.transport.toLocaleString());
+    $('#endowment').val(data.endowment.toLocaleString());
+    $('#extraTime').val(data.extra_time.toLocaleString());
+    $('#bonification').val(data.bonification.toLocaleString());
 
     $('#workingHoursDay').val(data.hours_day);
     $('#workingDaysMonth').val(data.working_days_month);

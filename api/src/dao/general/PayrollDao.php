@@ -51,12 +51,13 @@ class PayrollDao
   public function insertPayrollByCompany($dataPayroll, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $salaryBasic = str_replace('.', '', $dataPayroll['basicSalary']);
+
+    $dataReplace = $this->strReplaceData($dataPayroll);
 
     if ($dataPayroll['typeFactor'] == 'Nomina' || $dataPayroll['typeFactor'] == 1) $dataPayroll['factor'] = 38;
     if ($dataPayroll['typeFactor'] == 'Servicios' || $dataPayroll['typeFactor'] == 2) $dataPayroll['factor'] = 0;
 
-    $payrollCalculate = $this->calculateValueMinute($salaryBasic, $dataPayroll);
+    $payrollCalculate = $this->calculateValueMinute($dataReplace['salaryBasic'], $dataPayroll);
 
     try {
       $stmt = $connection->prepare("INSERT INTO payroll (id_company, id_process, employee, salary, transport, extra_time, bonification, endowment,
@@ -64,13 +65,13 @@ class PayrollDao
                                     VALUES (:id_company, :id_process, :employee, :salary, :transport, :extra_time, :bonification, :endowment,
                                             :working_days_month, :hours_day, :factor_benefit, :salary_net, :type_contract, :minute_value)");
       $stmt->execute([
-        'id_company' => $id_company,                  'employee' => ucfirst(strtolower($dataPayroll['employee'])),
-        'id_process' => $dataPayroll['idProcess'],                'salary' => $salaryBasic,
-        'transport' => $dataPayroll['transport'],                 'extra_time' => $dataPayroll['extraTime'],
-        'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
-        'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
-        'factor_benefit' => $dataPayroll['factor'],               'type_contract' => $dataPayroll['typeFactor'],
-        'salary_net' => $payrollCalculate['salaryNet'],           'minute_value' => $payrollCalculate['minuteValue']
+        'id_company' => $id_company,                                'employee' => ucfirst(strtolower($dataPayroll['employee'])),
+        'id_process' => $dataPayroll['idProcess'],                  'salary' => $dataReplace['salaryBasic'],
+        'transport' => $dataReplace['transport'],                   'extra_time' => $dataReplace['extraTime'],
+        'bonification' => $dataReplace['bonification'],             'endowment' => $dataReplace['endowment'],
+        'working_days_month' => $dataPayroll['workingDaysMonth'],   'hours_day' => $dataPayroll['workingHoursDay'],
+        'factor_benefit' => $dataPayroll['factor'],                 'type_contract' => $dataPayroll['typeFactor'],
+        'salary_net' => $payrollCalculate['salaryNet'],             'minute_value' => $payrollCalculate['minuteValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -85,12 +86,13 @@ class PayrollDao
   public function updatePayroll($dataPayroll)
   {
     $connection = Connection::getInstance()->getConnection();
-    $salaryBasic = str_replace('.', '', $dataPayroll['basicSalary']);
+
+    $dataReplace = $this->strReplaceData($dataPayroll);
 
     if ($dataPayroll['typeFactor'] == 'Nomina' || $dataPayroll['typeFactor'] == 1) $dataPayroll['factor'] = 38;
     if ($dataPayroll['typeFactor'] == 'Servicios' || $dataPayroll['typeFactor'] == 2) $dataPayroll['factor'] = 0;
 
-    $payrollCalculate = $this->calculateValueMinute($salaryBasic, $dataPayroll);
+    $payrollCalculate = $this->calculateValueMinute($dataReplace['salaryBasic'], $dataPayroll);
 
     try {
       $stmt = $connection->prepare("UPDATE payroll SET employee=:employee, id_process=:id_process, salary=:salary, transport=:transport, extra_time=:extra_time,
@@ -99,9 +101,9 @@ class PayrollDao
                                     WHERE id_payroll = :id_payroll");
       $stmt->execute([
         'id_payroll' => $dataPayroll['idPayroll'],                'employee' => ucfirst(strtolower($dataPayroll['employee'])),
-        'id_process' => $dataPayroll['idProcess'],                'salary' => $salaryBasic,
-        'transport' => $dataPayroll['transport'],                 'extra_time' => $dataPayroll['extraTime'],
-        'bonification' => $dataPayroll['bonification'],           'endowment' => $dataPayroll['endowment'],
+        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataReplace['salaryBasic'],
+        'transport' => $dataReplace['transport'],                 'extra_time' => $dataReplace['extraTime'],
+        'bonification' => $dataReplace['bonification'],           'endowment' => $dataReplace['endowment'],
         'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
         'factor_benefit' => $dataPayroll['factor'],                 'salary_net' => $payrollCalculate['salaryNet'],
         'type_contract' => $dataPayroll['typeFactor'],                   'minute_value' => $payrollCalculate['minuteValue']
@@ -127,6 +129,19 @@ class PayrollDao
       $stmt->execute(['id_payroll' => $id_payroll]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
+  }
+
+  public function strReplaceData($dataPayroll)
+  {
+    $salaryBasic = str_replace('.', '', $dataPayroll['basicSalary']);
+    $transport = str_replace('.', '', $dataPayroll['transport']);
+    $bonification = str_replace('.', '', $dataPayroll['bonification']);
+    $extraTime = str_replace('.', '', $dataPayroll['extraTime']);
+    $endowment = str_replace('.', '', $dataPayroll['endowment']);
+
+    $dataReplace = array($salaryBasic, $transport, $bonification, $extraTime, $endowment);
+
+    return $dataReplace;
   }
 
   public function calculateValueMinute($salaryBasic, $dataPayroll)

@@ -45,7 +45,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="transport" name="transport" type="number" class="form-control text-center">
+                                                <input id="transport" name="transport" type="text" class="form-control text-center number">
                                                 <label for="transport">Transporte<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -53,7 +53,7 @@
 
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="endowment" name="endowment" type="number" class="form-control text-center">
+                                                <input id="endowment" name="endowment" type="text" class="form-control text-center number">
                                                 <label for="endowment">Dotaciones<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -61,7 +61,7 @@
 
                                         <div class="col-12 col-lg-3">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="extraTime" name="extraTime" type="number" class="form-control text-center">
+                                                <input id="extraTime" name="extraTime" type="text" class="form-control text-center number">
                                                 <label for="extraTime">Horas Extras<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>
@@ -69,7 +69,7 @@
 
                                         <div class="col-12 col-lg-3">
                                             <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="bonification" name="bonification" type="number" class="form-control text-center">
+                                                <input id="bonification" name="bonification" type="text" class="form-control text-center number">
                                                 <label for="otherIncome">Otros Ingresos<span class="text-danger">*</span></label>
                                                 <div class="validation-error d-none font-size-13">Requerido</div>
                                             </div>

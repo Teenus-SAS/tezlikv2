@@ -75,7 +75,7 @@ $(document).ready(function () {
     sessionStorage.setItem('id_service', data.id_service);
 
     $('#service').val(data.name_service);
-    $('#costService').val(data.cost);
+    $('#costService').val(data.cost.toLocaleString());
 
     $('html, body').animate(
       {

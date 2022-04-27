@@ -53,12 +53,12 @@ $(document).ready(function () {
     let data = tblExpenses.fnGetData(row);
 
     sessionStorage.setItem('id_expense', data.id_expense);
-    $(`#idPuc option:contains(${data.number_count} - ${data.count})`).attr(
+    $(`#idPuc option:contains(${data.number_count} - ${data.count})`).prop(
       'selected',
       true
     );
 
-    $('#expenseValue').val(data.expense_value);
+    $('#expenseValue').val(data.expense_value.toLocaleString());
 
     $('html, body').animate(
       {

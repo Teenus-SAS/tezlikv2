@@ -59,8 +59,8 @@ $(document).ready(function () {
     let data = tblMachines.fnGetData(row);
 
     $('#machine').val(data.machine);
-    $('#costMachine').val(data.cost);
-    $('#residualValue').val(data.residual_value);
+    $('#costMachine').val(data.cost.toLocaleString());
+    $('#residualValue').val(data.residual_value.toLocaleString());
     $('#depreciationYears').val(data.years_depreciation);
     $('#hoursMachine').val(data.hours_machine);
     $('#daysMachine').val(data.days_machine);

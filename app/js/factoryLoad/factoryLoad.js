@@ -55,7 +55,6 @@ $(document).ready(function () {
 
   $(document).on('click', '.updateFactoryLoad', function (e) {
     $('.cardImportFactoryLoad').hide(800);
-    // $('#idMachine option:contains(Seleccionar)').prop('selected', true);
     $('.cardFactoryLoad').show(800);
     $('#btnCreateFactoryLoad').html('Actualizar');
 
@@ -64,13 +63,9 @@ $(document).ready(function () {
 
     sessionStorage.setItem('id_manufacturing_load', data.id_manufacturing_load);
 
-    $(`#idMachine option[value=${data.id_machine}]`).attr('selected', true);
+    $(`#idMachine option[value=${data.id_machine}]`).prop('selected', true);
     $('#descriptionFactoryLoad').val(data.input);
-    $('#costFactory').val(data.cost);
-
-    $('#costFactory').click();
-
-    $('#valueMinute').val(data.cost_minute);
+    $('#costFactory').val(data.cost.toLocaleString());
 
     $('html, body').animate(
       {

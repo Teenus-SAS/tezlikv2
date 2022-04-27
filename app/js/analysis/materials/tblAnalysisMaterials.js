@@ -6,7 +6,7 @@ $(document).ready(function () {
     $('.colMaterials').empty();
     $.ajax({
       type: 'GET',
-      url: `/api/analysisRawMaterials/${idProduct}`,
+      url: `/api/rawMaterials/${idProduct}`,
       success: function (r) {
         if (r.length == 0) {
           $('.colMaterials').append(`
@@ -18,7 +18,10 @@ $(document).ready(function () {
         } else {
           $('.empty').hide();
           $('.colMaterials').empty();
-          for (i = 0; i < r.length; i++) {
+
+          let participation = 0;
+
+          for (i = 0; participation <= 80; i++) {
             //<th id="reference-${i + 1}">${r[i].reference}</th>
             $('.colMaterials').append(
               `<tr class="col${i + 1} text-center" id="col${i + 1}">
@@ -39,10 +42,11 @@ $(document).ready(function () {
                         <th id="projectedCost-${i + 1}"></th>
                     </tr>`
             );
+            participation = participation + r[i].participation;
           }
         }
 
-        unitsmanufacturated(r.length);
+        unitsmanufacturated(i);
       },
     });
   };
@@ -83,8 +87,10 @@ $(document).ready(function () {
 
   unitsmanufacturated = (count) => {
     $(document).on('click keyup', '#unitsmanufacturated', function (e) {
-      unitsmanufacturated = this.value;
-
+      debugger;
+      let unitsmanufacturated = this.value;
+      unitsmanufacturated = unitsmanufacturated.replace('.', '');
+      unitsmanufacturated = parseFloat(unitsmanufacturated);
       totalMonthlySavings = 0;
       for (i = 0; i < count; i++) {
         if (unitsmanufacturated == '') $(`#totalCost-${i + 1}`).html('');
