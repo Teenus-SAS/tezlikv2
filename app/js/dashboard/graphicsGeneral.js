@@ -12,8 +12,8 @@ graphicTimeProcessByProduct = (data) => {
     totalTime.push(data[i].totalTime);
   }
 
-  const cmc = document.getElementById('chartProductCosts');
-  const chartProductCosts = new Chart(cmc, {
+  const cmc = document.getElementById('chartTimeProcessProducts');
+  const chartTimeProcessProducts = new Chart(cmc, {
     type: 'bar',
     data: {
       labels: product,
@@ -195,6 +195,52 @@ graphicProfit = (data) => {
       ],
     },
     options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
+  });
+};
+
+// Rentabilidad y precio productos
+graphicProductCost = (data) => {
+  product = [];
+  profitability = [];
+  price = [];
+  cost = [];
+
+  data.length > 10 ? (count = 10) : (count = data.length);
+
+  for (i = 0; i < count; i++) {
+    product.push(data[i].product);
+    cost[i] = data[i].price / data[i].profitability;
+  }
+
+  const cmc = document.getElementById('charProductsCost');
+  const charProductsCost = new Chart(cmc, {
+    type: 'bar',
+    data: {
+      labels: product,
+      formatter: function (value, context) {
+        return context.chart.data.labels[context.dataIndex];
+      },
+      datasets: [
+        {
+          data: cost,
+          backgroundColor: getRandomColor(count),
+          borderWidth: 1,
+        },
+      ],
+    },
+    //plugins: [ChartDataLabels],
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
       plugins: {
         legend: {
           display: false,

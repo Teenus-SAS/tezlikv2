@@ -19,6 +19,7 @@ class SupportDao
     public function sendEmailSupport($dataSupport, $email)
     {
         $to = 'soporte@teenus.com.co';
+        $ccHeader = $dataSupport['ccHeader'];
         // the message
         $msg = $dataSupport['message'];
 
@@ -26,11 +27,11 @@ class SupportDao
         $msg = wordwrap($msg, 70);
 
         //headers
-        $headers = $dataSupport['header'];
+        $headers = $dataSupport['subject'] . "\r\n";
         $headers .= "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: SoporteCRM <$email>" . "\r\n";
+        $headers .= "From: SoporteTeenus <$email>" . "\r\n";
         // send email
-        mail($to, "Soporte", $msg, $headers);
+        mail($to, "Soporte", $msg, $headers, $ccHeader);
     }
 }

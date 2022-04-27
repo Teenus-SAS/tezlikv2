@@ -9,16 +9,16 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->post('/sendEmailSupport', function (Request $request, Response $response, $args) use ($supportDao) {
     $dataSupport = $request->getParsedBody();
+    session_start();
     $email = $_SESSION['email'];
 
     if (empty($dataSupport['ccHeader']) || empty($dataSupport['subject']) || empty($dataSupport['message'])) {
         $resp = array('error' => true, 'message' => 'Porfavor ingrese todos los campos');
-        break;
     } else
         $support = $supportDao->sendEmailSupport($dataSupport, $email);
 
     if ($support == null)
-        $resp = array('success' => true, 'message' => 'El correo a sido enviado, verifique su email');
+        $resp = array('success' => true, 'message' => 'El correo a sido enviado, espere una pronta respuesta');
     else
         $resp = array('error' => true, 'message' => 'Ocurrio un error al enviar el correo. Intente nuevamente');
 

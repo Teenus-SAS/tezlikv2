@@ -42,31 +42,4 @@ class ReviewRawMaterialsDao
         $this->logger->notice("products", array('products' => $productsRawmaterials));
         return $productsRawmaterials;
     }
-
-    /*public function productsRawMaterialsAnalysis($idProduct, $id_company)
-    {
-        $connection = Connection::getInstance()->getConnection();
-
-        $stmt = $connection->prepare("SELECT 
-                                        SUM(pm.quantity*m.cost) AS totalCost
-                                      FROM products_materials pm  
-                                      INNER JOIN materials m ON m.id_material = pm.id_material 
-                                      WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
-        $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
-        $dataTotalCost = $stmt->fetch($connection::FETCH_ASSOC);
-
-        $totalCost = $dataTotalCost['totalCost'];
-        $stmt = $connection->prepare("SELECT m.reference, m.material, pm.quantity, m.cost, (pm.quantity*m.cost) AS unityCost,
-                                             ((pm.quantity*m.cost)/{$totalCost})*100 AS participation
-                                      FROM products p
-                                      INNER JOIN products_materials pm ON pm.id_product = p.id_product
-                                      INNER JOIN materials m ON m.id_material = pm.id_material 
-                                      WHERE pm.id_product = :id_product AND pm.id_company = :id_company 
-                                      AND ((pm.quantity*m.cost)/{$totalCost})*100 >= 80");
-        $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
-        $analysisRawMaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
-
-        $this->logger->notice("products", array('products' => $analysisRawMaterials));
-        return $analysisRawMaterials;
-    }*/
 }

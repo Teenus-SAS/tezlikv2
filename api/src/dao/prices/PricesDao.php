@@ -24,13 +24,13 @@ class PricesDao
                                   INNER JOIN expenses_distribution ed ON ed.id_product = p.id_product
                                   INNER JOIN products_costs pc ON pc.id_product = p.id_product 
                                   WHERE p.id_company = :id_company 
-                                  ORDER BY `p`.`reference` ASC");
+                                  ORDER BY `pc`.`profitability` DESC");
     $stmt->execute(['id_company' => $id_company]);
 
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
     $prices = $stmt->fetchAll($connection::FETCH_ASSOC);
-    $this->logger->notice("process", array('process' => $prices));
+    $this->logger->notice("prices", array('prices' => $prices));
     return $prices;
   }
 }

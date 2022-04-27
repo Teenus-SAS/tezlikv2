@@ -28,30 +28,30 @@ $userinactivetimeDao->findSession();
             <div class="col-md-8 col-lg-12">
                 <div class="inbox-rightbar card">
                     <div class="card-body">
-                        <form>
+                        <form id="formSendSupport">
                             <div class="form-group mb-2">
                                 <input type="email" class="form-control" placeholder="Para" value="soporte@teenus.com.co" readonly />
                             </div>
 
                             <div class="form-group mb-2">
-                                <input type="email" class="form-control" placeholder="CC" />
+                                <input type="email" class="form-control" placeholder="CC" id="ccHeader" name="ccHeader" />
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Asunto" />
+                                <input type="text" class="form-control" placeholder="Asunto" id="subject" name="subject" />
                             </div>
 
                             <div class="form-group">
-                                <div class="" id="compose-editor">Hey</div>
+                                <div class="message" id="compose-editor" name="message">Hey</div>
                             </div>
 
                             <div class="form-group pt-2">
                                 <div class="text-right">
-                                    <button class="btn btn-success mr-2" data-effect="wave" id="draft-btn">
+                                    <button class="btn btn-success mr-2" data-effect="wave" id="btnDraft">
                                         <i class="bx bxs-edit-alt fs-sm align-middle"></i>
                                         <span class="d-none d-sm-inline-block mr-2 align-middle">Borrador</span>
                                     </button>
-                                    <button class="btn btn-primary chat-send-btn" data-effect="wave" id="send-btn">
+                                    <button class="btn btn-primary chat-send-btn" data-effect="wave" id="btnSend">
                                         <span class="d-none d-sm-inline-block mr-2 align-middle">Enviar</span>
                                         <i class="bx bxs-send fs-sm align-middle"></i>
                                     </button>
@@ -69,3 +69,4 @@ $userinactivetimeDao->findSession();
 <script src="assets/libs/ckeditor/js/ckeditor.min.js"></script>
 <script src="assets/js/pages/compose-mail.init.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="../app/js/support/support.js"></script>

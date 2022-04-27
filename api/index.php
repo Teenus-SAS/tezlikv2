@@ -46,6 +46,9 @@ require_once('../api/src/routes/login/routepassUser.php');
 // Prices
 require_once('../api/src/routes/prices/routePrices.php');
 
+// Tools
+require_once('../api/src/routes/tools/routeSupport.php');
+
 // User
 require_once('../api/src/routes/users/routeUserAccess.php');
 require_once('../api/src/routes/users/routeUsers.php');

@@ -40,7 +40,10 @@ $(document).ready(function () {
               ].unityCost.toLocaleString('es-ES')}</th>
                         <th id="totalCost-${i + 1}"></th>
                         <th id="projectedCost-${i + 1}"></th>
-                    </tr>`
+                    </tr>
+                    
+                    <script src="../../app/js/global/number.js"></script>
+                    `
             );
             participation = participation + r[i].participation;
           }
@@ -56,8 +59,8 @@ $(document).ready(function () {
     negotiatePrice = this.value;
     line = this.id;
 
+    negotiatePrice = negotiatePrice.replace('.', '');
     negotiatePrice = parseFloat(negotiatePrice);
-    //negotiatePrice = negotiatePrice.replace('.', '');
 
     actualPrice = $(`#actualPrice-${line}`).html();
     actualPrice = actualPrice.replace('.', '').replace('$', '');
@@ -87,13 +90,12 @@ $(document).ready(function () {
 
   unitsmanufacturated = (count) => {
     $(document).on('click keyup', '#unitsmanufacturated', function (e) {
-      debugger;
       let unitsmanufacturated = this.value;
       unitsmanufacturated = unitsmanufacturated.replace('.', '');
       unitsmanufacturated = parseFloat(unitsmanufacturated);
       totalMonthlySavings = 0;
       for (i = 0; i < count; i++) {
-        if (unitsmanufacturated == '') $(`#totalCost-${i + 1}`).html('');
+        if (isNaN(unitsmanufacturated)) $(`#totalCost-${i + 1}`).html('');
         else {
           // Calcular Porcentaje y Calcular costo proyectado
           $('.negotiatePrice').click();

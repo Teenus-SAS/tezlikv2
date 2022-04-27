@@ -113,4 +113,17 @@ class DashboardGeneralDao
         $this->logger->notice("expenseValue", array('expenseValue' => $expenseValue));
         return $expenseValue;
     }
+
+    /* Obtener rentabilidad y precio productos
+    public function findProfitabilityAndPriceProducts($id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        $stmt = $connection->prepare("SELECT profitability, price FROM `products_costs` 
+                                      WHERE id_company = :id_company ORDER BY `products_costs`.`profitability` DESC");
+        $stmt->execute(['id_company' => $id_company]);
+        $productsCost = $stmt->fetchAll($connection::FETCH_ASSOC);
+
+        return $productsCost;
+    }*/
 }

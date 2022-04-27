@@ -209,7 +209,7 @@ $userinactivetimeDao->findSession();
 									</div>
 									<div class="card-body pt-2">
 										<!-- <div id="stats-chart"></div> -->
-										<canvas id="chartProductCosts"></canvas>
+										<canvas id="chartTimeProcessProducts"></canvas>
 									</div>
 								</div>
 							</div>
@@ -318,24 +318,20 @@ $userinactivetimeDao->findSession();
 								</div>
 							</div>
 
-							<!-- <div class="col-lg-9">
-								<div class="card">
+							<div class="col-lg-9" style="height: fit-content;">
+								<div class=" card">
 									<div class="card-header">
-										<h5 class="card-title"></h5>
+										<h5 class="card-title">Costos Productos</h5>
 									</div>
 									<div class="card-body pt-2">
-										<div class="chart-container">
-											<div class="chart" style="width: 50%; height: 50%;">
-												<canvas id="charExpensesGenerals"></canvas>
-											</div>
-										</div>
+										<canvas id="charProductsCost"></canvas>
 										<div class="center-text">
-											<p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
-											<h4 class="mb-0 font-weight-bold">120 min</h4>
+											<!-- <p class="text-muted mb-1 font-weight-600"></p> -->
+											<!-- <h4 class="mb-0 font-weight-bold"></h4> -->
 										</div>
 									</div>
 								</div>
-							</div> -->
+							</div>
 						</div>
 
 						<!-- Row 3-->
