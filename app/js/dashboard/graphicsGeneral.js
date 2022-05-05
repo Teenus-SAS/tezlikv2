@@ -1,19 +1,18 @@
 /* Tiempo de procesos */
 graphicTimeProcessByProduct = (data) => {
   product = [];
-  // enlistmentTime = [];
-  // operationTime = [];
   totalTime = [];
+  // averageTotalTime = [];
 
   data.length > 10 ? (count = 10) : (count = data.length);
-
   for (i = 0; i < count; i++) {
     product.push(data[i].product);
     totalTime.push(data[i].totalTime);
+    // averageTotalTime[i] = data[i].totalTime / 100;
   }
-
   const cmc = document.getElementById('chartTimeProcessProducts');
   const chartTimeProcessProducts = new Chart(cmc, {
+    plugins: [ChartDataLabels],
     type: 'bar',
     data: {
       labels: product,
@@ -22,14 +21,13 @@ graphicTimeProcessByProduct = (data) => {
       },
       datasets: [
         {
-          //labels: ['Tiempo Enlistamiento', 'Tiempo Operacion'],
+          // labels: averageTotalTime,
           data: totalTime,
           backgroundColor: getRandomColor(count),
           borderWidth: 1,
         },
       ],
     },
-    //plugins: [ChartDataLabels],
     options: {
       scales: {
         y: {
@@ -39,6 +37,15 @@ graphicTimeProcessByProduct = (data) => {
       plugins: {
         legend: {
           display: false,
+        },
+        datalabels: {
+          anchor: 'end',
+          formatter: (totalTime) => totalTime + '%',
+          color: 'black',
+          font: {
+            size: '14',
+            weight: 'bold',
+          },
         },
       },
     },
@@ -57,10 +64,10 @@ graphicWorkforce = (data) => {
     totalCost = totalCost + minuteValue[i];
   }
 
-  $('#totalCostWorkforce').html(totalCost.toLocaleString('es-ES'));
+  $('#totalCostWorkforce').html(`$ ${totalCost.toFixed(2)}`);
 
-  const cmc = document.getElementById('charWorkForceGeneral');
-  const charWorkForceGeneral = new Chart(cmc, {
+  const cmc = document.getElementById('chartWorkForceGeneral');
+  const chartWorkForceGeneral = new Chart(cmc, {
     type: 'doughnut',
     data: {
       labels: process,
@@ -76,7 +83,7 @@ graphicWorkforce = (data) => {
         },
       ],
     },
-    plugins: [ChartDataLabels],
+    //plugins: [ChartDataLabels],
     options: {
       plugins: {
         legend: {
@@ -100,10 +107,10 @@ graphicsFactoryLoad = (data) => {
     totalCostMinute = totalCostMinute + costMinute[i];
   }
 
-  $('#factoryLoadCost').html(totalCostMinute.toLocaleString('es-ES'));
+  $('#factoryLoadCost').html(totalCostMinute.toFixed(2));
 
-  const cmc = document.getElementById('charFactoryLoadCost');
-  const charFactoryLoadCost = new Chart(cmc, {
+  const cmc = document.getElementById('chartFactoryLoadCost');
+  const chartFactoryLoadCost = new Chart(cmc, {
     type: 'doughnut',
     data: {
       labels: machine,
@@ -140,11 +147,11 @@ graphicGeneralCost = (data) => {
     expenseCount.push(data[i].expenseCount);
     totalExpense = totalExpense + data[i].expenseCount;
   }
-  $('#totalCost').html(totalExpense.toLocaleString('es-ES'));
+  $('#totalCost').html(`$ ${totalExpense.toLocaleString('es-ES')}`);
 
   /* Grafico */
-  var cmo = document.getElementById('charExpensesGenerals');
-  var charExpensesGenerals = new Chart(cmo, {
+  var cmo = document.getElementById('chartExpensesGenerals');
+  var chartExpensesGenerals = new Chart(cmo, {
     type: 'doughnut',
     data: {
       labels: [
@@ -172,11 +179,11 @@ graphicGeneralCost = (data) => {
   });
 };
 
-/* Indicadores globales */
+/* Indicadores globales 
 
 graphicProfit = (data) => {
-  const cmo = document.getElementById('charExpensesGenerals');
-  const charExpensesGenerals = new Chart(cmo, {
+  const cmo = document.getElementById('chartExpensesGenerals');
+  const chartExpensesGenerals = new Chart(cmo, {
     type: 'doughnut',
     data: {
       labels: ['Utilidad'],
@@ -202,7 +209,7 @@ graphicProfit = (data) => {
       },
     },
   });
-};
+};*/
 
 // Rentabilidad y precio productos
 graphicProductCost = (data) => {
@@ -218,8 +225,8 @@ graphicProductCost = (data) => {
     cost[i] = data[i].price / data[i].profitability;
   }
 
-  const cmc = document.getElementById('charProductsCost');
-  const charProductsCost = new Chart(cmc, {
+  const cmc = document.getElementById('chartProductsCost');
+  const chartProductsCost = new Chart(cmc, {
     type: 'bar',
     data: {
       labels: product,

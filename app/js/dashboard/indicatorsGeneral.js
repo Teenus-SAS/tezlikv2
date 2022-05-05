@@ -55,8 +55,8 @@ averagePrices = (data) => {
   averageprofitability = profitability / data.length;
   averagecommissionSale = commissionSale / data.length;
 
-  $('#profitabilityAverage').html(`${averageprofitability}%`);
-  $('#comissionAverage').html(`${averagecommissionSale}%`);
+  $('#profitabilityAverage').html(`${averageprofitability.toFixed(2)} %`);
+  $('#comissionAverage').html(`${averagecommissionSale.toFixed(2)} %`);
 };
 
 /* Tiempos promedio */

@@ -53,8 +53,8 @@ $(document).ready(function () {
       workforce.push(data[i].workforce);
     }
 
-    const cmo = document.getElementById('charWorkForce').getContext('2d');
-    const charWorkForce = new Chart(cmo, {
+    const cmo = document.getElementById('chartWorkForce').getContext('2d');
+    const chartWorkForce = new Chart(cmo, {
       type: 'doughnut',
       data: {
         labels: process,
@@ -88,8 +88,8 @@ $(document).ready(function () {
       totalTime.push(data[i].totalTime);
     }
 
-    var cmo = document.getElementById('charTimeProcess');
-    var charWorkForce = new Chart(cmo, {
+    var cmo = document.getElementById('chartTimeProcess');
+    var chartWorkForce = new Chart(cmo, {
       type: 'doughnut',
       data: {
         labels: process,
