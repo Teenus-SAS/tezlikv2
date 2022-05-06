@@ -40,7 +40,7 @@ graphicTimeProcessByProduct = (data) => {
         },
         datalabels: {
           anchor: 'end',
-          formatter: (totalTime) => totalTime + '%',
+          formatter: (totalTime) => totalTime.toLocaleString(),
           color: 'black',
           font: {
             size: '14',
@@ -68,6 +68,7 @@ graphicWorkforce = (data) => {
 
   const cmc = document.getElementById('chartWorkForceGeneral');
   const chartWorkForceGeneral = new Chart(cmc, {
+    plugins: [ChartDataLabels],
     type: 'doughnut',
     data: {
       labels: process,
@@ -83,11 +84,26 @@ graphicWorkforce = (data) => {
         },
       ],
     },
-    //plugins: [ChartDataLabels],
     options: {
       plugins: {
         legend: {
           display: false,
+        },
+        datalabels: {
+          formatter: (value, ctx) => {
+            let sum = 0;
+            let dataArr = ctx.chart.data.datasets[0].data;
+            dataArr.map((data) => {
+              sum += data;
+            });
+            let percentage = ((value * 100) / sum).toFixed(2) + '%';
+            return percentage;
+          },
+          color: 'black',
+          font: {
+            size: '14',
+            weight: 'bold',
+          },
         },
       },
     },
@@ -111,6 +127,7 @@ graphicsFactoryLoad = (data) => {
 
   const cmc = document.getElementById('chartFactoryLoadCost');
   const chartFactoryLoadCost = new Chart(cmc, {
+    plugins: [ChartDataLabels],
     type: 'doughnut',
     data: {
       labels: machine,
@@ -126,11 +143,26 @@ graphicsFactoryLoad = (data) => {
         },
       ],
     },
-    plugins: [ChartDataLabels],
     options: {
       plugins: {
         legend: {
           display: false,
+        },
+        datalabels: {
+          formatter: (value, ctx) => {
+            let sum = 0;
+            let dataArr = ctx.chart.data.datasets[0].data;
+            dataArr.map((data) => {
+              sum += data;
+            });
+            let percentage = ((value * 100) / sum).toFixed(2) + '%';
+            return percentage;
+          },
+          color: 'black',
+          font: {
+            size: '14',
+            weight: 'bold',
+          },
         },
       },
     },
@@ -152,6 +184,7 @@ graphicGeneralCost = (data) => {
   /* Grafico */
   var cmo = document.getElementById('chartExpensesGenerals');
   var chartExpensesGenerals = new Chart(cmo, {
+    plugins: [ChartDataLabels],
     type: 'doughnut',
     data: {
       labels: [
@@ -168,11 +201,26 @@ graphicGeneralCost = (data) => {
         },
       ],
     },
-    plugins: [ChartDataLabels],
     options: {
       plugins: {
         legend: {
           display: false,
+        },
+        datalabels: {
+          formatter: (value, ctx) => {
+            let sum = 0;
+            let dataArr = ctx.chart.data.datasets[0].data;
+            dataArr.map((data) => {
+              sum += data;
+            });
+            let percentage = ((value * 100) / sum).toFixed(2) + '%';
+            return percentage;
+          },
+          color: 'black',
+          font: {
+            size: '14',
+            weight: 'bold',
+          },
         },
       },
     },
@@ -227,6 +275,7 @@ graphicProductCost = (data) => {
 
   const cmc = document.getElementById('chartProductsCost');
   const chartProductsCost = new Chart(cmc, {
+    plugins: [ChartDataLabels],
     type: 'bar',
     data: {
       labels: product,
@@ -241,7 +290,6 @@ graphicProductCost = (data) => {
         },
       ],
     },
-    //plugins: [ChartDataLabels],
     options: {
       scales: {
         y: {
@@ -251,6 +299,15 @@ graphicProductCost = (data) => {
       plugins: {
         legend: {
           display: false,
+        },
+        datalabels: {
+          anchor: 'end',
+          formatter: (cost) => cost.toLocaleString(),
+          color: 'black',
+          font: {
+            size: '14',
+            weight: 'bold',
+          },
         },
       },
     },

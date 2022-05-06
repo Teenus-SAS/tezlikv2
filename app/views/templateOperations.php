@@ -317,7 +317,7 @@ $userinactivetimeDao->findSession();
 								</div>
 							</div>
 
-							<div class="col-lg-9" style="height: fit-content;">
+							<div class="col-lg-8" style="height: fit-content;">
 								<div class=" card">
 									<div class="card-header">
 										<h5 class="card-title">Costos Productos</h5>
