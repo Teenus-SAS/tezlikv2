@@ -73,7 +73,7 @@
     </div>
     <!-- end container -->
     </div>
-    <script src="../../app/js/code/checkCode.js"></script>
+    <script src="../../app/js/login/autentication.js"></script>
     <!-- Page End -->
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="assets/js/vendor.min.js"></script>
