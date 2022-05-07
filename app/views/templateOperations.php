@@ -262,7 +262,6 @@ $userinactivetimeDao->findSession();
 						</div>
 
 						<div class="row">
-
 							<div class="col-lg-4">
 								<div class="card">
 									<div class="card-header">
@@ -270,7 +269,7 @@ $userinactivetimeDao->findSession();
 									</div>
 									<div class="card-body">
 										<div class="chart-container">
-											<canvas id="charWorkForceGeneral"></canvas>
+											<canvas id="chartWorkForceGeneral"></canvas>
 											<div class="center-text">
 												<p class="text-muted mb-1 font-weight-600">Total Costo </p>
 												<h4 class="mb-0 font-weight-bold" id="totalCostWorkforce"></h4>
@@ -287,7 +286,7 @@ $userinactivetimeDao->findSession();
 									</div>
 									<div class="card-body">
 										<div class="chart-container">
-											<canvas id="charFactoryLoadCost"></canvas>
+											<canvas id="chartFactoryLoadCost"></canvas>
 											<div class="center-text">
 												<p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
 												<h4 class="mb-0 font-weight-bold" id="factoryLoadCost"></h4>
@@ -308,7 +307,7 @@ $userinactivetimeDao->findSession();
 									</div>
 									<div class="card-body pt-2">
 										<div class="chart-container">
-											<canvas id="charExpensesGenerals"></canvas>
+											<canvas id="chartExpensesGenerals"></canvas>
 											<div class="center-text">
 												<p class="text-muted mb-1 font-weight-600">Total Gastos </p>
 												<h4 class="mb-0 font-weight-bold" id="totalCost"></h4>
@@ -318,13 +317,13 @@ $userinactivetimeDao->findSession();
 								</div>
 							</div>
 
-							<div class="col-lg-9" style="height: fit-content;">
+							<div class="col-lg-8" style="height: fit-content;">
 								<div class=" card">
 									<div class="card-header">
 										<h5 class="card-title">Costos Productos</h5>
 									</div>
 									<div class="card-body pt-2">
-										<canvas id="charProductsCost"></canvas>
+										<canvas id="chartProductsCost"></canvas>
 										<div class="center-text">
 											<!-- <p class="text-muted mb-1 font-weight-600"></p> -->
 											<!-- <h4 class="mb-0 font-weight-bold"></h4> -->

@@ -28,6 +28,9 @@ require_once('../api/src/routes/config/routeProductsProcess.php');
 require_once('../api/src/routes/dashboard/routeDashboardGenerals.php');
 require_once('../api/src/routes/dashboard/routeDashboardProducts.php');
 
+// Double factor
+require_once('../api/src/routes/doubleFactor/routeDoubleFactor.php');
+
 // General
 require_once('../api/src/routes/general/routeExpenses.php');
 require_once('../api/src/routes/general/routeExpensesDistribution.php');

@@ -1,19 +1,18 @@
 /* Tiempo de procesos */
 graphicTimeProcessByProduct = (data) => {
     product = [];
-    // enlistmentTime = [];
-    // operationTime = [];
     totalTime = [];
+    // averageTotalTime = [];
 
     data.length > 10 ? (count = 10) : (count = data.length);
-
     for (i = 0; i < count; i++) {
         product.push(data[i].product);
         totalTime.push(data[i].totalTime);
+        // averageTotalTime[i] = data[i].totalTime / 100;
     }
-
     const cmc = document.getElementById('chartTimeProcessProducts');
     const chartTimeProcessProducts = new Chart(cmc, {
+        plugins: [ChartDataLabels],
         type: 'bar',
         data: {
             labels: product,
@@ -21,13 +20,12 @@ graphicTimeProcessByProduct = (data) => {
                 return context.chart.data.labels[context.dataIndex];
             },
             datasets: [{
-                //labels: ['Tiempo Enlistamiento', 'Tiempo Operacion'],
+                // labels: averageTotalTime,
                 data: totalTime,
                 backgroundColor: getRandomColor(count),
                 borderWidth: 1,
             }, ],
         },
-        //plugins: [ChartDataLabels],
         options: {
             scales: {
                 y: {
@@ -37,6 +35,15 @@ graphicTimeProcessByProduct = (data) => {
             plugins: {
                 legend: {
                     display: false,
+                },
+                datalabels: {
+                    anchor: 'end',
+                    formatter: (totalTime) => totalTime.toLocaleString(),
+                    color: 'black',
+                    font: {
+                        size: '14',
+                        weight: 'bold',
+                    },
                 },
             },
         },
@@ -55,10 +62,11 @@ graphicWorkforce = (data) => {
         totalCost = totalCost + minuteValue[i];
     }
 
-    $('#totalCostWorkforce').html(totalCost.toLocaleString('es-ES'));
+    $('#totalCostWorkforce').html(`$ ${totalCost.toFixed(2)}`);
 
-    const cmc = document.getElementById('charWorkForceGeneral');
-    const charWorkForceGeneral = new Chart(cmc, {
+    const cmc = document.getElementById('chartWorkForceGeneral');
+    const chartWorkForceGeneral = new Chart(cmc, {
+        plugins: [ChartDataLabels],
         type: 'doughnut',
         data: {
             labels: process,
@@ -72,11 +80,26 @@ graphicWorkforce = (data) => {
                 borderWidth: 1,
             }, ],
         },
-        plugins: [ChartDataLabels],
         options: {
             plugins: {
                 legend: {
                     display: false,
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map((data) => {
+                            sum += data;
+                        });
+                        let percentage = ((value * 100) / sum).toFixed(2) + '%';
+                        return percentage;
+                    },
+                    color: 'black',
+                    font: {
+                        size: '14',
+                        weight: 'bold',
+                    },
                 },
             },
         },
@@ -96,10 +119,11 @@ graphicsFactoryLoad = (data) => {
         totalCostMinute = totalCostMinute + costMinute[i];
     }
 
-    $('#factoryLoadCost').html(totalCostMinute.toLocaleString('es-ES'));
+    $('#factoryLoadCost').html(totalCostMinute.toFixed(2));
 
-    const cmc = document.getElementById('charFactoryLoadCost');
-    const charFactoryLoadCost = new Chart(cmc, {
+    const cmc = document.getElementById('chartFactoryLoadCost');
+    const chartFactoryLoadCost = new Chart(cmc, {
+        plugins: [ChartDataLabels],
         type: 'doughnut',
         data: {
             labels: machine,
@@ -113,11 +137,26 @@ graphicsFactoryLoad = (data) => {
                 borderWidth: 1,
             }, ],
         },
-        plugins: [ChartDataLabels],
         options: {
             plugins: {
                 legend: {
                     display: false,
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map((data) => {
+                            sum += data;
+                        });
+                        let percentage = ((value * 100) / sum).toFixed(2) + '%';
+                        return percentage;
+                    },
+                    color: 'black',
+                    font: {
+                        size: '14',
+                        weight: 'bold',
+                    },
                 },
             },
         },
@@ -134,11 +173,12 @@ graphicGeneralCost = (data) => {
         expenseCount.push(data[i].expenseCount);
         totalExpense = totalExpense + data[i].expenseCount;
     }
-    $('#totalCost').html(totalExpense.toLocaleString('es-ES'));
+    $('#totalCost').html(`$ ${totalExpense.toLocaleString('es-ES')}`);
 
     /* Grafico */
-    var cmo = document.getElementById('charExpensesGenerals');
-    var charExpensesGenerals = new Chart(cmo, {
+    var cmo = document.getElementById('chartExpensesGenerals');
+    var chartExpensesGenerals = new Chart(cmo, {
+        plugins: [ChartDataLabels],
         type: 'doughnut',
         data: {
             labels: [
@@ -153,36 +193,51 @@ graphicGeneralCost = (data) => {
                 borderWidth: 1,
             }, ],
         },
-        plugins: [ChartDataLabels],
         options: {
             plugins: {
                 legend: {
                     display: false,
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map((data) => {
+                            sum += data;
+                        });
+                        let percentage = ((value * 100) / sum).toFixed(2) + '%';
+                        return percentage;
+                    },
+                    color: 'black',
+                    font: {
+                        size: '14',
+                        weight: 'bold',
+                    },
                 },
             },
         },
     });
 };
 
-/* Indicadores globales */
+/* Indicadores globales 
 
 graphicProfit = (data) => {
-    const cmo = document.getElementById('charExpensesGenerals');
-    const charExpensesGenerals = new Chart(cmo, {
-        type: 'doughnut',
-        data: {
-            labels: ['Utilidad'],
-            datasets: [{
-                data: [
-                    data['expenseCount51'],
-                    data['expenseCount52'],
-                    data['expenseCount53'],
-                ],
+  const cmo = document.getElementById('chartExpensesGenerals');
+  const chartExpensesGenerals = new Chart(cmo, {
+    type: 'doughnut',
+    data: {
+      labels: ['Utilidad'],
+      datasets: [
+        {
+          data: [
+            data['expenseCount51'],
+            data['expenseCount52'],
+            data['expenseCount53'],
+          ],
 
-                backgroundColor: getRandomColor(3),
-                //borderColor: [],
-                borderWidth: 1,
-            }, ],
+          backgroundColor: getRandomColor(3),
+          //borderColor: [],
+          borderWidth: 1,
         },
         options: {
             plugins: {
@@ -191,8 +246,10 @@ graphicProfit = (data) => {
                 },
             },
         },
-    });
-};
+      },
+    },
+  });
+};*/
 
 // Rentabilidad y precio productos
 graphicProductCost = (data) => {
@@ -200,7 +257,7 @@ graphicProductCost = (data) => {
     profitability = [];
     price = [];
     cost = [];
-    debugger
+
     data.length > 10 ? (count = 10) : (count = data.length);
 
     for (i = 0; i < count; i++) {
@@ -208,8 +265,9 @@ graphicProductCost = (data) => {
         cost[i] = data[i].price / data[i].profitability;
     }
 
-    const cmc = document.getElementById('charProductsCost');
-    const charProductsCost = new Chart(cmc, {
+    const cmc = document.getElementById('chartProductsCost');
+    const chartProductsCost = new Chart(cmc, {
+        plugins: [ChartDataLabels],
         type: 'bar',
         data: {
             labels: product,
@@ -222,16 +280,32 @@ graphicProductCost = (data) => {
                 borderWidth: 1,
             }, ],
         },
-        //plugins: [ChartDataLabels],
         options: {
             scales: {
                 y: {
                     beginAtZero: true,
                 },
-            },
-            plugins: {
-                legend: {
-                    display: false,
+                //plugins: [ChartDataLabels],
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    },
+                },
+                datalabels: {
+                    anchor: 'end',
+                    formatter: (cost) => cost.toLocaleString(),
+                    color: 'black',
+                    font: {
+                        size: '14',
+                        weight: 'bold',
+                    },
                 },
             },
         },
