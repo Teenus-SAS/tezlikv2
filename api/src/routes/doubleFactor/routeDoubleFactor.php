@@ -16,9 +16,14 @@ $app->get('/sendEmail', function (Request $request, Response $response, $args) u
 
     // Crear codigo y enviarlo en email
     $code = $sendCodeDao->NewCode();
-    $sendCodeDao->SendCodeByEmail($code, $user);
+    $sendCode = $sendCodeDao->SendCodeByEmail($code, $user);
     // Guardar codigo
     $_SESSION['code'] = $code;
+
+    if ($sendCode == null) $resp = array('success' => true);
+
+    $response->getBody()->write(json_encode($resp, JSON_NUMERIC_CHECK));
+    return $response->withHeader('Content-Type', 'application/json');
 });
 
 /* Verificar codigo */

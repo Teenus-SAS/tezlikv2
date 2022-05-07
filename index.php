@@ -29,7 +29,7 @@
      <script src="assets/libs/html5shiv/js/html5shiv.js"></script>
      <script src="assets/libs/respondjs/js/respond.min.js"></script>
   <![endif]-->
-  
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet">
 </head>
 
@@ -127,6 +127,7 @@
   <!-- ================== BEGIN PAGE JS ================== -->
   <script src="app/assets/js/app.js"></script>
   <script src="app/js/login/autentication.js"></script>
+  <script src="app/js/login/code.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 

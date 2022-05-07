@@ -18,14 +18,16 @@ class SendCodeDao
 
     public function NewCode()
     {
-        $cadena = "0123456789";
-        $longitudCadena = strlen($cadena);
-        $new_code = "";
-        //$longitudPass = 6;
+        // $cadena = "0123456789";
+        // $longitudCadena = strlen($cadena);
+        // $new_code = "";
+        // //$longitudPass = 6;
 
-        // for ($i = 1; $i <= $longitudPass; $i++) {
-        $pos = rand(0, $longitudCadena - 1);
-        $new_code .= substr($cadena, $pos, 1);
+        // // for ($i = 1; $i <= $longitudPass; $i++) {
+        // $pos = rand(0, $longitudCadena - 1);
+        // $new_code .= substr($cadena, $pos, 1);
+
+        $new_code = mt_rand(00000, 99999);
 
 
         /* Enviar $new_pass */
@@ -52,7 +54,7 @@ class SendCodeDao
         $headers .= "From: SoporteTeenus <soporte@teenus.com.co>" . "\r\n";
 
         // send email
-        mail($to, "Soporte", $msg, $headers);
+        mail($to, $msg, $headers);
     }
 
     /* public function CheckCode($dataCheck)

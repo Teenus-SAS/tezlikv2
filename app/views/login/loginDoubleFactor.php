@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="form-group text-center" style="display:flex;justify-content:center">
-                                    <button class="btn btn-primary btn-block" data-effect="wave" type="submit" style="width:100px">Enviar</button>
+                                    <button class="btn btn-primary btn-block" data-effect="wave" type="submit" style="width:100px" id="btnCheckCode">Enviar</button>
                                 </div>
 
                                 <div class="form-group">
@@ -73,6 +73,7 @@
     </div>
     <!-- end container -->
     </div>
+    <script src="../../app/js/code/checkCode.js"></script>
     <!-- Page End -->
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="assets/js/vendor.min.js"></script>
