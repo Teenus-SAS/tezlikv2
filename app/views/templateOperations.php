@@ -205,7 +205,7 @@ $userinactivetimeDao->findSession();
 							<div class="col-md-4 col-lg-7" style="height: fit-content;">
 								<div class="card">
 									<div class="card-header">
-										<h5 class="card-title">Tiempos de Proceso por Producto</h5>
+										<h5 class="card-title">Tiempo Total de Fabricación por Producto (min)</h5>
 									</div>
 									<div class="card-body pt-2">
 										<!-- <div id="stats-chart"></div> -->

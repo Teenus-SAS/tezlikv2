@@ -70,7 +70,10 @@ $(document).ready(function() {
                 if (data.error) {
                     toastr.error(data.message);
                     return false;
-                } else if (data.success) location.href = "../../app/";
+                } else if (data.success) {
+
+                    location.href = "../../app/";
+                }
             },
         });
     };

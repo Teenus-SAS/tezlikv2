@@ -91,7 +91,7 @@ $app->post('/userAutentication', function (Request $request, Response $response,
 
 $app->get('/logout', function (Request $request, Response $response, $args) use ($statusActiveUserDao) {
     session_start();
-    $statusActiveUserDao->changeStatusUserLogin();
+    //$statusActiveUserDao->changeStatusUserLogin();
     session_destroy();
     $response->getBody()->write(json_encode("1", JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');

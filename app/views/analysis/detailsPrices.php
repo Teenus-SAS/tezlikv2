@@ -1,7 +1,6 @@
 <?php
 
 use tezlikv2\dao\UserInactiveTimeDao;
-
 require_once dirname(dirname(dirname(__DIR__))) . "/api/src/dao/login/UserInactiveTimeDao.php";
 $userinactivetimeDao = new UserInactiveTimeDao();
 $userinactivetimeDao->findSession();
