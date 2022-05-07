@@ -65,9 +65,6 @@ $app->post('/userAutentication', function (Request $request, Response $response,
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
 
-    /* Doble autenticacion */
-
-
     /* Nueva session */
     session_start();
     $_SESSION['active'] = true;
@@ -79,12 +76,23 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION['id_company'] = $user['id_company'];
     $_SESSION["time"] = time();
 
-    /* Modificar el estado de la sesion del usuario en BD */
+    /* Genera codigo */
+    $code = $autenticationDao->GenerateCode();
+    $_SESSION["code"] = $code;
+
+    /* Envio el codigo por email */
+    $autenticationDao->SendEmailCode();
+
+        /* Modificar el estado de la sesion del usuario en BD */
     //$statusActiveUserDao->changeStatusUserLogin();
 
-    $resp = array('success' => true, 'message' => 'access granted');
+    $resp = array('success' => true, 'message' => 'Ingresar código');
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+    
+    /* $resp = array('success' => true, 'message' => 'access granted');
+    $response->getBody()->write(json_encode($resp));
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json'); */
 });
 
 /* Logout */
