@@ -42,15 +42,9 @@ class PassUserDao
 
         if ($rows > 0) {
 
-            $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            $longitudCadena = strlen($cadena);
-            $new_pass = "";
-            $longitudPass = 6;
+            $generateCodeDao = new GenerateCodeDao();
 
-            for ($i = 1; $i <= $longitudPass; $i++) {
-                $pos = rand(0, $longitudCadena - 1);
-                $new_pass .= substr($cadena, $pos, 1);
-            }
+            $new_pass = $generateCodeDao->GenerateCode();
 
             /* actualizar $pass en la DB */
             $pass = password_hash($new_pass, PASSWORD_DEFAULT);

@@ -3,17 +3,21 @@
 use tezlikv2\dao\AutenticationUserDao;
 use tezlikv2\dao\LicenseCompanyDao;
 use tezlikv2\dao\StatusActiveUserDao;
+use tezlikv2\dao\GenerateCodeDao;
+use tezlikv2\dao\SendEmailDao;
 
 $licenseDao = new LicenseCompanyDao();
 $autenticationDao = new AutenticationUserDao();
 $statusActiveUserDao = new StatusActiveUserDao();
+$generateCodeDao = new GenerateCodeDao();
+$sendEmailDao = new SendEmailDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Autenticación */
 
-$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $statusActiveUserDao) {
+$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $statusActiveUserDao, $generateCodeDao, $sendEmailDao) {
     $parsedBody = $request->getParsedBody();
 
     $user = $parsedBody["validation-email"];
@@ -77,19 +81,19 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION["time"] = time();
 
     /* Genera codigo */
-    //$code = $autenticationDao->GenerateCode();
-    //$_SESSION["code"] = $code;
+    $code = $generateCodeDao->GenerateCode();
+    $_SESSION["code"] = $code;
 
     /* Envio el codigo por email */
-    //$autenticationDao->SendEmailCode();
+    $sendEmailDao->SendEmailCode($code, $user);
 
-        /* Modificar el estado de la sesion del usuario en BD */
+    /* Modificar el estado de la sesion del usuario en BD */
     //$statusActiveUserDao->changeStatusUserLogin();
 
     $resp = array('success' => true, 'message' => 'Ingresar código');
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
-    
+
     /* $resp = array('success' => true, 'message' => 'access granted');
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json'); */

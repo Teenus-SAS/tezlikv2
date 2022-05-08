@@ -53,7 +53,7 @@ $(document).ready(function() {
                 data[obj.name] = obj.value;
             });
             /* alert("Data has been submitted. Please see console log");
-                        console.log("form data ===>", data); */
+                              console.log("form data ===>", data); */
             login(data);
             $(form)[0].reset();
             $('.floating-label').removeClass('enable-floating-label');
@@ -71,29 +71,31 @@ $(document).ready(function() {
                     return false;
                 } else if (data.success) {
                     //Enviar a intefaz doble factor
-                    location.href = '../../app/';
+                    debugger;
+                    location.href = '../../app/auth';
                 }
             },
         });
     };
 
+    // const validationCode = () => {
+    $('#btnCheckCode').click(function(e) {
+        e.preventDefault();
 
-    const validationCode = () => {
         codeUser = $('#factor').val();
         $.ajax({
-            type: "POST",
-            url: "/api/checkCode",
+            type: 'POST',
+            url: '/api/checkCode',
             data: codeUser,
-            success: function(response) {
+            success: function(data) {
                 if (data.error) {
                     toastr.error(data.message);
                     return false;
                 } else if (data.success) {
                     location.href = '../../app/';
                 }
-            }
+            },
         });
-    }
-
-
+    });
+    // };
 });
