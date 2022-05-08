@@ -77,11 +77,11 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION["time"] = time();
 
     /* Genera codigo */
-    $code = $autenticationDao->GenerateCode();
-    $_SESSION["code"] = $code;
+    //$code = $autenticationDao->GenerateCode();
+    //$_SESSION["code"] = $code;
 
     /* Envio el codigo por email */
-    $autenticationDao->SendEmailCode();
+    //$autenticationDao->SendEmailCode();
 
         /* Modificar el estado de la sesion del usuario en BD */
     //$statusActiveUserDao->changeStatusUserLogin();

@@ -69,10 +69,13 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     if ($dataProducts > 1) {
         $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
         $lastProductId = $productsDao->lastInsertedProductId($id_company);
-        $imgProducts = $productsDao->imageProduct($lastProductId['id_product'], $id_company);
+
+        if (sizeof($_FILES) > 0)
+            $productsDao->imageProduct($lastProductId['id_product'], $id_company); 
+
         $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
 
-        if ($products == null && $imgProducts == null && $productsCost == null)
+        if ($products == null &&  $productsCost == null)
             $resp = array('success' => true, 'message' => 'Producto creado correctamente');
         else
             $resp = array('error' => true, 'message' => 'Ocurrió un error mientras ingresaba la información. Intente nuevamente');

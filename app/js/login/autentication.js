@@ -71,6 +71,7 @@ $(document).ready(function() {
                     return false;
                 } else if (data.success) {
                     //Enviar a intefaz doble factor
+                    location.href = '../../app/';
                 }
             },
         });

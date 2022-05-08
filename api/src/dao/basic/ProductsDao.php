@@ -54,7 +54,7 @@ class ProductsDao
   {
     $connection = Connection::getInstance()->getConnection();
 
-    if (empty($dataProduct['img'])) {
+    /* if (!empty($dataProduct['img'])) { */
       try {
         $stmt = $connection->prepare("INSERT INTO products(id_company, reference, product) 
                                       VALUES(:id_company, :reference, :product)");
@@ -72,7 +72,7 @@ class ProductsDao
         $error = array('info' => true, 'message' => $message);
         return $error;
       }
-    } else {
+    /* } else {
       $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, img) 
                                     VALUES(:id_company, :reference, :product, :img)");
       $stmt->execute([
@@ -82,7 +82,7 @@ class ProductsDao
         'img' => $dataProduct['img']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    }
+    } */
   }
 
   /* Actualizar producto */
@@ -129,12 +129,10 @@ class ProductsDao
     $type       = $_FILES['img']['type'];
     $error      = $_FILES['img']['error'];
 
-    if (!file_exists($targetDir)) {
+    if (!is_dir($targetDir)) 
       mkdir($targetDir, 0777, true);
-    }
-
+    
     $targetFilePath = $targetDir . '/' . $image_name;
-
 
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 

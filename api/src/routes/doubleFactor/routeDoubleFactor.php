@@ -1,9 +1,9 @@
 <?php
 
-use tezlikv2\dao\SendCodeDao;
+/* use tezlikv2\dao\SendCodeDao;
 
 $sendCodeDao = new SendCodeDao();
-
+ */
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
