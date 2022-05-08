@@ -72,7 +72,8 @@ $(document).ready(function() {
                 } else if (data.success) {
                     //Enviar a intefaz doble factor
                     debugger;
-                    location.href = '../../app/auth';
+                    location.href = '../../app/';
+                    //location.href = '../../app/auth';
                 }
             },
         });

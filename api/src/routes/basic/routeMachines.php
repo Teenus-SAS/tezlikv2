@@ -41,14 +41,10 @@ $app->post('/machinesDataValidation', function (Request $request, Response $resp
             $machine = $machines[$i]['machine'];
             $cost = $machines[$i]['cost'];
             $yearsDepreciacion = $machines[$i]['depreciationYears'];
-            $residualValue = $machines[$i]['residualValue'];
             $hoursMachine = $machines[$i]['hoursMachine'];
             $daysMachine = $machines[$i]['daysMachine'];
 
-            if (
-                empty($machine) || empty($cost) || empty($yearsDepreciacion) || empty($residualValue) ||
-                $hoursMachine <= 0 || $daysMachine <= 0
-            ) {
+            if (empty($machine) || empty($cost) || empty($yearsDepreciacion) || $hoursMachine <= 0 || $daysMachine <= 0) {
                 $dataImportMachine = array('error' => true, 'message' => 'Ingrese todos los datos');
                 // $dataImportMachine = array('error' => true, 'message' => 'Verifique que los campos dias y horas maquina sean mayor a cero');
                 break;
@@ -78,7 +74,7 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
         $machines = $machinesDao->insertMachinesByCompany($dataMachine, $id_company);
 
         // Calcular depreciacion por minuto
-        $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($dataMachine['machine']);
+        $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($dataMachine['machine'], $id_company);
 
         if ($machines == null && $minuteDepreciation == null)
             $resp = array('success' => true, 'message' => 'Maquina creada correctamente');
@@ -91,17 +87,21 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
 
             $machine = $machinesDao->findMachine($machines[$i], $id_company);
 
-            if (!$machine)
+            if (!$machine) {
                 $resolution = $machinesDao->insertMachinesByCompany($machines[$i], $id_company);
-            else {
+                if ($resolution['info'] == true)
+                    break;
+            } else {
                 $machines[$i]['idMachine'] = $machine['id_machine'];
                 $resolution = $machinesDao->updateMachine($machines[$i]);
             }
             // Calcular depreciacion por minuto
-            $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($machines[$i]['machine']);
+            $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationImportedByMachine($machines[$i], $id_company);
         }
         if ($resolution == null && $minuteDepreciation == null)
             $resp = array('success' => true, 'message' => 'Maquina Importada correctamente');
+        else if ($resolution['info'] == 'true')
+            $resp = $resp = array('info' => true, 'message' => 'No pueden existir máquinas con el mismo nombre. Modifiquelas y vuelva a intentarlo');
         else
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importaba la información. Intente nuevamente');
     }
@@ -125,7 +125,7 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
         $machines = $machinesDao->updateMachine($dataMachine);
 
         // Calcular depreciacion por minuto
-        $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($dataMachine['machine']);
+        $minuteDepreciation = $minuteDepreciationDao->calcMinuteDepreciationByMachine($dataMachine['machine'], $id_company);
 
         // Calcular costo indirecto
         $indirectCost = $indirectCostDao->calcCostIndirectCostByMachine($dataMachine, $id_company);

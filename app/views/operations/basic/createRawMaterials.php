@@ -36,7 +36,7 @@ $userinactivetimeDao->findSession();
                         <form name="formCreateMaterial" id="formCreateMaterial">
                             <div class="gridx5">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control" id="refRawMaterial" name="refRawMaterial">
+                                    <input type="text" class="form-control text-center" id="refRawMaterial" name="refRawMaterial">
                                     <label for="">Referencia</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">

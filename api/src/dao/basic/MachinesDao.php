@@ -37,7 +37,7 @@ class MachinesDao
     $stmt = $connection->prepare("SELECT id_machine FROM machines
                                  WHERE machine = :machine AND id_company = :id_company");
     $stmt->execute([
-      'machine' => $dataMachine['machine'],
+      'machine' => ucfirst(strtolower($dataMachine['machine'])),
       'id_company' => $id_company
     ]);
     $findMachine = $stmt->fetch($connection::FETCH_ASSOC);

@@ -55,23 +55,23 @@ class ProductsDao
     $connection = Connection::getInstance()->getConnection();
 
     /* if (!empty($dataProduct['img'])) { */
-      try {
-        $stmt = $connection->prepare("INSERT INTO products(id_company, reference, product) 
+    try {
+      $stmt = $connection->prepare("INSERT INTO products(id_company, reference, product) 
                                       VALUES(:id_company, :reference, :product)");
-        $stmt->execute([
-          'id_company' => $id_company,
-          'reference' => $dataProduct['referenceProduct'],
-          'product' => ucfirst(strtolower($dataProduct['product']))
-        ]);
+      $stmt->execute([
+        'id_company' => $id_company,
+        'reference' => $dataProduct['referenceProduct'],
+        'product' => ucfirst(strtolower($dataProduct['product']))
+      ]);
 
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-      } catch (\Exception $e) {
-        $message = $e->getMessage();
-        if ($e->getCode() == 23000)
-          $message = 'Referencia duplicada. Ingrese una nueva referencia';
-        $error = array('info' => true, 'message' => $message);
-        return $error;
-      }
+      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+    } catch (\Exception $e) {
+      $message = $e->getMessage();
+      if ($e->getCode() == 23000)
+        $message = 'Referencia duplicada. Ingrese una nueva referencia';
+      $error = array('info' => true, 'message' => $message);
+      return $error;
+    }
     /* } else {
       $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, img) 
                                     VALUES(:id_company, :reference, :product, :img)");
@@ -120,7 +120,7 @@ class ProductsDao
   public function imageProduct($id_product, $id_company)
   {
     $connection = Connection::getInstance()->getConnection();
-    $targetDir = '/app/assets/images/products/' . $id_company;
+    $targetDir = dirname(dirname(dirname(dirname(__DIR__)))) . '/app/assets/images/products/' . $id_company;
     $allowTypes = array('jpg', 'jpeg', 'png');
 
     $image_name = $_FILES['img']['name'];
@@ -129,9 +129,12 @@ class ProductsDao
     $type       = $_FILES['img']['type'];
     $error      = $_FILES['img']['error'];
 
-    if (!is_dir($targetDir)) 
+
+    /* Verifica si directorio esta creado y lo crea */
+    if (!is_dir($targetDir))
       mkdir($targetDir, 0777, true);
-    
+
+    $targetDir = '/app/assets/images/products/' . $id_company;
     $targetFilePath = $targetDir . '/' . $image_name;
 
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
@@ -140,6 +143,10 @@ class ProductsDao
       $sql = "UPDATE products SET img = :img WHERE id_product = :id_product AND id_company = :id_company";
       $query = $connection->prepare($sql);
       $query->execute(['img' => $targetFilePath, 'id_product' => $id_product, 'id_company' => $id_company]);
+
+      $targetDir = dirname(dirname(dirname(dirname(__DIR__)))) . '/app/assets/images/products/' . $id_company;
+      $targetFilePath = $targetDir . '/' . $image_name;
+
       move_uploaded_file($tmp_name, $targetFilePath);
     }
   }

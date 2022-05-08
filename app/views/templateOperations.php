@@ -56,13 +56,31 @@ $userinactivetimeDao->findSession();
 					<div class="container-fluid">
 						<!-- Widget  -->
 						<div class="row">
-							<div class="col-md-6 col-xl-3">
+							<div class="col-md-6 col-xl-2">
 								<div class="card">
 									<div class="card-body">
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Productos</span>
 												<h2 class="mb-0 mt-1" id="products"></h2>
+											</div>
+											<div class="text-center">
+												<!-- <div id="t-rev"></div>
+												<span class="text-success font-weight-bold font-size-13">
+													<i class="bx bx-up-arrow-alt"></i> 10.21%
+												</span> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-xl-2">
+								<div class="card">
+									<div class="card-body">
+										<div class="media align-items-center">
+											<div class="media-body">
+												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Materias Primas</span>
+												<h2 class="mb-0 mt-1" id="materials">1.500</h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-rev"></div>
@@ -110,7 +128,7 @@ $userinactivetimeDao->findSession();
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6 col-xl-3">
+							<div class="col-md-6 col-xl-2">
 								<div class="card">
 									<div class="card-body">
 										<div class="media align-items-center">

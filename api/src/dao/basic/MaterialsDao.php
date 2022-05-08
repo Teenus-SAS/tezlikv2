@@ -58,7 +58,7 @@ class MaterialsDao
         'id_company' => $id_company,
         'reference' => $dataMaterial['refRawMaterial'],
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
-        'unit' => $dataMaterial['unityRawMaterial'],
+        'unit' => ucfirst(strtolower($dataMaterial['unityRawMaterial'])),
         'cost' => $costRawMaterial
       ]);
 
@@ -87,7 +87,7 @@ class MaterialsDao
         'id_material' => $dataMaterial['idMaterial'],
         'reference' => $dataMaterial['refRawMaterial'],
         'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
-        'unit' => strtoupper($dataMaterial['unityRawMaterial']),
+        'unit' => ucfirst(strtolower($dataMaterial['unityRawMaterial'])),
         'cost' => $costRawMaterial
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
