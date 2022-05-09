@@ -23,20 +23,13 @@ class ProductsCostDao
     {
         $connection = Connection::getInstance()->getConnection();
 
-        /* Obtener id_product agregado */
-        $stmt = $connection->prepare("SELECT MAX(id_product) AS idProduct FROM products WHERE id_company = :id_company");
-        $stmt->execute(['id_company' => $id_company]);
-        $product = $stmt->fetch($connection::FETCH_ASSOC);
-
-        /* Insertar datos */
         $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability, commission_sale) 
                                         VALUES (:id_product, :id_company, :profitability, :commission_sale)");
         $stmt->execute([
-            'id_product' => $product['idProduct'],
+            'id_product' => $dataProduct['idProduct'],
             'id_company' => $id_company,
             'profitability' => $dataProduct['profitability'],
             'commission_sale' => $dataProduct['commissionSale']
-
         ]);
     }
     /* Actualizar products_costs */

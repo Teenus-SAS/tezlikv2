@@ -22,6 +22,9 @@
 <!-- Datatables -->
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://unpkg.com/file-saverjs@latest/FileSaver.min.js"></script>
+<script src="https://unpkg.com/tableexport@latest/dist/js/tableexport.min.js"></script>
+<script src="https://unpkg.com/xlsx@latest/dist/xlsx.full.min.js"></script>
 
 <!-- Notifications -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
@@ -31,7 +34,7 @@
 
 <!-- xlsx -->
 <!-- <script lang="javascript" src="/app/assets/libs/xlsx/xlsx.full.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script> -->
 
 <!-- Charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js" integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

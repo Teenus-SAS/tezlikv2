@@ -93,7 +93,7 @@ $(document).ready(function () {
                 sum += data;
               });
               let percentage = ((value * 100) / sum).toFixed(2) + '%';
-              return percentage;
+              return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
             },
             color: 'black',
             font: {
@@ -145,7 +145,7 @@ $(document).ready(function () {
                 sum += data;
               });
               let percentage = ((value * 100) / sum).toFixed(2) + '%';
-              return percentage;
+              return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
             },
             color: 'black',
             font: {

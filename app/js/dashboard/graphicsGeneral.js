@@ -35,10 +35,7 @@ graphicTimeProcessByProduct = (data) => {
       },
       plugins: {
         legend: {
-          display: true,
-          //label: product,
-          position: 'right',
-          align: 'middle',
+          display: false,
         },
         datalabels: {
           anchor: 'end',
@@ -79,7 +76,7 @@ graphicWorkforce = (data) => {
       },
       datasets: [
         {
-          // label: process,
+          //label: process,
           data: minuteValue,
           backgroundColor: getRandomColor(data.length),
           //borderColor: [],
@@ -88,20 +85,12 @@ graphicWorkforce = (data) => {
       ],
     },
     options: {
+      tooltips: {
+        enabled: false,
+      },
       plugins: {
         legend: {
           display: false,
-          /*label: process,
-          position: 'right',
-          align: 'middle',
-          labels: {
-            boxWidth: 20,
-            color: 'black',
-            font: {
-              size: '14',
-              weight: 'bold',
-            },
-          },*/
         },
         datalabels: {
           formatter: (value, ctx) => {
@@ -111,7 +100,7 @@ graphicWorkforce = (data) => {
               sum += data;
             });
             let percentage = ((value * 100) / sum).toFixed(2) + '%';
-            return percentage;
+            return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
           },
           color: 'black',
           font: {
@@ -170,7 +159,7 @@ graphicsFactoryLoad = (data) => {
               sum += data;
             });
             let percentage = ((value * 100) / sum).toFixed(2) + '%';
-            return percentage;
+            return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
           },
           color: 'black',
           font: {
@@ -228,7 +217,7 @@ graphicGeneralCost = (data) => {
               sum += data;
             });
             let percentage = ((value * 100) / sum).toFixed(2) + '%';
-            return percentage;
+            return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
           },
           color: 'black',
           font: {
@@ -309,18 +298,11 @@ graphicProductCost = (data) => {
         y: {
           beginAtZero: true,
         },
-        //plugins: [ChartDataLabels],
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
+      },
+      //plugins: [ChartDataLabels],
+      plugins: {
+        legend: {
+          display: false,
         },
         datalabels: {
           anchor: 'end',

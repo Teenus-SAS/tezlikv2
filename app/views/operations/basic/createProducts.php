@@ -57,11 +57,11 @@ $userinactivetimeDao->findSession();
                             <!-- <form id="formCreateProduct"> -->
                             <div class="gridx4rp">
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-top:0px!important">
-                                    <input type="text" class="form-control text-center" name="profitability" id="profitability">
+                                    <input type="number" class="form-control text-center" name="profitability" id="profitability">
                                     <label for="">Rentabilidad(%)</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control text-center" name="commissionSale" id="commisionSale">
+                                    <input type="number" class="form-control text-center" name="commissionSale" id="commisionSale">
                                     <label for="">Comisión de Ventas(%)</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
@@ -100,7 +100,7 @@ $userinactivetimeDao->findSession();
                                     <button type="text" class="btn btn-success" id="btnImportProducts">Importar</button>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsProducts">Descarga Formato</button>
+                                    <button type="text" class="btn btn-info" id="btnDownloadImportsProducts">Descarga Formato</button>
                                 </div>
                             </div>
                         </div>

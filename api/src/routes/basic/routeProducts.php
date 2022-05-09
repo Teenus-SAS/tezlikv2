@@ -71,8 +71,9 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
         $lastProductId = $productsDao->lastInsertedProductId($id_company);
 
         if (sizeof($_FILES) > 0)
-            $productsDao->imageProduct($lastProductId['id_product'], $id_company); 
+            $productsDao->imageProduct($lastProductId['id_product'], $id_company);
 
+        $dataProduct['idProduct'] = $lastProductId['id_product'];
         $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
 
         if ($products == null &&  $productsCost == null)

@@ -48,7 +48,8 @@ class ProductsMaterialsDao
     public function insertProductsMaterialsByCompany($dataProductMaterial, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $quantity = str_replace('.', '', $dataProductMaterial['quantity']);
+
+        // $quantity = $this->decimalsQuantity($dataProductMaterial);
 
         try {
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
@@ -57,7 +58,7 @@ class ProductsMaterialsDao
                 'id_material' => $dataProductMaterial['material'],
                 'id_company' => $id_company,
                 'id_product' => $dataProductMaterial['idProduct'],
-                'quantity' => $quantity
+                'quantity' => $dataProductMaterial['quantity']
             ]);
 
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -72,7 +73,7 @@ class ProductsMaterialsDao
     public function updateProductsMaterials($dataProductMaterial)
     {
         $connection = Connection::getInstance()->getConnection();
-        $quantity = str_replace('.', '', $dataProductMaterial['quantity']);
+        //$quantity = $this->decimalsQuantity($dataProductMaterial);
 
         try {
             $stmt = $connection->prepare("UPDATE products_materials SET id_material = :id_material, id_product = :id_product, quantity = :quantity
@@ -81,7 +82,7 @@ class ProductsMaterialsDao
                 'id_product_material' => $dataProductMaterial['idProductMaterial'],
                 'id_material' => $dataProductMaterial['material'],
                 'id_product' => $dataProductMaterial['idProduct'],
-                'quantity' => $quantity
+                'quantity' => $dataProductMaterial['quantity']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {
@@ -106,4 +107,12 @@ class ProductsMaterialsDao
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
     }
+
+    /* public function decimalsQuantity($dataProductMaterial)
+    {
+        if (ctype_digit($dataProductMaterial['quantity'])) $quantity = str_replace('.', '', $dataProductMaterial['quantity']);
+        else $quantity = $dataProductMaterial['quantity'];
+
+        return $quantity;
+    }*/
 }

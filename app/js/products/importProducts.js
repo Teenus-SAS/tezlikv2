@@ -103,6 +103,30 @@ $(document).ready(function () {
     });
   };
 
+  /* Descargar formato */
+  $('#btnDownloadImportsProducts').click(function (e) {
+    e.preventDefault();
+    debugger;
+    tabla = document.querySelector('#tblProducts');
+
+    let tableExport = new TableExport(tabla, {
+      exportButtons: false,
+      filename: 'Productos',
+      sheetname: 'Hoja 1',
+    });
+    let datos = tableExport.getExportData();
+    let preferenciasDocumento = datos.tabla.xlsx;
+    tableExport.export2file(
+      preferenciasDocumento.data,
+      preferenciasDocumento.mimeType,
+      preferenciasDocumento.filename,
+      preferenciasDocumento.fileExtension,
+      preferenciasDocumento.merges,
+      preferenciasDocumento.RTL,
+      preferenciasDocumento.sheetname
+    );
+  });
+
   /* Mensaje de exito */
 
   message = (data) => {
