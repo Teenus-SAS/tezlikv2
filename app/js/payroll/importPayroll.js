@@ -108,4 +108,20 @@ $(document).ready(function () {
       },
     });
   };
+
+  $('#btnDownloadImportsPayroll').click(function (e) {
+    e.preventDefault();
+
+    url = 'assets/formatsXlsx/Carga_Nomina.xlsx';
+
+    link = document.createElement('a');
+    link.target = '_blank';
+
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    delete link;
+  });
 });

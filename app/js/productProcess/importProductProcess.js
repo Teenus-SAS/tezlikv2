@@ -102,4 +102,21 @@ $(document).ready(function () {
       },
     });
   };
+
+  /* Descargar formato */
+  $('#btnDownloadImportsProductsProcess').click(function (e) {
+    e.preventDefault();
+
+    url = 'assets/formatsXlsx/Productos_Procesos.xlsx';
+
+    link = document.createElement('a');
+    link.target = '_blank';
+
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    delete link;
+  });
 });

@@ -79,7 +79,7 @@ $userinactivetimeDao->findSession();
                                     <button type="text" class="btn btn-success" id="btnImportMaterials">Importar</button>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-info" id="btnDownloadFormatImportsMaterials">Descarga Formato</button>
+                                    <button type="text" class="btn btn-info" id="btnDownloadImportsMaterials">Descarga Formato</button>
                                 </div>
                             </div>
                         </div>

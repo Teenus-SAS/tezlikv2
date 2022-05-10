@@ -101,4 +101,21 @@ $(document).ready(function () {
       },
     });
   };
+
+  /* Descargar formato */
+  $('#btnDownloadImportsDistributionExpenses').click(function (e) {
+    e.preventDefault();
+
+    url = 'assets/formatsXlsx/Distribucion_Gastos.xlsx';
+
+    link = document.createElement('a');
+    link.target = '_blank';
+
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    delete link;
+  });
 });

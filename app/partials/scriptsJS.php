@@ -23,7 +23,7 @@
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://unpkg.com/file-saverjs@latest/FileSaver.min.js"></script>
-<script src="https://unpkg.com/tableexport@latest/dist/js/tableexport.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script> -->
 <script src="https://unpkg.com/xlsx@latest/dist/xlsx.full.min.js"></script>
 
 <!-- Notifications -->

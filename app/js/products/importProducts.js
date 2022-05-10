@@ -106,25 +106,18 @@ $(document).ready(function () {
   /* Descargar formato */
   $('#btnDownloadImportsProducts').click(function (e) {
     e.preventDefault();
-    debugger;
-    tabla = document.querySelector('#tblProducts');
 
-    let tableExport = new TableExport(tabla, {
-      exportButtons: false,
-      filename: 'Productos',
-      sheetname: 'Hoja 1',
-    });
-    let datos = tableExport.getExportData();
-    let preferenciasDocumento = datos.tabla.xlsx;
-    tableExport.export2file(
-      preferenciasDocumento.data,
-      preferenciasDocumento.mimeType,
-      preferenciasDocumento.filename,
-      preferenciasDocumento.fileExtension,
-      preferenciasDocumento.merges,
-      preferenciasDocumento.RTL,
-      preferenciasDocumento.sheetname
-    );
+    url = 'assets/formatsXlsx/Productos.xlsx';
+
+    link = document.createElement('a');
+    link.target = '_blank';
+
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    delete link;
   });
 
   /* Mensaje de exito */

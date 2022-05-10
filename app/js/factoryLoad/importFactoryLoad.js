@@ -99,4 +99,21 @@ $(document).ready(function () {
       },
     });
   };
+
+  /* Descargar formato */
+  $('#btnDownloadImportsFactoryLoad').click(function (e) {
+    e.preventDefault();
+
+    url = 'assets/formatsXlsx/Carga_Fabril.xlsx';
+
+    link = document.createElement('a');
+    link.target = '_blank';
+
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    delete link;
+  });
 });
