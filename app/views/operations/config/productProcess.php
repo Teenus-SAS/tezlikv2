@@ -69,6 +69,9 @@ $userinactivetimeDao->findSession();
                                 <button class="btn btn-success" id="btnAddProcess">Adicionar</button>
                             </div>
                         </form>
+                        <div class="alert alert-warning mt-3" role="alert">
+                            Active los procesos creando la nomina antes de asignar los procesos y máquinas para un producto.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,6 +97,9 @@ $userinactivetimeDao->findSession();
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
                                     <button type="text" class="btn btn-info" id="btnDownloadImportsProductsProcess">Descarga Formato</button>
                                 </div>
+                            </div>
+                            <div class="alert alert-warning" role="alert">
+                                Active los procesos creando la nomina antes de asignar los procesos y máquinas para un producto.
                             </div>
                         </div>
                     </div>

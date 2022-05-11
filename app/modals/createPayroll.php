@@ -102,7 +102,7 @@
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group floating-label enable-floating-label show-label">
                                                 <select id="typeFactor" name="typeFactor" type="number" class="form-control">
-                                                    <option value="0">Seleccionar</option>
+                                                    <option selected disabled value="0" >Seleccionar</option>
                                                     <option value="1">Nómina</option>
                                                     <option value="2">Servicios</option>
                                                     <option value="3">Calculo Manual</option>
