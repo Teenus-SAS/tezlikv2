@@ -39,10 +39,12 @@ class ProductsDao
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT id_product FROM products
-                                  WHERE reference = :reference AND product = :product AND id_company = :id_company");
+                                  WHERE reference = :reference
+                                  AND product = :product 
+                                  AND id_company = :id_company");
     $stmt->execute([
       'reference' => $dataProduct['referenceProduct'],
-      'product' => $dataProduct['product'],
+      'product' => ucfirst(strtolower($dataProduct['product'])),
       'id_company' => $id_company
     ]);
     $findProduct = $stmt->fetch($connection::FETCH_ASSOC);

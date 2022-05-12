@@ -2,6 +2,7 @@ $(document).ready(function () {
   /* Seleccion producto */
 
   $('#refProduct').change(function (e) {
+    debugger;
     e.preventDefault();
     id = this.value;
     $(`#selectNameProduct option[value=${id}]`).prop('selected', true);
@@ -56,13 +57,13 @@ $(document).ready(function () {
           title: 'Cantidad',
           data: 'quantity',
           className: 'classCenter',
-          render: $.fn.dataTable.render.number('.', ',', 0, ''),
+          render: $.fn.dataTable.render.number('.', ',', 2, ''),
         },
         {
           title: 'Precio Unitario',
           data: 'cost',
           className: 'classCenter',
-          render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
+          render: $.fn.dataTable.render.number('.', ',', 2, '$ '),
         },
         {
           title: 'Acciones',

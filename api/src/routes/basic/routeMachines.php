@@ -63,6 +63,8 @@ $app->post('/machinesDataValidation', function (Request $request, Response $resp
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+
+/* Agregar Maquinas */
 $app->post('/addMachines', function (Request $request, Response $response, $args) use ($machinesDao, $minuteDepreciationDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
@@ -110,6 +112,8 @@ $app->post('/addMachines', function (Request $request, Response $response, $args
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
+
+/* Actualizar Maquina */
 $app->post('/updateMachines', function (Request $request, Response $response, $args) use ($machinesDao, $minuteDepreciationDao, $indirectCostDao, $priceProductDao) {
     session_start();
     $id_company = $_SESSION['id_company'];
@@ -146,6 +150,8 @@ $app->post('/updateMachines', function (Request $request, Response $response, $a
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
+
+/* Eliminar Maquina */
 $app->get('/deleteMachine/{id_machine}', function (Request $request, Response $response, $args) use ($machinesDao) {
     $machines = $machinesDao->deleteMachine($args['id_machine']);
 
