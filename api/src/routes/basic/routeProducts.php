@@ -36,12 +36,19 @@ $app->post('/productsDataValidation', function (Request $request, Response $resp
 
         for ($i = 0; $i < sizeof($products); $i++) {
 
-            $reference = $products[$i]['referenceProduct'];
-            $product = $products[$i]['product'];
-            $profitability = $products[$i]['profitability'];
-            $commisionSale = $products[$i]['commissionSale'];
+            if (isset($products[$i]['referenceProduct']))
+                $reference = $products[$i]['referenceProduct'];
 
-            if (empty($reference) || empty($product) || empty($profitability) && is_numeric($profitability) || empty($commisionSale) && is_numeric($commisionSale))
+            if (isset($products[$i]['product']))
+                $product = $products[$i]['product'];
+
+            if (isset($products[$i]['profitability']))
+                $profitability = $products[$i]['profitability'];
+
+            if (isset($products[$i]['commissionSale']))
+                $commisionSale = $products[$i]['commissionSale'];
+
+            if (empty($reference) || empty($product) || empty($profitability) || empty($commisionSale))
                 $dataImportProduct = array('error' => true, 'message' => 'Ingrese todos los datos');
             else {
                 $findProduct = $productsDao->findProduct($products[$i], $id_company);
@@ -89,6 +96,10 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
 
             if (!$product) {
                 $resolution = $productsDao->insertProductByCompany($products[$i], $id_company);
+                $lastProductId = $productsDao->lastInsertedProductId($id_company);
+
+                $products[$i]['id_product'] = $lastProductId['id_product'];
+
                 $resolution = $productsCostDao->insertProductsCostByCompany($products[$i], $id_company);
             } else {
                 $products[$i]['idProduct'] = $product['id_product'];
@@ -122,7 +133,7 @@ $app->post('/updateProducts', function (Request $request, Response $response, $a
         $resp = array('error' => true, 'message' => 'Ingrese todos los datos a actualizar');
     else {
         // Actualizar Datos, Imagen y Calcular Precio del producto
-        $products = $productsDao->updateProductByCompany($dataProduct, $id_company);
+        $products = $productsDao->updateProductByCompany($dataProduct);
 
         if (sizeof($_FILES) > 0)
             $products = $productsDao->imageProduct($dataProduct['idProduct'], $id_company);

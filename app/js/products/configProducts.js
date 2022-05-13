@@ -8,8 +8,7 @@ $(document).ready(function() {
 
 
     $.ajax({
-        type: "GET",
-        url: "../../api/products",
+        url: "/api/products",
         success: function(r) {
 
             let $select = $(`#refProduct`)

@@ -1,11 +1,4 @@
 $(document).ready(function() {
-    /*  $.ajax({
-           type: "GET",
-           url: "../../api/products",
-           success: function(response) {
-               console.log(response)
-           }
-       }); */
 
     /* Cargue tabla de Proyectos */
 

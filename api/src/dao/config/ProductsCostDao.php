@@ -26,7 +26,7 @@ class ProductsCostDao
         $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability, commission_sale) 
                                         VALUES (:id_product, :id_company, :profitability, :commission_sale)");
         $stmt->execute([
-            'id_product' => $dataProduct['idProduct'],
+            'id_product' => $dataProduct['id_product'],
             'id_company' => $id_company,
             'profitability' => $dataProduct['profitability'],
             'commission_sale' => $dataProduct['commissionSale']

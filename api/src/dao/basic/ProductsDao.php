@@ -72,17 +72,6 @@ class ProductsDao
       $error = array('info' => true, 'message' => $message);
       return $error;
     }
-    /* } else {
-      $stmt = $connection->prepare("INSERT INTO products (id_company, reference, product, img) 
-                                    VALUES(:id_company, :reference, :product, :img)");
-      $stmt->execute([
-        'id_company' => $id_company,
-        'reference' => $dataProduct['referenceProduct'],
-        'product' => ucfirst(strtolower($dataProduct['product'])),
-        'img' => $dataProduct['img']
-      ]);
-      $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    } */
   }
 
   /* Actualizar producto */
@@ -92,7 +81,7 @@ class ProductsDao
 
     try {
       $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product 
-                                    WHERE id_product = :id_product");
+                                    WHERE id_product = :id_product AND id_company = :id_company");
       $stmt->execute([
         'id_product' => $dataProduct['idProduct'],
         'reference' => $dataProduct['referenceProduct'],
