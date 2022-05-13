@@ -18,7 +18,6 @@ $(document).ready(function () {
     e.preventDefault();
 
     file = $('#fileProductsMaterials').val();
-
     if (!file) {
       toastr.error('Seleccione un archivo');
       return false;
@@ -79,11 +78,13 @@ $(document).ready(function () {
   };
 
   saveProductMaterialTable = (data) => {
+    console.log(data);
     $.ajax({
       type: 'POST',
       url: '../../api/addProductsMaterials',
       data: { importProductsMaterials: data },
       success: function (r) {
+        console.log(r);
         /* Mensaje de exito */
         if (r.success == true) {
           $('.cardImportProductsMaterials').hide(800);

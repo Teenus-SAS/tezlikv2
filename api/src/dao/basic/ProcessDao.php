@@ -36,7 +36,7 @@ class ProcessDao
     $stmt = $connection->prepare("SELECT id_process FROM process
                                   WHERE process = :process AND id_company = :id_company");
     $stmt->execute([
-      'process' => $dataProcess['process'],
+      'process' => ucfirst(strtolower($dataProcess['process'])),
       'id_company' => $id_company
     ]);
     $findProcess = $stmt->fetch($connection::FETCH_ASSOC);

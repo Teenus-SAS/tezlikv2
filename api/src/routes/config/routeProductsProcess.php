@@ -55,7 +55,7 @@ $app->post('/productsProcessDataValidation', function (Request $request, Respons
             $findProcess = $processPayrollDao->findProcessByPayroll($productProcess[$i], $id_company);
             if (!$findProcess) {
                 $i = $i + 1;
-                $dataImportProductProcess = array('error' => true, 'message' => 'Proceso no existe en la base de datos<br>Fila: {$i}');
+                $dataImportProductProcess = array('error' => true, 'message' => "Proceso no existe en la base de datos<br>Fila: {$i}");
                 break;
             } else $productProcess[$i]['idProcess'] = $findProcess['id_process'];
 

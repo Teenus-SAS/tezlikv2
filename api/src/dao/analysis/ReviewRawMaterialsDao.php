@@ -20,8 +20,7 @@ class ReviewRawMaterialsDao
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("SELECT 
-                                        SUM(pm.quantity*m.cost) AS totalCost
+        $stmt = $connection->prepare("SELECT SUM(pm.quantity*m.cost) AS totalCost
                                       FROM products_materials pm  
                                       INNER JOIN materials m ON m.id_material = pm.id_material 
                                       WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
