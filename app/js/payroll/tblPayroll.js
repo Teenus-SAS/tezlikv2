@@ -85,7 +85,7 @@ $(document).ready(function() {
                 }).format(total)
             );
 
-            total = this.api()
+            minTotal = this.api()
                 .column(5)
                 .data()
                 .reduce(function(a, b) {
@@ -96,7 +96,7 @@ $(document).ready(function() {
                 new Intl.NumberFormat('en-US', {
                     style: 'currency',
                     currency: 'USD',
-                }).format(total)
+                }).format(minTotal)
             );
         },
     });

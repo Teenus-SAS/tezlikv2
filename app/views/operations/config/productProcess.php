@@ -119,7 +119,16 @@ $userinactivetimeDao->findSession();
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped text-center" id="tblConfigProcess" name="tblConfigProcess">
-
+                            <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Total:</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
