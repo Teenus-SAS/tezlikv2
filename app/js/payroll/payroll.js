@@ -112,7 +112,12 @@ $(document).ready(function() {
         $('#workingHoursDay').val(data.hours_day);
         $('#workingDaysMonth').val(data.working_days_month);
         $(`#typeFactor`).val(`${data.type_contract}`);
-        $('#typeFactor').change()
+
+        if (data.type_contract != 3)
+            $('#typeFactor').change()
+        else
+            $('#factor').val(data.factor_benefit)
+
         $('html, body').animate({
                 scrollTop: 0,
             },
@@ -182,4 +187,25 @@ $(document).ready(function() {
         $('#tblPayroll').DataTable().clear();
         $('#tblPayroll').DataTable().ajax.reload();
     }
+
+
+    $(document).on('keyup', '#workingHoursDay', function(e) {
+        debugger
+        value = this.value
+        if (value > 16) {
+            toastr.error('El número de horas por dia no puede ser mayor a 16')
+            $('#workingHoursDay').val('');
+            return false
+        }
+    });
+
+    $(document).on('keyup', '#workingDaysMonth', function(e) {
+        value = this.value
+        if (value > 31) {
+            toastr.error('El número de días por mes no puede ser mayor a 31')
+            $('#workingDaysMonth').val('');
+            return false
+        }
+    });
+
 });

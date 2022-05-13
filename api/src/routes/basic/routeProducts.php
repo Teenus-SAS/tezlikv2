@@ -98,7 +98,7 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
                 $resolution = $productsDao->insertProductByCompany($products[$i], $id_company);
                 $lastProductId = $productsDao->lastInsertedProductId($id_company);
 
-                $products[$i]['id_product'] = $lastProductId['id_product'];
+                $products[$i]['idProduct'] = $lastProductId['id_product'];
 
                 $resolution = $productsCostDao->insertProductsCostByCompany($products[$i], $id_company);
             } else {

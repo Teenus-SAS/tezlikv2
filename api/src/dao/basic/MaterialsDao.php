@@ -38,7 +38,7 @@ class MaterialsDao
                                   WHERE reference = :reference AND material = :material AND id_company = :id_company");
     $stmt->execute([
       'reference' => $dataMaterial['refRawMaterial'],
-      'material' => $dataMaterial['nameRawMaterial'],
+      'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),
       'id_company' => $id_company
     ]);
     $findMaterial = $stmt->fetch($connection::FETCH_ASSOC);
