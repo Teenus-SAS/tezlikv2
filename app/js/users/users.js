@@ -89,7 +89,7 @@ $(document).ready(function () {
         }
       }
 
-      $.post('../../api/addUser', dataUser, function (data, textStatus, jqXHR) {
+      $.post('/api/addUser', dataUser, function (data, textStatus, jqXHR) {
         message(data);
       });
     } else {
@@ -225,7 +225,7 @@ $(document).ready(function () {
       callback: function (result) {
         if (result == true) {
           $.post(
-            '../../api/deleteUser',
+            '/api/deleteUser',
             dataUser,
             function (data, textStatus, jqXHR) {
               message(data);

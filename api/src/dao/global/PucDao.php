@@ -37,7 +37,7 @@ class PucDao
     $stmt = $connection->prepare("SELECT id_puc FROM puc WHERE number_count = :number_count AND count = :count");
     $stmt->execute([
       'number_count' => $dataPuc['numberCount'],
-      'count' => $dataPuc['count']
+      'count' => ucfirst(strtolower($dataPuc['count']))
     ]);
     $findPuc = $stmt->fetch($connection::FETCH_ASSOC);
     return $findPuc;

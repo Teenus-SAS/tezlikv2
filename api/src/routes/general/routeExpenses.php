@@ -48,8 +48,11 @@ $app->post('/expenseDataValidation', function (Request $request, Response $respo
                 $dataImportExpense = array('error' => true, 'message' => "Campos vacios en fila: {$i}");
                 break;
             } else {
+                //RETORNA id_expense CON idPuc Y id_company
                 $findExpense = $expensesDao->findExpense($expense[$i], $id_company);
+                //SI NO RETORNA id_expense $insert + 1
                 if (!$findExpense) $insert = $insert + 1;
+                //SI RETORNA id_expense $update + 1
                 else $update = $update + 1;
                 $dataImportExpense['insert'] = $insert;
                 $dataImportExpense['update'] = $update;

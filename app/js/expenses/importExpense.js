@@ -44,7 +44,7 @@ $(document).ready(function () {
   checkExpense = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/expenseDataValidation',
+      url: '/api/expenseDataValidation',
       data: { importExpense: data },
       success: function (resp) {
         if (resp.error == true) {

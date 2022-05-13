@@ -80,7 +80,7 @@ $userinactivetimeDao->findSession();
 										<div class="media align-items-center">
 											<div class="media-body">
 												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Materias Primas</span>
-												<h2 class="mb-0 mt-1" id="materials">1.500</h2>
+												<h2 class="mb-0 mt-1" id="materials"></h2>
 											</div>
 											<div class="text-center">
 												<!-- <div id="t-rev"></div>

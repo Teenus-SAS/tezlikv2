@@ -43,7 +43,7 @@ class ProductsDao
                                   AND product = :product 
                                   AND id_company = :id_company");
     $stmt->execute([
-      'reference' => $dataProduct['referenceProduct'],
+      'reference' => ucfirst(strtolower($dataProduct['referenceProduct'])),
       'product' => ucfirst(strtolower($dataProduct['product'])),
       'id_company' => $id_company
     ]);
@@ -62,7 +62,7 @@ class ProductsDao
                                       VALUES(:id_company, :reference, :product)");
       $stmt->execute([
         'id_company' => $id_company,
-        'reference' => $dataProduct['referenceProduct'],
+        'reference' => ucfirst(strtolower($dataProduct['referenceProduct'])),
         'product' => ucfirst(strtolower($dataProduct['product']))
       ]);
 
@@ -86,7 +86,7 @@ class ProductsDao
                                     WHERE id_product = :id_product AND id_company = :id_company");
       $stmt->execute([
         'id_product' => $dataProduct['idProduct'],
-        'reference' => $dataProduct['referenceProduct'],
+        'reference' => ucfirst(strtolower($dataProduct['referenceProduct'])),
         'product' => ucfirst(strtolower($dataProduct['product']))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

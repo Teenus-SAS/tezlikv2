@@ -35,7 +35,9 @@ class MaterialsDao
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT id_material FROM materials 
-                                  WHERE reference = :reference AND material = :material AND id_company = :id_company");
+                                  WHERE reference = :reference 
+                                  AND material = :material 
+                                  AND id_company = :id_company");
     $stmt->execute([
       'reference' => $dataMaterial['refRawMaterial'],
       'material' => ucfirst(strtolower($dataMaterial['nameRawMaterial'])),

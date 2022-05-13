@@ -114,6 +114,22 @@ class DashboardGeneralDao
         return $expenseValue;
     }
 
+
+    //CONTAR MATERIAS PRIMA
+    public function findRawMaterialsByCompany($id_company)
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        // Contar todos los productos
+        $stmt = $connection->prepare("SELECT COUNT(material) materials FROM materials WHERE id_company = :id_company;");
+        $stmt->execute(['id_company' => $id_company]);
+        $quantityMaterials = $stmt->fetch($connection::FETCH_ASSOC);
+
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        $this->logger->notice("expenseValue", array('expenseValue' => $quantityMaterials));
+        return $quantityMaterials;
+    }
+
     /* Obtener rentabilidad y precio productos
     public function findProfitabilityAndPriceProducts($id_company)
     {

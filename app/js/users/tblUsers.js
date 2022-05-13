@@ -4,7 +4,7 @@ $(document).ready(function () {
   tblUsers = $('#tblUsers').dataTable({
     pageLength: 50,
     ajax: {
-      url: '../../api/usersAccess',
+      url: '/api/usersAccess',
       dataSrc: '',
     },
     language: {
@@ -131,7 +131,7 @@ $(document).ready(function () {
         },
       },
       {
-        title: 'Gastos',
+        title: 'Asignación Gastos',
         data: 'expense',
         className: 'uniqueClassName',
         render: function (data, type, row) {

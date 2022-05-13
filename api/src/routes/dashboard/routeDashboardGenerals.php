@@ -33,12 +33,16 @@ $app->get('/dashboardExpensesGenerals', function (Request $request, Response $re
     // Consulta valor del gasto
     $expenseValue = $dashboardGeneralDao->findExpensesValueByCompany($id_company);
 
+    // Consulta cantidad materias primas
+    $quantityMaterials = $dashboardGeneralDao->findRawMaterialsByCompany($id_company);
+
     $generalExpenses['details_prices'] = $prices;
     $generalExpenses['time_process'] = $timeProcess;
     $generalExpenses['average_time_process'] = $averageTimeProcess;
     $generalExpenses['process_minute_value'] = $processMinuteValue;
     $generalExpenses['factory_load_minute_value'] = $factoryLoadMinuteValue;
     $generalExpenses['expense_value'] = $expenseValue;
+    $generalExpenses['quantity_materials'] = $quantityMaterials;
 
     $response->getBody()->write(json_encode($generalExpenses, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
