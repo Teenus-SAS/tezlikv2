@@ -4,7 +4,7 @@ $(document).ready(function() {
     tblPayroll = $('#tblPayroll').dataTable({
         pageLength: 50,
         ajax: {
-            url: '../../api/payroll',
+            url: '/api/payroll',
             dataSrc: '',
         },
         language: {
@@ -79,6 +79,20 @@ $(document).ready(function() {
                 }, 0);
 
             $(this.api().column(4).footer()).html(
+                new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                }).format(total)
+            );
+
+            total = this.api()
+                .column(5)
+                .data()
+                .reduce(function(a, b) {
+                    return parseInt(a) + parseInt(b);
+                }, 0);
+
+            $(this.api().column(5).footer()).html(
                 new Intl.NumberFormat('en-US', {
                     style: 'currency',
                     currency: 'USD',

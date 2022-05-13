@@ -74,6 +74,7 @@ $userinactivetimeDao->findSession();
                                         <th>Total:</th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>

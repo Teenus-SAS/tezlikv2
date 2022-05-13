@@ -38,21 +38,26 @@ $app->post('/payrollDataValidation', function (Request $request, Response $respo
         for ($i = 0; $i < sizeof($payroll); $i++) {
             // Obtener id proceso
             $findProcess = $processDao->findProcess($payroll[$i], $id_company);
+            
             if (!$findProcess) {
                 $i = $i + 1;
                 $dataImportPayroll = array('error' => true, 'message' => "Proceso no existe en la base de datos<br>Fila {$i}");
                 break;
-            } else $payroll[$i]['idProcess'] = $findProcess['id_process'];
+            } else
+                $payroll[$i]['idProcess'] = $findProcess['id_process'];
 
-            $employee = $payroll[$i]['employee'];
-            $basicSalary = $payroll[$i]['basicSalary'];
-            $workingDaysMonth = $payroll[$i]['workingDaysMonth'];
-            $workingHoursDay = $payroll[$i]['workingHoursDay'];
-            $typeFactor = $payroll[$i]['typeFactor'];
-            if (
-                empty($employee) || empty($basicSalary) || empty($workingDaysMonth) ||
-                empty($workingHoursDay) || empty($typeFactor)
-            ) {
+            if (isset($payroll[$i]['employee']))
+                $employee = $payroll[$i]['employee'];
+            if (isset($payroll[$i]['basicSalary']))
+                $basicSalary = $payroll[$i]['basicSalary'];
+            if (isset($payroll[$i]['workingDaysMonth']))
+                $workingDaysMonth = $payroll[$i]['workingDaysMonth'];
+            if (isset($payroll[$i]['workingHoursDay']))
+                $workingHoursDay = $payroll[$i]['workingHoursDay'];
+            if (isset($payroll[$i]['typeFactor']))
+                $typeFactor = $payroll[$i]['typeFactor'];
+
+            if (empty($employee) || empty($basicSalary) || empty($workingDaysMonth) || empty($workingHoursDay) || empty($typeFactor)) {
                 $i = $i + 1;
                 $dataImportPayroll = array('error' => true, 'message' => "Campos vacios en fila: {$i}");
                 break;
@@ -63,8 +68,8 @@ $app->post('/payrollDataValidation', function (Request $request, Response $respo
                     break;
                 } else {
                     $findPayroll = $payrollDao->findPayroll($payroll[$i], $id_company);
-                    if (!$findPayroll) $insert = $insert + 1;
-                    else $update = $update + 1;
+
+                    !$findPayroll ? $insert = $insert + 1 : $update = $update + 1;
                     $dataImportPayroll['insert'] = $insert;
                     $dataImportPayroll['update'] = $update;
                 }

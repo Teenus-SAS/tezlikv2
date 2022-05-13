@@ -54,7 +54,7 @@ class PayrollDao
 
     $dataReplace = $this->strReplaceData($dataPayroll);
 
-    if ($dataPayroll['typeFactor'] == 'Nomina' || $dataPayroll['typeFactor'] == 1) $dataPayroll['factor'] = 38;
+    if ($dataPayroll['typeFactor'] == 'Nomina' || $dataPayroll['typeFactor'] == 1) $dataPayroll['factor'] = 38.35;
     if ($dataPayroll['typeFactor'] == 'Servicios' || $dataPayroll['typeFactor'] == 2) $dataPayroll['factor'] = 0;
 
     $payrollCalculate = $this->calculateValueMinute($dataReplace['basicSalary'], $dataPayroll);
@@ -156,7 +156,7 @@ class PayrollDao
     $salaryNet = intval($salaryBasic) * (1 + (floatval($dataPayroll['factor']) / 100)) + intval($dataPayroll['bonification']) + intval($dataPayroll['endowment']);
 
     /* Total horas */
-    $totalHoursMonth = intval($dataPayroll['workingDaysMonth']) * intval($dataPayroll['workingHoursDay']);
+    $totalHoursMonth = floatval($dataPayroll['workingDaysMonth']) * floatval($dataPayroll['workingHoursDay']);
     $hourCost = $salaryNet / $totalHoursMonth;
 
     /* Calcular valor minuto salario */

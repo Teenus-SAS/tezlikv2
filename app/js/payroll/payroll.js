@@ -89,7 +89,7 @@ $(document).ready(function() {
     /* Actualizar nomina */
 
     $(document).on('click', '.updatePayroll', function(e) {
-        debugger
+
         $('.cardImportPayroll').hide(800);
         $('#createPayroll').modal('show');
         $('#btnCreatePayroll').html('Actualizar');
@@ -99,7 +99,7 @@ $(document).ready(function() {
 
         let row = $(this).parent().parent()[0];
         let data = tblPayroll.fnGetData(row);
-
+        debugger
         $('#employee').val(data.employee);
         $(`#idProcess option:contains(${data.process})`).prop('selected', true);
 
