@@ -19,8 +19,8 @@ class ProductsMaterialsDao
     public function productsmaterials($idProduct, $id_company)
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT pm.id_product_material, m.id_material, m.reference, m.material, m.unit, pm.quantity, m.cost FROM products p 
-                                    INNER JOIN products_materials pm ON pm.id_product = p.id_product 
+        $stmt = $connection->prepare("SELECT pm.id_product_material, m.id_material, m.reference, m.material, m.unit, pm.quantity, m.cost 
+                                    FROM  products_materials pm
                                     INNER JOIN materials m ON m.id_material = pm.id_material 
                                   WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
         $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
@@ -53,7 +53,7 @@ class ProductsMaterialsDao
 
         try {
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
-                                    VALUES (:id_material, :id_company, :id_product, :quantity)");
+                                          VALUES (:id_material, :id_company, :id_product, :quantity)");
             $stmt->execute([
                 'id_material' => $dataProductMaterial['material'],
                 'id_company' => $id_company,
@@ -93,6 +93,7 @@ class ProductsMaterialsDao
         }
     }
 
+    // Borrar productos materia prima general
     public function deleteProductMaterial($dataProductMaterial)
     {
         $connection = Connection::getInstance()->getConnection();
