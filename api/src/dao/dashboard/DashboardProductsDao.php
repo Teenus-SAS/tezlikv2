@@ -74,7 +74,8 @@ class DashboardProductsDao
         $stmt = $connection->prepare("SELECT m.material, (pm.quantity * m.cost) AS totalCostMaterial
                                       FROM products_materials pm
                                       INNER JOIN materials m ON m.id_material = pm.id_material
-                                      WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
+                                      WHERE pm.id_product = :id_product AND pm.id_company = :id_company 
+                                      ORDER BY totalCostMaterial DESC");
         $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

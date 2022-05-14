@@ -1,108 +1,91 @@
-$(document).ready(function () {
-  id_product = sessionStorage.getItem('idProduct');
-  fetch(`/api/dashboardPricesProducts/${id_product}`)
-    .then((response) => response.text())
-    .then((data) => {
-      data = JSON.parse(data);
-      generalIndicators(data.cost_product);
-      UnitsVolSold(data.cost_product);
-      totalCost(data.cost_product);
-      graphicCostExpenses(data.cost_product);
-      graphicCostWorkforce(data.cost_workforce);
-      graphicCostTimeProcess(data.cost_time_process);
-      graphicCostMaterials(data.cost_materials);
-    });
+$(document).ready(function() {
+    id_product = sessionStorage.getItem('idProduct');
+    fetch(`/api/dashboardPricesProducts/${id_product}`)
+        .then((response) => response.text())
+        .then((data) => {
+            data = JSON.parse(data);
+            generalIndicators(data.cost_product);
+            UnitsVolSold(data.cost_product);
+            totalCost(data.cost_product);
+            graphicCostExpenses(data.cost_product);
+            graphicCostWorkforce(data.cost_workforce);
+            graphicCostTimeProcess(data.cost_time_process);
+            graphicCostMaterials(data.cost_materials);
+        });
 
-  /* Colors */
+    /* Colors */
 
-  dynamicColors = () => {
-    let letters = '0123456789ABCDEF'.split('');
-    let color = '#';
+    dynamicColors = () => {
+        let letters = '0123456789ABCDEF'.split('');
+        let color = '#';
 
-    for (var i = 0; i < 6; i++)
-      color += letters[Math.floor(Math.random() * 16)];
-    return color;
-  };
+        for (var i = 0; i < 6; i++)
+            color += letters[Math.floor(Math.random() * 16)];
+        return color;
+    };
 
-  getRandomColor = (a) => {
-    let color = [];
-    for (i = 0; i < a; i++) color.push(dynamicColors());
-    return color;
-  };
+    getRandomColor = (a) => {
+        let color = [];
+        for (i = 0; i < a; i++) color.push(dynamicColors());
+        return color;
+    };
 
-  /* Indicadores Generales */
+    /* Indicadores Generales */
 
-  generalIndicators = (data) => {
-    $('#product').html(data[0].product);
+    generalIndicators = (data) => {
 
-    $('#rawMaterial').html(
-      `$ ${data[0].cost_materials.toLocaleString('es-ES')}`
-    );
-    percentRawMaterial = (data[0].cost_materials / data[0].price) * 100;
-    $('#percentRawMaterial').html(`${percentRawMaterial.toFixed(2)} %`);
+        $('#product').html(data[0].product);
 
-    $('#workforce').html(`$ ${data[0].cost_workforce.toLocaleString('es-ES')}`);
-    percentWorkforce = (data[0].cost_workforce / data[0].price) * 100;
-    $('#percentWorkforce').html(`${percentWorkforce.toFixed(2)} %`);
+        let costTotal = data[0].cost_materials + data[0].cost_workforce + data[0].cost_indirect_cost + data[0].assignable_expense
 
-    $('#indirectCost').html(
-      `$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`
-    );
-    percentIndirectCost = (data[0].cost_indirect_cost / data[0].price) * 100;
-    $('#percentIndirectCost').html(`${percentIndirectCost.toFixed(2)} %`);
+        $('#rawMaterial').html(`$ ${data[0].cost_materials.toLocaleString('es-ES')}`);
+        $('#workforce').html(`$ ${data[0].cost_workforce.toLocaleString('es-ES')}`);
+        $('#indirectCost').html(`$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`);
+        $('#assignableExpenses').html(`$ ${data[0].assignable_expense.toLocaleString('es-ES')}`);
 
-    $('#assignableExpenses').html(`$ ${data[0].assignable_expense.toFixed(2)}`);
-    percentAssignableExpenses =
-      (data[0].assignable_expense / data[0].price) * 100;
-    $('#percentAssignableExpenses').html(
-      `${percentAssignableExpenses.toFixed(2)} %`
-    );
-  };
+        percentRawMaterial = (data[0].cost_materials / costTotal) * 100;
+        percentWorkforce = (data[0].cost_workforce / costTotal) * 100;
+        percentIndirectCost = (data[0].cost_indirect_cost / costTotal) * 100;
+        percentAssignableExpenses = (data[0].assignable_expense / costTotal) * 100;
 
-  /* Ventas */
+        $('#percentRawMaterial').html(`${percentRawMaterial.toFixed(2)} %`);
+        $('#percentWorkforce').html(`${percentWorkforce.toFixed(2)} %`);
+        $('#percentIndirectCost').html(`${percentIndirectCost.toFixed(2)} %`);
+        $('#percentAssignableExpenses').html(`${percentAssignableExpenses.toFixed(2)} %`);
 
-  UnitsVolSold = (data) => {
-    $('#unitsSold').html(data[0].units_sold.toLocaleString('es-ES'));
-    $('#turnover').html(`$ ${data[0].turnover.toLocaleString('es-ES')}`);
-    $('#recomendedPrice').html(`$ ${data[0].price.toLocaleString('es-ES')}`);
-  };
+    };
 
-  /* Costeo Total */
+    /* Ventas */
 
-  totalCost = (data) => {
-    cost =
-      parseFloat(data[0].cost_materials) +
-      parseFloat(data[0].cost_workforce) +
-      parseFloat(data[0].cost_indirect_cost);
-    costTotal = cost + parseFloat(data[0].assignable_expense);
+    UnitsVolSold = (data) => {
+        $('#unitsSold').html(data[0].units_sold.toLocaleString('es-ES'));
+        $('#turnover').html(`$ ${data[0].turnover.toLocaleString('es-ES')}`);
+        $('#recomendedPrice').html(`$ ${data[0].price.toLocaleString('es-ES')}`);
+    };
 
-    $('#salesPrice').html(`$ ${data[0].price.toLocaleString('es-ES')}`);
-    $('#costTotal').html(`$ ${costTotal.toLocaleString('es-ES')}`);
-    $('#cost').html(`$ ${cost.toLocaleString('es-ES')}`);
-    $('#payRawMaterial').html(
-      `$ ${data[0].cost_materials.toLocaleString('es-ES')}`
-    );
-    $('#payWorkforce').html(
-      `$ ${data[0].cost_workforce.toLocaleString('es-ES')}`
-    );
-    $('#payIndirectCost').html(
-      `$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`
-    );
-    $('#payAssignableExpenses').html(
-      `$ ${data[0].assignable_expense.toFixed(2)}`
-    );
+    /* Costeo Total */
 
-    costCommissionSale = data[0].price * (data[0].commission_sale / 100);
+    totalCost = (data) => {
+        cost =
+            parseFloat(data[0].cost_materials) +
+            parseFloat(data[0].cost_workforce) +
+            parseFloat(data[0].cost_indirect_cost);
+        costTotal = cost + parseFloat(data[0].assignable_expense);
 
-    $('#commisionSale').html(
-      `$ ${Math.round(costCommissionSale).toLocaleString('es-ES')} (` +
-        `${data[0].commission_sale}%)`
-    );
+        $('#salesPrice').html(`$ ${data[0].price.toLocaleString('es-ES')}`);
+        $('#costTotal').html(`$ ${costTotal.toLocaleString('es-ES')}`);
+        $('#cost').html(`$ ${cost.toLocaleString('es-ES')}`);
+        $('#payRawMaterial').html(`$ ${data[0].cost_materials.toLocaleString('es-ES')}`);
+        $('#payWorkforce').html(`$ ${data[0].cost_workforce.toLocaleString('es-ES')}`);
+        $('#payIndirectCost').html(`$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`);
+        $('#payAssignableExpenses').html(`$ ${data[0].assignable_expense.toFixed(2)}`);
 
-    costProfitability = data[0].price * (data[0].profitability / 100);
-    $('#profitability').html(
-      `$ ${Math.round(costProfitability).toLocaleString('es-ES')} (` +
-        `${data[0].profitability}%)`
-    );
-  };
+        costCommissionSale = data[0].price * (data[0].commission_sale / 100);
+        $('#commission').html(`Comisión Vts (${data[0].commission_sale}%)`);
+        $('#commisionSale').html(`$${Math.round(costCommissionSale).toLocaleString('es-ES')}`);
+
+        costProfitability = data[0].price * (data[0].profitability / 100);
+        $('#profit').html(`Rentabilidad (${data[0].profitability}%)`);
+        $('#profitability').html(`$ ${Math.round(costProfitability).toLocaleString('es-ES')}`);
+    };
 });

@@ -57,7 +57,8 @@ $app->post('/productsProcessDataValidation', function (Request $request, Respons
                 $i = $i + 1;
                 $dataImportProductProcess = array('error' => true, 'message' => "Proceso no existe en la base de datos<br>Fila: {$i}");
                 break;
-            } else $productProcess[$i]['idProcess'] = $findProcess['id_process'];
+            } else
+                $productProcess[$i]['idProcess'] = $findProcess['id_process'];
 
             // Obtener id maquina
             $findMachine = $machinesDao->findMachine($productProcess[$i], $id_company);

@@ -41,7 +41,7 @@ graphicTimeProcessByProduct = (data) => {
                     color: 'black',
                     font: {
                         size: '14',
-                        weight: 'bold',
+                        weight: 'normal',
                     },
                 },
             },
@@ -101,7 +101,7 @@ graphicWorkforce = (data) => {
                     color: 'black',
                     font: {
                         size: '11',
-                        weight: 'bold',
+                        weight: 'normal',
                     },
                 },
             },
@@ -158,7 +158,7 @@ graphicsFactoryLoad = (data) => {
                     color: 'black',
                     font: {
                         size: '14',
-                        weight: 'bold',
+                        weight: 'normal',
                     },
                 },
             },
@@ -214,7 +214,7 @@ graphicGeneralCost = (data) => {
                     color: 'black',
                     font: {
                         size: '14',
-                        weight: 'bold',
+                        weight: 'normal',
                     },
                 },
             },
@@ -300,7 +300,7 @@ graphicProductCost = (data) => {
                     color: 'black',
                     font: {
                         size: '14',
-                        weight: 'bold',
+                        weight: 'normal',
                     },
                 },
             },

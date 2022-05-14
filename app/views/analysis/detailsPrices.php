@@ -62,8 +62,8 @@ $userinactivetimeDao->findSession();
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-rev"></div> -->
-                                <span class="text-success font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-up-arrow-alt" id="percentRawMaterial"></i>
+                                <span class="text-info font-weight-bold" style="font-size:large">
+                                    <i class="bx bx-check" id="percentRawMaterial"></i>
                                 </span>
                             </div>
                         </div>
@@ -80,8 +80,8 @@ $userinactivetimeDao->findSession();
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-order"></div> -->
-                                <span class="text-danger font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-down-arrow-alt" id="percentWorkforce"></i>
+                                <span class="text-info font-weight-bold" style="font-size:large">
+                                    <i class="bx bx-check" id="percentWorkforce"></i>
                                 </span>
                             </div>
                         </div>
@@ -98,8 +98,8 @@ $userinactivetimeDao->findSession();
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-user"></div> -->
-                                <span class="text-success font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-up-arrow-alt" id="percentIndirectCost"></i>
+                                <span class="text-info font-weight-bold" style="font-size:large">
+                                    <i class="bx bx-check" id="percentIndirectCost"></i>
                                 </span>
                             </div>
                         </div>
@@ -116,8 +116,8 @@ $userinactivetimeDao->findSession();
                             </div>
                             <div class="text-center">
                                 <!-- <div id="t-visitor"></div> -->
-                                <span class="text-danger font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-down-arrow-alt" id="percentAssignableExpenses"></i>
+                                <span class="text-info font-weight-bold" style="font-size:large">
+                                    <i class="bx bx-check" id="percentAssignableExpenses"></i>
                                 </span>
                             </div>
                         </div>
@@ -194,7 +194,7 @@ $userinactivetimeDao->findSession();
                             <li class="list-group-item py-4">
                                 <div class="media">
                                     <div class="media-body">
-                                        <div style="display: grid;grid-template-columns:1fr 1fr">
+                                        <div style="display: grid;grid-template-columns:1fr 110px">
                                             <p class="mb-2" style="color:green">Precio de Venta</p>
                                             <h6 class="mb-0 pl-3 text-right" id="salesPrice"></h6>
                                             <p class="mb-2" style="color:darkcyan">Total Costos</p>
@@ -209,10 +209,10 @@ $userinactivetimeDao->findSession();
                                             <h6 class="mb-0 pl-3 text-right " id="payIndirectCost">$</h6>
                                             <p class="mb-2" style="color:darkcyan">Gastos</p>
                                             <h6 class="mb-0 pl-3 text-right" id="payAssignableExpenses"></h6>
-                                            <p class="mb-2" style="color:darkcyan">Comisión Ventas</p>
-                                            <h6 class="mb-0 pl-3" id="commisionSale"></h6>
-                                            <p class="mb-2" style="color:darkcyan">Rentabilidad</p>
-                                            <h6 class="mb-0 pl-3" id="profitability"></h6>
+                                            <p class="mb-2" style="color:darkcyan" id="commission">Comisión Vts</p>
+                                            <h6 class="mb-0 pl-3 text-right" id="commisionSale"></h6>
+                                            <p class="mb-2" style="color:darkcyan" id="profit">Rentabilidad</p>
+                                            <h6 class="mb-0 pl-3 text-right" id="profitability"></h6>
                                         </div>
                                     </div>
                                 </div>
