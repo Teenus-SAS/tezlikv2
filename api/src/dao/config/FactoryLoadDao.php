@@ -45,9 +45,9 @@ class FactoryLoadDao
       $stmt = $connection->prepare("INSERT INTO manufacturing_load (id_machine, id_company, input, cost)
                                     VALUES (:id_machine, :id_company, :input, :cost)");
       $stmt->execute([
-        'id_machine' => $dataFactoryLoad['idMachine'],
+        'id_machine' => trim($dataFactoryLoad['idMachine']),
         'id_company' => $id_company,
-        'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
+        'input' => ucfirst(strtolower(trim($dataFactoryLoad['descriptionFactoryLoad']))),
         'cost' => $costFactory,
         //'cost_minute' => $dataFactoryLoad['costMinute']
       ]);
@@ -71,7 +71,7 @@ class FactoryLoadDao
       $stmt->execute([
         'id_manufacturing_load' => $dataFactoryLoad['idManufacturingLoad'],
         'id_machine' => $dataFactoryLoad['idMachine'],
-        'input' => ucfirst(strtolower($dataFactoryLoad['descriptionFactoryLoad'])),
+        'input' => ucfirst(strtolower(trim($dataFactoryLoad['descriptionFactoryLoad']))),
         'cost' => $costFactory
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

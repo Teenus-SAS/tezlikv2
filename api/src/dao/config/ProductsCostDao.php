@@ -26,10 +26,15 @@ class ProductsCostDao
         $stmt = $connection->prepare("INSERT INTO products_costs(id_product, id_company, profitability, commission_sale) 
                                         VALUES (:id_product, :id_company, :profitability, :commission_sale)");
         $stmt->execute([
-            'id_product' => $dataProduct['idProduct'],
+            'id_product' => trim($dataProduct['idProduct']),
             'id_company' => $id_company,
-            'profitability' => $dataProduct['profitability'],
-            'commission_sale' => $dataProduct['commissionSale']
+            'profitability' => trim($dataProduct['profitability']),
+            'commission_sale' => trim($dataProduct['commissionSale'])
+
+            // 'id_product' => $dataProduct['idProduct'],
+            // 'id_company' => $id_company,
+            // 'profitability' => $dataProduct['profitability'],
+            // 'commission_sale' => $dataProduct['commissionSale']
         ]);
     }
     /* Actualizar products_costs */
@@ -40,9 +45,13 @@ class ProductsCostDao
         $stmt = $connection->prepare("UPDATE products_costs SET profitability = :profitability, commission_sale = :commission_sale
                                       WHERE id_product = :id_product");
         $stmt->execute([
-            'id_product' => $dataProduct['idProduct'],
-            'profitability' => $dataProduct['profitability'],
-            'commission_sale' => $dataProduct['commissionSale']
+            'id_product' => trim($dataProduct['idProduct']),
+            'profitability' => trim($dataProduct['profitability']),
+            'commission_sale' => trim($dataProduct['commissionSale'])
+
+            // 'id_product' => $dataProduct['idProduct'],
+            // 'profitability' => $dataProduct['profitability'],
+            // 'commission_sale' => $dataProduct['commissionSale']
         ]);
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

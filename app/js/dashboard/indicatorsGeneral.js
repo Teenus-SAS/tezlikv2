@@ -84,8 +84,13 @@ averagesTime = (data) => {
     averageEnlistment = enlistmentTime / data.length;
     averageOperation = operationTime / data.length;
 
-    $('#enlistmentTime').html(`${averageEnlistment.toFixed(2)} min`);
-    $('#operationTime').html(`${averageOperation.toFixed(2)} min`);
+    // averageEnlistment = new Intl.NumberFormat('de-DE').format(averageEnlistment);
+    // averageOperation = new Intl.NumberFormat('de-DE').format(averageOperation);
+
+    $('#enlistmentTime').html(`${averageEnlistment} min`);
+    $('#operationTime').html(`${averageOperation} min`);
+    // $('#enlistmentTime').html(`${averageEnlistment.toFixed(2)} min`);
+    // $('#operationTime').html(`${averageOperation.toFixed(2)} min`);
   } else {
     $('#enlistmentTime').html(`0 min`);
     $('#operationTime').html(`0 min`);

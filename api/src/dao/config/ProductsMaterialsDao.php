@@ -20,9 +20,9 @@ class ProductsMaterialsDao
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT pm.id_product_material, m.id_material, m.reference, m.material, m.unit, pm.quantity, m.cost 
-                                    FROM  products_materials pm
-                                    INNER JOIN materials m ON m.id_material = pm.id_material 
-                                  WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
+                                      FROM  products_materials pm
+                                      INNER JOIN materials m ON m.id_material = pm.id_material 
+                                      WHERE pm.id_product = :id_product AND pm.id_company = :id_company");
         $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
         $productsmaterials = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("products", array('products' => $productsmaterials));
@@ -55,10 +55,15 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
                                           VALUES (:id_material, :id_company, :id_product, :quantity)");
             $stmt->execute([
-                'id_material' => $dataProductMaterial['material'],
+                'id_material' => trim($dataProductMaterial['material']),
                 'id_company' => $id_company,
-                'id_product' => $dataProductMaterial['idProduct'],
-                'quantity' => $dataProductMaterial['quantity']
+                'id_product' => trim($dataProductMaterial['idProduct']),
+                'quantity' => trim($dataProductMaterial['quantity'])
+
+                // 'id_material' => $dataProductMaterial['material'],
+                // 'id_company' => $id_company,
+                // 'id_product' => $dataProductMaterial['idProduct'],
+                // 'quantity' => $dataProductMaterial['quantity']
             ]);
 
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -79,10 +84,15 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("UPDATE products_materials SET id_material = :id_material, id_product = :id_product, quantity = :quantity
                                     WHERE id_product_material = :id_product_material");
             $stmt->execute([
-                'id_product_material' => $dataProductMaterial['idProductMaterial'],
-                'id_material' => $dataProductMaterial['material'],
-                'id_product' => $dataProductMaterial['idProduct'],
-                'quantity' => $dataProductMaterial['quantity']
+                'id_product_material' => trim($dataProductMaterial['idProductMaterial']),
+                'id_material' => trim($dataProductMaterial['material']),
+                'id_product' => trim($dataProductMaterial['idProduct']),
+                'quantity' => trim($dataProductMaterial['quantity'])
+
+                // 'id_product_material' => $dataProductMaterial['idProductMaterial'],
+                // 'id_material' => $dataProductMaterial['material'],
+                // 'id_product' => $dataProductMaterial['idProduct'],
+                // 'quantity' => $dataProductMaterial['quantity']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {

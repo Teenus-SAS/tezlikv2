@@ -40,8 +40,8 @@ class PayrollDao
     $stmt = $connection->prepare("SELECT id_payroll FROM payroll
                                   WHERE employee = :employee AND id_process = :id_process AND id_company = :id_company");
     $stmt->execute([
-      'employee' => $dataPayroll['employee'],
-      'id_process' => $dataPayroll['idProcess'],
+      'employee' => ucfirst(strtolower(trim($dataPayroll['employee']))),
+      'id_process' => trim($dataPayroll['idProcess']),
       'id_company' => $id_company
     ]);
     $findPayroll = $stmt->fetch($connection::FETCH_ASSOC);
@@ -65,13 +65,22 @@ class PayrollDao
                                     VALUES (:id_company, :id_process, :employee, :salary, :transport, :extra_time, :bonification, :endowment,
                                             :working_days_month, :hours_day, :factor_benefit, :salary_net, :type_contract, :minute_value)");
       $stmt->execute([
-        'id_company' => $id_company,                                'employee' => ucwords($dataPayroll['employee']),
-        'id_process' => $dataPayroll['idProcess'],                  'salary' => $dataReplace['basicSalary'],
-        'transport' => $dataReplace['transport'],                   'extra_time' => $dataReplace['extraTime'],
-        'bonification' => $dataReplace['bonification'],             'endowment' => $dataReplace['endowment'],
-        'working_days_month' => $dataPayroll['workingDaysMonth'],   'hours_day' => $dataPayroll['workingHoursDay'],
-        'factor_benefit' => $dataPayroll['factor'],                 'type_contract' => $dataPayroll['typeFactor'],
-        'salary_net' => $payrollCalculate['salaryNet'],             'minute_value' => $payrollCalculate['minuteValue']
+
+        'id_company' => $id_company,                                      'employee' => ucfirst(strtolower(trim($dataPayroll['employee']))),
+        'id_process' => trim($dataPayroll['idProcess']),                  'salary' => trim($dataReplace['basicSalary']),
+        'transport' => trim($dataReplace['transport']),                   'extra_time' => trim($dataReplace['extraTime']),
+        'bonification' => trim($dataReplace['bonification']),             'endowment' => trim($dataReplace['endowment']),
+        'working_days_month' => trim($dataPayroll['workingDaysMonth']),   'hours_day' => trim($dataPayroll['workingHoursDay']),
+        'factor_benefit' => trim($dataPayroll['factor']),                 'type_contract' => ucfirst(strtolower(trim($dataPayroll['typeFactor']))),
+        'salary_net' => trim($payrollCalculate['salaryNet']),             'minute_value' => trim($payrollCalculate['minuteValue'])
+
+        // 'id_company' => $id_company,                                'employee' => ucwords($dataPayroll['employee']),
+        // 'id_process' => $dataPayroll['idProcess'],                  'salary' => $dataReplace['basicSalary'],
+        // 'transport' => $dataReplace['transport'],                   'extra_time' => $dataReplace['extraTime'],
+        // 'bonification' => $dataReplace['bonification'],             'endowment' => $dataReplace['endowment'],
+        // 'working_days_month' => $dataPayroll['workingDaysMonth'],   'hours_day' => $dataPayroll['workingHoursDay'],
+        // 'factor_benefit' => $dataPayroll['factor'],                 'type_contract' => $dataPayroll['typeFactor'],
+        // 'salary_net' => $payrollCalculate['salaryNet'],             'minute_value' => $payrollCalculate['minuteValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -102,13 +111,22 @@ class PayrollDao
                                             hours_day=:hours_day, factor_benefit=:factor_benefit, salary_net= :salary_net, type_contract=:type_contract, minute_value=:minute_value
                                     WHERE id_payroll = :id_payroll");
       $stmt->execute([
-        'id_payroll' => $dataPayroll['idPayroll'],                'employee' => ucwords($dataPayroll['employee']),
-        'id_process' => $dataPayroll['idProcess'],                'salary' => $dataReplace['basicSalary'],
-        'transport' => $dataReplace['transport'],                 'extra_time' => $dataReplace['extraTime'],
-        'bonification' => $dataReplace['bonification'],           'endowment' => $dataReplace['endowment'],
-        'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
-        'factor_benefit' => $dataPayroll['factor'],                 'salary_net' => $payrollCalculate['salaryNet'],
-        'type_contract' => $dataPayroll['typeFactor'],                   'minute_value' => $payrollCalculate['minuteValue']
+
+        'id_payroll' => trim($dataPayroll['idPayroll']),                  'employee' => ucfirst(strtolower(trim($dataPayroll['employee']))),
+        'id_process' => trim($dataPayroll['idProcess']),                  'salary' => trim($dataReplace['basicSalary']),
+        'transport' => trim($dataReplace['transport']),                   'extra_time' => trim($dataReplace['extraTime']),
+        'bonification' => trim($dataReplace['bonification']),             'endowment' => trim($dataReplace['endowment']),
+        'working_days_month' => trim($dataPayroll['workingDaysMonth']),   'hours_day' => trim($dataPayroll['workingHoursDay']),
+        'factor_benefit' => trim($dataPayroll['factor']),                 'type_contract' => ucfirst(strtolower(trim($dataPayroll['typeFactor']))),
+        'salary_net' => trim($payrollCalculate['salaryNet']),             'minute_value' => trim($payrollCalculate['minuteValue'])
+
+        // 'id_payroll' => $dataPayroll['idPayroll'],                'employee' => ucwords($dataPayroll['employee']),
+        // 'id_process' => $dataPayroll['idProcess'],                'salary' => $dataReplace['basicSalary'],
+        // 'transport' => $dataReplace['transport'],                 'extra_time' => $dataReplace['extraTime'],
+        // 'bonification' => $dataReplace['bonification'],           'endowment' => $dataReplace['endowment'],
+        // 'working_days_month' => $dataPayroll['workingDaysMonth'], 'hours_day' => $dataPayroll['workingHoursDay'],
+        // 'factor_benefit' => $dataPayroll['factor'],                 'salary_net' => $payrollCalculate['salaryNet'],
+        // 'type_contract' => $dataPayroll['typeFactor'],                   'minute_value' => $payrollCalculate['minuteValue']
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {

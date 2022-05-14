@@ -36,8 +36,8 @@ class PucDao
 
     $stmt = $connection->prepare("SELECT id_puc FROM puc WHERE number_count = :number_count AND count = :count");
     $stmt->execute([
-      'number_count' => $dataPuc['numberCount'],
-      'count' => ucfirst(strtolower($dataPuc['count']))
+      'number_count' => trim($dataPuc['numberCount']),
+      'count' => ucfirst(strtolower(trim($dataPuc['count'])))
     ]);
     $findPuc = $stmt->fetch($connection::FETCH_ASSOC);
     return $findPuc;
@@ -49,8 +49,8 @@ class PucDao
     try {
       $stmt = $connection->prepare("INSERT INTO puc (number_count, count) VALUES (:number_count, :count)");
       $stmt->execute([
-        'number_count' => $dataPuc['numberCount'],
-        'count' => ucfirst(strtolower($dataPuc['count']))
+        'number_count' => trim($dataPuc['numberCount']),
+        'count' => ucfirst(strtolower(trim($dataPuc['count'])))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -69,9 +69,9 @@ class PucDao
       $stmt = $connection->prepare("UPDATE puc SET number_count = :number_count, count = :count
                                     WHERE id_puc = :id_puc");
       $stmt->execute([
-        'id_puc' => $dataPuc['idPuc'],
-        'number_count' => $dataPuc['numberCount'],
-        'count' => ucfirst(strtolower($dataPuc['count']))
+        'id_puc' => trim($dataPuc['idPuc']),
+        'number_count' => trim($dataPuc['numberCount']),
+        'count' => ucfirst(strtolower(trim($dataPuc['count'])))
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
