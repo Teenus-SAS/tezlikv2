@@ -56,6 +56,7 @@ $(document).ready(function () {
 
   $('#btnAddProcess').click(function (e) {
     e.preventDefault();
+    debugger;
     let idProductProcess = sessionStorage.getItem('id_product_process');
 
     if (idProductProcess == '' || idProductProcess == null) {
@@ -67,12 +68,13 @@ $(document).ready(function () {
       operT = parseInt($('#operationTime').val());
       totalTime = parseInt($('#totalTime').val());
 
+      data = idProduct * refP;
       // data = idProduct * refP * refM;
 
-      // if (!data || totalTime == 0 || totalTime == '') {
-      //   toastr.error('Ingrese todos los campos');
-      //   return false;
-      // }
+      if (!data || totalTime == 0 || totalTime == '') {
+        toastr.error('Ingrese todos los campos');
+        return false;
+      }
 
       productProcess = $('#formAddProcess').serialize();
 

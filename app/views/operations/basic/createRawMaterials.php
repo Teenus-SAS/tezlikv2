@@ -48,7 +48,7 @@ $userinactivetimeDao->findSession();
                                     <label for="">Unidad</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px">
-                                    <input type="text" class="form-control text-center number" id="costRawMaterial" name="costRawMaterial">
+                                    <input type="text" class="form-control text-center number" step="any" id="costRawMaterial" name="costRawMaterial">
                                     <label for="">Costo</label>
                                 </div>
                                 <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:5px">
