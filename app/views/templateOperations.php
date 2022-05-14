@@ -56,7 +56,7 @@ $userinactivetimeDao->findSession();
 					<div class="container-fluid">
 						<!-- Widget  -->
 						<div class="row">
-							<div class="col-md-6 col-xl-2">
+							<div class="col-md-6 col-xl-3">
 								<div class="card">
 									<div class="card-body">
 										<div class="media align-items-center">
@@ -65,28 +65,10 @@ $userinactivetimeDao->findSession();
 												<h2 class="mb-0 mt-1" id="products"></h2>
 											</div>
 											<div class="text-center">
-												<!-- <div id="t-rev"></div>
-												<span class="text-success font-weight-bold font-size-13">
-													<i class="bx bx-up-arrow-alt"></i> 10.21%
-												</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-xl-2">
-								<div class="card">
-									<div class="card-body">
-										<div class="media align-items-center">
-											<div class="media-body">
-												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Materias Primas</span>
-												<h2 class="mb-0 mt-1" id="materials"></h2>
-											</div>
-											<div class="text-center">
-												<!-- <div id="t-rev"></div>
-												<span class="text-success font-weight-bold font-size-13">
-													<i class="bx bx-up-arrow-alt"></i> 10.21%
-												</span> -->
+												<div id="t-rev"></div>
+												<span class="text-info font-weight-bold font-size-23">
+													<i class='bx bx-box fs-lg'></i>
+												</span>
 											</div>
 										</div>
 									</div>
@@ -97,19 +79,37 @@ $userinactivetimeDao->findSession();
 									<div class="card-body">
 										<div class="media align-items-center">
 											<div class="media-body">
-												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Rentabilidad (Promedio)</span>
-												<h2 class="mb-0 mt-1" id="profitabilityAverage"></h2>
+												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Materias Primas</span>
+												<h2 class="mb-0 mt-1" id="materials"></h2>
 											</div>
 											<div class="text-center">
-												<!-- <div id="t-order"></div>
-												<span class="text-danger font-weight-bold font-size-13">
-													<i class="bx bx-down-arrow-alt"></i> 5.05%
-												</span> -->
+												<div id="t-rev"></div>
+												<span class="text-info font-weight-bold font-size-13">
+													<i class='bx bxs-customize fs-lg'></i>
+												</span>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<!-- <div class="col-md-6 col-xl-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="media align-items-center">
+											<div class="media-body">
+												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Rentabilidad (Promedio)</span>
+												<h2 class="mb-0 mt-1" id="profitabilityAverage"></h2>
+											</div>
+											<div class="text-center">
+												<div id="t-order"></div>
+												<span class="text-danger font-weight-bold font-size-13">
+													<i class="bx bx-down-arrow-alt"></i> 5.05%
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div> -->
 							<div class="col-md-6 col-xl-3">
 								<div class="card">
 									<div class="card-body">
@@ -119,16 +119,16 @@ $userinactivetimeDao->findSession();
 												<h2 class="mb-0 mt-1" id="comissionAverage"></h2>
 											</div>
 											<div class="text-center">
-												<!-- <div id="t-user"></div>
+												<div id="t-user"></div>
 												<span class="text-success font-weight-bold font-size-13">
-													<i class="bx bx-up-arrow-alt"></i> 25.21%
-												</span> -->
+													<i class='bx bx-money fs-lg'></i>
+												</span>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6 col-xl-2">
+							<div class="col-md-6 col-xl-3">
 								<div class="card">
 									<div class="card-body">
 										<div class="media align-items-center">
@@ -137,10 +137,10 @@ $userinactivetimeDao->findSession();
 												<h2 class="mb-0 mt-1" id="generalCost"></h2>
 											</div>
 											<div class="text-center">
-												<!-- <div id="t-visitor"></div>
+												<div id="t-visitor"></div>
 												<span class="text-danger font-weight-bold font-size-13">
-													<i class="bx bx-down-arrow-alt"></i> 5.16%
-												</span> -->
+													<i class='bx bxs-pie-chart-alt-2 fs-lg'></i>
+												</span>
 											</div>
 										</div>
 									</div>
@@ -180,13 +180,13 @@ $userinactivetimeDao->findSession();
 											</li>
 											<li class="list-group-item py-4">
 												<div class="media">
-													<!-- <div class="media-body">
-														<p class="text-muted mb-2">Product Sold</p>
-														<h4 class="mb-0">8,235</h4>
+													<div class="media-body">
+														<p class="text-muted mb-2">Rentabilidad Promedio</p>
+														<h4 class="mb-0" id="profitabilityAverage">8,235</h4>
 													</div>
 													<div class="avatar avatar-md bg-success mr-0 align-self-center">
 														<i class="bx bx-chart fs-lg"></i>
-													</div> -->
+													</div>
 												</div>
 											</li>
 										</ul>
@@ -194,18 +194,19 @@ $userinactivetimeDao->findSession();
 								</div>
 							</div>
 							<!-- Begin total revenue chart -->
-							<div class="col-md-4 col-lg-7" style="height: fit-content;">
+							<div class="col-md-4 col-lg-6" style="height: fit-content;">
 								<div class="card">
 									<div class="card-header">
-										<h5 class="card-title">Tiempo Total de Fabricación por Producto (min)</h5>
+										<h5 class="card-title">Productos con mayor rentabilidad</h5>
 									</div>
 									<div class="card-body pt-2">
-										<canvas id="chartTimeProcessProducts"></canvas>
+										<!-- <canvas id="chartTimeProcessProducts"></canvas> -->
+										<canvas id="chartProductsCost"></canvas>
 									</div>
 								</div>
 							</div>
 
-							<div class="col-md-4 col-lg-2">
+							<div class="col-md-4 col-lg-3">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title">Tiempos Promedio</h5>
@@ -219,7 +220,7 @@ $userinactivetimeDao->findSession();
 														<h4 class="mb-0 number" id="enlistmentTime"></h4>
 													</div>
 													<div class="avatar avatar-md bg-info mr-0 align-self-center">
-														<i class="bx bx-layer fs-lg"></i>
+														<i class="bx bxs-time fs-lg"></i>
 													</div>
 												</div>
 											</li>
@@ -230,19 +231,19 @@ $userinactivetimeDao->findSession();
 														<h4 class="mb-0 number" id="operationTime"></h4>
 													</div>
 													<div class="avatar avatar-md bg-primary mr-0 align-self-center">
-														<i class="bx bx-bar-chart-alt fs-lg"></i>
+														<i class="bx bxs-time-five fs-lg"></i>
 													</div>
 												</div>
 											</li>
 											<li class="list-group-item py-4">
 												<div class="media">
-													<!-- <div class="media-body">
-														<p class="text-muted mb-2">Product Sold</p>
-														<h4 class="mb-0">8,235</h4>
+													<div class="media-body">
+														<p class="text-muted mb-2">Tiempo Total Promedio</p>
+														<h4 class="mb-0" id="averageTotalTime"></h4>
 													</div>
-													<div class="avatar avatar-md bg-success mr-0 align-self-center">
-														<i class="bx bx-chart fs-lg"></i>
-													</div> -->
+													<div class="avatar avatar-md bg-danger mr-0 align-self-center">
+													<i class='bx bx-error-circle fs-lg'></i>
+													</div>
 												</div>
 											</li>
 										</ul>
@@ -308,13 +309,13 @@ $userinactivetimeDao->findSession();
 								</div>
 							</div>
 
-							<div class="col-lg-8" style="height: fit-content;">
+							<div class="col-lg-12" style="height: fit-content;">
 								<div class=" card">
 									<div class="card-header">
-										<h5 class="card-title">Productos de Mejor Rentabilidad</h5>
+										<h5 class="card-title">Tiempo Total de Fabricación por Producto (min)</h5>
 									</div>
 									<div class="card-body pt-2">
-										<canvas id="chartProductsCost"></canvas>
+										<canvas id="chartTimeProcessProducts"></canvas>
 										<div class="center-text">
 											<p class="text-muted mb-1 font-weight-600"></p>
 											<h4 class="mb-0 font-weight-bold"></h4>
