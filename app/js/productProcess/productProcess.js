@@ -16,7 +16,7 @@ $(document).ready(function () {
     sessionStorage.removeItem('id_product_process');
 
     $('#idProcess option:contains(Seleccionar)').prop('selected', true);
-    $('#idMachine option:contains(Seleccionar)').prop('selected', true);
+    // $('#idMachine option:contains(Seleccionar)').prop('selected', true);
 
     $('#enlistmentTime').val('');
     $('#operationTime').val('');
@@ -69,7 +69,7 @@ $(document).ready(function () {
       totalTime = parseInt($('#totalTime').val());
 
       data = idProduct * refP;
-      // data = idProduct * refP * refM;
+      //data = idProduct * refP * refM;
 
       if (!data || totalTime == 0 || totalTime == '') {
         toastr.error('Ingrese todos los campos');

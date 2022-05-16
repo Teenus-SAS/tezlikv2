@@ -31,10 +31,10 @@
                     <i class="bx bx-cog bx-spin" style="font-size: 2em;"></i>
                 </a>
                 <div class="dropdown-megamenu dropdown-menu" aria-labelledby="mega-dropdown">
-                    <div class="row">
+                    <div class="row d-flex justify-content-center">
                         <div class="col-sm-9">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-3" id="navBasics">
                                     <h5 class="font-size-14 font-weight-600">Básico</h5>
                                     <ul class="list-unstyled megamenu-list">
                                         <li class="createProducts"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createProducts.php')">Creación Productos</a></li>
@@ -43,7 +43,7 @@
                                         <li class="createProcess"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/basic/createProcess.php')">Creación Procesos</a></li>
                                     </ul>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" id="navSetting">
                                     <h5 class="font-size-14 font-weight-600">Configuración</h5>
                                     <ul class="list-unstyled megamenu-list">
                                         <li class="productsMaterials"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/productMaterials.php')">Productos * Materia Prima</a></li>
@@ -64,7 +64,7 @@
                                 <div class="col-md-3">
                                     <h5 class="font-size-14 font-weight-600">Administrador</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li><a href="javascript:void(0);" onclick="loadContent('page-content','views/users/users.php')">Usuarios</a></li>
+                                        <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/users/users.php')">Usuarios</a></li>
                                         <!-- <li><a href="javascript:void(0);">Compact Sidebar</a></li>
                                         <li><a href="javascript:void(0);">Horizontal layout</a></li>
                                         <li><a href="javascript:void(0);">Maintenance</a></li>
@@ -312,3 +312,6 @@
     </div>
 </header>
 <!-- Header End -->
+
+<!-- <script src="/app/partials/scriptsHeader.php"></script> -->
+<?php include_once dirname(__DIR__) . '/partials/scriptsJS.php'; ?>

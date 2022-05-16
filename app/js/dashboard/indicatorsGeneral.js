@@ -84,8 +84,10 @@ averagesTime = (data) => {
     averageEnlistment = enlistmentTime / data.length;
     averageOperation = operationTime / data.length;
 
-    // averageEnlistment = new Intl.NumberFormat('de-DE').format(averageEnlistment);
-    // averageOperation = new Intl.NumberFormat('de-DE').format(averageOperation);
+    averageEnlistment = new Intl.NumberFormat('de-DE').format(
+      averageEnlistment
+    );
+    averageOperation = new Intl.NumberFormat('de-DE').format(averageOperation);
 
     $('#enlistmentTime').html(`${averageEnlistment} min`);
     $('#operationTime').html(`${averageOperation} min`);
