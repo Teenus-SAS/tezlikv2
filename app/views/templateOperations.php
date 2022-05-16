@@ -209,7 +209,7 @@ $userinactivetimeDao->findSession();
 							<div class="col-md-4 col-lg-3">
 								<div class="card">
 									<div class="card-header">
-										<h5 class="card-title">Tiempos Promedio</h5>
+										<h5 class="card-title">Tiempos Fabricación (Prom)</h5>
 									</div>
 									<div class="card-body p-0">
 										<ul class="list-group list-group-flush">

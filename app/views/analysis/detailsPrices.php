@@ -63,7 +63,7 @@ $userinactivetimeDao->findSession();
                             <div class="text-center">
                                 <!-- <div id="t-rev"></div> -->
                                 <span class="text-info font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-check" id="percentRawMaterial"></i>
+                                    <i class="" id="percentRawMaterial" style="font-style: initial;"></i>
                                 </span>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ $userinactivetimeDao->findSession();
                             <div class="text-center">
                                 <!-- <div id="t-order"></div> -->
                                 <span class="text-info font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-check" id="percentWorkforce"></i>
+                                    <i class="" id="percentWorkforce" style="font-style: initial;"></i>
                                 </span>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ $userinactivetimeDao->findSession();
                             <div class="text-center">
                                 <!-- <div id="t-user"></div> -->
                                 <span class="text-info font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-check" id="percentIndirectCost"></i>
+                                    <i class="" id="percentIndirectCost" style="font-style: initial;"></i>
                                 </span>
                             </div>
                         </div>
@@ -117,7 +117,7 @@ $userinactivetimeDao->findSession();
                             <div class="text-center">
                                 <!-- <div id="t-visitor"></div> -->
                                 <span class="text-info font-weight-bold" style="font-size:large">
-                                    <i class="bx bx-check" id="percentAssignableExpenses"></i>
+                                    <i class="" id="percentAssignableExpenses" style="font-style: initial;"></i>
                                 </span>
                             </div>
                         </div>
@@ -261,9 +261,45 @@ $userinactivetimeDao->findSession();
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Composición Costos </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div class="chart">
+                                <canvas id="chartCostProduct" style="width: 90%;"></canvas>
+                            </div>
+                            <div class="center-text">
+                                <p class="text-muted mb-1 font-weight-600">Costos Totales</p>
+                                <h4 class="mb-0 font-weight-bold">120 min</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Composición Precio </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div class="chart">
+                                <canvas id="chartPrice" style="width: 90%;"></canvas>
+                            </div>
+                            <div class="center-text">
+                                <p class="text-muted mb-1 font-weight-600">Precio</p>
+                                <h4 class="mb-0 font-weight-bold">120 min</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- End total sales chart -->
             <!-- Begin earning chart -->
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header dflex-between-center">
                         <h5 class="card-title">Costos Materia Prima</h5>

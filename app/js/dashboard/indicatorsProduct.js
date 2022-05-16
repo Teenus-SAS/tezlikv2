@@ -41,17 +41,17 @@ $(document).ready(function() {
         $('#rawMaterial').html(`$ ${data[0].cost_materials.toLocaleString('es-ES')}`);
         $('#workforce').html(`$ ${data[0].cost_workforce.toLocaleString('es-ES')}`);
         $('#indirectCost').html(`$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`);
-        $('#assignableExpenses').html(`$ ${data[0].assignable_expense.toLocaleString('es-ES')}`);
+        $('#assignableExpenses').html(`$ ${data[0].assignable_expense.toLocaleString('de-DE', { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}`);
 
         percentRawMaterial = (data[0].cost_materials / costTotal) * 100;
         percentWorkforce = (data[0].cost_workforce / costTotal) * 100;
         percentIndirectCost = (data[0].cost_indirect_cost / costTotal) * 100;
         percentAssignableExpenses = (data[0].assignable_expense / costTotal) * 100;
 
-        $('#percentRawMaterial').html(`${percentRawMaterial.toFixed(2)} %`);
-        $('#percentWorkforce').html(`${percentWorkforce.toFixed(2)} %`);
-        $('#percentIndirectCost').html(`${percentIndirectCost.toFixed(2)} %`);
-        $('#percentAssignableExpenses').html(`${percentAssignableExpenses.toFixed(2)} %`);
+        $('#percentRawMaterial').html(`(${percentRawMaterial.toFixed(1)}%)`);
+        $('#percentWorkforce').html(`(${percentWorkforce.toFixed(1)}%)`);
+        $('#percentIndirectCost').html(`(${percentIndirectCost.toFixed(1)}%)`);
+        $('#percentAssignableExpenses').html(`(${percentAssignableExpenses.toFixed(1)}%)`);
 
     };
 
@@ -78,11 +78,11 @@ $(document).ready(function() {
         $('#payRawMaterial').html(`$ ${data[0].cost_materials.toLocaleString('es-ES')}`);
         $('#payWorkforce').html(`$ ${data[0].cost_workforce.toLocaleString('es-ES')}`);
         $('#payIndirectCost').html(`$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`);
-        $('#payAssignableExpenses').html(`$ ${data[0].assignable_expense.toFixed(2)}`);
+        $('#payAssignableExpenses').html(`$ ${data[0].assignable_expense.toLocaleString('es-ES', { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}`);
 
         costCommissionSale = data[0].price * (data[0].commission_sale / 100);
         $('#commission').html(`Comisión Vts (${data[0].commission_sale}%)`);
-        $('#commisionSale').html(`$${Math.round(costCommissionSale).toLocaleString('es-ES')}`);
+        $('#commisionSale').html(`$ ${Math.round(costCommissionSale).toLocaleString('es-ES')}`);
 
         costProfitability = data[0].price * (data[0].profitability / 100);
         $('#profit').html(`Rentabilidad (${data[0].profitability}%)`);
