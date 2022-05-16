@@ -25,7 +25,7 @@ class ExternalServicesDao
         $stmt = $connection->prepare("SELECT sx.id_service, p.reference, sx.name_service, sx.cost, sx.id_product 
                                         FROM services sx INNER JOIN products p ON sx.id_product = p.id_product 
                                         WHERE sx.id_product = :id_product AND sx.id_company = :id_company;");
-        $stmt->execute(['id_product' => $id_product, 'id_company' => $id_company]);
+        $stmt->execute(['id_product' => trim($id_product), 'id_company' => $id_company]);
         $externalservices = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("products", array('products' => $externalservices));
         return $externalservices;
@@ -39,8 +39,8 @@ class ExternalServicesDao
         $stmt = $connection->prepare("SELECT id_service FROM services
                                       WHERE id_product = :id_product AND name_service = :name_service AND id_company = :id_company");
         $stmt->execute([
-            'id_product' => $dataExternalService['idProduct'],
-            'name_service' => $dataExternalService['service'],
+            'id_product' => trim($dataExternalService['idProduct']),
+            'name_service' => ucfirst(strtolower(trim($dataExternalService['service']))),
             'id_company' => $id_company
         ]);
         $findExternalService = $stmt->fetch($connection::FETCH_ASSOC);
@@ -56,9 +56,9 @@ class ExternalServicesDao
             $stmt = $connection->prepare("INSERT INTO services(name_service, cost, id_product, id_company)
                                           VALUES(:name_service, :cost, :id_product, :id_company)");
             $stmt->execute([
-                'name_service' => ucfirst(strtolower($dataExternalService['service'])),
+                'id_product' => trim($dataExternalService['idProduct']),
+                'name_service' => ucfirst(strtolower(trim($dataExternalService['service']))),
                 'cost' => $costService,
-                'id_product' => $dataExternalService['idProduct'],
                 'id_company' => $id_company
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -80,10 +80,10 @@ class ExternalServicesDao
             $stmt = $connection->prepare("UPDATE services SET name_service=:name_service, cost=:cost, id_product=:id_product
                                           WHERE id_service = :id_service");
             $stmt->execute([
-                'id_service' => $dataExternalService['idService'],
-                'name_service' => ucfirst(strtolower($dataExternalService['service'])),
+                'id_product' => trim($dataExternalService['idProduct']),
+                'name_service' => ucfirst(strtolower(trim($dataExternalService['service']))),
                 'cost' => $costService,
-                'id_product' => $dataExternalService['idProduct']
+                'id_service' => trim($dataExternalService['idService'])
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {
@@ -98,12 +98,12 @@ class ExternalServicesDao
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT * FROM services WHERE id_service = :id_service");
-        $stmt->execute(['id_service' => $idService]);
+        $stmt->execute(['id_service' => trim($idService)]);
         $rows = $stmt->rowCount();
 
         if ($rows > 0) {
             $stmt = $connection->prepare("DELETE FROM services WHERE id_service = :id_service");
-            $stmt->execute(['id_service' => $idService]);
+            $stmt->execute(['id_service' => trim($idService)]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
     }

@@ -38,16 +38,18 @@ class CompanyDao
                                     VALUES (:company, :state, :city, :country, :address, 
                                                 :telephone, :nit, :logo, :created_at, :creador)");
       $stmt->execute([
-        'company' => ucfirst(strtolower($dataCompany['company'])),
-        'state' => ucfirst(strtolower($dataCompany['state'])),
-        'country' => ucfirst(strtolower($dataCompany['country'])),
-        'city' => ucfirst(strtolower($dataCompany['city'])),
-        'address' => ucfirst(strtolower($dataCompany['address'])),
-        'telephone' => $dataCompany['telephone'],
-        'nit' => $dataCompany['nit'],
-        'logo' => $dataCompany['logo'],
+
+        'company' => ucfirst(strtolower(trim($dataCompany['company']))),
+        'state' => ucfirst(strtolower(trim($dataCompany['state']))),
+        'country' => ucfirst(strtolower(trim($dataCompany['country']))),
+        'city' => ucfirst(strtolower(trim($dataCompany['city']))),
+        'address' => ucfirst(strtolower(trim($dataCompany['address']))),
+        'telephone' => trim($dataCompany['telephone']),
+        'nit' => trim($dataCompany['nit']),
+        'logo' => trim($dataCompany['logo']),
         'created_at' => $dataCompany['createAt'],
         'creador' => $dataCompany['creador']
+
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
@@ -76,17 +78,19 @@ class CompanyDao
                                                   telephone = :telephone, nit = :nit, logo = :logo, created_at = :created_at, creador =:creador
                                     WHERE id_company = :id_company");
       $stmt->execute([
-        'company' => ucfirst(strtolower($dataCompany['company'])),
-        'state' => ucfirst(strtolower($dataCompany['state'])),
-        'country' => ucfirst(strtolower($dataCompany['country'])),
-        'city' => ucfirst(strtolower($dataCompany['city'])),
-        'address' => ucfirst(strtolower($dataCompany['address'])),
-        'telephone' => $dataCompany['telephone'],
-        'nit' => $dataCompany['nit'],
-        'logo' => $dataCompany['logo'],
+
+        'company' => ucfirst(strtolower(trim($dataCompany['company']))),
+        'state' => ucfirst(strtolower(trim($dataCompany['state']))),
+        'country' => ucfirst(strtolower(trim($dataCompany['country']))),
+        'city' => ucfirst(strtolower(trim($dataCompany['city']))),
+        'address' => ucfirst(strtolower(trim($dataCompany['address']))),
+        'telephone' => trim($dataCompany['telephone']),
+        'nit' => trim($dataCompany['nit']),
+        'logo' => trim($dataCompany['logo']),
         'created_at' => $dataCompany['createAt'],
         'creador' => $dataCompany['creador'],
         'id_company' => $id_company
+
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {

@@ -79,7 +79,7 @@ $(document).ready(function () {
   saveExpense = (data) => {
     $.ajax({
       type: 'POST',
-      url: '../../api/addExpenses',
+      url: '/api/addExpenses',
       data: { importExpense: data },
       success: function (r) {
         /* Mensaje de exito */

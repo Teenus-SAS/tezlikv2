@@ -43,8 +43,8 @@ class ProductsDao
                                   AND product = :product 
                                   AND id_company = :id_company");
     $stmt->execute([
-      'reference' => ucfirst(strtolower($dataProduct['referenceProduct'])),
-      'product' => ucfirst(strtolower($dataProduct['product'])),
+      'reference' => ucfirst(strtolower(trim($dataProduct['referenceProduct']))),
+      'product' => ucfirst(strtolower(trim($dataProduct['product']))),
       'id_company' => $id_company
     ]);
     $findProduct = $stmt->fetch($connection::FETCH_ASSOC);
@@ -61,9 +61,9 @@ class ProductsDao
       $stmt = $connection->prepare("INSERT INTO products(id_company, reference, product) 
                                       VALUES(:id_company, :reference, :product)");
       $stmt->execute([
-        'id_company' => $id_company,
-        'reference' => ucfirst(strtolower($dataProduct['referenceProduct'])),
-        'product' => ucfirst(strtolower($dataProduct['product']))
+        'reference' => ucfirst(strtolower(trim($dataProduct['referenceProduct']))),
+        'product' => ucfirst(strtolower(trim($dataProduct['product']))),
+        'id_company' => $id_company
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -85,9 +85,9 @@ class ProductsDao
       $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product 
                                     WHERE id_product = :id_product AND id_company = :id_company");
       $stmt->execute([
-        'id_product' => $dataProduct['idProduct'],
-        'reference' => ucfirst(strtolower($dataProduct['referenceProduct'])),
-        'product' => ucfirst(strtolower($dataProduct['product']))
+        'reference' => ucfirst(strtolower(trim($dataProduct['referenceProduct']))),
+        'product' => ucfirst(strtolower(trim($dataProduct['product']))),
+        'id_product' => trim($dataProduct['idProduct'])
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -133,7 +133,11 @@ class ProductsDao
     if (in_array($fileType, $allowTypes)) {
       $sql = "UPDATE products SET img = :img WHERE id_product = :id_product AND id_company = :id_company";
       $query = $connection->prepare($sql);
-      $query->execute(['img' => $targetFilePath, 'id_product' => $id_product, 'id_company' => $id_company]);
+      $query->execute([
+        'img' => $targetFilePath,
+        'id_product' => trim($id_product),
+        'id_company' => $id_company
+      ]);
 
       $targetDir = dirname(dirname(dirname(dirname(__DIR__)))) . '/app/assets/images/products/' . $id_company;
       $targetFilePath = $targetDir . '/' . $image_name;
@@ -147,12 +151,12 @@ class ProductsDao
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT * FROM products WHERE id_product = :id_product");
-    $stmt->execute(['id_product' => $dataProduct['idProduct']]);
+    $stmt->execute(['id_product' => trim($dataProduct['idProduct'])]);
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
       $stmt = $connection->prepare("DELETE FROM products WHERE id_product = :id_product");
-      $stmt->execute(['id_product' => $dataProduct['idProduct']]);
+      $stmt->execute(['id_product' => trim($dataProduct['idProduct'])]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }

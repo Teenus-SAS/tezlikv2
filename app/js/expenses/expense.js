@@ -32,13 +32,9 @@ $(document).ready(function () {
 
       expenses = $('#formCreateExpenses').serialize();
 
-      $.post(
-        '../../api/addExpenses',
-        expenses,
-        function (data, textStatus, jqXHR) {
-          message(data);
-        }
-      );
+      $.post('/api/addExpenses', expenses, function (data, textStatus, jqXHR) {
+        message(data);
+      });
     } else {
       updateExpenses();
     }

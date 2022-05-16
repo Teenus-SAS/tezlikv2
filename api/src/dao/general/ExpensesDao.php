@@ -41,7 +41,7 @@ class ExpensesDao
 
     $stmt = $connection->prepare("SELECT id_expense FROM expenses WHERE id_puc = :id_puc AND id_company = :id_company");
     $stmt->execute([
-      'id_puc' => $dataExpense['idPuc'],
+      'id_puc' => trim($dataExpense['idPuc']),
       'id_company' => $id_company
     ]);
     $findExpense = $stmt->fetch($connection::FETCH_ASSOC);
@@ -57,9 +57,9 @@ class ExpensesDao
       $stmt = $connection->prepare("INSERT INTO expenses (id_puc, id_company, expense_value)
                                     VALUES (:id_puc, :id_company, :expense_value)");
       $stmt->execute([
-        'id_puc' => $dataExpense['idPuc'],
+        'id_puc' => trim($dataExpense['idPuc']),
         'id_company' => $id_company,
-        'expense_value' => $expenseValue
+        'expense_value' => trim($expenseValue)
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -81,9 +81,9 @@ class ExpensesDao
       $stmt = $connection->prepare("UPDATE expenses SET id_puc = :id_puc, expense_value = :expense_value
                                       WHERE id_expense = :id_expense");
       $stmt->execute([
-        'id_puc' => $dataExpense['idPuc'],
-        'expense_value' => $expenseValue,
-        'id_expense' => $dataExpense['idExpense']
+        'id_puc' => trim($dataExpense['idPuc']),
+        'expense_value' => trim($expenseValue),
+        'id_expense' => trim($dataExpense['idExpense'])
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {

@@ -40,7 +40,7 @@ class ProcessPayrollDao
                                       INNER JOIN process p ON p.id_process = pay.id_process 
                                       WHERE p.process = :process AND pay.id_company = :id_company;");
         $stmt->execute([
-            'process' => $dataPayroll['process'],
+            'process' => ucfirst(strtolower(trim($dataPayroll['process']))),
             'id_company' => $id_company
         ]);
         $findProcess = $stmt->fetch($connection::FETCH_ASSOC);

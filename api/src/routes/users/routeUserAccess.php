@@ -19,12 +19,22 @@ $app->get('/usersAccess', function (Request $request, Response $response, $args)
 
 /* Consulta para acceso de un usuario */
 
+// $app->post('/userAccess', function (Request $request, Response $response, $args) use ($userAccessDao) {
+//     session_start();
+//     $company = $_SESSION['id_company'];
+//     $id_user = $_SESSION['idUser'];
+//     $usersAccess = $userAccessDao->findUserAccess($company, $id_user);
+//     $response->getBody()->write(json_encode($usersAccess, JSON_NUMERIC_CHECK));
+//     return $response->withHeader('Content-Type', 'application/json');
+// });
+
 $app->post('/userAccess', function (Request $request, Response $response, $args) use ($userAccessDao) {
     session_start();
     $company = $_SESSION['id_company'];
     $id_user = $_SESSION['idUser'];
-    $usersAccess = $userAccessDao->findUserAccess($company, $id_user);
-    $response->getBody()->write(json_encode($usersAccess, JSON_NUMERIC_CHECK));
+    $userAccess = $userAccessDao->findUserAccess($company, $id_user);
+    $userAccess = $userAccess[0];
+    $response->getBody()->write(json_encode($userAccess, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');
 });
 

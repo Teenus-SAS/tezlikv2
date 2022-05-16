@@ -36,7 +36,7 @@ $app->post('/expenseDataValidation', function (Request $request, Response $respo
             $findPuc = $pucDao->findPuc($expense[$i]);
             if (!$findPuc) {
                 $i = $i + 1;
-                $dataImportExpense = array('error' => true, 'message' => "Cuenta no existe en la base de datos<br>Fila{$i}");
+                $dataImportExpense = array('error' => true, 'message' => "Cuenta no existe en la base de datos<br>Fila: {$i}");
                 break;
             } else $expense[$i]['idPuc'] = $findPuc['id_puc'];
 

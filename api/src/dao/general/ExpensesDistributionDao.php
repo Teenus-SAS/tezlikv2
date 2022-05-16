@@ -42,7 +42,7 @@ class ExpensesDistributionDao
         $stmt = $connection->prepare("SELECT id_expenses_distribution FROM expenses_distribution 
                                       WHERE id_product = :id_product AND id_company = :id_company");
         $stmt->execute([
-            'id_product' => $dataExpensesDistribution['selectNameProduct'],
+            'id_product' => trim($dataExpensesDistribution['selectNameProduct']),
             'id_company' => $id_company
         ]);
         $findExpenseDistribution = $stmt->fetch($connection::FETCH_ASSOC);
@@ -61,12 +61,11 @@ class ExpensesDistributionDao
                                                                             turnover)
                                           VALUES (:id_product, :id_company, :units_sold, :turnover)");
             $stmt->execute([
-                'id_product' => $dataExpensesDistribution['selectNameProduct'],
+                'id_product' => trim($dataExpensesDistribution['selectNameProduct']),
                 'id_company' => $id_company,
-                'units_sold' => $unitsSold,
-                'turnover' => $turnover
+                'units_sold' => trim($unitsSold),
+                'turnover' => trim($turnover)
             ]);
-
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {
             $message = $e->getMessage();
@@ -88,10 +87,10 @@ class ExpensesDistributionDao
             $stmt = $connection->prepare("UPDATE expenses_distribution SET id_product = :id_product, units_sold = :units_sold, turnover = :turnover
                                           WHERE id_expenses_distribution = :id_expenses_distribution");
             $stmt->execute([
-                'id_expenses_distribution' => $dataExpensesDistribution['idExpensesDistribution'],
-                'id_product' => $dataExpensesDistribution['selectNameProduct'],
-                'units_sold' => $unitsSold,
-                'turnover' => $turnover
+                'id_expenses_distribution' => trim($dataExpensesDistribution['idExpensesDistribution']),
+                'id_product' => trim($dataExpensesDistribution['selectNameProduct']),
+                'units_sold' => trim($unitsSold),
+                'turnover' => trim($turnover)
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {

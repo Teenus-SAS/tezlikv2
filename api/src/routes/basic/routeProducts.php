@@ -74,12 +74,17 @@ $app->post('/addProducts', function (Request $request, Response $response, $args
     $dataProducts = sizeof($dataProduct);
 
     if ($dataProducts > 1) {
+        //INGRESA id_company, referencia, producto. BD
         $products = $productsDao->insertProductByCompany($dataProduct, $id_company);
+
+        //ULTIMO REGISTRO DE ID, EL MÁS ALTO
         $lastProductId = $productsDao->lastInsertedProductId($id_company);
 
         if (sizeof($_FILES) > 0)
             $productsDao->imageProduct($lastProductId['id_product'], $id_company);
 
+
+        //AGREGA ULTIMO ID A DATA
         $dataProduct['idProduct'] = $lastProductId['id_product'];
         $productsCost = $productsCostDao->insertProductsCostByCompany($dataProduct, $id_company);
 

@@ -37,7 +37,7 @@ class MachinesDao
     $stmt = $connection->prepare("SELECT id_machine FROM machines
                                  WHERE machine = :machine AND id_company = :id_company");
     $stmt->execute([
-      'machine' => ucfirst(strtolower($dataMachine['machine'])),
+      'machine' => ucfirst(strtolower(trim($dataMachine['machine']))),
       'id_company' => $id_company
     ]);
     $findMachine = $stmt->fetch($connection::FETCH_ASSOC);
@@ -58,7 +58,7 @@ class MachinesDao
                                         :residual_value, :hours_machine, :days_machine)");
       $stmt->execute([
         'id_company' => $id_company,
-        'machine' => ucfirst(strtolower($dataMachine['machine'])),
+        'machine' => ucfirst(strtolower(trim($dataMachine['machine']))),
         'cost' => $costMachine,
         'years_depreciation' => $dataMachine['depreciationYears'],
         'residual_value' => $residualValue,
@@ -92,7 +92,7 @@ class MachinesDao
                                     WHERE id_machine = :id_machine");
       $stmt->execute([
         'id_machine' => $dataMachine['idMachine'],
-        'machine' => ucfirst(strtolower($dataMachine['machine'])),
+        'machine' => ucfirst(strtolower(trim($dataMachine['machine']))),
         'cost' => $costMachine,
         'years_depreciation' => $dataMachine['depreciationYears'],
         'residual_value' => $residualValue,
