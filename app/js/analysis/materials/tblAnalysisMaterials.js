@@ -101,7 +101,8 @@ $(document).ready(function() {
 
             // Calcular costo proyectado
             calculateProjectedCost(line)
-
+            $('#monthlySavings').css('border-color', 'mediumseagreen');
+            $('#annualSavings').css('border-color', 'blue');
         }
     });
 
@@ -114,14 +115,19 @@ $(document).ready(function() {
         else
             $(`#percentage-${line}`).html(`${percentage.toFixed(3)} %`);
 
-        if (percentage < 0)
+        if (percentage < 0) {
             $(`#percentage-${line}`).css('color', 'red');
-        else
+            $(`#monthlySavings`).css('color', 'red');
+            $(`#annualSavings`).css('color', 'red');
+        } else {
             $(`#percentage-${line}`).css('color', '#505d69');
+            $(`#monthlySavings`).css('color', 'gray');
+            $(`#annualSavings`).css('color', 'gray');
+        }
     }
 
     $(document).on('keyup', '#unitsmanufacturated', function(e) {
-        debugger
+
         unitsmanufacturated = this.value;
         unitsmanufacturated = unitsmanufacturated.replace('.', '');
         unitsmanufacturated = parseFloat(unitsmanufacturated);
@@ -193,7 +199,7 @@ $(document).ready(function() {
 
     /* Calcula el ahorro mensual */
     savingsMontly = () => {
-        debugger
+
         totalMonthlySavings = 0;
 
         for (i = 1; i < count + 1; i++) {
