@@ -39,7 +39,7 @@ class ExternalServicesDao
         $stmt = $connection->prepare("SELECT id_service FROM services
                                       WHERE id_product = :id_product AND name_service = :name_service AND id_company = :id_company");
         $stmt->execute([
-            'id_product' => trim($dataExternalService['idProduct']),
+            'id_product' => $dataExternalService['idProduct'],
             'name_service' => ucfirst(strtolower(trim($dataExternalService['service']))),
             'id_company' => $id_company
         ]);
@@ -56,7 +56,7 @@ class ExternalServicesDao
             $stmt = $connection->prepare("INSERT INTO services(name_service, cost, id_product, id_company)
                                           VALUES(:name_service, :cost, :id_product, :id_company)");
             $stmt->execute([
-                'id_product' => trim($dataExternalService['idProduct']),
+                'id_product' => $dataExternalService['idProduct'],
                 'name_service' => ucfirst(strtolower(trim($dataExternalService['service']))),
                 'cost' => $costService,
                 'id_company' => $id_company
@@ -80,10 +80,10 @@ class ExternalServicesDao
             $stmt = $connection->prepare("UPDATE services SET name_service=:name_service, cost=:cost, id_product=:id_product
                                           WHERE id_service = :id_service");
             $stmt->execute([
-                'id_product' => trim($dataExternalService['idProduct']),
+                'id_product' => $dataExternalService['idProduct'],
                 'name_service' => ucfirst(strtolower(trim($dataExternalService['service']))),
                 'cost' => $costService,
-                'id_service' => trim($dataExternalService['idService'])
+                'id_service' => $dataExternalService['idService']
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {
@@ -98,12 +98,12 @@ class ExternalServicesDao
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT * FROM services WHERE id_service = :id_service");
-        $stmt->execute(['id_service' => trim($idService)]);
+        $stmt->execute(['id_service' => $idService]);
         $rows = $stmt->rowCount();
 
         if ($rows > 0) {
             $stmt = $connection->prepare("DELETE FROM services WHERE id_service = :id_service");
-            $stmt->execute(['id_service' => trim($idService)]);
+            $stmt->execute(['id_service' => $idService]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         }
     }

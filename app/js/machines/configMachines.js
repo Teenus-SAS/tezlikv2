@@ -25,8 +25,13 @@ $(document).ready(function() {
                 );
             });
 
-            // let $select1 = $(`#selectNameProduct`)
-            // $select1.empty()
+            $select.append(`<option disabled selected>Seleccionar</option>`);
+            $select.append(`<option value="">Proceso Manual</option>`);
+            $.each(r, function(i, value) {
+                $select.append(
+                    `<option value = ${value.id_machine}> ${value.machine} </option>`
+                );
+            });
 
             // $select1.append(`<option disabled selected>Seleccionar</option>`)
             // $.each(r, function(i, value) {

@@ -39,9 +39,9 @@ class MaterialsDao
                                   AND material = :material 
                                   AND id_company = :id_company");
     $stmt->execute([
-      'reference' => ucfirst(strtolower(trim($dataMaterial['refRawMaterial']))),
+      'reference' => trim($dataMaterial['refRawMaterial']),
       'material' => ucfirst(strtolower(trim($dataMaterial['nameRawMaterial']))),
-      'id_company' => $id_company
+      'id_company' => $id_company,
     ]);
     $findMaterial = $stmt->fetch($connection::FETCH_ASSOC);
     return $findMaterial;
@@ -58,7 +58,7 @@ class MaterialsDao
                                       VALUES(:id_company ,:reference, :material, :unit, :cost)");
       $stmt->execute([
         'id_company' => $id_company,
-        'reference' => ucfirst(strtolower(trim($dataMaterial['refRawMaterial']))),
+        'reference' => trim($dataMaterial['refRawMaterial']),
         'material' => ucfirst(strtolower(trim($dataMaterial['nameRawMaterial']))),
         'unit' => ucfirst(strtolower(trim($dataMaterial['unityRawMaterial']))),
         'cost' => $costRawMaterial
@@ -86,8 +86,8 @@ class MaterialsDao
       $stmt = $connection->prepare("UPDATE materials SET reference = :reference, material = :material, unit = :unit, cost = :cost 
                                     WHERE id_material = :id_material");
       $stmt->execute([
-        'id_material' => trim($dataMaterial['idMaterial']),
-        'reference' => ucfirst(strtolower(trim($dataMaterial['refRawMaterial']))),
+        'id_material' => $dataMaterial['idMaterial'],
+        'reference' => trim($dataMaterial['refRawMaterial']),
         'material' => ucfirst(strtolower(trim($dataMaterial['nameRawMaterial']))),
         'unit' => ucfirst(strtolower(trim($dataMaterial['unityRawMaterial']))),
         'cost' => $costRawMaterial
@@ -105,12 +105,12 @@ class MaterialsDao
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT * FROM materials WHERE id_material = :id_material");
-    $stmt->execute(['id_material' => trim($dataMaterial['idMaterial'])]);
+    $stmt->execute(['id_material' => $dataMaterial['idMaterial']]);
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
       $stmt = $connection->prepare("DELETE FROM materials WHERE id_material = :id_material");
-      $stmt->execute(['id_material' => trim($dataMaterial['idMaterial'])]);
+      $stmt->execute(['id_material' => $dataMaterial['idMaterial']]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }

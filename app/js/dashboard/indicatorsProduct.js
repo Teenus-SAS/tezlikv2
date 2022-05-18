@@ -33,26 +33,36 @@ $(document).ready(function() {
     /* Indicadores Generales */
 
     generalIndicators = (data) => {
-
         $('#product').html(data[0].product);
 
-        let costTotal = data[0].cost_materials + data[0].cost_workforce + data[0].cost_indirect_cost + data[0].assignable_expense
+        let costTotal =
+            data[0].cost_materials +
+            data[0].cost_workforce +
+            data[0].cost_indirect_cost +
+            data[0].assignable_expense;
 
-        $('#rawMaterial').html(`$ ${data[0].cost_materials.toLocaleString('es-ES')}`);
+        $('#rawMaterial').html(
+            `$ ${data[0].cost_materials.toLocaleString('es-ES')}`
+        );
         $('#workforce').html(`$ ${data[0].cost_workforce.toLocaleString('es-ES')}`);
-        $('#indirectCost').html(`$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`);
-        $('#assignableExpenses').html(`$ ${data[0].assignable_expense.toLocaleString('de-DE', { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}`);
+        $('#indirectCost').html(
+            `$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`
+        );
+        $('#assignableExpenses').html(
+            `$ ${data[0].assignable_expense.toLocaleString('es-ES')}`
+        );
 
         percentRawMaterial = (data[0].cost_materials / costTotal) * 100;
         percentWorkforce = (data[0].cost_workforce / costTotal) * 100;
         percentIndirectCost = (data[0].cost_indirect_cost / costTotal) * 100;
         percentAssignableExpenses = (data[0].assignable_expense / costTotal) * 100;
 
-        $('#percentRawMaterial').html(`(${percentRawMaterial.toFixed(1)}%)`);
-        $('#percentWorkforce').html(`(${percentWorkforce.toFixed(1)}%)`);
-        $('#percentIndirectCost').html(`(${percentIndirectCost.toFixed(1)}%)`);
-        $('#percentAssignableExpenses').html(`(${percentAssignableExpenses.toFixed(1)}%)`);
-
+        $('#percentRawMaterial').html(`${percentRawMaterial.toFixed(2)} %`);
+        $('#percentWorkforce').html(`${percentWorkforce.toFixed(2)} %`);
+        $('#percentIndirectCost').html(`${percentIndirectCost.toFixed(2)} %`);
+        $('#percentAssignableExpenses').html(
+            `${percentAssignableExpenses.toFixed(2)} %`
+        );
     };
 
     /* Ventas */
@@ -75,17 +85,29 @@ $(document).ready(function() {
         $('#salesPrice').html(`$ ${data[0].price.toLocaleString('es-ES')}`);
         $('#costTotal').html(`$ ${costTotal.toLocaleString('es-ES')}`);
         $('#cost').html(`$ ${cost.toLocaleString('es-ES')}`);
-        $('#payRawMaterial').html(`$ ${data[0].cost_materials.toLocaleString('es-ES')}`);
-        $('#payWorkforce').html(`$ ${data[0].cost_workforce.toLocaleString('es-ES')}`);
-        $('#payIndirectCost').html(`$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`);
-        $('#payAssignableExpenses').html(`$ ${data[0].assignable_expense.toLocaleString('es-ES', { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 })}`);
+        $('#payRawMaterial').html(
+            `$ ${data[0].cost_materials.toLocaleString('es-ES')}`
+        );
+        $('#payWorkforce').html(
+            `$ ${data[0].cost_workforce.toLocaleString('es-ES')}`
+        );
+        $('#payIndirectCost').html(
+            `$ ${data[0].cost_indirect_cost.toLocaleString('es-ES')}`
+        );
+        $('#payAssignableExpenses').html(
+            `$ ${data[0].assignable_expense.toFixed(2)}`
+        );
 
         costCommissionSale = data[0].price * (data[0].commission_sale / 100);
         $('#commission').html(`Comisión Vts (${data[0].commission_sale}%)`);
-        $('#commisionSale').html(`$ ${Math.round(costCommissionSale).toLocaleString('es-ES')}`);
+        $('#commisionSale').html(
+            `$${Math.round(costCommissionSale).toLocaleString('es-ES')}`
+        );
 
         costProfitability = data[0].price * (data[0].profitability / 100);
         $('#profit').html(`Rentabilidad (${data[0].profitability}%)`);
-        $('#profitability').html(`$ ${Math.round(costProfitability).toLocaleString('es-ES')}`);
+        $('#profitability').html(
+            `$ ${Math.round(costProfitability).toLocaleString('es-ES')}`
+        );
     };
 });

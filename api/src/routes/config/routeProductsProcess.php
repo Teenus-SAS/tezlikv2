@@ -114,8 +114,11 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
             $indirectCost == null && $priceProduct == null
         )
             $resp = array('success' => true, 'message' => 'Proceso asignado correctamente');
-        else
+        elseif ($productProcess == 1)
+            $resp = array('error' => true, 'message' => 'El Proceso ya se encuentra en la Base de Datos');
+        else {
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras asignaba la información. Intente nuevamente');
+        }
     } else {
         $productProcess = $dataProductProcess['importProductsProcess'];
 
@@ -134,8 +137,15 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
 
             $findProductProcess = $productsProcessDao->findProductProcess($productProcess[$i], $id_company);
 
-            if (!$findProductProcess) $resolution = $productsProcessDao->insertProductsProcessByCompany($productProcess[$i], $id_company);
-            else {
+            if (!$findProductProcess) {
+                $resolution = $productsProcessDao->insertProductsProcessByCompany($productProcess[$i], $id_company);
+
+                if ($resolution == 1) {
+                    $i = $i + 1;
+                    $resp = array('error' => true, 'message' => "El Proceso ya se encuentra en la Base de Datos<br>Fila: {$i}");
+                    break;
+                } else $productProcess[$i]['idProduct'] = $findProduct['id_product'];
+            } else {
                 $productProcess[$i]['idProductProcess'] = $findProductProcess['id_product_process'];
                 $resolution = $productsProcessDao->updateProductsProcess($productProcess[$i]);
             }
@@ -149,13 +159,15 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
             // Calcular Precio del producto
             $priceProduct = $priceProductDao->calcPrice($productProcess[$i]['idProduct']);
         }
+
         if (
             $resolution == null && $costPayroll == null &&
             $indirectCost == null && $priceProduct == null
         )
             $resp = array('success' => true, 'message' => 'Proceso importado correctamente');
-        else
+        else {
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras importaba la información. Intente nuevamente');
+        }
     }
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');

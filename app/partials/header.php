@@ -31,9 +31,9 @@
                     <i class="bx bx-cog bx-spin" style="font-size: 2em;"></i>
                 </a>
                 <div class="dropdown-megamenu dropdown-menu" aria-labelledby="mega-dropdown">
-                    <div class="row d-flex justify-content-center">
+                    <div class="row">
                         <div class="col-sm-9">
-                            <div class="row">
+                            <div class="row" id="nav">
                                 <div class="col-md-3" id="navBasics">
                                     <h5 class="font-size-14 font-weight-600">Básico</h5>
                                     <ul class="list-unstyled megamenu-list">
@@ -53,7 +53,7 @@
                                         <!-- <li class="linesProducts"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/lines.php')">Lineas de Producto</a></li> -->
                                     </ul>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" id="navGeneral">
                                     <h5 class="font-size-14 font-weight-600">General</h5>
                                     <ul class="list-unstyled megamenu-list">
                                         <li class="payroll"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/createPayroll.php')">Carga Nómina</a></li>
@@ -61,7 +61,7 @@
                                         <li class="distributionExpenses"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/general/expensesDistribution.php')">Distribución de Gastos</a></li>
                                     </ul>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3" id="navAdmin">
                                     <h5 class="font-size-14 font-weight-600">Administrador</h5>
                                     <ul class="list-unstyled megamenu-list">
                                         <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/users/users.php')">Usuarios</a></li>

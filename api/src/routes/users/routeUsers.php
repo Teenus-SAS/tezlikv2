@@ -33,10 +33,16 @@ $app->get('/user', function (Request $request, Response $response, $args) use ($
 
 $app->post('/addUser', function (Request $request, Response $response, $args) use ($userDao, $quantityUsersDao, $accessUserDao) {
     session_start();
+    //variable de session id_company
     $id_company = $_SESSION['id_company'];
+
+    //data
     $dataUser = $request->getParsedBody();
 
+    //selecciona quantity_user de companies_licenses que tengan el id_company
     $quantityAllowsUsers = $quantityUsersDao->quantityUsersAllows($id_company);
+
+    //obtener cantidad de usuarios creados con el id_company
     $quantityCreatedUsers = $quantityUsersDao->quantityUsersCreated($id_company);
 
 
@@ -54,19 +60,17 @@ $app->post('/addUser', function (Request $request, Response $response, $args) us
         /* Almacena los accesos */
         $usersAccess = $accessUserDao->insertUserAccessByUser($dataUser);
 
-        if ($users == 1)
+
+        if ($users == 1) {
             $resp = array('error' => true, 'message' => 'El email ya se encuentra registrado. Intente con uno nuevo');
-
-        if ($users == null && $usersAccess == null)
+        } elseif ($users == null && $usersAccess == null) {
             $resp = array('success' => true, 'message' => 'Usuario creado correctamente');
-        else
+        } else {
             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras almacenaba la información. Intente nuevamente');
-
+        }
         // if ($users == 3)
         //     $resp = array('success' => true, 'message' => 'Usuario actualizado correctamente');
     }
-    /* } */
-
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
