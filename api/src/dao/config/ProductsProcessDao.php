@@ -23,7 +23,7 @@ class ProductsProcessDao
                                                      pp.enlistment_time, pp.operation_time, mc.machine, pc.process
                                   FROM products p 
                                   INNER JOIN products_process pp ON pp.id_product = p.id_product
-                                  INNER JOIN machines mc ON mc.id_machine = pp.id_machine 
+                                  LEFT JOIN machines mc ON mc.id_machine = pp.id_machine 
                                   INNER JOIN process pc ON pc.id_process = pp.id_process
                                   WHERE p.id_product = :id_product AND p.id_company = :id_company ORDER BY pp.id_machine ASC");
         $stmt->execute(['id_product' => $idProduct, 'id_company' => $id_company]);
