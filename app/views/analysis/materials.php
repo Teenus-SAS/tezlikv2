@@ -70,6 +70,8 @@ $userinactivetimeDao->findSession();
                                         <th>Total:</th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -107,7 +109,7 @@ $userinactivetimeDao->findSession();
                                 <thead>
                                     <tr>
                                         <th scope="col">No.</th>
-                                        <!-- <th scope="col">Referencia</th> -->
+                                        <th scope="col">Participación</th>
                                         <th scope="col">Materia Prima</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Precio Actual</th>
