@@ -73,7 +73,7 @@ class ProcessDao
       $stmt = $connection->prepare("UPDATE process SET process = :process WHERE id_process = :id_process");
       $stmt->execute([
         'process' => ucfirst(strtolower(trim($dataProcess['process']))),
-        'id_process' => trim($dataProcess['idProcess'])
+        'id_process' => $dataProcess['idProcess'],
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -88,12 +88,12 @@ class ProcessDao
     $connection = Connection::getInstance()->getConnection();
     try {
       $stmt = $connection->prepare("SELECT * FROM process WHERE id_process = :id_process");
-      $stmt->execute(['id_process' => trim($id_process)]);
+      $stmt->execute(['id_process' => $id_process]);
       $rows = $stmt->rowCount();
 
       if ($rows > 0) {
         $stmt = $connection->prepare("DELETE FROM process WHERE id_process = :id_process");
-        $stmt->execute(['id_process' => trim($id_process)]);
+        $stmt->execute(['id_process' => $id_process]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
       }
     } catch (\Exception $e) {

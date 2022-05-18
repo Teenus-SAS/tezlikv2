@@ -35,13 +35,9 @@ $(document).ready(function () {
 
       machine = $('#formCreateMachine').serialize();
 
-      $.post(
-        '../../api/addMachines',
-        machine,
-        function (data, textStatus, jqXHR) {
-          message(data);
-        }
-      );
+      $.post('/api/addMachines', machine, function (data, textStatus, jqXHR) {
+        message(data);
+      });
     } else {
       updateMachine();
     }
@@ -78,13 +74,9 @@ $(document).ready(function () {
     idMachine = sessionStorage.getItem('id_machine');
 
     data = data + '&idMachine=' + idMachine;
-    $.post(
-      '../../api/updateMachines',
-      data,
-      function (data, textStatus, jqXHR) {
-        message(data);
-      }
-    );
+    $.post('/api/updateMachines', data, function (data, textStatus, jqXHR) {
+      message(data);
+    });
   };
 
   /* Eliminar productos */

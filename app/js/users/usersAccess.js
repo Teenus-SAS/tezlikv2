@@ -23,6 +23,36 @@ $(document).ready(function () {
         if (value === 0) {
           $(`.${index}`).remove();
         }
+
+        if (
+          acces.createProducts === 0 &&
+          acces.createMaterials === 0 &&
+          acces.createMachines === 0 &&
+          acces.createProcess === 0
+        ) {
+          $('#navBasics').remove();
+        }
+
+        if (
+          acces.productsMaterials === 0 &&
+          acces.productsProcess === 0 &&
+          acces.factoryLoad === 0 &&
+          acces.servicesExternal === 0
+        ) {
+          $('#navSetting').remove();
+        }
+
+        if (
+          acces.payroll === 0 &&
+          acces.generalExpenses === 0 &&
+          acces.distributionExpenses === 0
+        ) {
+          $('#navGeneral').remove();
+        }
+
+        if (acces.users === 0) {
+          $('#navAdmin').remove();
+        }
       });
     },
   });

@@ -55,10 +55,10 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("INSERT INTO products_materials (id_material, id_company, id_product, quantity)
                                           VALUES (:id_material, :id_company, :id_product, :quantity)");
             $stmt->execute([
-                'id_material' => trim($dataProductMaterial['material']),
+                'id_material' => $dataProductMaterial['material'],
                 'id_company' => $id_company,
-                'id_product' => trim($dataProductMaterial['idProduct']),
-                'quantity' => trim($dataProductMaterial['quantity'])
+                'id_product' => $dataProductMaterial['idProduct'],
+                'quantity' => trim($dataProductMaterial['quantity']),
 
                 // 'id_material' => $dataProductMaterial['material'],
                 // 'id_company' => $id_company,
@@ -84,10 +84,10 @@ class ProductsMaterialsDao
             $stmt = $connection->prepare("UPDATE products_materials SET id_material = :id_material, id_product = :id_product, quantity = :quantity
                                     WHERE id_product_material = :id_product_material");
             $stmt->execute([
-                'id_product_material' => trim($dataProductMaterial['idProductMaterial']),
-                'id_material' => trim($dataProductMaterial['material']),
-                'id_product' => trim($dataProductMaterial['idProduct']),
-                'quantity' => trim($dataProductMaterial['quantity'])
+                'id_product_material' => $dataProductMaterial['idProductMaterial'],
+                'id_material' => $dataProductMaterial['material'],
+                'id_product' => $dataProductMaterial['idProduct'],
+                'quantity' => trim($dataProductMaterial['quantity']),
 
                 // 'id_product_material' => $dataProductMaterial['idProductMaterial'],
                 // 'id_material' => $dataProductMaterial['material'],

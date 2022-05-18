@@ -17,17 +17,6 @@ $app->get('/usersAccess', function (Request $request, Response $response, $args)
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-/* Consulta para acceso de un usuario */
-
-// $app->post('/userAccess', function (Request $request, Response $response, $args) use ($userAccessDao) {
-//     session_start();
-//     $company = $_SESSION['id_company'];
-//     $id_user = $_SESSION['idUser'];
-//     $usersAccess = $userAccessDao->findUserAccess($company, $id_user);
-//     $response->getBody()->write(json_encode($usersAccess, JSON_NUMERIC_CHECK));
-//     return $response->withHeader('Content-Type', 'application/json');
-// });
-
 $app->post('/userAccess', function (Request $request, Response $response, $args) use ($userAccessDao) {
     session_start();
     $company = $_SESSION['id_company'];

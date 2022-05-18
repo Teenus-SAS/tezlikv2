@@ -16,7 +16,7 @@ $(document).ready(function () {
     sessionStorage.removeItem('id_product_process');
 
     $('#idProcess option:contains(Seleccionar)').prop('selected', true);
-    // $('#idMachine option:contains(Seleccionar)').prop('selected', true);
+    $('#idMachine option:contains(Seleccionar)').prop('selected', true);
 
     $('#enlistmentTime').val('');
     $('#operationTime').val('');
@@ -56,7 +56,6 @@ $(document).ready(function () {
 
   $('#btnAddProcess').click(function (e) {
     e.preventDefault();
-    debugger;
     let idProductProcess = sessionStorage.getItem('id_product_process');
 
     if (idProductProcess == '' || idProductProcess == null) {

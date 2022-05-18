@@ -43,7 +43,7 @@ class ProductsDao
                                   AND product = :product 
                                   AND id_company = :id_company");
     $stmt->execute([
-      'reference' => ucfirst(strtolower(trim($dataProduct['referenceProduct']))),
+      'reference' => trim($dataProduct['referenceProduct']),
       'product' => ucfirst(strtolower(trim($dataProduct['product']))),
       'id_company' => $id_company
     ]);
@@ -61,9 +61,9 @@ class ProductsDao
       $stmt = $connection->prepare("INSERT INTO products(id_company, reference, product) 
                                       VALUES(:id_company, :reference, :product)");
       $stmt->execute([
-        'reference' => ucfirst(strtolower(trim($dataProduct['referenceProduct']))),
+        'reference' => trim($dataProduct['referenceProduct']),
         'product' => ucfirst(strtolower(trim($dataProduct['product']))),
-        'id_company' => $id_company
+        'id_company' => $id_company,
       ]);
 
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
@@ -85,9 +85,9 @@ class ProductsDao
       $stmt = $connection->prepare("UPDATE products SET reference = :reference, product = :product 
                                     WHERE id_product = :id_product AND id_company = :id_company");
       $stmt->execute([
-        'reference' => ucfirst(strtolower(trim($dataProduct['referenceProduct']))),
+        'reference' => trim($dataProduct['referenceProduct']),
         'product' => ucfirst(strtolower(trim($dataProduct['product']))),
-        'id_product' => trim($dataProduct['idProduct'])
+        'id_product' => $dataProduct['idProduct'],
       ]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     } catch (\Exception $e) {
@@ -135,7 +135,7 @@ class ProductsDao
       $query = $connection->prepare($sql);
       $query->execute([
         'img' => $targetFilePath,
-        'id_product' => trim($id_product),
+        'id_product' => $id_product,
         'id_company' => $id_company
       ]);
 
@@ -151,12 +151,12 @@ class ProductsDao
     $connection = Connection::getInstance()->getConnection();
 
     $stmt = $connection->prepare("SELECT * FROM products WHERE id_product = :id_product");
-    $stmt->execute(['id_product' => trim($dataProduct['idProduct'])]);
+    $stmt->execute(['id_product' => $dataProduct['idProduct']]);
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
       $stmt = $connection->prepare("DELETE FROM products WHERE id_product = :id_product");
-      $stmt->execute(['id_product' => trim($dataProduct['idProduct'])]);
+      $stmt->execute(['id_product' => $dataProduct['idProduct']]);
       $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
     }
   }

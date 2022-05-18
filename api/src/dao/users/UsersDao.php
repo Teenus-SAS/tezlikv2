@@ -67,25 +67,34 @@ class UsersDao
 
   public function saveUser($dataUser, $id_company)
   {
-    $newPassDao = new NewPassUserDao();
+    $newPassDao = new GenerateCodeDao();
+    $email = new SendEmailDao();
     $connection = Connection::getInstance()->getConnection();
-    $newPass = $newPassDao->NewPassUser();
-    $pass = password_hash($newPass, PASSWORD_DEFAULT);
 
-    $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, password, id_company, active) 
+    $stmt = $connection->prepare("SELECT id_user FROM users WHERE email = :email");
+    $stmt->execute(['email' => trim($dataUser['emailUser'])]);
+    $rows = $stmt->fetch($connection::FETCH_ASSOC);
+
+    if ($rows > 0) {
+      return 1;
+    } else {
+      $newPass = $newPassDao->GenerateCode();
+      // Se envia email con usuario(email) y contraseña
+      $email->SendEmailPassword($dataUser['emailUser'], $newPass);
+      $pass = password_hash($newPass, PASSWORD_DEFAULT);
+
+      $stmt = $connection->prepare("INSERT INTO users (firstname, lastname, email, password, id_company, active) 
                                     VALUES(:firstname, :lastname, :email, :pass, :id_company, :active)");
-    $stmt->execute([
-      'firstname' => ucwords(strtolower(trim($dataUser['nameUser']))),
-      'lastname' => ucwords(strtolower(trim($dataUser['lastnameUser']))),
-      'email' => trim($dataUser['emailUser']),
-      'pass' => $pass,
-      'id_company' => $id_company,
-      'active' => 1
-    ]);
+      $stmt->execute([
+        'firstname' => ucwords(strtolower(trim($dataUser['nameUser']))),
+        'lastname' => ucwords(strtolower(trim($dataUser['lastnameUser']))),
+        'email' => trim($dataUser['emailUser']),
+        'pass' => $pass,
+        'id_company' => $id_company,
+        'active' => 1
 
-
-    /* Enviar email al usuario creado */
-
+      ]);
+    }
     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
   }
 

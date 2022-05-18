@@ -232,12 +232,10 @@ $userinactivetimeDao->findSession();
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
-                            <div class="chart">
-                                <canvas id="chartWorkForce" style="width: 90%;"></canvas>
-                            </div>
+                            <canvas id="chartWorkForce" style="width: 90%;"></canvas>
                             <div class="center-text">
-                                <p class="text-muted mb-1 font-weight-600">Total Costo </p>
-                                <h4 class="mb-0 font-weight-bold">$38.736</h4>
+                                <p class="text-muted mb-1 font-weight-600">Total Costo</p>
+                                <h4 class="mb-0 font-weight-bold" id="totalCostWorkforceEsp"></h4>
                             </div>
                         </div>
                     </div>
@@ -255,7 +253,7 @@ $userinactivetimeDao->findSession();
                             </div>
                             <div class="center-text">
                                 <p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
-                                <h4 class="mb-0 font-weight-bold">120 min</h4>
+                                <h4 class="mb-0 font-weight-bold" id="totalTimeProcess"></h4>
                             </div>
                         </div>
                     </div>
@@ -516,5 +514,5 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
-<script src="../../app/js/dashboard/indicatorsProduct.js"></script>
-<script src="../../app/js/dashboard/graphicsProduct.js"></script>
+<script src="/app/js/dashboard/indicatorsProduct.js"></script>
+<script src="/app/js/dashboard/graphicsProduct.js"></script>
