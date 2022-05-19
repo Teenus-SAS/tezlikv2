@@ -267,11 +267,11 @@ $userinactivetimeDao->findSession();
                     <div class="card-body">
                         <div class="chart-container">
                             <div class="chart">
-                                <canvas id="chartCostProduct" style="width: 90%;"></canvas>
+                                <canvas id="chartManufactTime" style="width: 90%;"></canvas>
                             </div>
                             <div class="center-text">
                                 <p class="text-muted mb-1 font-weight-600">Costos Totales</p>
-                                <h4 class="mb-0 font-weight-bold">120 min</h4>
+                                <h4 class="mb-0 font-weight-bold" id="manufactPromTime"></h4>
                             </div>
                         </div>
                     </div>
@@ -289,7 +289,7 @@ $userinactivetimeDao->findSession();
                             </div>
                             <div class="center-text">
                                 <p class="text-muted mb-1 font-weight-600">Precio</p>
-                                <h4 class="mb-0 font-weight-bold">120 min</h4>
+                                <h4 class="mb-0 font-weight-bold" id="totalPricesComp"></h4>
                             </div>
                         </div>
                     </div>

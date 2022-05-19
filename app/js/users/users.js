@@ -188,7 +188,7 @@ $(document).ready(function () {
     }
 
     $.post(
-      '../../api/updateUserAccess',
+      '/api/updateUserAccess',
       dataUser,
       function (data, textStatus, jqXHR) {
         message(data);

@@ -61,12 +61,17 @@ $app->post('/productsProcessDataValidation', function (Request $request, Respons
                 $productProcess[$i]['idProcess'] = $findProcess['id_process'];
 
             // Obtener id maquina
-            $findMachine = $machinesDao->findMachine($productProcess[$i], $id_company);
-            if (!$findMachine) {
-                $i = $i + 1;
-                $dataImportProductProcess = array('error' => true, 'message' => "Maquina no existe en la base de datos <br>Fila: {$i}");
-                break;
-            } else $productProcess[$i]['idMachine'] = $findMachine['id_machine'];
+            // Si no está definida agrega 0 a 'idMachine'
+            if (!isset($productProcess[$i]['machine'])) {
+                $productProcess[$i]['idMachine'] = 0;
+            } else {
+                $findMachine = $machinesDao->findMachine($productProcess[$i], $id_company);
+                if (!$findMachine) {
+                    $i = $i + 1;
+                    $dataImportProductProcess = array('error' => true, 'message' => "Maquina no existe en la base de datos <br>Fila: {$i}");
+                    break;
+                } else $productProcess[$i]['idMachine'] = $findMachine['id_machine'];
+            }
 
             $enlistmentTime = $productProcess[$i]['enlistmentTime'];
             $operationTime = $productProcess[$i]['operationTime'];

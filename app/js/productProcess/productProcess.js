@@ -164,7 +164,7 @@ $(document).ready(function () {
       callback: function (result) {
         if (result == true) {
           $.post(
-            '../../api/deleteProductProcess',
+            '/api/deleteProductProcess',
             dataProductProcess,
             function (data, textStatus, jqXHR) {
               message(data);

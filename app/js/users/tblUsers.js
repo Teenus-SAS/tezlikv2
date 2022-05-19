@@ -110,16 +110,16 @@ $(document).ready(function () {
             : '<i class="bx bx-x text-danger fs-lg align-middle"></i>';
         },
       },
-      {
-        title: 'Lineas Producto',
-        data: 'product_line',
-        className: 'uniqueClassName',
-        render: function (data, type, row) {
-          return data == 1
-            ? '<i class="bx bx-check text-success fs-lg align-middle"></i>'
-            : '<i class="bx bx-x text-danger fs-lg align-middle"></i>';
-        },
-      },
+      // {
+      //   title: 'Lineas Producto',
+      //   data: 'product_line',
+      //   className: 'uniqueClassName',
+      //   render: function (data, type, row) {
+      //     return data == 1
+      //       ? '<i class="bx bx-check text-success fs-lg align-middle"></i>'
+      //       : '<i class="bx bx-x text-danger fs-lg align-middle"></i>';
+      //   },
+      // },
       {
         title: 'Carga Nómina',
         data: 'payroll_load',

@@ -89,9 +89,6 @@ $(document).ready(function () {
       type: 'doughnut',
       data: {
         labels: process,
-        formatter: function (value, context) {
-          return context.chart.data.labels[context.dataIndex];
-        },
         datasets: [
           {
             data: workforce,
@@ -194,7 +191,151 @@ $(document).ready(function () {
     });
   };
 
+  /* Composición Costos ***************************************************/
+
+  graphicPromTime = (dataAvTime, dataCostTime) => {
+    timeData = [];
+
+    totalTime = 0;
+    totalTimeProm = 0;
+
+    for (let i in dataAvTime) {
+      totalTimeProm += dataAvTime[i].enlistment_time;
+      totalTimeProm += dataAvTime[i].operation_time;
+    }
+
+    for (let i in dataCostTime) {
+      totalTime += dataCostTime[i].totalTime;
+    }
+    timeData.push(totalTime);
+    timeData.push(totalTimeProm);
+
+    total = totalTime + totalTimeProm;
+    total = new Intl.NumberFormat('es-CO', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(total);
+
+    console.log(timeData);
+
+    $('#manufactPromTime').html(`${total} min`);
+
+    var cmo = document.getElementById('chartManufactTime');
+    var chartWorkForce = new Chart(cmo, {
+      plugins: [ChartDataLabels],
+      type: 'doughnut',
+      data: {
+        labels: ['A', 'B'],
+        datasets: [
+          {
+            data: timeData,
+            backgroundColor: getRandomColor(data.length),
+            //borderColor: [],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          },
+          datalabels: {
+            formatter: (value, ctx) => {
+              let sum = 0;
+              let dataArr = ctx.chart.data.datasets[0].data;
+              dataArr.map((data) => {
+                sum += data;
+              });
+              let percentage = ((value * 100) / sum).toFixed(2) + '%';
+              return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
+            },
+            color: 'black',
+            font: {
+              size: '11',
+              weight: 'normal',
+            },
+          },
+        },
+      },
+    });
+  };
+
+  /* Composición Precio */
+
+  graphicCompPrices = (data) => {
+    let total = 0;
+    let product = {
+      costs:
+        data[0].cost_materials +
+        data[0].cost_workforce +
+        data[0].cost_indirect_cost,
+      commSale: (data[0].price * data[0].commission_sale) / 100,
+      profitability: (data[0].price * data[0].profitability) / 100,
+      price: data[0].price,
+      assignableExpense: data[0].assignable_expense,
+    };
+
+    for (let i in product) {
+      total += product[i];
+    }
+
+    total = new Intl.NumberFormat('es-CO', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(total);
+
+    $('#totalPricesComp').html(`$ ${total}`);
+
+    var cmo = document.getElementById('chartPrice');
+    var chartWorkForce = new Chart(cmo, {
+      plugins: [ChartDataLabels],
+      type: 'doughnut',
+      data: {
+        labels: [
+          'Costos',
+          'Comisión Venta',
+          'Rentabilidad',
+          'Precio de Venta',
+          'Gastos',
+        ],
+        datasets: [
+          {
+            data: Object.values(product),
+            backgroundColor: getRandomColor(data.length),
+            //borderColor: [],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          },
+          datalabels: {
+            formatter: (value, ctx) => {
+              let sum = 0;
+              let dataArr = ctx.chart.data.datasets[0].data;
+              dataArr.map((data) => {
+                sum += data;
+              });
+              let percentage = ((value * 100) / sum).toFixed(2) + '%';
+              return ctx.chart.data.labels[ctx.dataIndex] + '\n' + percentage;
+            },
+            color: 'black',
+            font: {
+              size: '11',
+              weight: 'normal',
+            },
+          },
+        },
+      },
+    });
+  };
+
   /* Costos de la materia prima */
+
   graphicCostMaterials = (data) => {
     material = [];
     totalMaterial = [];

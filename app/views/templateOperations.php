@@ -242,7 +242,7 @@ $userinactivetimeDao->findSession();
 														<h4 class="mb-0" id="averageTotalTime"></h4>
 													</div>
 													<div class="avatar avatar-md bg-danger mr-0 align-self-center">
-													<i class='bx bx-error-circle fs-lg'></i>
+														<i class='bx bx-error-circle fs-lg'></i>
 													</div>
 												</div>
 											</li>
@@ -369,9 +369,9 @@ $userinactivetimeDao->findSession();
 	<!-- Page End -->
 
 	<?php include_once dirname(__DIR__) . '/partials/scriptsJS.php'; ?>
-	<script src="../../app/js/global/loadContent.js"></script>
-	<script src="../../app/js/global/logout.js"></script>
-	<script src="../../app/js/login/access.js"></script>
+	<script src="/app/js/global/loadContent.js"></script>
+	<script src="/app/js/global/logout.js"></script>
+	<script src="/app/js/login/access.js"></script>
 </body>
 
 </html>

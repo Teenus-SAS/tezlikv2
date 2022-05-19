@@ -83,18 +83,29 @@ averagesTime = (data) => {
 
     averageEnlistment = enlistmentTime / data.length;
     averageOperation = operationTime / data.length;
+    averageTotal = averageEnlistment + averageOperation;
 
+    //Formato Alistamiento (. miles , 2 decimales)
     averageEnlistment = new Intl.NumberFormat('es-CO', {
-      maximumSignificantDigits: 4,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(averageEnlistment);
+
+    //Formato Operación (. miles , 2 decimales)
     averageOperation = new Intl.NumberFormat('es-CO', {
-      maximumSignificantDigits: 4,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(averageOperation);
+
+    //Formato Tiempo Total Prom (. miles , 2 decimales)
+    averageTotal = new Intl.NumberFormat('es-CO', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(averageTotal);
 
     $('#enlistmentTime').html(`${averageEnlistment} min`);
     $('#operationTime').html(`${averageOperation} min`);
-    // $('#enlistmentTime').html(`${averageEnlistment.toFixed(2)} min`);
-    // $('#operationTime').html(`${averageOperation.toFixed(2)} min`);
+    $('#averageTotalTime').html(`${averageTotal} min`);
   } else {
     $('#enlistmentTime').html(`0 min`);
     $('#operationTime').html(`0 min`);

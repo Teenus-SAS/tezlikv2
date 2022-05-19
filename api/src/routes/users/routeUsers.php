@@ -126,14 +126,22 @@ $app->post('/updateUser', function (Request $request, Response $response, $args)
 
 $app->post('/deleteUser', function (Request $request, Response $response, $args) use ($userDao, $accessUserDao) {
     $dataUser = $request->getParsedBody();
+    session_start();
+    $idUser = $_SESSION['idUser'];
 
-    $users = $userDao->deleteUser($dataUser);
-    $usersAccess = $accessUserDao->deleteUserAccess($dataUser);
+    if ($dataUser['idUser'] != $idUser) {
 
-    if ($users == null && $usersAccess == null)
-        $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
-    else
-        $resp = array('error' => true, 'message' => 'No es posible eliminar el usuario');
+        $users = $userDao->deleteUser($dataUser);
+        $usersAccess = $accessUserDao->deleteUserAccess($dataUser);
+
+        if ($users == null && $usersAccess == null)
+            $resp = array('success' => true, 'message' => 'Usuario eliminado correctamente');
+        else
+            $resp = array('error' => true, 'message' => 'No fue posible eliminar el usuario, Intente nuevamente');
+    } else {
+        $resp = array('error' => true, 'message' => 'No es posible eliminar este usuario');
+    }
+
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });

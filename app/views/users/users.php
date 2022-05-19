@@ -155,10 +155,10 @@ $userinactivetimeDao->findSession();
                                 <div class="checkbox checkbox-success checkbox-circle mb-1">
                                 </div>
 
-                                <div class="checkbox checkbox-success checkbox-circle mb-1">
+                                <!-- <div class="checkbox checkbox-success checkbox-circle mb-1">
                                     <input id="checkbox-9" name="productLine" type="checkbox">
                                     <label for="checkbox-9">Lineas de Producto</label>
-                                </div>
+                                </div> -->
 
 
                                 <div class="form-group floating-label enable-floating-label show-label btnCreateAccessUser">

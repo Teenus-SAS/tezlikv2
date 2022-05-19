@@ -137,27 +137,31 @@ class AccessUserDao
 
     public function deleteUserAccess($dataUser)
     {
-        session_start();
-        $idUser = $_SESSION['idUser'];
-
         $connection = Connection::getInstance()->getConnection();
-        // $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user = :id_user");
-        // $stmt->execute(['id_user' => $dataUser['idUser']]);
-        // $user = $stmt->fetch($connection::FETCH_ASSOC);
+        $stmt = $connection->prepare("DELETE FROM users_access WHERE id_user_access = :id_user_access");
+        $stmt->execute(['id_user_access' => $dataUser['idUserAccess']]);
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
-        if ($dataUser['idUser'] != $idUser) {
 
-            $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user_access = :id_user_access");
-            $stmt->execute(['id_user_access' => $dataUser['idUserAccess']]);
-            $rows = $stmt->rowCount();
 
-            if ($rows > 0) {
-                $stmt = $connection->prepare("DELETE FROM users_access WHERE id_user_access = :id_user_access");
-                $stmt->execute(['id_user_access' => $dataUser['idUserAccess']]);
-                $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-            }
-        } else {
-            return 1;
-        }
+        // session_start();
+        // $idUser = $_SESSION['idUser'];
+
+        // $connection = Connection::getInstance()->getConnection();
+
+        // if ($dataUser['idUser'] != $idUser) {
+
+        //     $stmt = $connection->prepare("SELECT * FROM users_access WHERE id_user_access = :id_user_access");
+        //     $stmt->execute(['id_user_access' => $dataUser['idUserAccess']]);
+        //     $rows = $stmt->rowCount();
+
+        //     if ($rows > 0) {
+        //         $stmt = $connection->prepare("DELETE FROM users_access WHERE id_user_access = :id_user_access");
+        //         $stmt->execute(['id_user_access' => $dataUser['idUserAccess']]);
+        //         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        //     }
+        // } else {
+        //     return 1;
+        // }
     }
 }
