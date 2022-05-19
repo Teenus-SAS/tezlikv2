@@ -36,7 +36,6 @@ $app->get('/dashboardPricesProducts/{id_product}', function (Request $request, R
     $costProduct['cost_time_process'] = $totalTimeProcess;
     $costProduct['cost_workforce'] = $costWorkforce;
     $costProduct['cost_materials'] = $costRawMaterials;
-
     $costProduct['average_time_process'] = $averageTimeProcess;
 
     $response->getBody()->write(json_encode($costProduct, JSON_NUMERIC_CHECK));

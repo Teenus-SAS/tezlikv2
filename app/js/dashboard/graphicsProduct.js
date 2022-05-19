@@ -191,7 +191,7 @@ $(document).ready(function () {
     });
   };
 
-  /* Composición Costos ***************************************************/
+  /* Composición Costos */
 
   graphicPromTime = (dataAvTime, dataCostTime) => {
     timeData = [];
@@ -216,8 +216,6 @@ $(document).ready(function () {
       maximumFractionDigits: 2,
     }).format(total);
 
-    console.log(timeData);
-
     $('#manufactPromTime').html(`${total} min`);
 
     var cmo = document.getElementById('chartManufactTime');
@@ -229,7 +227,7 @@ $(document).ready(function () {
         datasets: [
           {
             data: timeData,
-            backgroundColor: getRandomColor(data.length),
+            backgroundColor: getRandomColor(2),
             //borderColor: [],
             borderWidth: 1,
           },
@@ -302,7 +300,7 @@ $(document).ready(function () {
         datasets: [
           {
             data: Object.values(product),
-            backgroundColor: getRandomColor(data.length),
+            backgroundColor: getRandomColor(5),
             //borderColor: [],
             borderWidth: 1,
           },
