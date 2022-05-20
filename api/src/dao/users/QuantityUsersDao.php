@@ -44,4 +44,7 @@ class QuantityUsersDao
         $this->logger->notice("cantidad usuarios obtenidos", array('cantidad usuarios' => $quantity_users_created));
         return $quantity_users_created;
     }
+
+    /*Obtener cantidad de usuarios activos*/
+    /*Obtener cantidad de usuarios permitidos por empresa*/
 }
