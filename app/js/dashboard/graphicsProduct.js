@@ -223,7 +223,7 @@ $(document).ready(function () {
       plugins: [ChartDataLabels],
       type: 'doughnut',
       data: {
-        labels: ['A', 'B'],
+        labels: ['Total Tiempo Procesos', 'Total Tiempo Promedio'],
         datasets: [
           {
             data: timeData,

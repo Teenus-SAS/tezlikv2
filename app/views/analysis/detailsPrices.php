@@ -2,7 +2,7 @@
 
 use tezlikv2\dao\UserInactiveTimeDao;
 
-require_once dirname(dirname(dirname(__DIR__))) . "/api/src/dao/login/UserInactiveTimeDao.php";
+require_once dirname(dirname(dirname(__DIR__))) . "/api/src/dao/app/login/UserInactiveTimeDao.php";
 $userinactivetimeDao = new UserInactiveTimeDao();
 $userinactivetimeDao->findSession();
 ?>
@@ -262,7 +262,7 @@ $userinactivetimeDao->findSession();
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Composición Costos </h5>
+                        <h5 class="card-title">Total Tiempos</h5>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
@@ -270,7 +270,7 @@ $userinactivetimeDao->findSession();
                                 <canvas id="chartManufactTime" style="width: 90%;"></canvas>
                             </div>
                             <div class="center-text">
-                                <p class="text-muted mb-1 font-weight-600">Costos Totales</p>
+                                <p class="text-muted mb-1 font-weight-600">Tiempo Total</p>
                                 <h4 class="mb-0 font-weight-bold" id="manufactPromTime"></h4>
                             </div>
                         </div>
@@ -288,7 +288,7 @@ $userinactivetimeDao->findSession();
                                 <canvas id="chartPrice" style="width: 90%;"></canvas>
                             </div>
                             <div class="center-text">
-                                <p class="text-muted mb-1 font-weight-600">Precio</p>
+                                <p class="text-muted mb-1 font-weight-600">Precio Total</p>
                                 <h4 class="mb-0 font-weight-bold" id="totalPricesComp"></h4>
                             </div>
                         </div>

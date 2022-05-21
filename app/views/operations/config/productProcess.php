@@ -2,7 +2,7 @@
 
 use tezlikv2\dao\UserInactiveTimeDao;
 
-require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/api/src/dao/login/UserInactiveTimeDao.php");
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/api/src/dao/app/login/UserInactiveTimeDao.php");
 $userinactivetimeDao = new UserInactiveTimeDao();
 $userinactivetimeDao->findSession();
 ?>
@@ -119,7 +119,7 @@ $userinactivetimeDao->findSession();
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped text-center" id="tblConfigProcess" name="tblConfigProcess">
-                            <tfoot>
+                                <tfoot>
                                     <tr>
                                         <th></th>
                                         <th></th>
