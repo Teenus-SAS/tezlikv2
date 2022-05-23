@@ -18,8 +18,8 @@ class CompaniesDao
     }
 
 
-    //OBTENER TODAS LAS EMPRESAS
-    public function findCompany()
+    //Obtener todas las empresas activas
+    public function findAllCompanies()
     {
         $connection = Connection::getInstance()->getConnection();
 
@@ -31,4 +31,6 @@ class CompaniesDao
 
         return $companyData;
     }
+
+    //Obtener todas las empresas inactivas
 }

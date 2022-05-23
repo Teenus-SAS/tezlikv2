@@ -18,23 +18,26 @@ class CompaniesLicenseDao
     }
 
 
-    //OBTENER DATOS EMPRESA Y LICENCIA
-    public function findCompanyLicense($id_company)
+    //Obtener datos de licencia y empresa activas
+    public function findCompanyLicense()
     {
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT cp.nit, cp.company, cl.license_start, cl.license_end, cl.quantity_user, cl.status
-                                      FROM companies cp INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company");
-        $stmt->execute(['id_company' => $id_company]);
+                                      FROM companies cp 
+                                      INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company");
+        $stmt->execute();
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        $companyData = $stmt->fetchAll($connection::FETCH_ASSOC);
-        $this->logger->notice("licenses get", array('licenses' => $companyData));
+        $licenses = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("licenses get", array('licenses' => $licenses));
 
-        return $companyData;
+        return $licenses;
     }
 
+    //Obtener datos de licencia y empresa inactivas
 
-    //OBTENER DIAS QUE QUEDAN PARA TERMINAR LA LICENCIA
+
+    //OBTENER DIAS QUE QUEDAN PARA TERMINAR LA LICENCIA empresas activas
     public function findLicenseDays($id_company)
     {
         $connection = Connection::getInstance()->getConnection();

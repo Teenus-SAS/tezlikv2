@@ -15,7 +15,7 @@ $app->post('/licenseCompany', function (Request $request, Response $response, $a
     $dataLicenseCompany = $request->getParsedBody();
 
     //OBTENER DATOS EMPRESA/LICENCIA
-    // $dataCompany = $companiesLicenseDao->findCompanyLicense(id_company);
+    $dataCompany = $companiesLicenseDao->findCompanyLicense();
 
     //OBTENER DIAS RESTANTES LICENCIA
     // $daysLic = $companiesLicenseDao->findLicenseDays(id_company);

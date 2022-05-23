@@ -18,14 +18,14 @@ class CompaniesAllowedUsersDao
     }
 
 
-    //OBTENER CANTIDAD DE USUARIOS PERMITIDOS POR EMPRESA
-    public function usersAllowed($id_company)
+    //OBTENER CANTIDAD DE USUARIOS PERMITIDOS POR EMPRESA activas
+    public function usersAllowed()
     {
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT cp.company, cl.quantity_user FROM companies cp 
                                       INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company");
-        $stmt->execute(['id_company' => $id_company]);
+        $stmt->execute();
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         $allowedData = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("licenses get", array('licenses' => $allowedData));
@@ -41,7 +41,7 @@ class CompaniesAllowedUsersDao
 
         try {
             $stmt = $connection->prepare("UPDATE companies_licenses SET quantity_user = :quantity_user
-                                      WHERE id_company_license = :id_company_license");
+                                          WHERE id_company_license = :id_company_license");
             $stmt->execute([
                 'id_company_license' => $id_company_license,
                 'quantity_user' => $quantity_user

@@ -112,7 +112,11 @@ class AccessUserDao
     public function updateUserAccessByUsers($dataUser)
     {
         $connection = Connection::getInstance()->getConnection();
-
+        /* Hacer un select
+            Contar los usuarios
+            si el usuario es > 1 no hacer nada
+            de lo contrario realizar la actualizacion
+         */
         try {
             $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials, create_machines = :create_machines, create_process = :create_process, 
                                                         product_materials = :product_materials, product_process = :product_process, factory_load = :factory_load, external_service = :external_service,

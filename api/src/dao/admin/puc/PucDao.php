@@ -19,7 +19,7 @@ class PucDao
 
 
     //OBTENER PUC TOTALES
-    public function findCompaniesPUC()
+    public function findAllCountsPUC()
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT * FROM puc ORDER BY id_puc ASC");
@@ -28,7 +28,7 @@ class PucDao
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
 
         $puc = $stmt->fetchAll($connection::FETCH_ASSOC);
-        $this->logger->notice("process", array('process' => $puc));
+        $this->logger->notice("puc", array('puc' => $puc));
         return $puc;
     }
 

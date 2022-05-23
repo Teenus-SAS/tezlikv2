@@ -11,11 +11,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 //USUARIOS PERMITIDOS POR EMPRESA
 
-$app->post('/usersAllowedByCompany', function (Request $request, Response $response, $args) use ($companiesAllowedUsersDao) {
-    $dataUsers = $request->getParsedBody();
-
+$app->get('/usersAllowedByCompany', function (Request $request, Response $response, $args) use ($companiesAllowedUsersDao) {
+    
     //EMPRESA Y USUARIOS PERMITIDOS
-    // $allowedUsers = $companiesAllowedUsersDao->usersAllowed(id_company);
+    $allowedUsers = $companiesAllowedUsersDao->usersAllowed();
 
     $resp = 0;
 

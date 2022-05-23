@@ -47,7 +47,7 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $license = $licenseDao->findLicense($user['id_company']);
 
     if ($license == 0) {
-        $resp = array('error' => true, 'message' => 'Su licencia ha caducado, lo invitamos a comunicarse con nosotros');
+        $resp = array('error' => true, 'message' => 'Su licencia ha caducado, lo invitamos a comunicarse');
         $response->getBody()->write(json_encode($resp));
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
@@ -79,6 +79,9 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION['rol'] = $user["id_rols"];
     $_SESSION['id_company'] = $user['id_company'];
     $_SESSION["time"] = time();
+
+    /* Actualizar metodo ultimo logueo */
+
 
     /* Genera codigo */
     //$code = $generateCodeDao->GenerateCode();
