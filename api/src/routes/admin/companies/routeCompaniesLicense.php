@@ -14,10 +14,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->post('/licenseCompany', function (Request $request, Response $response, $args) use ($companiesLicenseDao) {
     $dataLicenseCompany = $request->getParsedBody();
 
-    //OBTENER DATOS EMPRESA/LICENCIA
-    $dataCompany = $companiesLicenseDao->findCompanyLicense();
+    //Obtener datos empresas/licencias activas 
+    $dataCompany = $companiesLicenseDao->findCompanyLicenseActive();
 
-    //OBTENER DIAS RESTANTES LICENCIA
+    //Obtener días restantes licencias empresas activas
     // $daysLic = $companiesLicenseDao->findLicenseDays(id_company);
 
     $resp = 0;

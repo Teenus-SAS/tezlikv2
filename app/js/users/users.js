@@ -192,6 +192,7 @@ $(document).ready(function () {
       dataUser,
       function (data, textStatus, jqXHR) {
         message(data);
+        updateTable();
       }
     );
   };

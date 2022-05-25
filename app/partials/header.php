@@ -46,8 +46,8 @@
                                 <div class="col-md-3" id="navSetting">
                                     <h5 class="font-size-14 font-weight-600">Configuración</h5>
                                     <ul class="list-unstyled megamenu-list">
-                                        <li class="productsMaterials"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/productMaterials.php')">Productos * Materia Prima</a></li>
-                                        <li class="productsProcess"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/productProcess.php')">Productos * Procesos</a></li>
+                                        <li class="productsMaterials"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/productMaterials.php')">Ficha Técnica Materia Prima</a></li>
+                                        <li class="productsProcess"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/productProcess.php')">Ficha Técnica Procesos</a></li>
                                         <li class="factoryLoad"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/factoryLoad.php')">Carga Fabril</a></li>
                                         <li class="servicesExternal"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/externalServices.php')">Servicios Externos</a></li>
                                         <!-- <li class="linesProducts"><a href="javascript:void(0);" onclick="loadContent('page-content','views/operations/config/lines.php')">Lineas de Producto</a></li> -->

@@ -9,10 +9,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 
 //CONSULTA PUC GENERAL
-$app->post('/puc', function (Request $request, Response $response, $args) use ($pucDao) {
+$app->get('/findAllPUC', function (Request $request, Response $response, $args) use ($pucDao) {
 
     $resp = $pucDao->findAllCountsPUC();
-
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });

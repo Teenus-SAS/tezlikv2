@@ -5,19 +5,21 @@ use tezlikv2\dao\LicenseCompanyDao;
 use tezlikv2\dao\StatusActiveUserDao;
 use tezlikv2\dao\GenerateCodeDao;
 use tezlikv2\dao\SendEmailDao;
+use tezlikv2\dao\LastLoginDao;
 
 $licenseDao = new LicenseCompanyDao();
 $autenticationDao = new AutenticationUserDao();
 $statusActiveUserDao = new StatusActiveUserDao();
 $generateCodeDao = new GenerateCodeDao();
 $sendEmailDao = new SendEmailDao();
+$lastLoginDao = new LastLoginDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /* Autenticación */
 
-$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $statusActiveUserDao, $generateCodeDao, $sendEmailDao) {
+$app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $statusActiveUserDao, $generateCodeDao, $sendEmailDao, $lastLoginDao) {
     $parsedBody = $request->getParsedBody();
 
     $user = $parsedBody["validation-email"];
@@ -81,6 +83,7 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $_SESSION["time"] = time();
 
     /* Actualizar metodo ultimo logueo */
+    $lastLoginDao->findLastLogin();
 
 
     /* Genera codigo */

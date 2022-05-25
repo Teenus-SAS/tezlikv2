@@ -1,21 +1,19 @@
 <?php
 
-use tezlikv2\dao\CompaniesDao;
+use tezlikv2\dao\LastLoginsDao;
 
-$companiesDao = new CompaniesDao();
+$lastLoginsDao = new LastLoginsDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-//DATOS TODAS LAS EMPRESAS
 
+//Obtener los ultimos login de todos los usuarios activos en orden desc
 
-//CANTIDAD DE EMPRESAS
-
-$app->get('/companies', function (Request $request, Response $response, $args) use ($companiesDao) {
+$app->get('/lastLogins', function (Request $request, Response $response, $args) use ($lastLoginsDao) {
 
     //DATOS TODAS LAS EMPRESAS
-    $resp = $companiesDao->findAllCompanies();
+    $resp = $lastLoginsDao->findLastLogins();
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');

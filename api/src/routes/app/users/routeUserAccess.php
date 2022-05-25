@@ -57,9 +57,33 @@ $app->post('/updateUserAccess', function (Request $request, Response $response, 
 
     if ($userAccess == null)
         $resp = array('success' => true, 'message' => 'Acceso de usuario actualizado correctamente');
+    elseif ($userAccess == 1)
+        $resp = array('error' => true, 'message' => 'No puede actualizar este usuario');
     else
         $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
+
+// $app->post('/updateUserAccess', function (Request $request, Response $response, $args) use ($userAccessDao) {
+//     session_start();
+//     $dataUserAccess = $request->getParsedBody();
+//     $idUser = $_SESSION['idUser'];
+
+//     if ($dataUserAccess['idUser'] != $idUser) {
+
+//         $userAccess = $userAccessDao->updateUserAccessByUsers($dataUserAccess);
+//         if ($userAccess == null)
+//             $resp = array('success' => true, 'message' => 'Acceso de usuario actualizado correctamente');
+//         else
+//             $resp = array('error' => true, 'message' => 'Ocurrio un error mientras actualizaba la información. Intente nuevamente');
+//     } else {
+//         $dataUserAccess['user'] = 1;
+//         $userAccess = $userAccessDao->updateUserAccessByUsers($dataUserAccess);
+//         $resp = array('success' => true, 'message' => 'Acceso de usuario actualizado correctamente, no puede quitar permisos de usuario.');
+//     }
+
+//     $response->getBody()->write(json_encode($resp));
+//     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+// });

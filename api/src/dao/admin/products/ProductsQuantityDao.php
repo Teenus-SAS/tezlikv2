@@ -27,7 +27,7 @@ class ProductsQuantityDao
         $stmt->execute();
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         $quantityProducts = $stmt->fetch($connection::FETCH_ASSOC);
-        $this->logger->notice("licenses get", array('licenses' => $quantityProducts));
+        $this->logger->notice("AllProducts", array('AllProducts' => $quantityProducts));
 
         return $quantityProducts;
     }
@@ -38,8 +38,8 @@ class ProductsQuantityDao
     {
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT p.id_product, p.reference, p.product, pc.profitability, pc.commission_sale, pc.price, p.img 
-                                  FROM products p 
-                                  INNER JOIN products_costs pc ON p.id_product = pc.id_product");
+                                      FROM products p 
+                                      INNER JOIN products_costs pc ON p.id_product = pc.id_product");
         $stmt->execute();
 
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));

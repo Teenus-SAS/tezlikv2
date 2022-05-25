@@ -12,11 +12,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //USUARIOS PERMITIDOS POR EMPRESA
 
 $app->get('/usersAllowedByCompany', function (Request $request, Response $response, $args) use ($companiesAllowedUsersDao) {
-    
-    //EMPRESA Y USUARIOS PERMITIDOS
-    $allowedUsers = $companiesAllowedUsersDao->usersAllowed();
 
-    $resp = 0;
+    //EMPRESA Y USUARIOS PERMITIDOS
+    $resp = $companiesAllowedUsersDao->usersAllowed();
 
     $response->getBody()->write(json_encode($resp, JSON_NUMERIC_CHECK));
     return $response->withHeader('Content-Type', 'application/json');

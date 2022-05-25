@@ -18,13 +18,14 @@ class CompaniesAllowedUsersDao
     }
 
 
-    //OBTENER CANTIDAD DE USUARIOS PERMITIDOS POR EMPRESA activas
+    //Obtener cantidad de usuarios permitidos por empresas activas
     public function usersAllowed()
     {
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT cp.company, cl.quantity_user FROM companies cp 
-                                      INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company");
+                                      INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company
+                                      WHERE cl.status = 0");
         $stmt->execute();
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         $allowedData = $stmt->fetchAll($connection::FETCH_ASSOC);

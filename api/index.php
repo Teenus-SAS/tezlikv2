@@ -16,6 +16,9 @@ require_once('../api/src/routes/admin/companies/routeCompanies.php');
 require_once('../api/src/routes/admin/companies/routeCompaniesLicense.php');
 require_once('../api/src/routes/admin/companies/routeUsersAllowed.php');
 
+// Login
+require_once('../api/src/routes/admin/login/routeLastLoginsUsers.php');
+
 // Products
 require_once('../api/src/routes/admin/products/routeQuantityProducts.php');
 

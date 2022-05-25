@@ -24,11 +24,10 @@ class PucDao
         $connection = Connection::getInstance()->getConnection();
         $stmt = $connection->prepare("SELECT * FROM puc ORDER BY id_puc ASC");
         $stmt->execute();
-
-        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-
         $puc = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("puc", array('puc' => $puc));
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+
         return $puc;
     }
 

@@ -73,20 +73,37 @@ $app->post('/productsProcessDataValidation', function (Request $request, Respons
                 } else $productProcess[$i]['idMachine'] = $findMachine['id_machine'];
             }
 
-            $enlistmentTime = $productProcess[$i]['enlistmentTime'];
-            $operationTime = $productProcess[$i]['operationTime'];
-            if (!isset($enlistmentTime) || !isset($operationTime)) {
-                $i = $i + 1;
-                $dataImportProductProcess = array('error' => true, 'message' => "Campos vacios en fila {$i}");
-                break;
-            } else {
-                $findProductProcess = $productsProcessDao->findProductProcess($productProcess[$i], $id_company);
-
-                if (!$findProductProcess) $insert = $insert + 1;
-                else $update = $update + 1;
-                $dataImportProductProcess['insert'] = $insert;
-                $dataImportProductProcess['update'] = $update;
+            //tiempo de alistamiento = 0 si no está definido
+            if (!isset($productProcess[$i]['enlistmentTime'])) {
+                $productProcess[$i]['enlistmentTime'] = 0;
             }
+
+            //Tiempo de operación = 0 si no está definido
+            if (!isset($productProcess[$i]['operationTime'])) {
+                $productProcess[$i]['operationTime'] = 0;
+            }
+
+            $findProductProcess = $productsProcessDao->findProductProcess($productProcess[$i], $id_company);
+
+            if (!$findProductProcess) $insert = $insert + 1;
+            else $update = $update + 1;
+            $dataImportProductProcess['insert'] = $insert;
+            $dataImportProductProcess['update'] = $update;
+
+            // $enlistmentTime = $productProcess[$i]['enlistmentTime'];
+            // $operationTime = $productProcess[$i]['operationTime'];
+            // if (!isset($enlistmentTime) || !isset($operationTime)) {
+            //     $i = $i + 1;
+            //     $dataImportProductProcess = array('error' => true, 'message' => "Campos vacios en fila {$i}");
+            //     break;
+            // } else {
+            //     $findProductProcess = $productsProcessDao->findProductProcess($productProcess[$i], $id_company);
+
+            //     if (!$findProductProcess) $insert = $insert + 1;
+            //     else $update = $update + 1;
+            //     $dataImportProductProcess['insert'] = $insert;
+            //     $dataImportProductProcess['update'] = $update;
+            // }
         }
     } else
         $dataImportProductProcess = array('error' => true, 'message' => 'El archivo se encuentra vacio. Intente nuevamente');
@@ -137,12 +154,22 @@ $app->post('/addProductsProcess', function (Request $request, Response $response
             $productProcess[$i]['idProcess'] = $findProcess['id_process'];
 
             // Obtener id maquina
-            $findMachine = $machinesDao->findMachine($productProcess[$i], $id_company);
-            $productProcess[$i]['idMachine'] = $findMachine['id_machine'];
+            // Si no está definida agrega 0 a 'idMachine'
+            if (!isset($productProcess[$i]['machine'])) {
+                $productProcess[$i]['idMachine'] = 0;
+            } else {
+                // Obtener id maquina
+                $findMachine = $machinesDao->findMachine($productProcess[$i], $id_company);
+                $productProcess[$i]['idMachine'] = $findMachine['id_machine'];
+            }
 
+            //consultar si existe producto_proceso en bd
+            //false = no, id_product_process = si
             $findProductProcess = $productsProcessDao->findProductProcess($productProcess[$i], $id_company);
 
             if (!$findProductProcess) {
+
+                //si no se encuentra, inserta y retorna null, si se encuentra retorna 1
                 $resolution = $productsProcessDao->insertProductsProcessByCompany($productProcess[$i], $id_company);
 
                 if ($resolution == 1) {

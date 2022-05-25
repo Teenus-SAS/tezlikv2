@@ -19,13 +19,14 @@ class CompaniesLicenseDao
 
 
     //Obtener datos de licencia y empresa activas
-    public function findCompanyLicense()
+    public function findCompanyLicenseActive()
     {
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT cp.nit, cp.company, cl.license_start, cl.license_end, cl.quantity_user, cl.status
                                       FROM companies cp 
-                                      INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company");
+                                      INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company
+                                      WHERE cl.status = 1");
         $stmt->execute();
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         $licenses = $stmt->fetchAll($connection::FETCH_ASSOC);
@@ -35,14 +36,31 @@ class CompaniesLicenseDao
     }
 
     //Obtener datos de licencia y empresa inactivas
+    public function findCompanyLicenseInactive()
+    {
+        $connection = Connection::getInstance()->getConnection();
+
+        $stmt = $connection->prepare("SELECT cp.nit, cp.company, cl.license_start, cl.license_end, cl.quantity_user, cl.status
+                                      FROM companies cp 
+                                      INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company
+                                      WHERE cl.status = 0");
+        $stmt->execute();
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        $licenses = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("licenses get", array('licenses' => $licenses));
+
+        return $licenses;
+    }
 
 
-    //OBTENER DIAS QUE QUEDAN PARA TERMINAR LA LICENCIA empresas activas
+
+    //Obtener días que quedan para terminar la licencia empresas activas
     public function findLicenseDays($id_company)
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("SELECT cl.license_end FROM companies_licenses cl WHERE cl.id_company = :id_company;");
+        $stmt = $connection->prepare("SELECT cl.license_end FROM companies_licenses cl 
+                                      WHERE cl.id_company = :id_company AND status = 1");
         $stmt->execute(['id_company' => $id_company]);
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         $licenseData = $stmt->fetchAll($connection::FETCH_ASSOC);

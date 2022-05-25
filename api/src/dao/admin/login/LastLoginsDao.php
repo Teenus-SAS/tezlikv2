@@ -7,7 +7,7 @@ use tezlikv2\Constants\Constants;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
-class ActiveUsersDao
+class LastLoginsDao
 {
     private $logger;
 
@@ -18,16 +18,19 @@ class ActiveUsersDao
     }
 
 
-    //OBTENER CANTIDAD DE USUARIOS GENERALES ACTIVOS
-    public function usersStatus()
+    //Obtener ultimos login en orden desc
+    public function findLastLogins()
     {
         $connection = Connection::getInstance()->getConnection();
-        $stmt = $connection->prepare("SELECT COUNT(session_active)AS quantity FROM users WHERE session_active = 1");
+
+        $stmt = $connection->prepare("SELECT cp.company, us.firstname, us.lastname, us.last_login 
+                                      FROM users us INNER JOIN companies cp ON cp.id_company = us.id_company
+                                      WHERE us.session_active = 1 ORDER BY us.last_login DESC");
         $stmt->execute();
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        $active = $stmt->fetch($connection::FETCH_ASSOC);
-        $this->logger->notice("Session Active Users", array('licenses' => $active));
+        $lastLogs = $stmt->fetchAll($connection::FETCH_ASSOC);
+        $this->logger->notice("Last Login", array('Last Login' => $lastLogs));
 
-        return $active;
+        return $lastLogs;
     }
 }

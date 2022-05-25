@@ -8,8 +8,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-//CANTIDAD DE PRODUCTOS GENERAL
-$app->post('/quantityProductsGeneral', function (Request $request, Response $response, $args) use ($productsQuantityDao) {
+//Cantidad productos general
+$app->get('/quantityProductsGeneral', function (Request $request, Response $response, $args) use ($productsQuantityDao) {
 
     //NÚMERO DE PRODUCTOS GENERALES
     $resp = $productsQuantityDao->totalProducts();

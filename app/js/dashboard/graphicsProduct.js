@@ -191,7 +191,7 @@ $(document).ready(function () {
     });
   };
 
-  /* Composición Costos */
+  /* Total Tiempos */
 
   graphicPromTime = (dataAvTime, dataCostTime) => {
     timeData = [];
@@ -219,7 +219,7 @@ $(document).ready(function () {
     $('#manufactPromTime').html(`${total} min`);
 
     var cmo = document.getElementById('chartManufactTime');
-    var chartWorkForce = new Chart(cmo, {
+    var chartTotalTime = new Chart(cmo, {
       plugins: [ChartDataLabels],
       type: 'doughnut',
       data: {
@@ -270,7 +270,6 @@ $(document).ready(function () {
         data[0].cost_indirect_cost,
       commSale: (data[0].price * data[0].commission_sale) / 100,
       profitability: (data[0].price * data[0].profitability) / 100,
-      price: data[0].price,
       assignableExpense: data[0].assignable_expense,
     };
 
@@ -286,17 +285,11 @@ $(document).ready(function () {
     $('#totalPricesComp').html(`$ ${total}`);
 
     var cmo = document.getElementById('chartPrice');
-    var chartWorkForce = new Chart(cmo, {
+    var charCompPrice = new Chart(cmo, {
       plugins: [ChartDataLabels],
       type: 'doughnut',
       data: {
-        labels: [
-          'Costos',
-          'Comisión Venta',
-          'Rentabilidad',
-          'Precio de Venta',
-          'Gastos',
-        ],
+        labels: ['Costos', 'Comisión Venta', 'Rentabilidad', 'Gastos'],
         datasets: [
           {
             data: Object.values(product),

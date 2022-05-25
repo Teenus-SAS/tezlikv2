@@ -70,7 +70,7 @@ $(document).ready(function () {
         },
       },
       {
-        title: 'Productos-Materiales',
+        title: 'Ficha Técnica Materiales',
         data: 'product_materials',
         className: 'uniqueClassName',
         render: function (data, type, row) {
@@ -80,7 +80,7 @@ $(document).ready(function () {
         },
       },
       {
-        title: 'Productos-Procesos',
+        title: 'Ficha Técnica Procesos',
         data: 'product_process',
         className: 'uniqueClassName',
         render: function (data, type, row) {

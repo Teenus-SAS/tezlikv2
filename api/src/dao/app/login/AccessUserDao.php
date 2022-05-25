@@ -117,25 +117,33 @@ class AccessUserDao
             si el usuario es > 1 no hacer nada
             de lo contrario realizar la actualizacion
          */
-        try {
-            $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials, create_machines = :create_machines, create_process = :create_process, 
-                                                        product_materials = :product_materials, product_process = :product_process, factory_load = :factory_load, external_service = :external_service,
-                                                        product_line = :product_line, payroll_load = :payroll_load, expense = :expense, expense_distribution = :expense_distribution, user = :user
-                                          WHERE id_user_access = :id_user_access");
-            $stmt->execute([
-                'id_user_access' => $dataUser['idUser'],                                          'factory_load' => $dataUser['factoryLoad'],
-                'create_product' => $dataUser['createProducts'],           'external_service' => $dataUser['externalService'],
-                'create_materials' => $dataUser['createMaterials'],       'product_line' => $dataUser['productLine'],
-                'create_machines' => $dataUser['createMachines'],         'payroll_load' => $dataUser['payrollLoad'],
-                'create_process' => $dataUser['createProcess'],           'expense' => $dataUser['expense'],
-                'product_materials' => $dataUser['productMaterials'],     'expense_distribution' => $dataUser['expenseDistribution'],
-                'product_process' => $dataUser['productProcess'],         'user' => $dataUser['user']
-            ]);
-            $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-        } catch (\Exception $e) {
-            $message = $e->getMessage();
-            $error = array('error' => true, 'message' => $message);
-            return $error;
+        $stmt = $connection->prepare("SELECT * FROM users_access");
+        $stmt->execute();
+        $rows = $stmt->rowCount();
+
+        if ($rows > 1) {
+            try {
+                $stmt = $connection->prepare("UPDATE users_access SET create_product = :create_product, create_materials = :create_materials, create_machines = :create_machines, create_process = :create_process, 
+                                                            product_materials = :product_materials, product_process = :product_process, factory_load = :factory_load, external_service = :external_service,
+                                                            product_line = :product_line, payroll_load = :payroll_load, expense = :expense, expense_distribution = :expense_distribution, user = :user
+                                              WHERE id_user_access = :id_user_access");
+                $stmt->execute([
+                    'id_user_access' => $dataUser['idUser'],                                          'factory_load' => $dataUser['factoryLoad'],
+                    'create_product' => $dataUser['createProducts'],           'external_service' => $dataUser['externalService'],
+                    'create_materials' => $dataUser['createMaterials'],       'product_line' => $dataUser['productLine'],
+                    'create_machines' => $dataUser['createMachines'],         'payroll_load' => $dataUser['payrollLoad'],
+                    'create_process' => $dataUser['createProcess'],           'expense' => $dataUser['expense'],
+                    'product_materials' => $dataUser['productMaterials'],     'expense_distribution' => $dataUser['expenseDistribution'],
+                    'product_process' => $dataUser['productProcess'],         'user' => $dataUser['user']
+                ]);
+                $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+            } catch (\Exception $e) {
+                $message = $e->getMessage();
+                $error = array('error' => true, 'message' => $message);
+                return $error;
+            }
+        } else {
+            return 1;
         }
     }
 
