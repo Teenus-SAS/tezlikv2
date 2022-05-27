@@ -12,17 +12,18 @@ $userinactivetimeDao->findSession();
 <html lang="es">
 
 <head>
-	<?php include_once('../partials/scriptsCSS.php'); ?>
+	<?php include_once(dirname(__DIR__) . '/partials/scriptsCSS.php'); ?>
 </head>
 
 <body>
 	<!--wrapper-->
 	<div class="wrapper">admin/
 		<!--sidebar wrapper -->
-		<?php include_once('../partials/sidebar.php'); ?>
+		<?php //include_once(dirname(__DIR__) . '/partials/sidebar.php'); 
+		?>
 
 		<!--start header -->
-		<?php include_once('../partials/header.php'); ?>
+		<?php include_once(dirname(__DIR__) . '/partials/header.php'); ?>
 
 		<!--start page wrapper -->
 		<div class="page-wrapper">
@@ -66,16 +67,16 @@ $userinactivetimeDao->findSession();
 		<!--Start Back To Top Button-->
 		<a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
 
-		<?php include_once('../partials/footer.php'); ?>
+		<?php include_once(dirname(__DIR__) . '/partials/footer.php'); ?>
 
 	</div>
 
 	<!--start switcher-->
-	<?php include_once('../partials/darkmode.php'); ?>
+	<?php include_once(dirname(__DIR__) . '/partials/darkmode.php'); ?>
 
 
 	<!-- Bootstrap JS -->
-	<?php include_once('../partials/scripts_js.php'); ?>
+	<?php include_once(dirname(__DIR__) . '/partials/scripts_js.php'); ?>
 	<script>
 		tipo = "<?= $_SESSION['rol'] ?>"
 	</script>
