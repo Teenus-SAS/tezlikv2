@@ -9,6 +9,6 @@ class templateController
 
     public function ctrTemplateAdmin()
     {
-        include __DIR__ . '../views/templateAdmin.php';
+        include __DIR__ . '../../views/templateAdmin.php';
     }
 }
