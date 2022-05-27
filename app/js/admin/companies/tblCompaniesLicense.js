@@ -1,11 +1,10 @@
 $(document).ready(function () {
   /* Cargue tabla Empresas licencia */
 
-  tblCompaniesLic = $('#tblCompaniesLic').dataTable({
-    destroy: true,
+  tblCompaniesLic = $('#tblCompaniesLicense').dataTable({
     pageLength: 50,
     ajax: {
-      url: `/api/licenseCompany`,
+      url: '/api/licenses',
       dataSrc: '',
     },
     language: {
@@ -22,47 +21,36 @@ $(document).ready(function () {
       },
       {
         title: 'NIT',
-        data: 'number_count',
+        data: 'nit',
       },
       {
         title: 'Empresa',
-        data: 'count',
+        data: 'company',
       },
       {
         title: 'Inicio Licencia',
-        data: 'number_count',
+        data: 'license_start',
       },
       {
         title: 'Final Licencia',
-        data: 'number_count',
+        data: 'license_end',
       },
       {
         title: 'Días de Licencia',
-        data: 'number_count',
+        data: 'license_days',
       },
       {
         title: 'Cant. Usuarios',
-        data: 'number_count',
+        data: 'quantity_user',
       },
-      {
-        title: 'Estado',
-        data: 'number_count',
-      },
-      //   {
-      //     title: 'Valor',
-      //     data: 'expense_value',
-      //     className: 'classRight',
-      //     render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      //   },
       {
         title: 'Acciones',
-        data: 'id_expense',
+        data: 'id_company',
         className: 'uniqueClassName',
         render: function (data) {
-          return `
-                <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateExpenses" data-toggle='tooltip' title='Actualizar Gasto' style="font-size: 30px;"></i></a>
-                <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteExpenses" data-toggle='tooltip' title='Eliminar Gasto' style="font-size: 30px;color:red"></i></a>`;
+          return `<a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateLicenses" data-toggle='tooltip' title='Actualizar Licencia' style="font-size: 30px;"></i></a>`;
         },
+        // <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteExpenses" data-toggle='tooltip' title='Eliminar Gasto' style="font-size: 30px;color:red"></i></a>`;
       },
     ],
   });

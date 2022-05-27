@@ -65,6 +65,8 @@
                                     <h5 class="font-size-14 font-weight-600">Administrador</h5>
                                     <ul class="list-unstyled megamenu-list">
                                         <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/users/users.php')">Usuarios</a></li>
+                                        <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/admin/companies/companies.php')">pruebas empresas</a></li>
+                                        <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/admin/companies/companiesLicenses.php')">pruebas licencias</a></li>
                                         <!-- <li><a href="javascript:void(0);">Compact Sidebar</a></li>
                                         <li><a href="javascript:void(0);">Horizontal layout</a></li>
                                         <li><a href="javascript:void(0);">Maintenance</a></li>

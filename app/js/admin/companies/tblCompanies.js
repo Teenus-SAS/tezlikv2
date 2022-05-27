@@ -2,10 +2,9 @@ $(document).ready(function () {
   /* Cargue tabla Empresas */
 
   tblCompanies = $('#tblCompanies').dataTable({
-    destroy: true,
     pageLength: 50,
     ajax: {
-      url: `/api/quantityCompanies`,
+      url: '/api/companies',
       dataSrc: '',
     },
     language: {
@@ -21,27 +20,51 @@ $(document).ready(function () {
         },
       },
       {
-        title: 'No. Cuenta',
-        data: 'number_count',
+        title: 'Empresa',
+        data: 'company',
       },
       {
-        title: 'Cuenta',
-        data: 'count',
+        title: 'Departamento',
+        data: 'state',
       },
       {
-        title: 'Valor',
-        data: 'expense_value',
-        className: 'classRight',
-        render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
+        title: 'Ciudad',
+        data: 'city',
+      },
+      {
+        title: 'País',
+        data: 'country',
+      },
+      {
+        title: 'Dirección',
+        data: 'address',
+      },
+      {
+        title: 'Teléfono',
+        data: 'telephone',
+      },
+      {
+        title: 'NIT',
+        data: 'nit',
+      },
+      {
+        title: 'Logo',
+        data: 'logo',
+      },
+      {
+        title: 'Fecha de creación',
+        data: 'created_at',
+      },
+      {
+        title: 'Creador',
+        data: 'creador',
       },
       {
         title: 'Acciones',
-        data: 'id_expense',
+        data: 'id_company',
         className: 'uniqueClassName',
         render: function (data) {
-          return `
-            <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateExpenses" data-toggle='tooltip' title='Actualizar Gasto' style="font-size: 30px;"></i></a>    
-            <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteExpenses" data-toggle='tooltip' title='Eliminar Gasto' style="font-size: 30px;color:red"></i></a>`;
+          return `<a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateCompany" data-toggle='tooltip' title='Actualizar Empresa' style="font-size: 30px;"></i></a>`;
         },
       },
     ],
