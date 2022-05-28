@@ -17,7 +17,7 @@ $userinactivetimeDao->findSession();
     <meta name="author" content="MatrrDigital">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Multipurpose | Letstart - Responsive Admin Dashboard Template</title>
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon" />
 </head>
 
 <body class="horizontal-navbar">
@@ -30,12 +30,12 @@ $userinactivetimeDao->findSession();
                 <div class="left-bar">
                     <div class="navbar-brand-box">
                         <a href="index.html" class="logo logo-dark">
-                            <span class="logo-sm"><img src="assets/images/logo-white-sm.png" alt="Lettstart Admin"></span>
-                            <span class="logo-lg"><img src="assets/images/logo-white.png" alt="Lettstart Admin"></span>
+                            <span class="logo-sm"><img src="/assets/images/logo-white-sm.png" alt="Lettstart Admin"></span>
+                            <span class="logo-lg"><img src="/assets/images/logo-white.png" alt="Lettstart Admin"></span>
                         </a>
                         <a href="index.html" class="logo logo-light">
-                            <span class="logo-sm"><img src="assets/images/logo-sm.png" alt="Lettstart Admin"></span>
-                            <span class="logo-lg"><img src="assets/images/logo.png" alt="Lettstart Admin"></span>
+                            <span class="logo-sm"><img src="/assets/images/logo-sm.png" alt="Lettstart Admin"></span>
+                            <span class="logo-lg"><img src="/assets/images/logo.png" alt="Lettstart Admin"></span>
                         </a>
                     </div>
                     <a class="navbar-toggle collapsed" href="javascript:void(0)" data-toggle="collapse" data-target="#topnav-menu-content" aria-expanded="false">
@@ -106,13 +106,13 @@ $userinactivetimeDao->findSession();
                                             <div class="mega-dd-slider">
                                                 <div class="owl-carousel">
                                                     <div class="item">
-                                                        <img src="assets/images/megamenu-img.svg" alt="Lettstart Admin" class="img-fluid mx-auto d-block">
+                                                        <img src="/assets/images/megamenu-img.svg" alt="Lettstart Admin" class="img-fluid mx-auto d-block">
                                                     </div>
                                                     <div class="item">
-                                                        <img src="assets/images/megamenu-img2.svg" alt="Lettstart Admin" class="img-fluid mx-auto d-block">
+                                                        <img src="/assets/images/megamenu-img2.svg" alt="Lettstart Admin" class="img-fluid mx-auto d-block">
                                                     </div>
                                                     <div class="item">
-                                                        <img src="assets/images/megamenu-img3.svg" alt="Lettstart Admin" class="img-fluid mx-auto d-block">
+                                                        <img src="/assets/images/megamenu-img3.svg" alt="Lettstart Admin" class="img-fluid mx-auto d-block">
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,24 +147,24 @@ $userinactivetimeDao->findSession();
                     </div>
                     <div class="d-inline-flex ml-0 ml-sm-2 dropdown">
                         <button aria-haspopup="true" data-toggle="dropdown" type="button" id="page-header-country-dropdown" aria-expanded="false" class="btn header-item">
-                            <img src="assets/images/flags/us.svg" class="mh-16" alt="USA">
+                            <img src="/assets/images/flags/us.svg" class="mh-16" alt="USA">
                             <span class="ml-2 d-none d-sm-inline-block">EN</span>
                         </button>
                         <div aria-labelledby="page-header-country-dropdown" id="countries" class="dropdown-menu-right dropdown-menu">
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img class="mr-1 mh-12" src="assets/images/flags/us.svg" alt="USA">
+                                <img class="mr-1 mh-12" src="/assets/images/flags/us.svg" alt="USA">
                                 <span class="align-middle" data-lang="en">USA</span>
                             </a>
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img class="mr-1 mh-12" src="assets/images/flags/ge.svg" alt="German">
+                                <img class="mr-1 mh-12" src="/assets/images/flags/ge.svg" alt="German">
                                 <span class="align-middle" data-lang="ge">German</span>
                             </a>
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img class="mr-1 mh-12" src="assets/images/flags/ru.svg" alt="Russia">
+                                <img class="mr-1 mh-12" src="/assets/images/flags/ru.svg" alt="Russia">
                                 <span class="align-middle" data-lang="ru">Russia</span>
                             </a>
                             <a href="javascript:void(0);" class="dropdown-item">
-                                <img class="mr-1 mh-12" src="assets/images/flags/in.svg" alt="India">
+                                <img class="mr-1 mh-12" src="/assets/images/flags/in.svg" alt="India">
                                 <span class="align-middle" data-lang="in">India</span>
                             </a>
                         </div>
@@ -178,19 +178,19 @@ $userinactivetimeDao->findSession();
                                 <div class="row no-gutters">
                                     <div class="col">
                                         <a href="javascript: void(0);" class="dropdown-icon-item">
-                                            <img src="assets/images/brands/github.png" alt="Github">
+                                            <img src="/assets/images/brands/github.png" alt="Github">
                                             <span>GitHub</span>
                                         </a>
                                     </div>
                                     <div class="col">
                                         <a href="javascript: void(0);" class="dropdown-icon-item">
-                                            <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
+                                            <img src="/assets/images/brands/bitbucket.png" alt="bitbucket">
                                             <span>Bitbucket</span>
                                         </a>
                                     </div>
                                     <div class="col">
                                         <a href="javascript: void(0);" class="dropdown-icon-item">
-                                            <img src="assets/images/brands/dribbble.png" alt="dribbble">
+                                            <img src="/assets/images/brands/dribbble.png" alt="dribbble">
                                             <span>Dribbble</span>
                                         </a>
                                     </div>
@@ -198,19 +198,19 @@ $userinactivetimeDao->findSession();
                                 <div class="row no-gutters">
                                     <div class="col">
                                         <a href="javascript: void(0);" class="dropdown-icon-item">
-                                            <img src="assets/images/brands/dropbox.png" alt="dropbox">
+                                            <img src="/assets/images/brands/dropbox.png" alt="dropbox">
                                             <span>Dropbox</span>
                                         </a>
                                     </div>
                                     <div class="col">
                                         <a href="javascript: void(0);" class="dropdown-icon-item">
-                                            <img src="assets/images/brands/mail_chimp.png" alt="mail_chimp">
+                                            <img src="/assets/images/brands/mail_chimp.png" alt="mail_chimp">
                                             <span>Mail Chimp</span>
                                         </a>
                                     </div>
                                     <div class="col">
                                         <a href="javascript: void(0);" class="dropdown-icon-item">
-                                            <img src="assets/images/brands/slack.png" alt="slack">
+                                            <img src="/assets/images/brands/slack.png" alt="slack">
                                             <span>Slack</span>
                                         </a>
                                     </div>
@@ -254,7 +254,7 @@ $userinactivetimeDao->findSession();
                                         <a href="javascript:void(0);" class="dropdown-item notification-item">
                                             <div class="media">
                                                 <div class="avatar avatar-xs">
-                                                    <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="assets/images/users/avatar-1.jpg">
+                                                    <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="/assets/images/users/avatar-1.jpg">
                                                 </div>
                                                 <p class="media-body">
                                                     John likes your photo
@@ -265,7 +265,7 @@ $userinactivetimeDao->findSession();
                                         <a href="javascript:void(0);" class="dropdown-item notification-item">
                                             <div class="media">
                                                 <div class="avatar avatar-xs">
-                                                    <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="assets/images/users/avatar-2.jpg">
+                                                    <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="/assets/images/users/avatar-2.jpg">
                                                 </div>
                                                 <p class="media-body">
                                                     Johnson
@@ -307,7 +307,7 @@ $userinactivetimeDao->findSession();
                     </div>
                     <div class="d-inline-flex ml-0 ml-sm-2 dropdown">
                         <button data-toggle="dropdown" aria-haspopup="true" type="button" id="page-header-profile-dropdown" aria-expanded="false" class="btn header-item">
-                            <img src="assets/images/users/avatar-1.jpg" alt="Header Avatar" class="avatar avatar-xs mr-0">
+                            <img src="/assets/images/users/avatar-1.jpg" alt="Header Avatar" class="avatar avatar-xs mr-0">
                             <span class="d-none d-xl-inline-block ml-1">Henry</span>
                             <i class="bx bx-chevron-down d-none d-xl-inline-block"></i>
                         </button>
@@ -1190,19 +1190,19 @@ $userinactivetimeDao->findSession();
                 <div class="card-body">
                     <div class="layout">
                         <a href="index-horizontal.html">
-                            <img src="assets/images/horizontal.png" alt="Lettstart Admin" class="img-fluid" />
+                            <img src="/assets/images/horizontal.png" alt="Lettstart Admin" class="img-fluid" />
                             <h6 class="font-size-16">Horizontal Layout</h6>
                         </a>
                     </div>
                     <div class="layout">
                         <a href="index.html">
-                            <img src="assets/images/vertical.png" alt="Lettstart Admin" class="img-fluid" />
+                            <img src="/assets/images/vertical.png" alt="Lettstart Admin" class="img-fluid" />
                             <h6 class="font-size-16">Vertical Layout</h6>
                         </a>
                     </div>
                     <div class="layout">
                         <a href="layout-dark-sidebar.html">
-                            <img src="assets/images/dark.png" alt="Lettstart Admin" class="img-fluid" />
+                            <img src="/assets/images/dark.png" alt="Lettstart Admin" class="img-fluid" />
                             <h6 class="font-size-16">Dark Sidebar</h6>
                         </a>
                     </div>
@@ -1212,19 +1212,19 @@ $userinactivetimeDao->findSession();
     </div>
     <!-- Page End -->
     <!-- ================== BEGIN BASE JS ================== -->
-    <script src="assets/js/vendor.min.js"></script>
+    <script src="/assets/js/vendor.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- ================== END BASE JS ================== -->
 
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-    <script src="assets/libs/flatpicker/js/flatpickr.js"></script>
-    <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
-    <script src="assets/libs/chartjs/js/Chart.bundle.min.js"></script>
-    <script src="assets/js/utils/colors.js"></script>
-    <script src="assets/js/pages/dashboard.init.js"></script>
+    <script src="/assets/libs/flatpicker/js/flatpickr.js"></script>
+    <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="/assets/libs/chartjs/js/Chart.bundle.min.js"></script>
+    <script src="/assets/js/utils/colors.js"></script>
+    <script src="/assets/js/pages/dashboard.init.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
     <!-- ================== BEGIN PAGE JS ================== -->
-    <script src="assets/js/app.js"></script>
+    <script src="/assets/js/app.js"></script>
     <!-- ================== END PAGE JS ================== -->
 </body>
 

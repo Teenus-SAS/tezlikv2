@@ -9,20 +9,20 @@
   <meta name="author" content="MatrrDigital">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login | Tezlik</title>
-  <link rel="shortcut icon" href="app/assets/images/favicon/favicon_tezlik.jpg" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/images/favicon/favicon_tezlik.jpg" type="image/x-icon" />
 
   <!-- ================== BEGIN PAGE LEVEL CSS START ================== -->
-  <link rel="stylesheet" href="app/assets/css/icons.css" />
-  <link rel="stylesheet" href="app/assets/libs/wave-effect/css/waves.min.css" />
-  <link rel="stylesheet" href="app/assets/libs/owl-carousel/css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="assets/css/icons.css" />
+  <link rel="stylesheet" href="assets/libs/wave-effect/css/waves.min.css" />
+  <link rel="stylesheet" href="assets/libs/owl-carousel/css/owl.carousel.min.css" />
 
   <!-- ================== Plugins CSS  ================== -->
-  <link rel="stylesheet" href="app/assets/libs/owl-carousel/css/owl.carousel.min.css" />
-  <link rel="stylesheet" href="app/assets/plugins/toast/toastr.min.css">
+  <link rel="stylesheet" href="assets/libs/owl-carousel/css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="assets/plugins/toast/toastr.min.css">
 
   <!-- ================== BEGIN APP CSS  ================== -->
-  <link rel="stylesheet" href="app/assets/css/bootstrap.css" />
-  <link rel="stylesheet" href="app/assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 
   <!-- ================== BEGIN POLYFILLS  ================== -->
   <!--[if lt IE 9]>
@@ -69,7 +69,7 @@
           <div class="card mb-0 p-2 p-md-3 h-100">
             <div class="card-body">
               <div class="clearfix" style="text-align: center;">
-                <img src="app/assets/images/logo/logo_tezlik1.png" height="55" class="" alt="logo tezlik">
+                <img src="assets/images/logo/logo_tezlik1.png" height="55" class="" alt="logo tezlik">
               </div>
               <h5 class="mt-4 font-weight-600">Bienvenido!</h5>
               <!-- <p class="text-muted mb-4">Login</p> -->
@@ -115,17 +115,17 @@
 
   <!-- ================== BEGIN BASE JS ================== -->
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="app/assets/js/vendor.min.js"></script>
+  <script src="assets/js/vendor.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
   <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-  <script src="app/assets/js/utils/colors.js"></script>
-  <script src="app/assets/libs/owl-carousel/js/owl.carousel.min.js"></script>
-  <script src="app/assets/libs/jquery-validation/js/jquery.validate.min.js"></script>
-  <script src="app/assets/libs/jquery-validation/js/additional-methods.min.js"></script>
+  <script src="assets/js/utils/colors.js"></script>
+  <script src="assets/libs/owl-carousel/js/owl.carousel.min.js"></script>
+  <script src="assets/libs/jquery-validation/js/jquery.validate.min.js"></script>
+  <script src="assets/libs/jquery-validation/js/additional-methods.min.js"></script>
 
   <!-- ================== BEGIN PAGE JS ================== -->
-  <script src="app/assets/js/app.js"></script>
+  <script src="assets/js/app.js"></script>
   <script src="app/js/login/autentication.js"></script>
   <!-- <script src="app/js/login/code.js"></script> -->
 

@@ -18,7 +18,7 @@ $userinactivetimeDao->findSession();
 	<meta name="author" content="MatrrDigital">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Tezlik | Dashboard</title>
-	<link rel="shortcut icon" href="../app/assets/images/favicon/favicon_tezlik.jpg" type="image/x-icon" />
+	<link rel="shortcut icon" href="/assets/images/favicon/favicon_tezlik.jpg" type="image/x-icon" />
 
 	<?php include_once dirname(__DIR__) . '/partials/scriptsCSS.php'; ?>
 </head>
@@ -326,14 +326,14 @@ $userinactivetimeDao->findSession();
 						</div>
 					</div>
 				</div>
-				<script src="../../app/js/dashboard/indicatorsGeneral.js"></script>
-				<script src="../../app/js/dashboard/graphicsGeneral.js"></script>
+				<script src="/app/js/dashboard/indicatorsGeneral.js"></script>
+				<script src="/app/js/dashboard/graphicsGeneral.js"></script>
 			</div>
 		</div>
 		<!-- main content End -->
 
 		<!-- footer -->
-		<?php include_once  dirname(__DIR__) .  '/partials/footer.php'; ?>
+		<?php include_once  dirname(__DIR__) . '/partials/footer.php'; ?>
 
 		<!-- <div class="setting-sidebar">
 			<div class="card mb-0">

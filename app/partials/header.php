@@ -4,12 +4,12 @@
         <div class="left-bar">
             <div class="navbar-brand-box">
                 <a href="index.html" class="logo logo-dark">
-                    <span class="logo-sm"><img src="../app/assets/images/favicon/favicon_tezlik.jpg" alt="icon tezlik"></span>
-                    <span class="logo-lg"><img src="../app/assets/images/logo/logo_tezlik.png" alt="Logo tezlik"></span>
+                    <span class="logo-sm"><img src="/assets/images/favicon/favicon_tezlik.jpg" alt="icon tezlik"></span>
+                    <span class="logo-lg"><img src="/assets/images/logo/logo_tezlik.png" alt="Logo tezlik"></span>
                 </a>
                 <a href="index.html" class="logo logo-light">
-                    <span class="logo-sm"><img src="../app/assets/images/favicon/favicon_tezlik.jpg" alt="Lettstart Admin"></span>
-                    <span class="logo-lg"><img src="../app/assets/images/logo/logo_tezlik.png" alt="Lettstart Admin"></span>
+                    <span class="logo-sm"><img src="/assets/images/favicon/favicon_tezlik.jpg" alt="Lettstart Admin"></span>
+                    <span class="logo-lg"><img src="/assets/images/logo/logo_tezlik.png" alt="Lettstart Admin"></span>
                 </a>
             </div>
             <a class="navbar-toggle collapsed" href="javascript:void(0)" data-toggle="collapse" data-target="#topnav-menu-content" aria-expanded="false">
@@ -65,8 +65,6 @@
                                     <h5 class="font-size-14 font-weight-600">Administrador</h5>
                                     <ul class="list-unstyled megamenu-list">
                                         <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/users/users.php')">Usuarios</a></li>
-                                        <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/admin/companies/companies.php')">pruebas empresas</a></li>
-                                        <li class="users"><a href="javascript:void(0);" onclick="loadContent('page-content','views/admin/companies/companiesLicenses.php')">pruebas licencias</a></li>
                                         <!-- <li><a href="javascript:void(0);">Compact Sidebar</a></li>
                                         <li><a href="javascript:void(0);">Horizontal layout</a></li>
                                         <li><a href="javascript:void(0);">Maintenance</a></li>
@@ -235,7 +233,7 @@
                                 <a href="javascript:void(0);" class="dropdown-item notification-item">
                                     <div class="media">
                                         <div class="avatar avatar-xs">
-                                            <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="assets/images/users/avatar-1.jpg">
+                                            <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="/assets/images/users/avatar-1.jpg">
                                         </div>
                                         <p class="media-body">
                                             John likes your photo
@@ -246,7 +244,7 @@
                                 <a href="javascript:void(0);" class="dropdown-item notification-item">
                                     <div class="media">
                                         <div class="avatar avatar-xs">
-                                            <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="assets/images/users/avatar-2.jpg">
+                                            <img alt="Lettstart Admin" class="img-fluid rounded-circle" src="/assets/images/users/avatar-2.jpg">
                                         </div>
                                         <p class="media-body">
                                             Johnson
@@ -288,7 +286,7 @@
             </div>
             <div class="d-inline-flex ml-0 ml-sm-2 dropdown">
                 <button data-toggle="dropdown" aria-haspopup="true" type="button" id="page-header-profile-dropdown" aria-expanded="false" class="btn header-item">
-                    <img src="assets/images/users/avatar-1.jpg" alt="Header Avatar" class="avatar avatar-xs mr-0">
+                    <img src="/assets/images/users/avatar-1.jpg" alt="Header Avatar" class="avatar avatar-xs mr-0">
                     <span class="d-none d-xl-inline-block ml-1 userName">Martha Lucia Olmos</span>
                     <i class="bx bx-chevron-down d-none d-xl-inline-block"></i>
                 </button>
@@ -315,5 +313,5 @@
 </header>
 <!-- Header End -->
 
-<!-- <script src="/app/partials/scriptsHeader.php"></script> -->
+<script src="/admin/partials/scriptsHeader.php"></script>
 <?php include_once dirname(__DIR__) . '/partials/scriptsJS.php'; ?>

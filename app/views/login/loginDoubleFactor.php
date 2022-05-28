@@ -9,16 +9,16 @@
     <meta name="author" content="MatrrDigital">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login | Autenticación</title>
-    <link rel="shortcut icon" href="app/assets/images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon" />
 
     <!-- ================== BEGIN PAGE LEVEL CSS START ================== -->
-    <link rel="stylesheet" href="/app/assets/css/icons.css" />
-    <link rel="stylesheet" href="/app/assets/libs/wave-effect/css/waves.min.css" />
-    <link rel="stylesheet" href="/app/assets/libs/owl-carousel/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/assets/css/icons.css" />
+    <link rel="stylesheet" href="/assets/libs/wave-effect/css/waves.min.css" />
+    <link rel="stylesheet" href="/assets/libs/owl-carousel/css/owl.carousel.min.css" />
     <!-- ================== BEGIN PAGE LEVEL END ================== -->
     <!-- ================== BEGIN APP CSS  ================== -->
-    <link rel="stylesheet" href="/app/assets/css/bootstrap.css" />
-    <link rel="stylesheet" href="/app/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
     <!-- ================== END APP CSS ================== -->
 
     <!-- ================== BEGIN POLYFILLS  ================== -->
@@ -41,7 +41,7 @@
                     <div class="card">
                         <div class="card-body p-4 p-md-5">
                             <div class="clearfix" style="display:flex;justify-content:center">
-                                <img src="/app/assets/images/logo/logo_tezlik1.png" height="42" alt="logo">
+                                <img src="/assets/images/logo/logo_tezlik1.png" height="42" alt="logo">
                             </div>
                             <h5 class="mt-4 font-weight-600">¡Obtén un código para acceder!</h5>
                             <p class="text-muted mb-4">Este paso adicional nos ayuda a confirmar y proteger su cuenta.</p>
@@ -73,20 +73,20 @@
     </div>
     <!-- end container -->
     </div>
-    <script src="../../app/js/login/autentication.js"></script>
+    <script src="../../js/login/autentication.js"></script>
     <!-- Page End -->
     <!-- ================== BEGIN BASE JS ================== -->
-    <script src="assets/js/vendor.min.js"></script>
+    <script src="/assets/js/vendor.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- ================== END BASE JS ================== -->
 
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-    <script src="assets/js/utils/colors.js"></script>
-    <script src="assets/libs/jquery-validation/js/jquery.validate.min.js"></script>
-    <script src="assets/libs/jquery-validation/js/additional-methods.min.js"></script>
+    <script src="/assets/js/utils/colors.js"></script>
+    <script src="/assets/libs/jquery-validation/js/jquery.validate.min.js"></script>
+    <script src="/assets/libs/jquery-validation/js/additional-methods.min.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
     <!-- ================== BEGIN PAGE JS ================== -->
-    <script src="assets/js/app.js"></script>
+    <script src="/assets/js/app.js"></script>
     <!-- ================== END PAGE JS ================== -->
     <script>
         //Initialize form

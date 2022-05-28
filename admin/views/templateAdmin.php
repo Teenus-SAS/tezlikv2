@@ -72,20 +72,22 @@ $userinactivetimeDao->findSession();
 	</div>
 
 	<!--start switcher-->
-	<?php include_once(dirname(__DIR__) . '/partials/darkmode.php'); ?>
+	<!-- <?php include_once(dirname(__DIR__) . '/partials/darkmode.php'); ?> -->
 
 
 	<!-- Bootstrap JS -->
-	<?php include_once(dirname(__DIR__) . '/partials/scripts_js.php'); ?>
+	<?php include_once(dirname(__DIR__) . '/partials/scriptsJS.php'); ?>
 	<script>
 		tipo = "<?= $_SESSION['rol'] ?>"
 	</script>
-	<script src="js/global/validation.js"></script>
-	<script src="../app/js/users/users.js"></script>
-	<script src="../app/js/users/rols.js"></script>
-	<script src="../app/js/global/logout.js"></script>
-	<script src="../app/js/global/profile.js"></script>
+	<script src="/admin/js/global/validation.js"></script>
+	<script src="/admin/js/users/users.js"></script>
+	<script src="/admin/js/users/rols.js"></script>
+	<script src="/admin/js/global/logout.js"></script>
+	<script src="/admin/js/global/profile.js"></script>
 
+	<script src="/admin/js/global/loadContent.js"></script>
+	<!-- <script src="/admin/js/login/access.js"></script> -->
 
 </body>
 
