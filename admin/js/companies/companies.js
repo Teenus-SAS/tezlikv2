@@ -4,6 +4,7 @@ $(document).ready(function () {
   $('#btnNewCompany').click(function (e) {
     e.preventDefault();
     $('#createCompany').modal('show');
+    $('#license').show();
     $('#btnCreateCompany').removeClass('updCompany');
     $('#btnCreateCompany').addClass('crtCompany');
     $('#btnCreateCompany').html('Crear');
@@ -80,6 +81,7 @@ $(document).ready(function () {
   $(document).on('click', '.updateCompany', function (e) {
     e.preventDefault();
     $('#createCompany').modal('show');
+    $('#license').hide();
     $('#btnCreateCompany').removeClass('crtCompany');
     $('#btnCreateCompany').addClass('updCompany');
     $('#btnCreateCompany').html('Actualizar');

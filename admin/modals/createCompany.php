@@ -95,42 +95,44 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-lg-12 titlePayroll pt-2 bg-info text-white">
-                                            <label for=""><b>Licencia</b></label>
-                                        </div>
-
-                                        <div class="col-12 col-lg-4">
-                                            <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="companyLic_start" name="companyLic_start" type="date" class="form-control">
-                                                <label for="companyLic_start">Inicio Licencia<span class="text-danger">*</span></label>
-                                                <div class="validation-error d-none font-size-13">Requerido</div>
+                                        <div id="license" class="row">
+                                            <div class="col-12 col-lg-12 titlePayroll pt-2 bg-info text-white">
+                                                <label for=""><b>Licencia</b></label>
                                             </div>
-                                        </div>
 
-                                        <div class="col-12 col-lg-4">
-                                            <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="companyLic_end" name="companyLic_end" type="date" class="form-control">
-                                                <label for="companyLic_end">Final Licencia<span class="text-danger">*</span></label>
-                                                <div class="validation-error d-none font-size-13">Requerido</div>
+                                            <div class="col-12 col-lg-4">
+                                                <div class="form-group floating-label enable-floating-label show-label">
+                                                    <input id="companyLic_start" name="companyLic_start" type="date" class="form-control">
+                                                    <label for="companyLic_start">Inicio Licencia<span class="text-danger">*</span></label>
+                                                    <div class="validation-error d-none font-size-13">Requerido</div>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-12 col-lg-2">
-                                            <div class="form-group floating-label enable-floating-label show-label">
-                                                <input id="companyUsers" name="companyUsers" type="number" class="form-control">
-                                                <label for="companyUsers">Usuarios<span class="text-danger">*</span></label>
-                                                <div class="validation-error d-none font-size-13">Requerido</div>
+                                            <div class="col-12 col-lg-4">
+                                                <div class="form-group floating-label enable-floating-label show-label">
+                                                    <input id="companyLic_end" name="companyLic_end" type="date" class="form-control">
+                                                    <label for="companyLic_end">Final Licencia<span class="text-danger">*</span></label>
+                                                    <div class="validation-error d-none font-size-13">Requerido</div>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-12 col-lg-2">
-                                            <div class="form-group floating-label enable-floating-label show-label">
-                                                <label for="companyStatus">Estado<span class="text-danger">*</span></label>
-                                                <select class="form-control" id="companyStatus">
-                                                    <option value="1" selected>Activa</option>
-                                                    <option value="0">Inactiva</option>
-                                                </select>
-                                                <div class="validation-error d-none font-size-13">Requerido</div>
+                                            <div class="col-12 col-lg-2">
+                                                <div class="form-group floating-label enable-floating-label show-label">
+                                                    <input id="companyUsers" name="companyUsers" type="number" class="form-control">
+                                                    <label for="companyUsers">Usuarios<span class="text-danger">*</span></label>
+                                                    <div class="validation-error d-none font-size-13">Requerido</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-lg-2">
+                                                <div class="form-group floating-label enable-floating-label show-label">
+                                                    <label for="companyStatus">Estado<span class="text-danger">*</span></label>
+                                                    <select class="form-control" id="companyStatus">
+                                                        <option value="1" selected>Activa</option>
+                                                        <option value="0">Inactiva</option>
+                                                    </select>
+                                                    <div class="validation-error d-none font-size-13">Requerido</div>
+                                                </div>
                                             </div>
                                         </div>
 
