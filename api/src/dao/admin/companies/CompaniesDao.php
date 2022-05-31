@@ -95,7 +95,7 @@ class CompaniesDao
                 'address' => $dataCompany['companyAddress'],       'telephone' => $dataCompany['companyTel'],
                 'nit' => $dataCompany['companyNIT'],               'logo' => $dataCompany['companyLogo'],
                 'created_at' => $dataCompany['companyCreated_at'], 'creador' => $dataCompany['companyCreator'],
-                'id_company' => $dataCompany['company_id'],
+                'id_company' => $dataCompany['id_company'],
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {

@@ -15,7 +15,7 @@ $userinactivetimeDao->findSession();
                 <div class="page-title">
                     <h3 class="mb-1 font-weight-bold text-dark">Empresas</h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
-                        <li class="breadcrumb-item active">Información Empresas activas</li>
+                        <li class="breadcrumb-item active">Ingreso e Información Empresas activas</li>
                     </ol>
                 </div>
             </div>

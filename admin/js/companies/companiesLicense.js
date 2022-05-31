@@ -21,13 +21,14 @@ $(document).ready(function () {
   /*Actualizar licencia*/
   $('#btnUpdLicense').click(function (e) {
     e.preventDefault();
+    debugger;
 
     company = $('#company').val();
     license_start = $('#license_start').val();
     license_end = $('#license_end').val();
     quantityUsers = $('#quantityUsers').val();
 
-    dataProduct = new FormData(formUpdateLicense);
+    dataProduct = new FormData(document.getElementById('formUpdateLicense'));
     dataProduct.append('id_company', id);
 
     $.ajax({

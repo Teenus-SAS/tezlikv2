@@ -21,6 +21,7 @@ $(document).ready(function () {
   /* Crear Empresa */
 
   $(document).on('click', '.crtCompany', function (e) {
+    debugger;
     e.preventDefault();
     company = $('#company').val();
     companyNIT = $('#companyNIT').val();
@@ -38,7 +39,7 @@ $(document).ready(function () {
     companyUsers = $('#companyUsers').val();
     companyStatus = $('#companyStatus').val();
 
-    dataProduct = new FormData(formCreateCompany);
+    dataProduct = new FormData(document.getElementById('formCreateCompany'));
     dataProduct.append('companyStatus', companyStatus);
 
     if (
@@ -90,11 +91,12 @@ $(document).ready(function () {
     let data = tblCompanies.fnGetData(row);
 
     id = data.id_company;
+    date = data.created_at.split(' ')[0];
 
     $('#company').val(data.company);
     $('#companyNIT').val(data.nit);
     $('#companyCreator').val(data.creador);
-    $('#companyCreated_at').val(data.created_at);
+    $('#companyCreated_at').val(date);
     $('#companyLogo').val(data.logo);
     $('#companyCity').val(data.city);
     $('#companyState').val(data.state);
@@ -119,7 +121,7 @@ $(document).ready(function () {
     companyAddress = $('#companyAddress').val();
     companyTel = $('#companyTel').val();
 
-    dataProduct = new FormData(formCreateCompany);
+    dataProduct = new FormData(document.getElementById('formCreateCompany'));
     dataProduct.append('id_company', id);
 
     $.ajax({

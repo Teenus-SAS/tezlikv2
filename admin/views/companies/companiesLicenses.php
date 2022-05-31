@@ -12,9 +12,9 @@ $userinactivetimeDao->findSession();
         <div class="row align-items-center">
             <div class="col-sm-5 col-xl-6">
                 <div class="page-title">
-                    <h3 class="mb-1 font-weight-bold text-dark">Gastos Generales</h3>
+                    <h3 class="mb-1 font-weight-bold text-dark">Actualización Licencias</h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
-                        <li class="breadcrumb-item active">Asignación de Gastos Generales</li>
+                        <li class="breadcrumb-item active">Actualización e Información de Licencias</li>
                     </ol>
                 </div>
             </div>
@@ -39,7 +39,7 @@ $userinactivetimeDao->findSession();
                                 <div class="col-sm">
                                     <div class="form-group m-0">
                                         <label for="company">Empresa</label>
-                                        <input id="company" name="company" type="text" readonly class="form-control bg-light" disabled>
+                                        <input id="company" name="company" type="text" readonly class="form-control bg-light text-center" disabled>
                                     </div>
                                 </div>
                                 <div class="col-sm">
