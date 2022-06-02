@@ -10,8 +10,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 //Datos de empresas activas
-$app->get('/companies', function (Request $request, Response $response, $args) use ($companiesDao) {
-    $resp = $companiesDao->findAllActiveCompanies();
+$app->get('/companies/{stat}', function (Request $request, Response $response, $args) use ($companiesDao) {
+    $resp = $companiesDao->findAllCompanies($args['stat']);
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });

@@ -53,10 +53,91 @@ $userinactivetimeDao->findSession();
 						</div>
 					</div>
 				</div>
-				<!-- page content -->
 
-				<script src="/app/js/dashboard/indicatorsGeneral.js"></script>
-				<script src="/app/js/dashboard/graphicsGeneral.js"></script>
+				<!-- page content -->
+				<div class="page-content-wrapper mt--45">
+					<div class="container-fluid">
+						<!-- Widget  -->
+						<div class="row">
+							<div class="col-md-6 col-xl-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="media align-items-center">
+											<div class="media-body">
+												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Productos</span>
+												<h2 class="mb-0 mt-1" id="products"></h2>
+											</div>
+											<div class="text-center">
+												<div id="t-rev"></div>
+												<span class="text-info font-weight-bold font-size-23">
+													<i class='bx bx-grid-alt fs-lg'></i>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-xl-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="media align-items-center">
+											<div class="media-body">
+												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Empresas</span>
+												<h2 class="mb-0 mt-1" id="companies"></h2>
+											</div>
+											<div class="text-center">
+												<div id="t-rev"></div>
+												<span class="text-danger font-weight-bold font-size-13">
+													<i class='bx bxs-buildings fs-lg'></i>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-xl-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="media align-items-center">
+											<div class="media-body">
+												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Usuarios</span>
+												<h2 class="mb-0 mt-1" id="users"></h2>
+											</div>
+											<div class="text-center">
+												<div id="t-user"></div>
+												<span class="text-info font-weight-bold font-size-13">
+													<i class='bx bxs-user-detail fs-lg'></i>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-xl-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="media align-items-center">
+											<div class="media-body">
+												<span class="text-muted text-uppercase font-size-12 font-weight-bold">Usuarios en Sesión</span>
+												<h2 class="mb-0 mt-1" id="usersSession"></h2>
+											</div>
+											<div class="text-center">
+												<div id="t-visitor"></div>
+												<span class="text-success font-weight-bold font-size-13">
+													<i class='bx bxs-user-plus fs-lg'></i>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row 2-->
+					</div>
+				</div>
+				<!-- <script src="/app/js/dashboard/indicatorsGeneral.js"></script> -->
+				<!-- <script src="/app/js/dashboard/graphicsGeneral.js"></script> -->
+				<script src="/admin/js/dashboard/dashboardIndicatorsGeneral.js"></script>
 			</div>
 		</div>
 		<!-- main content End -->
@@ -71,82 +152,6 @@ $userinactivetimeDao->findSession();
 	<script src="/app/js/global/loadContent.js"></script>
 	<script src="/app/js/global/logout.js"></script>
 	<script src="/app/js/login/access.js"></script>
-
-</body>
-
-
-<body>
-	<!--wrapper-->
-	<div class="wrapper">admin/
-		<!--sidebar wrapper -->
-		<?php //include_once(dirname(__DIR__).'/partials/sidebar.php');
-		?>
-
-		<!--start header -->
-		<?php include_once(dirname(__DIR__) . '/partials/header.php'); ?>
-
-		<!--start page wrapper -->
-		<div class="page-wrapper">
-			<div class="page-content">
-				<?php if ($rol == 4) { ?>
-					<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-						<div class="breadcrumb-title pe-3">Administrador</div>
-						<div class="ps-3">
-							<nav aria-label="breadcrumb">
-								<ol class="breadcrumb mb-0 p-0">
-									<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-									</li>
-									<li class="breadcrumb-item active" aria-current="page">Usuarios</li>
-								</ol>
-							</nav>
-						</div>
-						<div class="ms-auto">
-							<div class="btn-group">
-								<button type="button" class="btn btn-primary" id="createUser" data-bs-toggle="modal" data-bs-target="#modalCreateSeller">Crear Nuevo Usuario</button>
-							</div>
-						</div>
-					</div>
-
-					<hr />
-					<div class="card">
-						<div class="card-body">
-							<div class="table-responsive">
-								<table id="tableUsers" class="table table-striped table-bordered" style="width:100%">
-
-								</table>
-							</div>
-						</div>
-					</div>
-				<?php } ?>
-			</div>
-		</div>
-
-		<!--start overlay-->
-		<!-- <div class="overlay toggle-icon"></div> -->
-
-		<!--Start Back To Top Button-->
-		<a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-
-
-	</div>
-
-	<!--start switcher-->
-	<!-- <?php include_once(dirname(__DIR__) . '/partials/darkmode.php'); ?> -->
-
-
-	<!-- Bootstrap JS -->
-	<?php include_once(dirname(__DIR__) . '/partials/scriptsJS.php'); ?>
-	<script>
-		tipo = "<?= $_SESSION['rol'] ?>"
-	</script>
-	<script src="/admin/js/global/validation.js"></script>
-	<script src="/admin/js/users/users.js"></script>
-	<script src="/admin/js/users/rols.js"></script>
-	<script src="/admin/js/global/logout.js"></script>
-	<script src="/admin/js/global/profile.js"></script>
-
-	<script src="/admin/js/global/loadContent.js"></script>
-	<!-- <script src="/admin/js/login/access.js"></script> -->
 
 </body>
 

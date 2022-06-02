@@ -27,6 +27,10 @@ require_once('../api/src/routes/admin/puc/routePUC.php');
 
 // Users
 require_once('../api/src/routes/admin/users/routeActiveUsers.php');
+require_once('../api/src/routes/admin/users/routeCloseSessionUsers.php');
+
+// Dashboard
+require_once('../api/src/routes/admin/dashboard/routeDashboardGeneral.php');
 
 
 

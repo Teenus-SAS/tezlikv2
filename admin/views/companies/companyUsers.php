@@ -13,16 +13,16 @@ $userinactivetimeDao->findSession();
         <div class="row align-items-center">
             <div class="col-sm-5 col-xl-6">
                 <div class="page-title">
-                    <h3 class="mb-1 font-weight-bold text-dark">Empresas</h3>
+                    <h3 class="mb-1 font-weight-bold text-dark">Usuarios</h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
-                        <li class="breadcrumb-item active">Ingreso e Información Empresas activas</li>
+                        <li class="breadcrumb-item active">Usuarios de la Empresa</li>
                     </ol>
                 </div>
             </div>
             <div class="col-sm-7 col-xl-6">
 
                 <div class="form-inline justify-content-sm-end">
-                    <div class="card my-0 mx-3">
+                    <!-- <div class="card my-0 mx-3">
                         <div class="card-body p-2">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input statusCompanies" id="status" checked>
@@ -32,7 +32,7 @@ $userinactivetimeDao->findSession();
                     </div>
                     <div>
                         <button class="btn btn-warning" id="btnNewCompany">Nueva empresa</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -126,5 +126,6 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
-<script src="/admin/js/companies/tblCompanies.js"></script>
-<script src="/admin/js/companies/companies.js"></script>
+
+<script src="/admin/js/companies/companyUsers.js"></script>
+<script src="/admin/js/companies/tblCompanyUsers.js"></script>

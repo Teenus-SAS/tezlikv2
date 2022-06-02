@@ -15,6 +15,7 @@
                         </div> -->
                     </li>
 
+
                     <!-- Empresas -->
 
                     <li class="nav-item dropdown">
@@ -35,6 +36,55 @@
                             </div>
                         </div>
                     </li>
+
+
+
+                    <!-- Usuarios -->
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="topnav-component" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bx bx-user-circle mr-1 "></i> Usuarios
+                            <i class="bx bx-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-components">
+                            <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-item dropdown-toggle" onclick="loadContent('page-content','views/users/usersLog.php')">
+                                    <span>Sesiones Activas</span>
+                                </a>
+                            </div>
+                            <!-- <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-item dropdown-toggle" onclick="loadContent('page-content','views/companies/companiesLicenses.php')">
+                                    <span>Licencias</span>
+                                </a>
+                            </div> -->
+                        </div>
+                    </li>
+
+
+
+                    <!-- PUC -->
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="topnav-component" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bx bx-book-open mr-1 "></i> PUC
+                            <i class="bx bx-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-components">
+                            <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-item dropdown-toggle" onclick="loadContent('page-content','views/puc/puc.php')">
+                                    <span>Cuentas</span>
+                                </a>
+                            </div>
+                            <!-- <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-item dropdown-toggle" onclick="loadContent('page-content','views/companies/companiesLicenses.php')">
+                                    <span>Licencias</span>
+                                </a>
+                            </div> -->
+                        </div>
+                    </li>
+
+
+
 
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="topnav-component" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,77 +1,106 @@
 $(document).ready(function () {
+
+
+  // $(".statusCompanies").on("click", function () {
+  //   if ($(this).is(":checked")) {
+  //     // Hacer algo si el checkbox ha sido seleccionado
+  //     alert(1);
+  //   } else {
+  //     // Hacer algo si el checkbox ha sido deseleccionado
+  //     alert(0);
+  //   }
+
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "/api//companies/{stat}",
+  //     data: dataProduct,
+  //     contentType: false,
+  //     cache: false,
+  //     processData: false,
+
+  //     success: function (resp) {
+  //       // $('#createCompany').modal('hide');
+  //       // $('#formCreateCompany').val('');
+  //       message(resp);
+  //       // updateTable();
+  //     },
+  //   });
+
+  // });
+
   /* Abrir modal crear empresa */
+
   let id;
-  $('#btnNewCompany').click(function (e) {
+  $("#btnNewCompany").click(function (e) {
     e.preventDefault();
-    $('#createCompany').modal('show');
-    $('#license').show();
-    $('#btnCreateCompany').removeClass('updCompany');
-    $('#btnCreateCompany').addClass('crtCompany');
-    $('#btnCreateCompany').html('Crear');
-    $('#formCreateCompany').trigger('reset');
+    $("#createCompany").modal("show");
+    $("#license").show();
+    $("#btnCreateCompany").removeClass("updCompany");
+    $("#btnCreateCompany").addClass("crtCompany");
+    $("#btnCreateCompany").html("Crear");
+    $("#formCreateCompany").trigger("reset");
   });
 
   /* Cerrar Modal*/
 
-  $('#btnCloseCompany').click(function (e) {
+  $("#btnCloseCompany").click(function (e) {
     e.preventDefault();
-    $('#createCompany').modal('hide');
+    $("#createCompany").modal("hide");
   });
 
   /* Crear Empresa */
 
-  $(document).on('click', '.crtCompany', function (e) {
-    debugger;
+  $(document).on("click", ".crtCompany", function (e) {
     e.preventDefault();
-    company = $('#company').val();
-    companyNIT = $('#companyNIT').val();
-    companyCreator = $('#companyCreator').val();
-    companyCreatedAt = $('#companyCreated_at').val();
-    companyLogo = $('#companyLogo').val();
-    companyCity = $('#companyCity').val();
-    companyState = $('#companyState').val();
-    companyCountry = $('#companyCountry').val();
-    companyAddress = $('#companyAddress').val();
-    companyTel = $('#companyTel').val();
+    company = $("#company").val();
+    companyNIT = $("#companyNIT").val();
+    companyCreator = $("#companyCreator").val();
+    companyCreatedAt = $("#companyCreated_at").val();
+    companyLogo = $("#companyLogo").val();
+    companyCity = $("#companyCity").val();
+    companyState = $("#companyState").val();
+    companyCountry = $("#companyCountry").val();
+    companyAddress = $("#companyAddress").val();
+    companyTel = $("#companyTel").val();
     /*Licencia*/
-    companyLicStart = $('#companyLic_start').val();
-    companyLicEnd = $('#companyLic_end').val();
-    companyUsers = $('#companyUsers').val();
-    companyStatus = $('#companyStatus').val();
+    companyLicStart = $("#companyLic_start").val();
+    companyLicEnd = $("#companyLic_end").val();
+    companyUsers = $("#companyUsers").val();
+    companyStatus = $("#companyStatus").val();
 
-    dataProduct = new FormData(document.getElementById('formCreateCompany'));
-    dataProduct.append('companyStatus', companyStatus);
+    dataProduct = new FormData(document.getElementById("formCreateCompany"));
+    dataProduct.append("companyStatus", companyStatus);
 
     if (
-      company === '' ||
-      companyNIT === '' ||
-      companyCreator === '' ||
-      companyCreatedAt === '' ||
-      companyCity === '' ||
-      companyState === '' ||
-      companyCountry === '' ||
-      companyAddress === '' ||
-      companyTel === '' ||
-      companyLicStart == '' ||
-      companyLicEnd == '' ||
-      companyUsers == ''
+      company === "" ||
+      companyNIT === "" ||
+      companyCreator === "" ||
+      companyCreatedAt === "" ||
+      companyCity === "" ||
+      companyState === "" ||
+      companyCountry === "" ||
+      companyAddress === "" ||
+      companyTel === "" ||
+      companyLicStart == "" ||
+      companyLicEnd == "" ||
+      companyUsers == ""
     ) {
-      toastr.error('Ingrese todos los campos');
+      toastr.error("Ingrese todos los campos");
       return false;
     } else {
       $.ajax({
-        type: 'POST',
-        url: '/api/addNewCompany',
+        type: "POST",
+        url: "/api/addNewCompany",
         data: dataProduct,
         contentType: false,
         cache: false,
         processData: false,
 
         success: function (resp) {
-          $('#createCompany').modal('hide');
-          $('#formCreateCompany').val('');
+          // $('#createCompany').modal('hide');
+          // $('#formCreateCompany').val('');
           message(resp);
-          updateTable();
+          // updateTable();
         },
       });
     }
@@ -79,64 +108,64 @@ $(document).ready(function () {
 
   /* Cargar datos en el modal Empresa */
 
-  $(document).on('click', '.updateCompany', function (e) {
+  $(document).on("click", ".updateCompany", function (e) {
     e.preventDefault();
-    $('#createCompany').modal('show');
-    $('#license').hide();
-    $('#btnCreateCompany').removeClass('crtCompany');
-    $('#btnCreateCompany').addClass('updCompany');
-    $('#btnCreateCompany').html('Actualizar');
+    $("#createCompany").modal("show");
+    $("#license").hide();
+    $("#btnCreateCompany").removeClass("crtCompany");
+    $("#btnCreateCompany").addClass("updCompany");
+    $("#btnCreateCompany").html("Actualizar");
 
     let row = $(this).parent().parent()[0];
     let data = tblCompanies.fnGetData(row);
 
     id = data.id_company;
-    date = data.created_at.split(' ')[0];
+    date = data.created_at.split(" ")[0];
 
-    $('#company').val(data.company);
-    $('#companyNIT').val(data.nit);
-    $('#companyCreator').val(data.creador);
-    $('#companyCreated_at').val(date);
-    $('#companyLogo').val(data.logo);
-    $('#companyCity').val(data.city);
-    $('#companyState').val(data.state);
-    $('#companyCountry').val(data.country);
-    $('#companyAddress').val(data.address);
-    $('#companyTel').val(data.telephone);
+    $("#company").val(data.company);
+    $("#companyNIT").val(data.nit);
+    $("#companyCreator").val(data.creador);
+    $("#companyCreated_at").val(date);
+    $("#companyLogo").val(data.logo);
+    $("#companyCity").val(data.city);
+    $("#companyState").val(data.state);
+    $("#companyCountry").val(data.country);
+    $("#companyAddress").val(data.address);
+    $("#companyTel").val(data.telephone);
   });
 
   /* Actualizar Empresa */
 
-  $(document).on('click', '.updCompany', function (e) {
+  $(document).on("click", ".updCompany", function (e) {
     e.preventDefault();
 
-    company = $('#company').val();
-    companyNIT = $('#companyNIT').val();
-    companyCreator = $('#companyCreator').val();
-    companyCreatedAt = $('#companyCreated_at').val();
-    companyLogo = $('#companyLogo').val();
-    companyCity = $('#companyCity').val();
-    companyState = $('#companyState').val();
-    companyCountry = $('#companyCountry').val();
-    companyAddress = $('#companyAddress').val();
-    companyTel = $('#companyTel').val();
+    company = $("#company").val();
+    companyNIT = $("#companyNIT").val();
+    companyCreator = $("#companyCreator").val();
+    companyCreatedAt = $("#companyCreated_at").val();
+    companyLogo = $("#companyLogo").val();
+    companyCity = $("#companyCity").val();
+    companyState = $("#companyState").val();
+    companyCountry = $("#companyCountry").val();
+    companyAddress = $("#companyAddress").val();
+    companyTel = $("#companyTel").val();
 
-    dataProduct = new FormData(document.getElementById('formCreateCompany'));
-    dataProduct.append('id_company', id);
+    dataProduct = new FormData(document.getElementById("formCreateCompany"));
+    dataProduct.append("id_company", id);
 
     $.ajax({
-      type: 'POST',
-      url: '/api/updateDataCompany',
+      type: "POST",
+      url: "/api/updateDataCompany",
       data: dataProduct,
       contentType: false,
       cache: false,
       processData: false,
 
       success: function (resp) {
-        $('#createCompany').modal('hide');
-        $('#formCreateCompany').val('');
+        // $('#createCompany').modal('hide');
+        // $('#formCreateCompany').val('');
         message(resp);
-        updateTable();
+        // updateTable();
       },
     });
   });
@@ -145,8 +174,8 @@ $(document).ready(function () {
 
   const message = (data) => {
     if (data.success == true) {
-      $('#createCompany').hide(800);
-      $('#formCreateCompany')[0].reset();
+      $("#createCompany").hide(800);
+      $("#formCreateCompany")[0].reset();
       updateTable();
       toastr.success(data.message);
       return false;
@@ -157,7 +186,7 @@ $(document).ready(function () {
   /* Actualizar tabla */
 
   function updateTable() {
-    $('#tblCompanies').DataTable().clear();
-    $('#tblCompanies').DataTable().ajax.reload();
+    $("#tblCompanies").DataTable().clear();
+    $("#tblCompanies").DataTable().ajax.reload();
   }
 });

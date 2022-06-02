@@ -7,21 +7,20 @@ require_once(dirname(dirname(dirname(__DIR__))) . "/api/src/dao/app/login/UserIn
 $userinactivetimeDao = new UserInactiveTimeDao();
 $userinactivetimeDao->findSession();
 ?>
-<?php require_once dirname(dirname(__DIR__)) . '/modals/createCompany.php'; ?>
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-sm-5 col-xl-6">
                 <div class="page-title">
-                    <h3 class="mb-1 font-weight-bold text-dark">Empresas</h3>
+                    <h3 class="mb-1 font-weight-bold text-dark">Usuarios</h3>
                     <ol class="breadcrumb mb-3 mb-md-0">
-                        <li class="breadcrumb-item active">Ingreso e Información Empresas activas</li>
+                        <li class="breadcrumb-item active">Usuarios por ultima fecha de logueo</li>
                     </ol>
                 </div>
             </div>
             <div class="col-sm-7 col-xl-6">
 
-                <div class="form-inline justify-content-sm-end">
+                <!-- <div class="form-inline justify-content-sm-end">
                     <div class="card my-0 mx-3">
                         <div class="card-body p-2">
                             <div class="custom-control custom-switch">
@@ -33,7 +32,7 @@ $userinactivetimeDao->findSession();
                     <div>
                         <button class="btn btn-warning" id="btnNewCompany">Nueva empresa</button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -111,7 +110,7 @@ $userinactivetimeDao->findSession();
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped text-center" id="tblCompanies" name="tblCompanies">
+                            <table class="table table-striped text-center" id="tblUsersLog" name="tblUsersLog">
                                 <tfoot>
                                     <tr>
                                         <th></th>
@@ -126,5 +125,5 @@ $userinactivetimeDao->findSession();
     </div>
 </div>
 
-<script src="/admin/js/companies/tblCompanies.js"></script>
-<script src="/admin/js/companies/companies.js"></script>
+<script src="/admin/js/users/usersLog.js"></script>
+<script src="/admin/js/users/tblUsersLog.js"></script>

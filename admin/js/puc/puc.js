@@ -1,69 +1,114 @@
 $(document).ready(function () {
-  /* Cargue tabla PUC */
 
-  tblPUC = $('#tblPUC').dataTable({
-    destroy: true,
-    pageLength: 50,
-    ajax: {
-      url: `/api/puc`,
-      dataSrc: '',
-    },
-    language: {
-      url: '//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json',
-    },
-    columns: [
-      {
-        title: 'No.',
-        data: null,
-        className: 'uniqueClassName',
-        render: function (data, type, full, meta) {
-          return meta.row + 1;
-        },
-      },
-      {
-        title: 'NIT',
-        data: 'number_count',
-      },
-      {
-        title: 'Empresa',
-        data: 'count',
-      },
-      {
-        title: 'Inicio Licencia',
-        data: 'number_count',
-      },
-      {
-        title: 'Final Licencia',
-        data: 'number_count',
-      },
-      {
-        title: 'Días de Licencia',
-        data: 'number_count',
-      },
-      {
-        title: 'Cant. Usuarios',
-        data: 'number_count',
-      },
-      {
-        title: 'Estado',
-        data: 'number_count',
-      },
-      //   {
-      //     title: 'Valor',
-      //     data: 'expense_value',
-      //     className: 'classRight',
-      //     render: $.fn.dataTable.render.number('.', ',', 0, '$ '),
-      //   },
-      {
-        title: 'Acciones',
-        data: 'id_expense',
-        className: 'uniqueClassName',
-        render: function (data) {
-          return `
-                  <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateExpenses" data-toggle='tooltip' title='Actualizar Gasto' style="font-size: 30px;"></i></a>
-                  <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteExpenses" data-toggle='tooltip' title='Eliminar Gasto' style="font-size: 30px;color:red"></i></a>`;
-        },
-      },
-    ],
+  /* Abrir modal crear cuenta */
+  
+  let id;
+  $('#btnNewPUC').click(function (e) {
+    e.preventDefault();
+    $('#createPUC').modal('show');
+    $('#btnCreatePuc').removeClass('updPUC');
+    $('#btnCreatePuc').addClass('crtPUC');
+    $('#btnCreatePuc').html('Crear');
+    $('#staticBackdropLabel').html('Crear cuenta');
+    $('#formCreatePuc').trigger('reset');
   });
+
+  /* Cerrar Modal*/
+
+  $('#btnClosePuc').click(function (e) {
+    e.preventDefault();
+    $('#createPUC').modal('hide');
+  });
+
+  /* Crear Cuenta */
+
+  $(document).on('click', '.crtPUC', function (e) {
+    e.preventDefault();
+    accountNumber = $('#accountNumber').val();
+    account = $('#account').val();
+
+    dataPuc = new FormData(document.getElementById('formCreatePuc'));
+
+    if ( accountNumber === '' || account === '') {
+      toastr.error('Ingrese todos los campos');
+      return false;
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: '/api/createPUC',
+        data: dataPuc,
+        contentType: false,
+        cache: false,
+        processData: false,
+
+        success: function (resp) {
+          message(resp);
+        },
+      });
+    }
+  });
+
+  /* Cargar datos en el modal*/
+
+  $(document).on('click', '.updatePuc', function (e) {
+    e.preventDefault();
+    $('#createPUC').modal('show');
+    $('#btnCreatePuc').removeClass('crtPUC');
+    $('#btnCreatePuc').addClass('updPUC');
+    $('#staticBackdropLabel').html('Actualizar cuenta');
+    $('#btnCreatePuc').html('Actualizar');
+
+    let row = $(this).parent().parent()[0];
+    let data = tblPUC.fnGetData(row);
+
+    id = data.id_puc;
+
+    $('#accountNumber').val(data.number_count);
+    $('#account').val(data.count);
+  });
+
+  /* Actualizar Cuentas*/
+
+  $(document).on('click', '.updPUC', function (e) {
+    e.preventDefault();
+
+    accountNumber = $('#accountNumber').val();
+    account = $('#account').val();
+
+    dataProduct = new FormData(document.getElementById('formCreatePuc'));
+    dataProduct.append('id_puc', id);
+
+    $.ajax({
+      type: 'POST',
+      url: `/api/updatePUC`,
+      data: dataProduct,
+      contentType: false,
+      cache: false,
+      processData: false,
+
+      success: function (resp) {
+        message(resp);
+      },
+    });
+  });
+
+  /* Mensaje de exito */
+
+  const message = (data) => {
+    if (data.success == true) {
+      $('#createPUC').hide(800);
+      $('#formCreatePuc')[0].reset();
+      updateTable();
+      toastr.success(data.message);
+      return false;
+    } else if (data.error == true) toastr.error(data.message);
+    else if (data.info == true) toastr.info(data.message);
+  };
+
+  /* Actualizar tabla */
+
+  function updateTable() {
+    $('#tblPUC').DataTable().clear();
+    $('#tblPUC').DataTable().ajax.reload();
+  }
 });
