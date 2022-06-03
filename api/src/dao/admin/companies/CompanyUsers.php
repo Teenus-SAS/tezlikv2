@@ -17,7 +17,7 @@ class CompanyUsers
     }
 
 
-    //Obtener todos los usuarios de cada empresa
+    //Obtener todos los usuarios * empresa
     public function findCompanyUsers($idCompany)
     {
         $connection = Connection::getInstance()->getConnection();
@@ -31,6 +31,24 @@ class CompanyUsers
         $this->logger->notice("licenses", array('licenses' => $licenses));
 
         return $licenses;
+    }
+
+    //Actualizar Estado de usuarios * empresa
+    public function updateCompanyUsersStatus($dataUser)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        try {
+            $stmt = $connection->prepare("UPDATE users SET active = :active WHERE id_user = :id_user");
+            $stmt->execute([
+                'active' => $dataUser['status'],              
+                'id_user' => $dataUser['id_user'],
+            ]);
+            $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            $error = array('info' => true, 'message' => $message);
+            return $error;
+        }
     }
 
    

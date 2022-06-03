@@ -29,10 +29,10 @@ $userinactivetimeDao->findSession();
                                 <label class="custom-control-label text-secondary" for="status"></label>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <button class="btn btn-warning" id="btnNewCompany">Nueva empresa</button>
                     </div> -->
+                    <div>
+                        <button class="btn btn-warning" id="btnReturnCompanies" onclick="loadContent('page-content','views/companies/companies.php')">Volver</button>
+                    </div>
                 </div>
             </div>
         </div>
