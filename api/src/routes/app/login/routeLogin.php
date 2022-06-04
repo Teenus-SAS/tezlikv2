@@ -26,10 +26,6 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $password = $parsedBody["validation-password"];
     $user = $autenticationDao->findByEmail($user);
 
-    for ($i=0; $i < 4; $i++) { 
-        echo $i;
-    }
-
     $resp = array();
 
     /* Usuario sn datos */
@@ -47,6 +43,14 @@ $app->post('/userAutentication', function (Request $request, Response $response,
         $response->getBody()->write(json_encode($resp));
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
+
+    /* crear archivo txt*/
+
+    $arch = fopen('attempsSession.txt', 'r');
+    $att = fgets($arch);
+    
+    fclose($arch);
+
 
     /* valide licenciamiento empresa */
 
