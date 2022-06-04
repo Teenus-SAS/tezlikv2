@@ -73,9 +73,10 @@ $(document).ready(function() {
                     data: "id_company",
                     className: "uniqueClassName",
                     render: function(data) {
-                        return `<a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateCompany" data-toggle='tooltip' title='Actualizar Empresa' style="font-size: 30px;"></i></a>
-                      <a href="javascript:;" <i id="${data}" class="bx bx-user companyUsers" data-toggle='tooltip' title='Usuarios Empresa' style="font-size: 30px;" onclick="loadContent('page-content','views/companies/companyUsers.php')"></i></a>
-                      <a href="javascript:;" <i id="${data}" class="bx bx-check-circle companyStatus" data-toggle='tooltip' title='Usuarios Empresa' style="font-size: 30px;"></i></a>                      
+                        return `
+                          <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateCompany" data-toggle='tooltip' title='Actualizar Empresa' style="font-size: 30px;"></i></a>
+                          <a href="javascript:;" <i id="${data}" class="bx bx-user companyUsers" data-toggle='tooltip' title='Usuarios Empresa' style="font-size: 30px;" onclick="loadContent('page-content','views/companies/companyUsers.php')"></i></a>
+                          <a href="javascript:;" <i id="${data}" class="bx bx-check-circle companyStatus" data-toggle='tooltip' title='Usuarios Empresa' style="font-size: 30px;"></i></a>                      
                       `;
                     },
                 },

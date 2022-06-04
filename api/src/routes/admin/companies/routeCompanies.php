@@ -56,7 +56,8 @@ $app->post('/updateDataCompany', function (Request $request, Response $response,
 
 //Cambiar estado de empresa
 $app->post('/changeStatusCompany', function (Request $request, Response $response, $args) use ($companiesStatusDao) {
-    $data = $request->getParsedBody();
+    $id_company = $request->getParsedBody();
+
 
     // if ($company == null) {
     //     $resp = array('success' => true, 'message' => 'Datos de Empresa actualizados correctamente');
