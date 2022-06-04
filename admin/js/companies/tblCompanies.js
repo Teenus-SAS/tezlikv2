@@ -12,7 +12,7 @@ $(document).ready(function () {
     }
 
     // const loadtableCompanies = (stat) => {
-      tblCompanies = $("#tblCompanies").dataTable({
+      tblCompanies = $("#tblCompanies").DataTable({
         destroy: true,
         pageLength: 50,
         ajax: {
@@ -78,6 +78,7 @@ $(document).ready(function () {
             render: function (data) {
               return `<a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateCompany" data-toggle='tooltip' title='Actualizar Empresa' style="font-size: 30px;"></i></a>
                       <a href="javascript:;" <i id="${data}" class="bx bx-user companyUsers" data-toggle='tooltip' title='Usuarios Empresa' style="font-size: 30px;" onclick="loadContent('page-content','views/companies/companyUsers.php')"></i></a>
+                      <a href="javascript:;" <i id="${data}" class="bx bx-check-circle companyStatus" data-toggle='tooltip' title='Usuarios Empresa' style="font-size: 30px;"></i></a>                      
                       `;
             },
           },

@@ -1,33 +1,5 @@
 $(document).ready(function () {
 
-
-  // $(".statusCompanies").on("click", function () {
-  //   if ($(this).is(":checked")) {
-  //     // Hacer algo si el checkbox ha sido seleccionado
-  //     alert(1);
-  //   } else {
-  //     // Hacer algo si el checkbox ha sido deseleccionado
-  //     alert(0);
-  //   }
-
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/api//companies/{stat}",
-  //     data: dataProduct,
-  //     contentType: false,
-  //     cache: false,
-  //     processData: false,
-
-  //     success: function (resp) {
-  //       // $('#createCompany').modal('hide');
-  //       // $('#formCreateCompany').val('');
-  //       message(resp);
-  //       // updateTable();
-  //     },
-  //   });
-
-  // });
-
   /* Abrir modal crear empresa */
 
   let id;
@@ -134,6 +106,7 @@ $(document).ready(function () {
     $("#companyTel").val(data.telephone);
   });
 
+
   /* Actualizar Empresa */
 
   $(document).on("click", ".updCompany", function (e) {
@@ -170,6 +143,30 @@ $(document).ready(function () {
     });
   });
 
+
+  /* estado empresa */
+  $(document).on("click", ".companyStatus", function (e) {
+    e.preventDefault();
+    debugger
+    let row = tblCompanies.row($(this).parent()).data();
+    // let data = [row.id_company, row.status];
+    console.log(row)
+
+    $.ajax({
+      type: "POST",
+      url: '/api/changeStatusCompany',
+      data: row,
+      contentType: false,
+      cache: false,
+      processData: false,
+
+      success: function (resp) {
+        message(resp);
+      },
+    });
+  });
+
+
   /* Mensaje de exito */
 
   const message = (data) => {
@@ -182,6 +179,7 @@ $(document).ready(function () {
     } else if (data.error == true) toastr.error(data.message);
     else if (data.info == true) toastr.info(data.message);
   };
+
 
   /* Actualizar tabla */
 

@@ -2,9 +2,11 @@
 
 use tezlikv2\dao\CompaniesDao;
 use tezlikv2\dao\CompaniesLicenseDao;
+use tezlikv2\dao\CompaniesStatusDao;
 
 $companiesDao = new CompaniesDao();
 $companiesLicDao = new CompaniesLicenseDao();
+$companiesStatusDao = new CompaniesStatusDao();
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -46,6 +48,22 @@ $app->post('/updateDataCompany', function (Request $request, Response $response,
     } else {
         $resp = array('error' => true, 'message' => 'Ocurrio un error al actualizar la licencia. Intente nuevamente');
     }
+
+    $response->getBody()->write(json_encode($resp));
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+});
+
+
+//Cambiar estado de empresa
+$app->post('/changeStatusCompany', function (Request $request, Response $response, $args) use ($companiesStatusDao) {
+    $data = $request->getParsedBody();
+
+    // if ($company == null) {
+    //     $resp = array('success' => true, 'message' => 'Datos de Empresa actualizados correctamente');
+    // } else {
+    //     $resp = array('error' => true, 'message' => 'Ocurrio un error al actualizar la licencia. Intente nuevamente');
+    // }
+    $resp = 0;
 
     $response->getBody()->write(json_encode($resp));
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
