@@ -2,7 +2,6 @@
 
 namespace tezlikv2\dao;
 
-use DateTime;
 use tezlikv2\Constants\Constants;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
@@ -24,34 +23,16 @@ class CompaniesLicenseDao
         $connection = Connection::getInstance()->getConnection();
 
         $stmt = $connection->prepare("SELECT cp.id_company, cp.nit, cp.company, cl.license_start, cl.license_end,
-                                      cl.quantity_user, CASE WHEN cl.license_end > CURRENT_DATE
+                                      cl.quantity_user, cl.status, CASE WHEN cl.license_end > CURRENT_DATE
                                       THEN TIMESTAMPDIFF(DAY, CURRENT_DATE, license_end) ELSE 0 END license_days
-                                      FROM companies cp INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company
-                                      WHERE cl.status = 1");
+                                      FROM companies cp INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company");
         $stmt->execute();
         $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         $licenses = $stmt->fetchAll($connection::FETCH_ASSOC);
         $this->logger->notice("licenses", array('licenses' => $licenses));
 
         return $licenses;
-    }
-
-    //Obtener datos de licencia y empresa inactivas
-    // public function findCompanyLicenseInactive()
-    // {
-    //     $connection = Connection::getInstance()->getConnection();
-
-    //     $stmt = $connection->prepare("SELECT cp.nit, cp.company, cl.license_start, cl.license_end, cl.quantity_user, cl.status
-    //                                   FROM companies cp 
-    //                                   INNER JOIN companies_licenses cl ON cp.id_company = cl.id_company
-    //                                   WHERE cl.status = 0");
-    //     $stmt->execute();
-    //     $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
-    //     $licenses = $stmt->fetchAll($connection::FETCH_ASSOC);
-    //     $this->logger->notice("licenses get", array('licenses' => $licenses));
-
-    //     return $licenses;
-    // }    
+    }   
 
     //Agregar Licencia
     public function addLicense($dataLicense, $id_company)

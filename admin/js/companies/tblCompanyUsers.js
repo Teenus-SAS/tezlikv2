@@ -1,7 +1,7 @@
 $(document).ready(function() {
     /* Cargue tabla Usuarios Empresa */
 
-    let idCompany = sessionStorage.getItem('id_company')
+    let idCompany = sessionStorage.getItem('id_company');
 
     tblCompanyUsers = $('#tblCompanyUsers').dataTable({
         pageLength: 50,
@@ -21,37 +21,41 @@ $(document).ready(function() {
                 },
             },
             {
-                title: 'NIT',
-                data: 'nit',
-            },
-            {
                 title: 'Empresa',
                 data: 'company',
             },
             {
-                title: 'Inicio Licencia',
-                data: 'license_start',
+                title: 'Nombres',
+                data: 'firstname',
             },
             {
-                title: 'Final Licencia',
-                data: 'license_end',
+                title: 'Apellidos',
+                data: 'lastname',
             },
             {
-                title: 'Días de Licencia',
-                data: 'license_days',
+                title: 'E-mail',
+                data: 'email',
             },
             {
-                title: 'Cant. Usuarios',
-                data: 'quantity_user',
+                title: 'Estado',
+                data: 'active',
+                render: function (data) {
+                    if (data === 1) {
+                      return 'Activo';
+                    } else {
+                      return 'Inactivo';
+                    }
+                  },
             },
             {
                 title: 'Acciones',
-                data: 'id_company',
+                data: 'id_user',
                 className: 'uniqueClassName',
                 render: function(data) {
-                    return `<a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateLicenses" data-toggle='tooltip' title='Actualizar Licencia' style="font-size: 30px;"></i></a>`;
+                    return `
+                    <a href="javascript:;" <i id="${data}" class="bx bx-x-circle userStatus" data-toggle='tooltip' title='Estado Usuario' style="font-size: 30px;"></i></a>
+                    `;
                 },
-                // <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteExpenses" data-toggle='tooltip' title='Eliminar Gasto' style="font-size: 30px;color:red"></i></a>`;
             },
         ],
     });

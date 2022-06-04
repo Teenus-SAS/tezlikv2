@@ -67,53 +67,12 @@ $userinactivetimeDao->findSession();
                                 </div>
                             </div>
                         </form>
-                        <!-- <form id="formUpdateLicense">
-                            <div class="gridx5">
-                                <label for="company">Empresa</label>
-                                <label for="license_start">Inicio Licencia</label>
-                                <label for="license_end">Final Licencia</label>
-                                <label for="quantityUsers">Usuarios</label>
-                                <label for=""></label>
-                                <input id="company" name="company" type="text" class="form-control">
-                                <input id="license_start" name="license_start" type="date" class="form-control">
-                                <input id="license_end" name="license_end" type="date" class="form-control">
-                                <input id="quantityUsers" name="quantityUsers" type="number" class="form-control">
-                                <button class="btn btn-primary" id="btnUpdLicense">Actualizar</button>
-                            </div>
-                        </form> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- <div class="page-content-wrapper mt--45 mb-5 cardImportExpensesAssignation">
-    <div class="container-fluid">
-        <div class="row">
-            <form id="formImportExpesesAssignation" enctype="multipart/form-data">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body pt-3 pb-0">
-                            <div class="gridx4ip">
-                                <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
-                                    <input class="form-control" type="file" id="fileExpensesAssignation" accept=".xls,.xlsx">
-                                    <label for="formFile" class="form-label">Importar Asignacion de Gastos</label>
-                                </div>
-                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-success" id="btnImportExpensesAssignation">Importar</button>
-                                </div>
-                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-info" id="btnDownloadImportsExpensesAssignation">Descarga Formato</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
 
 <!-- page content -->
 <div class="page-content-wrapper mt--45">

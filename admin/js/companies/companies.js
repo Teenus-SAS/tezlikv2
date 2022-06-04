@@ -142,22 +142,7 @@ $(document).ready(function() {
             },
         });
     });
-
-
-    /* estado empresa */
-    $(document).on("click", ".companyStatus", function(e) {
-        e.preventDefault();
-        id_company = this.id
-
-        $.ajax({
-            url: `/api/changeStatusCompany/${id_company}`,
-            success: function(resp) {
-                message(resp);
-            },
-        });
-    });
-
-
+    
     /* Mensaje de exito */
 
     const message = (data) => {

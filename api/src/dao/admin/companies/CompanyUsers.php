@@ -22,7 +22,7 @@ class CompanyUsers
     {
         $connection = Connection::getInstance()->getConnection();
 
-        $stmt = $connection->prepare("SELECT cp.company, us.firstname, us.lastname, us.email, us.active 
+        $stmt = $connection->prepare("SELECT cp.company, us.firstname, us.lastname, us.email, us.active, us.id_user
                                       FROM companies cp INNER JOIN users us ON cp.id_company = us.id_company
                                       WHERE cp.id_company = :id_company");
         $stmt->execute(['id_company' => $idCompany]);
@@ -34,14 +34,27 @@ class CompanyUsers
     }
 
     //Actualizar Estado de usuarios * empresa
-    public function updateCompanyUsersStatus($dataUser)
+
+    public function userStatus($id_user)
+    {
+        $connection = Connection::getInstance()->getConnection();
+        $stmt = $connection->prepare("SELECT active FROM users WHERE id_user = :id_user");
+        $stmt->execute(['id_user' => $id_user]);
+        $status = $stmt->fetch($connection::FETCH_ASSOC);
+        $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
+        return $status;
+    }
+
+    //Actualizar Estado de usuarios * empresa
+
+    public function updateCompanyUsersStatus($status, $id_user)
     {
         $connection = Connection::getInstance()->getConnection();
         try {
             $stmt = $connection->prepare("UPDATE users SET active = :active WHERE id_user = :id_user");
             $stmt->execute([
-                'active' => $dataUser['status'],              
-                'id_user' => $dataUser['id_user'],
+                'active' => $status,              
+                'id_user' => $id_user,
             ]);
             $this->logger->info(__FUNCTION__, array('query' => $stmt->queryString, 'errors' => $stmt->errorInfo()));
         } catch (\Exception $e) {

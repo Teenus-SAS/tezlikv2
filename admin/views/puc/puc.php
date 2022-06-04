@@ -7,7 +7,7 @@ require_once(dirname(dirname(dirname(__DIR__))) . "/api/src/dao/app/login/UserIn
 $userinactivetimeDao = new UserInactiveTimeDao();
 $userinactivetimeDao->findSession();
 ?>
-<?php require_once dirname(dirname(__DIR__)) . '/modals/createPuc.php'; ?>
+
 <div class="page-title-box">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -21,15 +21,7 @@ $userinactivetimeDao->findSession();
             </div>
             <div class="col-sm-7 col-xl-6">
 
-                <div class="form-inline justify-content-sm-end">
-                    <!-- <div class="card my-0 mx-3">
-                        <div class="card-body p-2">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input statusCompanies" id="status" checked>
-                                <label class="custom-control-label text-secondary" for="status"></label>
-                            </div>
-                        </div>
-                    </div> -->
+                <div class="form-inline justify-content-sm-end">                    
                     <div>
                         <button class="btn btn-warning" id="btnNewPUC">Nueva Cuenta</button>
                     </div>
@@ -40,67 +32,39 @@ $userinactivetimeDao->findSession();
 </div>
 
 
-<!-- <div class="page-content-wrapper mt--45 mb-5 cardAddProcess">
+<div class="page-content-wrapper mt--45 mb-5 createPUC">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="formAddProcess">
-                            <div class="gridx6pp">
-                                <label for="">Proceso</label>
-                                <label for="">Maquina</label>
-                                <label for="" class="text-center">t.alistamiento (min)</label>
-                                <label for="" class="text-center">t.operacion (min)</label>
-                                <label for="" class="text-center">t.total (min)</label>
-                                <label for=""></label>
-                                <select class="form-control" name="idProcess" id="idProcess"></select>
-                                <select class="form-control" name="idMachine" id="idMachine"></select>
-                                <input class="form-control text-center" type="text" name="enlistmentTime" id="enlistmentTime">
-                                <input class="form-control text-center" type="text" name="operationTime" id="operationTime">
-                                <input class="form-control text-center" type="text" name="totalTime" id="totalTime" disabled>
-                                <button class="btn btn-success" id="btnAddProcess">Adicionar</button>
+                        <form id="formCreatePuc">
+                            <div class="row align-items-center">
+                                <div class="col-sm">
+                                    <div class="form-group m-0">
+                                        <label for="accountNumber">Número de Cuenta</label>
+                                        <input id="accountNumber" name="accountNumber" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group m-0">
+                                        <label for="account">Cuenta</label>
+                                        <input id="account" name="account" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 p-0 mt-4">
+                                    <div class="form-group m-auto text-center" style="width: 100px">
+                                        <button class="btn btn-primary" id="btnCreatePuc"></button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
-                        <div class="alert alert-warning mt-3" role="alert">
-                            Active los procesos creando la nomina antes de asignar los procesos y máquinas para un producto.
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
-
-<!-- <div class="page-content-wrapper mt--45 mb-5 cardImportProductsProcess">
-    <div class="container-fluid">
-        <div class="row">
-            <form id="formImportProductProcess" enctype="multipart/form-data">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body pt-3 pb-0">
-                            <div class="gridx4ip">
-                                <div class="form-group floating-label enable-floating-label show-label mt-3 drag-area" style="margin-top:0px!important">
-                                    <input class="form-control" type="file" id="fileProductsProcess" accept=".xls,.xlsx">
-                                    <label for="formFile" class="form-label"> Importar Productos*Procesos</label>
-                                </div>
-                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-success" id="btnImportProductsProcess">Importar</button>
-                                </div>
-                                <div class="form-group floating-label enable-floating-label show-label" style="margin-bottom:0px;margin-top:7px">
-                                    <button type="text" class="btn btn-info" id="btnDownloadImportsProductsProcess">Descarga Formato</button>
-                                </div>
-                            </div>
-                            <div class="alert alert-warning" role="alert">
-                                Active los procesos creando la nomina antes de asignar los procesos y máquinas para un producto.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
+</div>
 
 <!-- page content -->
 <div class="page-content-wrapper mt--45">

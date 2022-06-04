@@ -3,21 +3,16 @@ $(document).ready(function () {
   /* Abrir modal crear cuenta */
   
   let id;
+  $(".createPUC").hide();
+
   $('#btnNewPUC').click(function (e) {
     e.preventDefault();
-    $('#createPUC').modal('show');
+    $(".createPUC").toggle(800);
     $('#btnCreatePuc').removeClass('updPUC');
     $('#btnCreatePuc').addClass('crtPUC');
     $('#btnCreatePuc').html('Crear');
     $('#staticBackdropLabel').html('Crear cuenta');
     $('#formCreatePuc').trigger('reset');
-  });
-
-  /* Cerrar Modal*/
-
-  $('#btnClosePuc').click(function (e) {
-    e.preventDefault();
-    $('#createPUC').modal('hide');
   });
 
   /* Crear Cuenta */
@@ -52,7 +47,7 @@ $(document).ready(function () {
 
   $(document).on('click', '.updatePuc', function (e) {
     e.preventDefault();
-    $('#createPUC').modal('show');
+    $(".createPUC").toggle(800);
     $('#btnCreatePuc').removeClass('crtPUC');
     $('#btnCreatePuc').addClass('updPUC');
     $('#staticBackdropLabel').html('Actualizar cuenta');
@@ -96,7 +91,7 @@ $(document).ready(function () {
 
   const message = (data) => {
     if (data.success == true) {
-      $('#createPUC').hide(800);
+      $(".createPUC").toggle(800);
       $('#formCreatePuc')[0].reset();
       updateTable();
       toastr.success(data.message);

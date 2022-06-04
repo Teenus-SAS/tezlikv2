@@ -44,13 +44,28 @@ $(document).ready(function () {
         data: 'quantity_user',
       },
       {
+        title: 'Estado',
+        data: 'status',
+        render: function (data) {
+          if (data === 1) {
+            return 'Activo';
+          } else {
+            return 'Inactivo';
+          }
+        },
+      },
+      {
         title: 'Acciones',
         data: 'id_company',
         className: 'uniqueClassName',
         render: function (data) {
-          return `<a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateLicenses" data-toggle='tooltip' title='Actualizar Licencia' style="font-size: 30px;"></i></a>`;
+          return `
+          <a href="javascript:;" <i id="${data}" class="bx bx-edit-alt updateLicenses" data-toggle='tooltip' title='Actualizar Licencia' style="font-size: 30px;"></i></a>                              
+          <a href="javascript:;" <i id="${data}" class="bx bx-user companyUsers" data-toggle='tooltip' title='Usuarios' style="font-size: 30px;" onclick="loadContent('page-content','views/companies/companyUsers.php')"></i></a>
+          <a href="javascript:;" <i id="${data}" class="bx bx-check-circle licenseStatus" data-toggle='tooltip' title='Estado Licencia' style="font-size: 30px;"></i></a>
+          `;
         },
-        // <a href="javascript:;" <i id="${data}" class="mdi mdi-delete-forever deleteExpenses" data-toggle='tooltip' title='Eliminar Gasto' style="font-size: 30px;color:red"></i></a>`;
+        
       },
     ],
   });

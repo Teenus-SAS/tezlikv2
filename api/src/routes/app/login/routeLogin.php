@@ -26,6 +26,10 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $password = $parsedBody["validation-password"];
     $user = $autenticationDao->findByEmail($user);
 
+    for ($i=0; $i < 4; $i++) { 
+        echo $i;
+    }
+
     $resp = array();
 
     /* Usuario sn datos */
