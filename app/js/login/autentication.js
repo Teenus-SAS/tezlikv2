@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+
     $('.auth-user-testimonial .owl-carousel').owlCarousel({
         loop: true,
         margin: 0,
@@ -66,9 +68,16 @@ $(document).ready(function() {
             url: '/api/userAutentication',
             data: data,
             success: function(data, textStatus, xhr) {
+
                 if (data.error) {
                     toastr.error(data.message);
+                    if (data.trie >= 5) {
+                        setTimeout(() => {
+                            delay()
+                        }, 60000);
+                    }
                     return false;
+
                 } else if (data.success) {
                     location.href = data.location;
                 }

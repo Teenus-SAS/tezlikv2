@@ -20,7 +20,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 /* Autenticación */
 
 $app->post('/userAutentication', function (Request $request, Response $response, $args) use ($autenticationDao, $licenseDao, $statusActiveUserDao, $generateCodeDao, $sendEmailDao, $lastLoginDao) {
-    $parsedBody = $request->getParsedBody();
 
     /* Validar intentos de sesión */
 
@@ -29,11 +28,12 @@ $app->post('/userAutentication', function (Request $request, Response $response,
     $max_tries = 5;
 
     if ($tries >= $max_tries) {
-        $resp = array('error' => true, 'message' => 'Número máximo de intentos superados. Vuelva a intentar en unos minutos');
+        $resp = array('error' => true, 'message' => 'Número máximo de intentos superados. Vuelva a intentar en unos minutos', 'trie' => $tries);
         $response->getBody()->write(json_encode($resp));
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
 
+    $parsedBody = $request->getParsedBody();
     $user = $parsedBody["validation-email"];
     $password = $parsedBody["validation-password"];
     $user = $autenticationDao->findByEmail($user);
@@ -44,7 +44,7 @@ $app->post('/userAutentication', function (Request $request, Response $response,
         $new_trie = ++$tries;
         file_put_contents('tries.txt', $new_trie);
 
-        $resp = array('error' => true, 'message' => 'Usuario y/o password incorrectos, valide nuevamente');
+        $resp = array('error' => true, 'message' => 'Usuario y/o password incorrectos, valide nuevamente', 'trie' => $new_trie);
         $response->getBody()->write(json_encode($resp));
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
@@ -123,5 +123,5 @@ $app->get('/logout', function (Request $request, Response $response, $args) use 
 
 $app->get('/delay', function (Request $request, Response $response, $args) use ($statusActiveUserDao) {
     $new_trie = 0;
-    file_put_contents('/tries.txt', $new_trie);
+    file_put_contents('../../tries.txt', $new_trie);
 });
