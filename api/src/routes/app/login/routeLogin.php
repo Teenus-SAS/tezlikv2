@@ -46,10 +46,10 @@ $app->post('/userAutentication', function (Request $request, Response $response,
 
     /* crear archivo txt*/
 
-    $arch = fopen('attempsSession.txt', 'r');
+    /* $arch = fopen('attempsSession.txt', 'r');
     $att = fgets($arch);
     
-    fclose($arch);
+    fclose($arch); */
 
 
     /* valide licenciamiento empresa */

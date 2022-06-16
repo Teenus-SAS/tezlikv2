@@ -30,7 +30,7 @@
                     </li>
 
 
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="topnav-component" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bx bx-cube-alt mr-1"></i> Reportes
                             <i class="bx bx-chevron-down"></i>
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="topnav-component" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
