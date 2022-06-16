@@ -113,6 +113,11 @@
     <!-- end container -->
   </div>
 
+  <script>
+    let intentos = `<?= $tries; ?>`;
+    !intentos ? intentos = 0 : intentos;
+  </script>
+
   <!-- ================== BEGIN BASE JS ================== -->
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="assets/js/vendor.min.js"></script>
@@ -127,6 +132,7 @@
   <!-- ================== BEGIN PAGE JS ================== -->
   <script src="assets/js/app.js"></script>
   <script src="app/js/login/autentication.js"></script>
+  <script src="app/js/login/access.js"></script>
   <!-- <script src="app/js/login/code.js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
